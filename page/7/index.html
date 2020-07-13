@@ -520,6 +520,10 @@
     Published on 2015 / 10 / 23
   </time>
   
+    <time datetime="2020-07-13T06:54:26.000Z" itemprop="dateUpdated">
+      , Updated on 2020 / 07 / 13
+    </time>
+  
 </a>
 
         </div>
@@ -528,21 +532,21 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p><code>zsh</code>因为<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="noopener">oh my zsh</a>的存在，绝对是 Shell 中顶级的存在。<br>Deepin的默认终端已经使用<code>zsh</code>，但是我们可爱的Ubuntu依旧用着<code>bash</code>，本文的目的就是将Ubuntu的<code>bash</code>换成<code>zsh</code>。</p>
+        <p><code>zsh</code>因为<a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">oh my zsh</a>的存在，绝对是 Shell 中顶级的存在。<br>Deepin的默认终端已经使用<code>zsh</code>，但是我们可爱的Ubuntu依旧用着<code>bash</code>，本文的目的就是将Ubuntu的<code>bash</code>换成<code>zsh</code>。</p>
 <h1 id="0-动手前的准备"><a href="#0-动手前的准备" class="headerlink" title="0. 动手前的准备"></a>0. 动手前的准备</h1><p>首先得确认一下自己系统当前使用的shell，如果已经是<code>zsh</code>，就只要配置就OK了。</p>
 <ul>
 <li>终端输入<code>echo $SHELL</code>，可以输出当前使用的shell。</li>
 <li>终端输入<code>cat /etc/shells</code>，可以输出当前系统已经安装的shell。<br>如果你当前系统已经安装<code>zsh</code>，就不需要安装了～</li>
 </ul>
 <h1 id="1-安装-zsh"><a href="#1-安装-zsh" class="headerlink" title="1. 安装 zsh"></a>1. 安装 zsh</h1><p>先更新源，然后安装<code>zsh</code>。</p>
-<p><code>sudo apt-get update &amp;&amp; sudo apt-get -y zsh</code></p>
+<p><code>sudo apt update &amp;&amp; sudo apt install -y zsh</code></p>
 <p>等命令执行完，<code>zsh</code>就已经安装在系统。可以在当前终端输入<code>/bin/zsh</code>体验，<code>zsh</code>默认的配置文件位于<code>~/.zshrc</code>。</p>
-<h1 id="2-配置-oh-my-zsh"><a href="#2-配置-oh-my-zsh" class="headerlink" title="2. 配置 oh-my-zsh"></a>2. 配置 oh-my-zsh</h1><p>没有经过任何配置的<code>zsh</code>还是很原始的，和Ubuntu默认的<code>bash</code>比起来没有什么特点，这里就需要<code>zsh</code>的搭档<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="noopener">oh my zsh</a>出马。</p>
+<h1 id="2-配置-oh-my-zsh"><a href="#2-配置-oh-my-zsh" class="headerlink" title="2. 配置 oh-my-zsh"></a>2. 配置 oh-my-zsh</h1><p>没有经过任何配置的<code>zsh</code>还是很原始的，和Ubuntu默认的<code>bash</code>比起来没有什么特点，这里就需要<code>zsh</code>的搭档<a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">oh my zsh</a>出马。</p>
 <p><code>oh my zsh</code>的代码位于<code>Github</code>，我们直接通过git来获得。</p>
 <blockquote>
-<p>没有安装git请先安装git <code>sudo apt-get install git</code></p>
+<p>没有安装git请先安装git <code>sudo apt install git</code></p>
 </blockquote>
-<p>终端执行 <code>git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh</code>。</p>
+<p>终端执行 <code>git clone git://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh</code>。</p>
 <p><code>git</code>会将代码库下载到 <code>~/.oh-my-zsh</code>目录。如果你没有配置自己的 <code>.zshrc</code> 文件，可以完全使用 <code>oh my zsh</code> 提供的配置文件。</p>
 <p><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</code></p>
 <p>再执行<code>/bin/zsh</code>，新出来的<code>zsh</code>应该就是配置好的。</p>
@@ -565,6 +569,11 @@
         <li class="article-tag-list-item">
           <a href="javascript:void(0)"
              class="js-tag article-tag-list-link color2">ubuntu</a>
+        </li>
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">deepin</a>
         </li>
       
     </ul>
