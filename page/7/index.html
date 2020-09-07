@@ -203,7 +203,7 @@
         <div id="js-content" class="content-ll">
           
   
-    <article id="post-redis-getting-started-guide-2nd-edition"
+    <article id="post-wosign-free-certificate"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -212,16 +212,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/books/redis-getting-started-guide-2nd-edition/">读书笔记：Redis入门指南（第2版）</a>
+      <a class="article-title" href="/articles/wosign-free-certificate/">沃通免费SSL证书</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/books/redis-getting-started-guide-2nd-edition/" class="archive-article-date">
-  <time datetime="2015-12-15T12:47:00.000Z" itemprop="datePublished">
-    Published on 2015 / 12 / 15
+          <a href="/articles/wosign-free-certificate/" class="archive-article-date">
+  <time datetime="2015-02-27T09:14:00.000Z" itemprop="datePublished">
+    Published on 2015 / 02 / 27
   </time>
   
 </a>
@@ -232,139 +232,8 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://a.adcdn.cn/images/redis%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89.webp" alt="Redis入门指南（第2版）"></p>
-<p>很不错的Redis入门书。之前在<code>Kindle</code>上看了盗版的第1版，现在买的第2版，新版主要增加了Redis3.0相关的内容。</p>
-<p>速成类书籍，前面都是对本书将要介绍的对象进行简单的介绍。从这本书我知道了<code>Redis</code>是<code>REmote DIctionary Server</code>的缩写，这也是我看完第一版之后唯一记下来的东西。（这点在官网的<a href="http://redis.io/topics/faq#what-redis-means-actually" target="_blank" rel="noopener">F&amp;Q</a>有写，但很多人估计不知道。）</p>
-<p>介绍完Redis是什么，50页，1/4的内容过去了。再介绍一下常用的命令，到100页。然后介绍一下在 PHP、Python、Ruby和Node.js上用库连接Redis，我们来到了130页。这部分用过Redis的基本可以跳过，要用了再去官网看。<br>这些内容中我觉得只有<strong>事务</strong>有意思，可以归结为<a href="http://redisdoc.com/topic/transaction.html" target="_blank" rel="noopener">Redis 在事务失败时不进行回滚，而是继续执行余下的命令</a>，使用的时候要注意。</p>
-<p>130页之后，水分值降低。剩下四章，主要介绍了我感兴趣的三个点：</p>
-<ul>
-<li>脚本<ul>
-<li>因为<code>Redis</code>是单例，脚本会作为整体执行，所以是原子操作</li>
-<li><code>Redis</code>内部可以使用<code>Lua</code>脚本。（自己搜了解到:<code>一个完整的Lua解释器不过200k，在目前所有脚本引擎中，Lua的速度是最快的。这一切都决定了Lua是作为嵌入式脚本的最佳选择。</code>）</li>
-<li>通过几次强调<code>Lua</code>的数组是从1开始，成功的让我从和谐的玄学角度上不喜欢<code>Lua</code></li>
-</ul>
-</li>
-<li>持久化<ul>
-<li>RDB 和 AOF</li>
-<li><code>flushall</code>这条命令可能会触发<code>save</code></li>
-</ul>
-</li>
-<li>集群<ul>
-<li><code>Redis</code>3.0添加的可用的集群功能</li>
-<li>哨兵2.0</li>
-<li>集群的配置、搭建和要注意的点，<strong>插槽</strong>这个概念。</li>
-<li>以上两个很遗憾都没有任何配图，需要耐心阅读，有配图会好理解很多。但是文字解释很详细，一步一步说明哨兵、集群的行为。能让人理解各个节点之间怎么监控，怎么选举。</li>
-</ul>
-</li>
-</ul>
-<p>剩下的内容就是一些管理相关的了，包括</p>
-<ul>
-<li>安全</li>
-</ul>
-<blockquote>
-<p>Redis只适合Redis适合的场景。<a href="http://antirez.com/news/96" target="_blank" rel="noopener">Redis Crackit</a>这类应该需要注意。</p>
-</blockquote>
-<ul>
-<li>通讯协议</li>
-</ul>
-<blockquote>
-<p>介绍了Redis客户端之间使用的通讯协议，利用<code>telnet</code>连接一个客户端然后模拟通讯，这个挺好玩的。</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/books/redis-getting-started-guide-2nd-edition/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-vim-save-file-without-root-permission"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/vim-save-file-without-root-permission/">Vim非root权限保存文件</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/vim-save-file-without-root-permission/" class="archive-article-date">
-  <time datetime="2015-12-04T09:09:25.000Z" itemprop="datePublished">
-    Published on 2015 / 12 / 04
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>经常作为普通用户权限在服务器上，改一个文件，弄完之后保存发现<code>Permission Deny</code>。以前我都是傻乎乎的强行退出，然后在用root登录修改。其实一条命令就可以解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w !sudo tee %</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>:w - Write a file.</li>
-<li>!sudo - Call shell sudo command.</li>
-<li>tee - The output of write (vim :w) command redirected using tee. The % is nothing but current file name i.e. /etc/apache2/conf.d/mediawiki.conf. In other words tee command is run as root and it takes standard input and write it to a file represented by %.</li>
-</ul>
-<p>只要按<code>L</code>重载文件，就能看见之前的修改已经保存。比之前不保存退出再重进改方便很多，强烈推荐。</p>
-<p>Reference: <a href="http://www.cyberciti.biz/faq/vim-vi-text-editor-save-file-without-root-permission/" target="_blank" rel="noopener">HowTo: Save A File In Vim / Vi Without Root Permission</a></p>
+        <p>SSL证书可以加密网络连接，保证传输数据的安全性。自己生成的证书不会被浏览器承认，可以去沃通申请免费的SSL证书。<br>沃通是一家国内的证书厂商，这个免费证书我感觉还是挺不错的，认证速度快，支持所有浏览器。<br>现在这个站已经全部用上了沃通的免费证书啦<del>~</del></p>
+<p>关于沃通证书的讨论：<a href="https://www.v2ex.com/t/119312" target="_blank" rel="noopener">https://www.v2ex.com/t/119312</a><br>免费证书的申请链接：<a href="https://buy.wosign.com/free/" target="_blank" rel="noopener">https://buy.wosign.com/free/</a></p>
 
       
 
@@ -390,7 +259,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/vim-save-file-without-root-permission/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/wosign-free-certificate/">展开全文 >></a>
         </p>
       
 
@@ -421,7 +290,7 @@
 
 
   
-    <article id="post-set-up-an-open-vpn-server-on-ubuntu-14-04"
+    <article id="post-uptime-top-and-htop"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -430,21 +299,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/set-up-an-open-vpn-server-on-ubuntu-14-04/">Ubuntu 14.04 上搭建 OpenVPN 服务器</a>
+      <a class="article-title" href="/articles/uptime-top-and-htop/">uptime, top 和 htop</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/set-up-an-open-vpn-server-on-ubuntu-14-04/" class="archive-article-date">
-  <time datetime="2015-11-18T08:49:00.000Z" itemprop="datePublished">
-    Published on 2015 / 11 / 18
+          <a href="/articles/uptime-top-and-htop/" class="archive-article-date">
+  <time datetime="2015-01-20T03:05:00.000Z" itemprop="datePublished">
+    Published on 2015 / 01 / 20
   </time>
-  
-    <time datetime="2015-12-04T09:09:39.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 12 / 04
-    </time>
   
 </a>
 
@@ -454,229 +319,35 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-14-04" target="_blank" rel="noopener">DigitalOcean</a>上已经有很详细的介绍了，按照这个配置就可以。</p>
-<p>其中注意的点：有些云服务器商提供的 Ubuntu Server 14.04 LTS 镜像是不带<code>ufw</code>的，那一步可以根据实际遇到的情况处理。</p>
-<p>服务器端搭好以后，在自己电脑上就可以作为客户端愉快的使用了。<br>我的情况是<code>Windows</code>下直接使用没有问题，<code>Linux</code>能连接，但是DNS存在问题。</p>
-<p>在<a href="https://wiki.archlinux.org/index.php/OpenVPN" target="_blank" rel="noopener"><code>ArchWiki</code></a>上找到了原因，</p>
-<blockquote>
-<p>The DNS servers used by the system are defined in /etc/resolv.conf. Traditionally, this file is the responsibility of whichever program deals with connecting the system to the network (e.g. Wicd, NetworkManager, etc…) However, OpenVPN will need to modify this file if you want to be able to resolve names on the remote side. To achieve this in a sensible way, install openresolv, which makes it possible for more than one program to modify resolv.conf without stepping on each-other’s toes.<br>Before continuing, test openresolv by restarting your network connection and ensuring that resolv.conf states that it was generated by resolvconf, and that your DNS resolution still works as before. You should not need to configure openresolv; it should be automatically detected and used by your network system.<br>For Linux, OpenVPN can send DNS host information, but expects an external process to act on it. This can be done with a openvpn-update-resolv-conf script, which can be saved for example at /etc/openvpn/update-resolv-conf and make it executable with chmod. There is also an AUR package: openvpn-update-resolv-confAUR which will take care of the script installation for you.</p>
+        <p>uptime，top和htop都是linux下常用的性能检测工具。他们显示的信息从简单到复杂，从单一到全面，但都是分析系统运行状况的好助手。</p>
+<h2 id="uptime"><a href="#uptime" class="headerlink" title="uptime"></a>uptime</h2><blockquote>
+<p>uptime命令用于查看服务器运行时间、登录用户数及服务器的负荷情况。</p>
 </blockquote>
-<p>解决方法实在<code>ovpn</code>配置文件后添加以下三行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">script-security 2</span><br><span class="line">up /etc/openvpn/update-resolv-conf</span><br><span class="line">down /etc/openvpn/update-resolv-conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ uptime</span><br><span class="line"> 10:07:57 up  1:37,  1 user,  load average: 0.20, 0.35, 0.44</span><br></pre></td></tr></table></figure>
 
-<p><strong>现在一切是如此美好，Enjoy！</strong></p>
-<p>Reference:</p>
-<ul>
-<li><a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-14-04" target="_blank" rel="noopener">How To Set Up an OpenVPN Server on Ubuntu 14.04</a></li>
-<li><a href="https://help.ubuntu.com/lts/serverguide/openvpn.html" target="_blank" rel="noopener">OpenVPN</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/set-up-an-open-vpn-server-on-ubuntu-14-04/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-disable-guest-session-in-ubuntu"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/disable-guest-session-in-ubuntu/">关闭Ubuntu系统中的访客账户</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/disable-guest-session-in-ubuntu/" class="archive-article-date">
-  <time datetime="2015-11-04T06:34:00.000Z" itemprop="datePublished">
-    Published on 2015 / 11 / 04
-  </time>
-  
-    <time datetime="2016-04-25T05:23:13.000Z" itemprop="dateUpdated">
-      , Updated on 2016 / 04 / 25
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>新装的<code>Ubuntu</code>发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o</p>
-<p>编辑<code>/etc/lightdm/lightdm.conf</code>文件，增加<code>allow-guest=false</code>即可。这个配置文件完整的内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-session=unity-greeter</span><br><span class="line">user-session=ubuntu</span><br><span class="line">allow-guest=false</span><br></pre></td></tr></table></figure>
-
-<p>Ubuntu 13.10 至 14.10, 这个配置文件移动到了<code>/etc/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
-<p>Ubuntu 14.10 或更高版本, 这个配置文件移动到了<code>/usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
-<p>更多的细节可以参考<code>AskUbuntu</code>上的相关问题：<br><a href="http://askubuntu.com/questions/62564/how-do-i-disable-the-guest-session" target="_blank" rel="noopener">How do I disable the guest session?</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/disable-guest-session-in-ubuntu/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-install-zsh-on-ubuntu"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/install-zsh-on-ubuntu/">Ubuntu 上安装 zsh</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/install-zsh-on-ubuntu/" class="archive-article-date">
-  <time datetime="2015-10-23T07:14:00.000Z" itemprop="datePublished">
-    Published on 2015 / 10 / 23
-  </time>
-  
-    <time datetime="2020-07-13T06:54:26.000Z" itemprop="dateUpdated">
-      , Updated on 2020 / 07 / 13
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><code>zsh</code>因为<a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">oh my zsh</a>的存在，绝对是 Shell 中顶级的存在。<br>Deepin的默认终端已经使用<code>zsh</code>，但是我们可爱的Ubuntu依旧用着<code>bash</code>，本文的目的就是将Ubuntu的<code>bash</code>换成<code>zsh</code>。</p>
-<h1 id="0-动手前的准备"><a href="#0-动手前的准备" class="headerlink" title="0. 动手前的准备"></a>0. 动手前的准备</h1><p>首先得确认一下自己系统当前使用的shell，如果已经是<code>zsh</code>，就只要配置就OK了。</p>
-<ul>
-<li>终端输入<code>echo $SHELL</code>，可以输出当前使用的shell。</li>
-<li>终端输入<code>cat /etc/shells</code>，可以输出当前系统已经安装的shell。<br>如果你当前系统已经安装<code>zsh</code>，就不需要安装了～</li>
-</ul>
-<h1 id="1-安装-zsh"><a href="#1-安装-zsh" class="headerlink" title="1. 安装 zsh"></a>1. 安装 zsh</h1><p>先更新源，然后安装<code>zsh</code>。</p>
-<p><code>sudo apt update &amp;&amp; sudo apt install -y zsh</code></p>
-<p>等命令执行完，<code>zsh</code>就已经安装在系统。可以在当前终端输入<code>/bin/zsh</code>体验，<code>zsh</code>默认的配置文件位于<code>~/.zshrc</code>。</p>
-<h1 id="2-配置-oh-my-zsh"><a href="#2-配置-oh-my-zsh" class="headerlink" title="2. 配置 oh-my-zsh"></a>2. 配置 oh-my-zsh</h1><p>没有经过任何配置的<code>zsh</code>还是很原始的，和Ubuntu默认的<code>bash</code>比起来没有什么特点，这里就需要<code>zsh</code>的搭档<a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">oh my zsh</a>出马。</p>
-<p><code>oh my zsh</code>的代码位于<code>Github</code>，我们直接通过git来获得。</p>
-<blockquote>
-<p>没有安装git请先安装git <code>sudo apt install git</code></p>
+<p>前面两项很容易理解，我只说一下<code>load average</code>。这是系统平均负载，是指在特定时间间隔内运行队列中的平均进程数。后面的三个值分别表示在5分钟，10分钟和15分钟内负载的平均值。<br>如果每个CPU内核的当前活动进程数不大于3的话，那么系统的性能是良好的。如果每个CPU内核的任务数大于5，那么这台机器的性能有严重问题。如果linux主机是1个双核CPU的话，当Load Average 为6的时候说明机器已经被充分使用了，超过6则说明CPU性能不足。<br>遇到性能问题,使用<code>uptime</code>查看发现CPU的负载不高,则瓶颈应该不在CPU上。</p>
+<h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><blockquote>
+<p>top命令显示处理器的活动状况。缺省情况下，显示占用CPU最多的任务，并且每隔5秒钟做一次刷新。</p>
 </blockquote>
-<p>终端执行 <code>git clone git://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh</code>。</p>
-<p><code>git</code>会将代码库下载到 <code>~/.oh-my-zsh</code>目录。如果你没有配置自己的 <code>.zshrc</code> 文件，可以完全使用 <code>oh my zsh</code> 提供的配置文件。</p>
-<p><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</code></p>
-<p>再执行<code>/bin/zsh</code>，新出来的<code>zsh</code>应该就是配置好的。</p>
-<h1 id="3-使用zsh作为默认终端"><a href="#3-使用zsh作为默认终端" class="headerlink" title="3. 使用zsh作为默认终端"></a>3. 使用<code>zsh</code>作为默认终端</h1><p><code>chsh -s /bin/zsh</code></p>
-<p>使用这个命令可以将当前用户的shell切换为<code>zsh</code>，下次重启电脑就能看见效果了。<br>BTW，这条命令更改的是<code>/etc/passwd</code>文件下当前用户对应的设置，可以<code>cat</code>出验证一下。</p>
-<p>接下来就可以尽情的享受<code>zsh</code>带来的便捷吧，下图是<code>oh my zsh</code>默认配置下某个项目的显示，分支等显示清清楚楚，超赞。</p>
-<p><img src="https://a.adcdn.cn/images/zsh-git-branch.webp" alt="oh my zsh 下 git branch 的显示"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ top</span><br><span class="line"></span><br><span class="line">top - 10:22:53 up  1:52,  1 user,  load average: 0.63, 0.47, 0.45</span><br><span class="line">Tasks: 226 total,   3 running, 221 sleeping,   0 stopped,   2 zombie</span><br><span class="line">%Cpu(s): 17.0 us,  6.8 sy,  0.0 ni, 75.9 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem:   8079520 total,  6116660 used,  1962860 free,   174672 buffers</span><br><span class="line">KiB Swap:        0 total,        0 used,        0 free.  1779724 cached Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 2465 deepin    20   0 1618276 212948  75340 S  15.6  2.6   5:34.14 chrome</span><br><span class="line"> 2505 deepin    20   0 1333132 476716 152184 S  15.6  5.9   2:29.52 chrome</span><br><span class="line"> 1598 root      20   0  504688 163028 147820 S  12.9  2.0   4:30.98 Xorg</span><br><span class="line"> 5103 deepin    20   0  921172 140520  47388 S  11.6  1.7   0:35.74 chrome</span><br><span class="line"> 2111 deepin    20   0  501420  31856  12916 S   9.0  0.4   2:02.38 compiz</span><br><span class="line"> 4792 deepin    20   0  720732 112652  21112 S   4.0  1.4   0:28.15 deepin-terminal</span><br></pre></td></tr></table></figure>
+
+<p>第一行就是 uptime 的结果，第二行是进程运行情况，第三行是CPU信息。接下来是内存情况。最下面的一块是进程信息区，显示的是系统当前进程的情况，这里可以通过一些设置改变显示和统计的方式。<br>按我的理解，top命令相当于同时把 uptime，free，ps 等命令整合到一起显示，在有限的屏幕内以最小的操作显示了足够多的信息,基本上满足了性能监控的大部分需求。</p>
+<h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a>htop</h2><blockquote>
+<p>人是永远不会知足的，所以在 top 之后有了更好的 htop。</p>
+</blockquote>
+<p>htop 比起 top 有如下优点：</p>
+<ul>
+<li>可以横向或纵向滚动浏览进程列表，以便看到所有的进程和完整的命令行。</li>
+<li>启动速度更快。</li>
+<li>杀进程时不需要输入进程号。</li>
+<li>界面更加美观。</li>
+<li>支持鼠标操作。</li>
+</ul>
+<p>基本的功能 htop 和 top 还是差不多的，但是 htop 的界面看来更加美观大方。htop 可以方便的从源安装。</p>
+<blockquote>
+<p>yum install -y htop</p>
+</blockquote>
+<p>界面如下所示：<br><img src="https://a.adcdn.cn/images/htop.webp" alt="htop"></p>
 
       
 
@@ -691,12 +362,7 @@
       
         <li class="article-tag-list-item">
           <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">ubuntu</a>
-        </li>
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">deepin</a>
+             class="js-tag article-tag-list-link color1">tools</a>
         </li>
       
     </ul>
@@ -719,7 +385,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/install-zsh-on-ubuntu/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/uptime-top-and-htop/">展开全文 >></a>
         </p>
       
 
@@ -750,7 +416,7 @@
 
 
   
-    <article id="post-regular-expression-lookaround"
+    <article id="post-import-this"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -759,20 +425,296 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/regular-expression-lookaround/">正则表达式零宽断言</a>
+      <a class="article-title" href="/articles/import-this/">Python import this！</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/regular-expression-lookaround/" class="archive-article-date">
-  <time datetime="2015-10-14T15:20:00.000Z" itemprop="datePublished">
-    Published on 2015 / 10 / 14
+          <a href="/articles/import-this/" class="archive-article-date">
+  <time datetime="2015-01-10T15:09:00.000Z" itemprop="datePublished">
+    Published on 2015 / 01 / 10
   </time>
   
-    <time datetime="2015-11-06T07:22:22.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 11 / 06
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python用了这么久了，今天第一次知道 import this，传说中的<code>Zen of Python</code>！</p>
+<blockquote>
+<p>其实也没那么玄乎，就是Python的一些设计思想和基于这些思想的写作建议。</p>
+</blockquote>
+<p>➜  ~  python3<br>&gt;&gt;&gt; import this<br>The Zen of Python, by Tim Peters</p>
+<p>Beautiful is better than ugly.<br>Explicit is better than implicit.<br>Simple is better than complex.<br>Complex is better than complicated.<br>Flat is better than nested.<br>Sparse is better than dense.<br>Readability counts.<br>Special cases aren’t special enough to break the rules.<br>Although practicality beats purity.<br>Errors should never pass silently.<br>Unless explicitly silenced.<br>In the face of ambiguity, refuse the temptation to guess.<br>There should be one– and preferably only one –obvious way to do it.<br>Although that way may not be obvious at first unless you’re Dutch.<br>Now is better than never.<br>Although never is often better than <em>right</em> now.<br>If the implementation is hard to explain, it’s a bad idea.<br>If the implementation is easy to explain, it may be a good idea.<br>Namespaces are one honking great idea – let’s do more of those!</p>
+<p><strong>这里有个小小的彩蛋，查看 this 的源代码，如下所示：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">"""Gur Mra bs Clguba, ol Gvz Crgref</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Ornhgvshy vf orggre guna htyl.</span></span><br><span class="line"><span class="string">Rkcyvpvg vf orggre guna vzcyvpvg.</span></span><br><span class="line"><span class="string">Fvzcyr vf orggre guna pbzcyrk.</span></span><br><span class="line"><span class="string">Pbzcyrk vf orggre guna pbzcyvpngrq.</span></span><br><span class="line"><span class="string">Syng vf orggre guna arfgrq.</span></span><br><span class="line"><span class="string">Fcnefr vf orggre guna qrafr.</span></span><br><span class="line"><span class="string">Ernqnovyvgl pbhagf.</span></span><br><span class="line"><span class="string">Fcrpvny pnfrf nera'g fcrpvny rabhtu gb oernx gur ehyrf.</span></span><br><span class="line"><span class="string">Nygubhtu cenpgvpnyvgl orngf chevgl.</span></span><br><span class="line"><span class="string">Reebef fubhyq arire cnff fvyragyl.</span></span><br><span class="line"><span class="string">Hayrff rkcyvpvgyl fvyraprq.</span></span><br><span class="line"><span class="string">Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba gb thrff.</span></span><br><span class="line"><span class="string">Gurer fubhyq or bar-- naq cersrenoyl bayl bar --boivbhf jnl gb qb vg.</span></span><br><span class="line"><span class="string">Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh'er Qhgpu.</span></span><br><span class="line"><span class="string">Abj vf orggre guna arire.</span></span><br><span class="line"><span class="string">Nygubhtu arire vf bsgra orggre guna *evtug* abj.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg'f n onq vqrn.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.</span></span><br><span class="line"><span class="string">Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg'f qb zber bs gubfr!"""</span></span><br><span class="line"></span><br><span class="line">d = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> (<span class="number">65</span>, <span class="number">97</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">26</span>):</span><br><span class="line">        d[chr(i+c)] = chr((i+<span class="number">13</span>) % <span class="number">26</span> + c)</span><br><span class="line"></span><br><span class="line">print(<span class="string">""</span>.join([d.get(c, c) <span class="keyword">for</span> c <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
+
+<p>这里用了最简单的凯撒加密，s里面每个字符的值往后移13位就是 Zen of Python，很好奇为什么不直接打印文章，而是要这样再算一次，不是<code>Simple is better than complex</code>么？O(∩_∩)O~</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/import-this/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-solve-permissions-0755-for-root-ssh-id_rsa-are-too-open"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">解决使用秘钥连接提示“Permissions 0755 for &#39;/root/.ssh/id_rsa&#39; are too open. ”问题</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/" class="archive-article-date">
+  <time datetime="2014-12-16T13:54:00.000Z" itemprop="datePublished">
+    Published on 2014 / 12 / 16
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>直接复制个人的私钥到新的系统，结果远程的主机和git仓库都无法访问，提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0755 for &apos;/home/deepin/.ssh/id_rsa&apos; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">bad permissions: ignore key: /home/deepin/.ssh/id_rsa</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+
+<p>私钥是正确的，看提示信息应该是权限设置的问题。<br>私钥的权限只能是700，执行下面命令修改之后就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 700 ~/.ssh/*</span><br></pre></td></tr></table></figure>
+
+<p>.ssh 是我的私钥目录，<code>-R</code>递归改完全部的秘钥的权限。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-linux-terminal-shortcuts"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/linux-terminal-shortcuts/">Linux 终端常用快捷键</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/linux-terminal-shortcuts/" class="archive-article-date">
+  <time datetime="2014-12-16T01:21:00.000Z" itemprop="datePublished">
+    Published on 2014 / 12 / 16
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="移动光标快捷键"><a href="#移动光标快捷键" class="headerlink" title="移动光标快捷键"></a>移动光标快捷键</h2><p><code>Ctrl</code>+<code>f</code> 向前移动一个字符<br><code>Ctrl</code>+<code>b</code> 向后移动一个字符<br><code>Alt</code>+<code>f</code> 向前移动一个单词<br><code>Alt</code>+<code>b</code> 向后移动一个单词<br><code>Ctrl</code>+<code>a</code> 移动到当前行首<br><code>Ctrl</code>+<code>e</code> 移动到当前行尾</p>
+<h2 id="编辑命令行快捷键"><a href="#编辑命令行快捷键" class="headerlink" title="编辑命令行快捷键"></a>编辑命令行快捷键</h2><p><code>Ctrl</code>+<code>d</code> 删除当前的字符<br><code>Ctrl</code>+<code>t</code> 交换当前字符和前一个字符的位置<br><code>Alt</code>+<code>t</code> 交换当前单词和前一个单词的位置<br><code>Alt</code>+<code>u</code> 把当前单词变成大写<br><code>Alt</code>+<code>c</code> 把当前单词变成首字母大写的单词</p>
+<h2 id="剪切、粘贴快捷键"><a href="#剪切、粘贴快捷键" class="headerlink" title="剪切、粘贴快捷键"></a>剪切、粘贴快捷键</h2><p><code>Ctrl</code>+<code>k</code> 剪切文本直到行的末尾<br><code>Ctrl</code>+<code>u</code> 剪切文本直到行的起始<br><code>Ctrl</code>+<code>w</code> 剪切光标前的单词<br><code>Alt</code>+<code>d</code> 剪切光标后的单词<br><code>Ctrl</code>+<code>y</code> 粘贴最近剪切的文本<br><code>Ctrl</code>+<code>c</code> 删除整行</p>
+<h2 id="Deepin终端快捷键"><a href="#Deepin终端快捷键" class="headerlink" title="Deepin终端快捷键"></a>Deepin终端快捷键</h2><p><img src="https://a.adcdn.cn/images/deepin-terminal-shortcut.webp" alt="deepin-terminal"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/linux-terminal-shortcuts/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-find-a-linux-system-disk-space-before-the-10-largest-files-or-folders"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">查找 Linux 系统中的占用磁盘空间最大的前10个文件或文件夹</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/" class="archive-article-date">
+  <time datetime="2014-12-01T00:10:00.000Z" itemprop="datePublished">
+    Published on 2014 / 12 / 01
+  </time>
+  
+    <time datetime="2015-03-22T04:25:52.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 03 / 22
     </time>
   
 </a>
@@ -783,38 +725,16 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近的工作是号码过滤，需要提取文本中所有类似电话号码的数字。清理这块匹配的正则的时候好好学习了一下正则的零宽断言。</p>
-<p>零宽断言理解了很简单：有一段文本，希望在前面匹配的就是<code>预测先行断言</code>，希望在后面匹配的就是<code>回顾后发断言</code>；希望这段文本存在的就是<code>正</code>向的，不希望存在的就是<code>负</code>向的；因为匹配出的结果无论怎么样都是不包含这段文本的，所以是<code>零宽</code>（零的宽度）。</p>
-<table>
-<thead>
-<tr>
-<th>语法</th>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>(?=exp)</code></td>
-<td>零宽度正预测先行断言</td>
-<td>~ 匹配exp前面的位置</td>
-</tr>
-<tr>
-<td><code>(?&lt;=exp)</code></td>
-<td>零宽度正回顾后发断言</td>
-<td>~ 匹配exp后面的位置</td>
-</tr>
-<tr>
-<td><code>(?!exp)</code></td>
-<td>零宽度负预测先行断言</td>
-<td>~ 匹配后面不是exp的位置</td>
-</tr>
-<tr>
-<td><code>(?&lt;!exp)</code></td>
-<td>零宽度负回顾后发断言</td>
-<td>~ 匹配前面不是exp的位置</td>
-</tr>
-</tbody></table>
-<p>参考：<br><a href="http://deerchao.net/tutorials/regex/regex.htm#lookaround" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></p>
+        <p>收到邮件警报，服务器硬盘使用率大于90%。需要快速找出占用硬盘空间大的文件或者文件夹。<br>一番搜索之后学习到可以使用三个组合命令快速找出:</p>
+<ul>
+<li>du : 计算出单个文件或者文件夹的磁盘空间占用。</li>
+<li>sort : 对文件行或者标准输出行记录排序后输出。</li>
+<li>head : 输出文件内容的前面部分。</li>
+</ul>
+<p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
+<blockquote>
+<p>du -hsx <strong>target_path/*</strong> | sort -rh | head -10</p>
+</blockquote>
 
       
 
@@ -840,7 +760,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/regular-expression-lookaround/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">展开全文 >></a>
         </p>
       
 
@@ -871,7 +791,7 @@
 
 
   
-    <article id="post-warren-buffett-invests-like-a-girl"
+    <article id="post-database-isolation-review"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -880,16 +800,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/books/warren-buffett-invests-like-a-girl/">读书笔记：《巴菲特像女人》</a>
+      <a class="article-title" href="/articles/database-isolation-review/">数据库事务隔离级别复习</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/books/warren-buffett-invests-like-a-girl/" class="archive-article-date">
-  <time datetime="2015-09-08T14:59:00.000Z" itemprop="datePublished">
-    Published on 2015 / 09 / 08
+          <a href="/articles/database-isolation-review/" class="archive-article-date">
+  <time datetime="2014-10-14T03:43:00.000Z" itemprop="datePublished">
+    Published on 2014 / 10 / 14
   </time>
   
 </a>
@@ -900,22 +820,72 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://a.adcdn.cn/images/warren_buffett_invests_like_a_girl.webp" alt="巴菲特像女人：颠覆常识的性情投资心理学"></p>
-<h1 id="本书内容"><a href="#本书内容" class="headerlink" title="本书内容"></a>本书内容</h1><p>本书介绍投资心理学，基于“性情决定成败”的观点，认为女性通常具有的八个特征代表更容易在长期投资中获得收益。整本书的写作风格及其像软件项目的说明文档，于是我自然而然的把他当项目文档看了。</p>
-<p>开篇是本软件简单介绍，指出适用场景和包含的核心功能，然后按照核心功能逐条介绍，最后给出使用本软件的公司及其评价。精简下来整个项目就八个核心特点：</p>
-<h2 id="1-交易频率低"><a href="#1-交易频率低" class="headerlink" title="1. 交易频率低"></a>1. 交易频率低</h2><p>大力推荐长期投资和价值投资。对“在击鼓传花式的活动中就近从下一个土包子身上赚个盆满钵满”（就是某国股市）的邪恶想法持鄙视态度。</p>
-<h2 id="2-减少自负"><a href="#2-减少自负" class="headerlink" title="2. 减少自负"></a>2. 减少自负</h2><p>乐于承认自己的无知</p>
-<h2 id="3-厌恶风险"><a href="#3-厌恶风险" class="headerlink" title="3. 厌恶风险"></a>3. 厌恶风险</h2><p>取高安全边际的东西。“安全边际”这个概念挺好的。</p>
-<h2 id="4-脚踏实地"><a href="#4-脚踏实地" class="headerlink" title="4. 脚踏实地"></a>4. 脚踏实地</h2><p>投资（使用）前做充分的了解，不要别人一忽悠就跟风进了。</p>
-<h2 id="5-注重细节"><a href="#5-注重细节" class="headerlink" title="5. 注重细节"></a>5. 注重细节</h2><p>陌生的领域都是禁区，在熟悉的领域赚钱。</p>
-<h2 id="6-不受同辈压力影响"><a href="#6-不受同辈压力影响" class="headerlink" title="6. 不受同辈压力影响"></a>6. 不受同辈压力影响</h2><p>做出判断要基于自己的认识，不要人云亦云。</p>
-<h2 id="7-知错能改"><a href="#7-知错能改" class="headerlink" title="7. 知错能改"></a>7. 知错能改</h2><h2 id="8-睾酮含量少"><a href="#8-睾酮含量少" class="headerlink" title="8. 睾酮含量少"></a>8. 睾酮含量少</h2><p>介绍了睾酮和皮质醇这两个东西，而且还挂着“要怪就怪荷尔蒙”的标题介绍了整整六页。</p>
-<h1 id="看完的实际感觉"><a href="#看完的实际感觉" class="headerlink" title="看完的实际感觉"></a>看完的实际感觉</h1><ul>
-<li>其实没太大必要看的一本书。</li>
-<li>本软件有夸大宣传（典型标题党）的嫌疑，软件名称（书名）和实际功能（讲的东西）不符。测试用例（用来论证观点的例子）没有覆盖功能（举例没法证明观点正确 or 举例太简单）。</li>
-<li>内容挺无聊的，就是重复各类价值投资中的观点。就这么几句话能编一本书也难为作者了。</li>
-<li>这本书是亚马逊买书送的，这么想感觉就无所谓了。^_^</li>
+        <p>项目更新数据库数据出错了，因为我对数据库的隔离级别及实现细节理解有问题。<br>今天复习了一次。</p>
+<p>首先再明确一次数据库的四个隔离级别：</p>
+<ol>
+<li>Read uncommitted</li>
+<li>Read committed</li>
+<li>Repeatable read</li>
+<li>Serializable</li>
+</ol>
+<p>这四个隔离级别对应是要解决脏读（Dirty read）、不可重复读（Non-repeatable read）、幻象读（Phantom read）的问题。</p>
+<p>MySQL 可以通过</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @@global.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @@session.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @@tx_isolation;</span><br></pre></td></tr></table></figure>
+
+<p>查看当前数据库设置的隔离级别。</p>
+<h1 id="Read-uncommitted"><a href="#Read-uncommitted" class="headerlink" title="Read uncommitted"></a>Read uncommitted</h1><p>最低级的隔离级别就是 Read uncommitted，这是最低级的，拥有最高的并发性能，但是也有一列的并发问题。<br>除非数据并发安全性要求不是特别高，否则一般都不怎么使用。</p>
+<h1 id="Read-committed-与-脏读"><a href="#Read-committed-与-脏读" class="headerlink" title="Read committed 与 脏读"></a>Read committed 与 脏读</h1><p>Read uncommitted 之上就是 Read committed，这一级解决了脏读问题。<br>所谓脏读，就是一个事务可以读到另一个事务没有提交的数据。带来的问题是当另一个事务最终回滚，<br>脏读读到的数据实际上是不在数据库里面的。</p>
+<p><img src="https://a.adcdn.cn/images/dirty_reads.webp" alt="dirty_read"></p>
+<p>如上图所示，事务1最后读到的age的值是21。但是事务2最后回滚数据，所以21的值是不在数据库里面存在的。<br>Read committed 解决了脏读问题，不会允许事务读取另一个事务未提交的数据。<br>大部分支持事务的数据库默认隔离级别就是 Read committed。</p>
+<h1 id="Repeatable-read-与-不可重复读"><a href="#Repeatable-read-与-不可重复读" class="headerlink" title="Repeatable read 与 不可重复读"></a>Repeatable read 与 不可重复读</h1><p>第三级 Repeatable read 在之前的基础上，还解决了不可重复读的问题。</p>
+<h2 id="MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。"><a href="#MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。" class="headerlink" title="MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。"></a>MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。</h2><p>下面的图是不可重复读的情况。</p>
+<p><img src="https://a.adcdn.cn/images/non-repeatable_read.webp" alt="non-repeatable_read"></p>
+<p>当事务2更新id为1的users的age并提交后，事务1第二次查询的信息是事务2更新之后的数据，与事务开始的时候的查询结果不一致。<br>这样前后两次的查询结果不一致的问题，就是不可重复读。</p>
+<p>有两种策略可以避免不可重复读(non-repeatable read)。</p>
+<ul>
+<li>一个是要求事务2延迟到事务1提交或者回滚之后再执行。这种方式实现了T1, T2 的串行化调度。<br>串行化调度可以支持可重复读(repeatable reads)。</li>
+<li>另一种策略是多版本并发控制。为了得到更好的并发性能，允许事务2先提交。<br>但因为事务1在事务2之前开始，事务1必须在其开始执行时间点的数据库的快照上面操作。<br>当事务1最终提交时候，数据库会检查其结果是否等价于T1, T2串行调度。<br>如果等价，则允许事务1提交，如果不等价，事务1需要回滚并抛出个串行化失败的错误。</li>
 </ul>
+<p>我出错的地方就是这里，我以为 MySQL 会串行化调度，<br>实际上为了并发性能，MySQL使用的是多版本并发控制。<br>我想在一个事务内加载数据，再根据加载出来的数据的情况对数据库做不同的操作。<br>虽然我在事务内虽然读取到的值和第一次是一样的，但这是因为读取的是快照的值，<br>数据库已经更新为新的值了。<br>这就造成了我的项目中重复计费……</p>
+<h1 id="Serializable-与-幻象读"><a href="#Serializable-与-幻象读" class="headerlink" title="Serializable 与 幻象读"></a>Serializable 与 幻象读</h1><p>隔离级别最高级的就是 Serializable，这一级除了解决之前所有的问题，还解决了幻象读的问题。</p>
+<p><img src="https://a.adcdn.cn/images/phantom_read.webp" alt="phantom_read"></p>
+<p>幻象读主要就是指另一个事务执行了 Insert 操作，导致当前事务两次查询出来的结果集不一致，<br>第二次的结果集会比第一次多出新插入的数据。</p>
+<p>Serializable 解决了脏读、不可重复读和幻象读这三个问题。</p>
+<h1 id="总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena"><a href="#总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena" class="headerlink" title="总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)"></a>总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)</h1><table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻影读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未授权读</td>
+<td>可能发生</td>
+<td>可能发生</td>
+<td>可能发生</td>
+</tr>
+<tr>
+<td>授权读</td>
+<td>-</td>
+<td>可能发生</td>
+<td>可能发生</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>-</td>
+<td>-</td>
+<td>可能发生</td>
+</tr>
+<tr>
+<td>可序列化</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>“可能发生”表示这个隔离级别会发生对应现象，”-“表示不会发生。</p>
 
       
 
@@ -931,8 +901,8 @@
     <ul class="article-tag-list">
       
         <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
         </li>
       
     </ul>
@@ -941,7 +911,311 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/books/warren-buffett-invests-like-a-girl/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/database-isolation-review/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-ubuntu-compile-and-install-git"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/ubuntu-compile-and-install-git/">Ubuntu 编译安装最新版 git</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/ubuntu-compile-and-install-git/" class="archive-article-date">
+  <time datetime="2014-09-21T07:25:00.000Z" itemprop="datePublished">
+    Published on 2014 / 09 / 21
+  </time>
+  
+    <time datetime="2014-10-14T06:01:59.000Z" itemprop="dateUpdated">
+      , Updated on 2014 / 10 / 14
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ubuntu仓库里面是提供<code>git</code>工具的，可是很遗憾，一般来说仓库提供的不会最新版本。需要使用最新版本的<code>git</code>，需要靠我们自己编译安装。</p>
+<h2 id="获取最新版git"><a href="#获取最新版git" class="headerlink" title="获取最新版git"></a>获取最新版<code>git</code></h2><p>可以在<a href="https://github.com/git/git/releases" target="_blank" rel="noopener">Github</a>上下载最新版的<code>git</code>源代码。<br><code>wget https://github.com/git/git/archive/v2.1.1.tar.gz</code> (以<code>2.1.1</code>版本为例)</p>
+<h2 id="编译安装git"><a href="#编译安装git" class="headerlink" title="编译安装git"></a>编译安装<code>git</code></h2><ol>
+<li>首先需要安装依赖的包：<br><code>sudo apt-get -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev</code></li>
+<li>解压压缩包：<br><code>tar -zxvf v2.1.1.tar.gz</code><br><code>cd git-2.1.1</code></li>
+<li>编译安装<br><code>make prefix=/usr/local all</code><br><code>sudo make prefix=/usr/local install</code></li>
+</ol>
+<h2 id="添加补全"><a href="#添加补全" class="headerlink" title="添加补全"></a>添加补全</h2><p>此时<code>git</code>已经可以使用了，但是这样安装的<code>git</code>在终端里面按下<code>Tab</code>是没有自动补全的，我们需要自己添加配置。<br>进入解压后的<code>git</code>目录，执行下面两条命令：<br><code>cp contrib/completion/git-completion.bash /etc/bash_completion.d/</code><br><code>sed -i &#39;$a source /etc/bash_completion.d/git-completion.bash&#39; ~/.bashrc</code><br>就添加了自动补全，注销或重启生效。想要立即生效可以手动运行一次<br><code>source /etc/bash_completion.d/git-completion.bash</code></p>
+<h2 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h2><p>在已经有<code>git</code>的情况下，更新版本是很简单的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:git/git.git</span><br><span class="line">cd git</span><br><span class="line">git pull origin master</span><br><span class="line">make prefix=/usr/local all</span><br><span class="line">sudo make prefix=/usr/local install</span><br></pre></td></tr></table></figure>
+
+<p>每次只需要 pull 最新的代码再执行 make &amp;&amp; make install 就行了！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/ubuntu-compile-and-install-git/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-ubuntu-fonts-arphic-uming"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/ubuntu-fonts-arphic-uming/">Ubuntu 升级后字体变难看的解决办法</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/ubuntu-fonts-arphic-uming/" class="archive-article-date">
+  <time datetime="2014-08-26T03:04:00.000Z" itemprop="datePublished">
+    Published on 2014 / 08 / 26
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ubuntu官方没配置好，多装了包。卸载掉之后恢复正常。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove fonts-arphic-ukai fonts-arphic-uming</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/ubuntu-fonts-arphic-uming/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-git-command"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/git-command/">git 常用命令</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/git-command/" class="archive-article-date">
+  <time datetime="2014-08-21T08:12:00.000Z" itemprop="datePublished">
+    Published on 2014 / 08 / 21
+  </time>
+  
+    <time datetime="2014-10-15T02:01:12.000Z" itemprop="dateUpdated">
+      , Updated on 2014 / 10 / 15
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>新建分支</p>
+<blockquote>
+<p>git branch branch_name</p>
+</blockquote>
+<p>删除分支</p>
+<blockquote>
+<p>git branch -d branch_name （在未合并分支的情况下该命令会有提示）<br>git branch -D branch_name （直接删除分支）<br>git push remote_name branch_name –delete （删除远程分支）</p>
+</blockquote>
+<p>切换分支</p>
+<blockquote>
+<p>git checkout branch_name</p>
+</blockquote>
+<p>重置到上次提交</p>
+<blockquote>
+<p>git reset –hard</p>
+</blockquote>
+<p>合并本地分支</p>
+<blockquote>
+<p>git merge branch_name</p>
+</blockquote>
+<p>合并远程分支</p>
+<blockquote>
+<p>git merge remote_name/branch_name</p>
+</blockquote>
+<p>强制提交到远程版本库，从而删除之前的提交数据</p>
+<blockquote>
+<p>git push origin HEAD –force</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/git-command/">展开全文 >></a>
         </p>
       
 
@@ -974,7 +1248,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/8/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/8/">Next &amp;raquo;</a>
     </nav>
   
 

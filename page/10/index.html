@@ -203,7 +203,7 @@
         <div id="js-content" class="content-ll">
           
   
-    <article id="post-solve-permissions-0755-for-root-ssh-id_rsa-are-too-open"
+    <article id="post-say-hello-to-senior-three"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -212,16 +212,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">解决使用秘钥连接提示“Permissions 0755 for &#39;/root/.ssh/id_rsa&#39; are too open. ”问题</a>
+      <a class="article-title" href="/articles/say-hello-to-senior-three/">早，高三！</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/" class="archive-article-date">
-  <time datetime="2014-12-16T13:54:00.000Z" itemprop="datePublished">
-    Published on 2014 / 12 / 16
+          <a href="/articles/say-hello-to-senior-three/" class="archive-article-date">
+  <time datetime="2010-06-17T07:12:00.000Z" itemprop="datePublished">
+    Published on 2010 / 06 / 17
   </time>
   
 </a>
@@ -232,13 +232,7 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>直接复制个人的私钥到新的系统，结果远程的主机和git仓库都无法访问，提示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0755 for &apos;/home/deepin/.ssh/id_rsa&apos; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">bad permissions: ignore key: /home/deepin/.ssh/id_rsa</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
-
-<p>私钥是正确的，看提示信息应该是权限设置的问题。<br>私钥的权限只能是700，执行下面命令修改之后就可以了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 700 ~/.ssh/*</span><br></pre></td></tr></table></figure>
-
-<p>.ssh 是我的私钥目录，<code>-R</code>递归改完全部的秘钥的权限。</p>
+        <p><strong>整理一堆实在没用，却还是按ZZY要求保留下来的以前的试卷（估计它们的下场是废品回收站）。。。</strong></p>
 
       
 
@@ -264,7 +258,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/say-hello-to-senior-three/">展开全文 >></a>
         </p>
       
 
@@ -295,7 +289,7 @@
 
 
   
-    <article id="post-linux-terminal-shortcuts"
+    <article id="post-the-first-day-of-the-academic-level-test"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -304,16 +298,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/linux-terminal-shortcuts/">Linux 终端常用快捷键</a>
+      <a class="article-title" href="/articles/the-first-day-of-the-academic-level-test/">水考第一天</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/linux-terminal-shortcuts/" class="archive-article-date">
-  <time datetime="2014-12-16T01:21:00.000Z" itemprop="datePublished">
-    Published on 2014 / 12 / 16
+          <a href="/articles/the-first-day-of-the-academic-level-test/" class="archive-article-date">
+  <time datetime="2010-06-10T10:40:00.000Z" itemprop="datePublished">
+    Published on 2010 / 06 / 10
   </time>
   
 </a>
@@ -324,10 +318,23 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="移动光标快捷键"><a href="#移动光标快捷键" class="headerlink" title="移动光标快捷键"></a>移动光标快捷键</h2><p><code>Ctrl</code>+<code>f</code> 向前移动一个字符<br><code>Ctrl</code>+<code>b</code> 向后移动一个字符<br><code>Alt</code>+<code>f</code> 向前移动一个单词<br><code>Alt</code>+<code>b</code> 向后移动一个单词<br><code>Ctrl</code>+<code>a</code> 移动到当前行首<br><code>Ctrl</code>+<code>e</code> 移动到当前行尾</p>
-<h2 id="编辑命令行快捷键"><a href="#编辑命令行快捷键" class="headerlink" title="编辑命令行快捷键"></a>编辑命令行快捷键</h2><p><code>Ctrl</code>+<code>d</code> 删除当前的字符<br><code>Ctrl</code>+<code>t</code> 交换当前字符和前一个字符的位置<br><code>Alt</code>+<code>t</code> 交换当前单词和前一个单词的位置<br><code>Alt</code>+<code>u</code> 把当前单词变成大写<br><code>Alt</code>+<code>c</code> 把当前单词变成首字母大写的单词</p>
-<h2 id="剪切、粘贴快捷键"><a href="#剪切、粘贴快捷键" class="headerlink" title="剪切、粘贴快捷键"></a>剪切、粘贴快捷键</h2><p><code>Ctrl</code>+<code>k</code> 剪切文本直到行的末尾<br><code>Ctrl</code>+<code>u</code> 剪切文本直到行的起始<br><code>Ctrl</code>+<code>w</code> 剪切光标前的单词<br><code>Alt</code>+<code>d</code> 剪切光标后的单词<br><code>Ctrl</code>+<code>y</code> 粘贴最近剪切的文本<br><code>Ctrl</code>+<code>c</code> 删除整行</p>
-<h2 id="Deepin终端快捷键"><a href="#Deepin终端快捷键" class="headerlink" title="Deepin终端快捷键"></a>Deepin终端快捷键</h2><p><img src="https://a.adcdn.cn/images/deepin-terminal-shortcut.webp" alt="deepin-terminal"></p>
+        <p>今天是<strong>2010年湖南省普通高中学业水平考试</strong>第一天。</p>
+<p>6月10日 考试科目： 政治 8∶00 — 9∶30 化学 10∶20— 11∶50 语文 15∶00—17∶00</p>
+<p>今天开始了水考的第一天，水的可以。。。</p>
+<p>早上5：50，我们优秀的104寝室就发挥优良传统，都起来了，让奋斗都到现在！考试的日子不打瞌睡！</p>
+<h2 id="8∶00，政治开考。"><a href="#8∶00，政治开考。" class="headerlink" title="8∶00，政治开考。"></a>8∶00，政治开考。</h2><p>我惊异于第一题！题目：2010年4月31日晚8：10在上海举行———-（）</p>
+<p>答案当然是 A.世界博览会，可问题是4月有31号吗？那是4月30日啊！！！自始至终监考老师都没要我们改。这还是高考要求啊，这题出的。。。</p>
+<h2 id="10∶20，化学开考。"><a href="#10∶20，化学开考。" class="headerlink" title="10∶20，化学开考。"></a>10∶20，化学开考。</h2><p>勇嗲平时一节课做两张水考化学卷子，所以我们一般最多20分钟搞定，考之前我还在想怎么打发时间，看到化学卷子，我发现自己的准备打发时间的办法完全报废。。。</p>
+<p>10：15，拿到卷子，填好姓名和准考证号，我就开始看题，很简单，我很随意的看，然后，然后，我就发现没题目了！30多道水题就没了！！！</p>
+<p>10：20 哨声响起，考生开始作答，我开始写答案，然后写完，我抬头看表，想哭——10：25。。。剩下的85分钟怎么办啊！！！</p>
+<p>我认证仔细的检查了7、8次，再抬头，10：50，成功的大发了半个小时，但实在检查不下去了，这么水的题，看这么多次是很难受的。于是乎，开始睡，话说21中的桌子还有蛮舒服。。。</p>
+<p>我被那个女监考老师温柔的拍醒，我以为下考了，戴上眼镜一看，还有半个小时。老师，你没事做把我拍醒干嘛！可是，老师没有回答我眼神中的问题，也没有在意我怨念的眼神，接着去拍其他的童鞋了，欲哭无泪……</p>
+<p>没办法，还是只能睡，但不能趴着了，于是再次发扬上课睡觉的传统，坐直了，接着睡，直到下考。</p>
+<h2 id="中午，21中食堂。"><a href="#中午，21中食堂。" class="headerlink" title="中午，21中食堂。"></a>中午，21中食堂。</h2><p>那饭菜我就不说什么了，8块钱啊。。。</p>
+<p>然后去沃尔玛逛了差不多一个小时，剩下的时间在KFC蜗居，花了 奶昔 7.5+玉米沙拉 5.0=12.5元人民币（明天去对面的麦当劳打发时间），好贵啊。</p>
+<h2 id="15∶00，语文开考。"><a href="#15∶00，语文开考。" class="headerlink" title="15∶00，语文开考。"></a>15∶00，语文开考。</h2><p>佩服湖南人的猜题水平，《早》那种畸形的题目被一中高考前不久猜中，本部也早写过类似的题目。今年的水考语文诗歌鉴赏昨天晚上很多同学才从那本发的水考模拟卷做过，只可惜第一个还在纠结，貌似一群人写 对比 ，另一群人写 情景交融（或乐景写哀情），好像都有一点道理……</p>
+<p>作文，XX ，让生活更美好！很多童鞋直接想到了世博的口号“城市，让生活更美好！（Better City, Better Life）”，然后就兴冲冲的填上了，但是，这好写吗？！我想过这个题目，不过最终放弃，太没例子了，光写世博肯定写不好。不过还是有强大的人写这个题目，比如潇帅大神，膜拜之。我自己作文感觉写太长了，而且例子没举好，有35分就感天谢地了。</p>
+<p>好好背历史，明天不能挂！！！！！</p>
 
       
 
@@ -353,7 +360,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/linux-terminal-shortcuts/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/the-first-day-of-the-academic-level-test/">展开全文 >></a>
         </p>
       
 
@@ -384,7 +391,7 @@
 
 
   
-    <article id="post-find-a-linux-system-disk-space-before-the-10-largest-files-or-folders"
+    <article id="post-hayate-the-combat-butler"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -393,21 +400,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">查找 Linux 系统中的占用磁盘空间最大的前10个文件或文件夹</a>
+      <a class="article-title" href="/articles/hayate-the-combat-butler/">旋风管家</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/" class="archive-article-date">
-  <time datetime="2014-12-01T00:10:00.000Z" itemprop="datePublished">
-    Published on 2014 / 12 / 01
+          <a href="/articles/hayate-the-combat-butler/" class="archive-article-date">
+  <time datetime="2010-05-02T01:56:00.000Z" itemprop="datePublished">
+    Published on 2010 / 05 / 02
   </time>
-  
-    <time datetime="2015-03-22T04:25:52.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 03 / 22
-    </time>
   
 </a>
 
@@ -417,16 +420,15 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>收到邮件警报，服务器硬盘使用率大于90%。需要快速找出占用硬盘空间大的文件或者文件夹。<br>一番搜索之后学习到可以使用三个组合命令快速找出:</p>
-<ul>
-<li>du : 计算出单个文件或者文件夹的磁盘空间占用。</li>
-<li>sort : 对文件行或者标准输出行记录排序后输出。</li>
-<li>head : 输出文件内容的前面部分。</li>
-</ul>
-<p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
-<blockquote>
-<p>du -hsx <strong>target_path/*</strong> | sort -rh | head -10</p>
-</blockquote>
+        <p>还是因为CV是<strong>钉宫理惠</strong>才看的，又是一部漫画和动画相距甚远的作品。</p>
+<p>先不说动画本身，它其中加入的其他动画元素就令人叹服，桂雏菊唱的那个EVA的主题曲《残酷天使的行动纲领》真的好听！还加了若干高达系列的东西，最主要的是充分体现了<strong>宅文化</strong>。</p>
+<p>《旋风管家》从故事和人物设定上来看，充分体现了日本的宅文化，注（宅，日本御宅，英文读做OTAKU是敬称，原意用做第二人称如您、阁下而引申义为只过度沉迷于某种事物。）说宅文 化就必须说道它根深蒂固的一环——就是“女仆”。说到人们对女仆的渴求就像地球形成一样困难。女仆们大多数温柔体贴身上散发着无私的气质。说以在现在宅文化的日本漫画是不可或缺的。《旋风管家》的玛利亚，是旋风管家“最至高无上”的人，声称只有17岁的她是一个深藏不露的人。注（三千院凪口中得知玛莉亚也是从白皇学园毕业(十岁入读、十三岁便高中毕业)，是跳级生纪录保持者。）虽然她只是三千院家的女仆却有哪位能管理让当家人凪停下任何意图的任性的举动。。。。。。。虽然与她的年龄不相符，但玛利亚确实具备了日本漫画“宅”所需要的元素。有女仆当然还需要管家旋风管家当然是管家式主角了。</p>
+<p>关于这个男主角管家叫绫崎飒。16岁，由于他的父母欠下一亿五千万日元，他们就将他整个人卖给了黑社会，飒在逃亡之中下了一个决定，就是绑架在公园中的一名少女三千院凪。由于误会他向自己告白，凪决定聘请飒做她的管家，并代他还了所有欠债，要他在三千院家当管家还债，估计他需要工作40年才可还清。因为有两个放浪的双亲使得他温柔敦厚，彬彬有礼，但同时由于自小就做尽各种体力劳动工作，锻炼出超越常人的强健身体，又被称为“高达”转世。而且家事能力超群，料理、洗衣、打扫、清洁样样皆能，无一不精。但对恋爱之类的问题是个超“迟钝”的家伙。</p>
+<p>对于故事的剧情，是常见的故事设定，除女仆、管家之外，就是女性性格属性设定模式。无论是漫画和有都离不开几种女性角色性格设定模式，而旋风管家中女主角三千院凪就是典型的大小姐+马尾辫+傲骄属性。三千院凪就是出生名门的大小姐：而“马尾辫”也一看就了解就是梳着马尾辫的女孩而傲骄这是日文转译而来的（从一种状态到另一种状态）出示可能表现的高傲、冷漠、不理不睬，甚至还被人讨厌，但当二人独处时，会突然对你温柔做出害羞的举动，让人感觉到：这个美女是这样喜欢我啊！！！这种属性只有三千院凪才会有，再加上钉宫理恵声优绝配啊！<strong>钉宫理惠</strong>总是饰演很特别的那一种。外形和心智成极大反差的类型，是她的拿手好戏。因为音质的特别，她的声音明显是属于后发型的那种，当她需要听起来会温柔但是中性一点的时候，会在鼻间沉一下再出声，加上天性中的柔润质感，明明音色圆润却又会显得透明，就更是显出十足的别致。好了题外的的话说多了我有点偏题了。</p>
+<p>《旋风管家》除了上面说的哪些方面外，还为故事设定了所谓的”伪娘”和恶搞的成分。下面有一点一点的说明。”伪娘”指相貌形态呈女性化，具有很强的萌属性，生理性别为男，大多给人以错觉，被误认为是女生，有的甚至能够以假乱真，萌过一般女生。另外还有一部分为内心具有女性心理,而且主观上有变成女生的愿望，却因为个人身体条件的欠缺和生活条件的不够完美等外界因素而无法做到在身体上伪的很完美的内在型伪娘.该生物又分为三个亚种，他们是御姐亚种、萝莉亚种、人妖亚种，御姐亚种的代表人物就是宫小路瑞穗，而渡良濑准是萝莉亚种的典型，07新番高达00里的提耶利亚则引领了人妖亚种的新潮流。在这方面很懂得与时俱进的《旋风管家》的作者畑健二郎当然不会放过这个潮流的尾巴。飒第一次以女装示人就连动物球球（凪养的宠物白色的老虎）也忍不住痛下杀手，将飒的猫衣装撕破，让飒衣衫褴褛更娇艳。。。。。好了我知道那是作者的不良的嗜好或是为了服务一些独特人群，但如此服务不得不让人颤手指。说一句 I 服了you！原本飒的外边就如手一样可爱，而且性格单纯，所以强迫穿起女装，不甘心的表情衬托可爱的外表，只会更惹人怜爱。（这可能是畑健二郎的真实目的吧！）</p>
+<p>说到潮流，近来兴起的后宫动漫，《旋风管家》的原作漫画也完全加入。男主角<strong>绫崎飒 = 三千院 凪 + 玛丽亚 + 桂 雏菊 + 天王州 雅典娜 + 鹭之宫 伊澄 + 西沢 歩。只是剧情还比较好，因而没有堕落成只会卖萌卖肉而已</strong>。</p>
+<p>至于《旋风管家》的恶搞吗？因它原作是漫画，因为感变成动漫Tv版是有一部分改动，当然本人也只看过动漫了。（大家见笑了！）所以我们就以动漫的恶搞情节为准。就像在27话学生会长雏菊就穿着是《少女革命》女主角的衣服上场，挥舞着长剑向理事长挑战；还有在33话中出现了一位穿着鲁鲁修衣服的拥有用眼睛向他人下命令，控制他人能力的管家；还有在42话中出现雏菊和森罗一样的Pose；注（因为雏菊的配音演员伊藤静是另一部漫画《你是主人我是仆》的森罗的配音为了纪念该动画特意请来插画师画插图）22话中飒入浴中说的就是《EVA新世纪福音战士》渚薰和碇真嗣洗澡时说的名言等这里就不多说啦！（事实上我的动漫功底也没有这么强！）这些自身的漫画迷们在看作品的时候就会发现。曾经促动我们心灵的精彩片段——在看到《旋风管家》的恶搞后可能会心的一笑畑健二郎你还真行啊！</p>
+<p>说实话《旋风管家》这部漫画是这几年不可多得的好作品，虽然漫画里有一些很上不了台面的东西；但它在总体上看给了我们身心上的放松可以让我们开怀一笑；漫画就是给人们娱乐的东西它没有必要非要讲什么大的道理。《旋风管家》这部漫画里面隐藏了许多漫画的知识没有20——30部的漫画功底是不行的！</p>
 
       
 
@@ -452,7 +454,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/hayate-the-combat-butler/">展开全文 >></a>
         </p>
       
 
@@ -483,7 +485,7 @@
 
 
   
-    <article id="post-database-isolation-review"
+    <article id="post-shakugan-no-shana"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -492,16 +494,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/database-isolation-review/">数据库事务隔离级别复习</a>
+      <a class="article-title" href="/articles/shakugan-no-shana/">灼眼的夏娜</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/database-isolation-review/" class="archive-article-date">
-  <time datetime="2014-10-14T03:43:00.000Z" itemprop="datePublished">
-    Published on 2014 / 10 / 14
+          <a href="/articles/shakugan-no-shana/" class="archive-article-date">
+  <time datetime="2010-04-22T10:22:00.000Z" itemprop="datePublished">
+    Published on 2010 / 04 / 22
   </time>
   
 </a>
@@ -512,72 +514,124 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>项目更新数据库数据出错了，因为我对数据库的隔离级别及实现细节理解有问题。<br>今天复习了一次。</p>
-<p>首先再明确一次数据库的四个隔离级别：</p>
-<ol>
-<li>Read uncommitted</li>
-<li>Read committed</li>
-<li>Repeatable read</li>
-<li>Serializable</li>
-</ol>
-<p>这四个隔离级别对应是要解决脏读（Dirty read）、不可重复读（Non-repeatable read）、幻象读（Phantom read）的问题。</p>
-<p>MySQL 可以通过</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @@global.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @@session.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @@tx_isolation;</span><br></pre></td></tr></table></figure>
+        <p>因为同是一个CV的原因，而且夏娜那强大的萌战成绩（2008中国萌战冠军），我又把《灼眼的夏娜》第一季+第二季+(特典) 灼眼小夏娜 等看完了……</p>
+<p>好久没看这种女的打架这么厉害的漫画了，真的精彩！本来我还像看点夏娜和悠二暧昧的，没想到这还算是一部热血动漫，不玩暧昧，就这么打，再慢慢讲述那红世的神奇的宝具，然后悠二再慢慢成长，成为祭礼之蛇那样神一样的存在（小说中，动画估计要第三季了）……</p>
 
-<p>查看当前数据库设置的隔离级别。</p>
-<h1 id="Read-uncommitted"><a href="#Read-uncommitted" class="headerlink" title="Read uncommitted"></a>Read uncommitted</h1><p>最低级的隔离级别就是 Read uncommitted，这是最低级的，拥有最高的并发性能，但是也有一列的并发问题。<br>除非数据并发安全性要求不是特别高，否则一般都不怎么使用。</p>
-<h1 id="Read-committed-与-脏读"><a href="#Read-committed-与-脏读" class="headerlink" title="Read committed 与 脏读"></a>Read committed 与 脏读</h1><p>Read uncommitted 之上就是 Read committed，这一级解决了脏读问题。<br>所谓脏读，就是一个事务可以读到另一个事务没有提交的数据。带来的问题是当另一个事务最终回滚，<br>脏读读到的数据实际上是不在数据库里面的。</p>
-<p><img src="https://a.adcdn.cn/images/dirty_reads.webp" alt="dirty_read"></p>
-<p>如上图所示，事务1最后读到的age的值是21。但是事务2最后回滚数据，所以21的值是不在数据库里面存在的。<br>Read committed 解决了脏读问题，不会允许事务读取另一个事务未提交的数据。<br>大部分支持事务的数据库默认隔离级别就是 Read committed。</p>
-<h1 id="Repeatable-read-与-不可重复读"><a href="#Repeatable-read-与-不可重复读" class="headerlink" title="Repeatable read 与 不可重复读"></a>Repeatable read 与 不可重复读</h1><p>第三级 Repeatable read 在之前的基础上，还解决了不可重复读的问题。</p>
-<h2 id="MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。"><a href="#MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。" class="headerlink" title="MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。"></a>MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。</h2><p>下面的图是不可重复读的情况。</p>
-<p><img src="https://a.adcdn.cn/images/non-repeatable_read.webp" alt="non-repeatable_read"></p>
-<p>当事务2更新id为1的users的age并提交后，事务1第二次查询的信息是事务2更新之后的数据，与事务开始的时候的查询结果不一致。<br>这样前后两次的查询结果不一致的问题，就是不可重复读。</p>
-<p>有两种策略可以避免不可重复读(non-repeatable read)。</p>
-<ul>
-<li>一个是要求事务2延迟到事务1提交或者回滚之后再执行。这种方式实现了T1, T2 的串行化调度。<br>串行化调度可以支持可重复读(repeatable reads)。</li>
-<li>另一种策略是多版本并发控制。为了得到更好的并发性能，允许事务2先提交。<br>但因为事务1在事务2之前开始，事务1必须在其开始执行时间点的数据库的快照上面操作。<br>当事务1最终提交时候，数据库会检查其结果是否等价于T1, T2串行调度。<br>如果等价，则允许事务1提交，如果不等价，事务1需要回滚并抛出个串行化失败的错误。</li>
-</ul>
-<p>我出错的地方就是这里，我以为 MySQL 会串行化调度，<br>实际上为了并发性能，MySQL使用的是多版本并发控制。<br>我想在一个事务内加载数据，再根据加载出来的数据的情况对数据库做不同的操作。<br>虽然我在事务内虽然读取到的值和第一次是一样的，但这是因为读取的是快照的值，<br>数据库已经更新为新的值了。<br>这就造成了我的项目中重复计费……</p>
-<h1 id="Serializable-与-幻象读"><a href="#Serializable-与-幻象读" class="headerlink" title="Serializable 与 幻象读"></a>Serializable 与 幻象读</h1><p>隔离级别最高级的就是 Serializable，这一级除了解决之前所有的问题，还解决了幻象读的问题。</p>
-<p><img src="https://a.adcdn.cn/images/phantom_read.webp" alt="phantom_read"></p>
-<p>幻象读主要就是指另一个事务执行了 Insert 操作，导致当前事务两次查询出来的结果集不一致，<br>第二次的结果集会比第一次多出新插入的数据。</p>
-<p>Serializable 解决了脏读、不可重复读和幻象读这三个问题。</p>
-<h1 id="总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena"><a href="#总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena" class="headerlink" title="总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)"></a>总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)</h1><table>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/shakugan-no-shana/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-usaco-section-2-3"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/usaco-section-2-3/">USACO Section 2.3</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/usaco-section-2-3/" class="archive-article-date">
+  <time datetime="2010-04-18T08:14:00.000Z" itemprop="datePublished">
+    Published on 2010 / 04 / 18
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Personalized Curriculum for <strong>Yali Key</strong>; Last visit: 0 minutes ago</p>
+<p><strong>Next Problem: <a href="http://ace.delos.com/usacoprob2?a=0nS54u9vZ1p&S=prefix" target="_blank" rel="noopener">The Longest Prefix</a></strong></p>
+<table>
 <thead>
 <tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻影读</th>
+<th>Section 2.3</th>
+<th></th>
 </tr>
 </thead>
 <tbody><tr>
-<td>未授权读</td>
-<td>可能发生</td>
-<td>可能发生</td>
-<td>可能发生</td>
+<td>VIEWED 2010.04.18</td>
+<td><a href="http://ace.delos.com/usacoprob2?a=0nS54u9vZ1p&S=prefix" target="_blank" rel="noopener">PROB The Longest Prefix</a></td>
 </tr>
 <tr>
-<td>授权读</td>
-<td>-</td>
-<td>可能发生</td>
-<td>可能发生</td>
+<td>TODO</td>
+<td><a href="http://ace.delos.com/usacoprob2?a=0nS54u9vZ1p&S=nocows" target="_blank" rel="noopener">PROB Cow Pedigrees</a></td>
 </tr>
 <tr>
-<td>可重复读</td>
-<td>-</td>
-<td>-</td>
-<td>可能发生</td>
+<td>TODO</td>
+<td><a href="http://ace.delos.com/usacoprob2?a=0nS54u9vZ1p&S=zerosum" target="_blank" rel="noopener">PROB Zero Sum</a></td>
 </tr>
 <tr>
-<td>可序列化</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+<td>TODO</td>
+<td><a href="http://ace.delos.com/usacoprob2?a=0nS54u9vZ1p&S=money" target="_blank" rel="noopener">PROB Money Systems</a></td>
+</tr>
+<tr>
+<td>TODO</td>
+<td><a href="http://ace.delos.com/usacoprob2?a=0nS54u9vZ1p&S=concom" target="_blank" rel="noopener">PROB Controlling Companies</a></td>
 </tr>
 </tbody></table>
-<p>“可能发生”表示这个隔离级别会发生对应现象，”-“表示不会发生。</p>
+<p>慢慢赶，到2.3了……</p>
 
       
 
@@ -586,6 +640,18 @@
     <div class="article-info article-info-index">
       
       
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">usaco</a>
+        </li>
+      
+    </ul>
+  </div>
+
 
       
   <div class="article-category tagcloud">
@@ -603,7 +669,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/database-isolation-review/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/usaco-section-2-3/">展开全文 >></a>
         </p>
       
 
@@ -634,7 +700,7 @@
 
 
   
-    <article id="post-ubuntu-compile-and-install-git"
+    <article id="post-the-familiar-of-zero-and-the-summary-of-monthly-test"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -643,21 +709,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/ubuntu-compile-and-install-git/">Ubuntu 编译安装最新版 git</a>
+      <a class="article-title" href="/articles/the-familiar-of-zero-and-the-summary-of-monthly-test/">零之使魔 And 月考后的总结</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/ubuntu-compile-and-install-git/" class="archive-article-date">
-  <time datetime="2014-09-21T07:25:00.000Z" itemprop="datePublished">
-    Published on 2014 / 09 / 21
+          <a href="/articles/the-familiar-of-zero-and-the-summary-of-monthly-test/" class="archive-article-date">
+  <time datetime="2010-04-15T13:14:00.000Z" itemprop="datePublished">
+    Published on 2010 / 04 / 15
   </time>
-  
-    <time datetime="2014-10-14T06:01:59.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 14
-    </time>
   
 </a>
 
@@ -667,18 +729,10 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ubuntu仓库里面是提供<code>git</code>工具的，可是很遗憾，一般来说仓库提供的不会最新版本。需要使用最新版本的<code>git</code>，需要靠我们自己编译安装。</p>
-<h2 id="获取最新版git"><a href="#获取最新版git" class="headerlink" title="获取最新版git"></a>获取最新版<code>git</code></h2><p>可以在<a href="https://github.com/git/git/releases" target="_blank" rel="noopener">Github</a>上下载最新版的<code>git</code>源代码。<br><code>wget https://github.com/git/git/archive/v2.1.1.tar.gz</code> (以<code>2.1.1</code>版本为例)</p>
-<h2 id="编译安装git"><a href="#编译安装git" class="headerlink" title="编译安装git"></a>编译安装<code>git</code></h2><ol>
-<li>首先需要安装依赖的包：<br><code>sudo apt-get -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev</code></li>
-<li>解压压缩包：<br><code>tar -zxvf v2.1.1.tar.gz</code><br><code>cd git-2.1.1</code></li>
-<li>编译安装<br><code>make prefix=/usr/local all</code><br><code>sudo make prefix=/usr/local install</code></li>
-</ol>
-<h2 id="添加补全"><a href="#添加补全" class="headerlink" title="添加补全"></a>添加补全</h2><p>此时<code>git</code>已经可以使用了，但是这样安装的<code>git</code>在终端里面按下<code>Tab</code>是没有自动补全的，我们需要自己添加配置。<br>进入解压后的<code>git</code>目录，执行下面两条命令：<br><code>cp contrib/completion/git-completion.bash /etc/bash_completion.d/</code><br><code>sed -i &#39;$a source /etc/bash_completion.d/git-completion.bash&#39; ~/.bashrc</code><br>就添加了自动补全，注销或重启生效。想要立即生效可以手动运行一次<br><code>source /etc/bash_completion.d/git-completion.bash</code></p>
-<h2 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h2><p>在已经有<code>git</code>的情况下，更新版本是很简单的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:git/git.git</span><br><span class="line">cd git</span><br><span class="line">git pull origin master</span><br><span class="line">make prefix=/usr/local all</span><br><span class="line">sudo make prefix=/usr/local install</span><br></pre></td></tr></table></figure>
-
-<p>每次只需要 pull 最新的代码再执行 make &amp;&amp; make install 就行了！</p>
+        <p>现在考完月考过了一周了，我这都做了些什么啊……</p>
+<p>USACO每天做下一下题，按时上课，其余时间都在看《零之使魔》，从第一季到第三季，只跳片头和片尾，我居然从星期日到星期三，四天时间就看完了。算起来有 20*（13+12+13）=760min≈12h。几乎每天看了3小时！（希望您不像某些人说这些时间用在学习上该多好），只能佩服政治老师说的，发挥了 主观能动性 是很强大的！</p>
+<p>另外，我还有一个惊奇的发现，本来只是觉得《零之使魔》和《偷星九月天》里的人有点像才看的，没想到这种日本的有点H的动漫我会喜欢看，而且只是一部后宫动漫！</p>
+<p>内心纠结中，练打字去了……</p>
 
       
 
@@ -704,7 +758,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ubuntu-compile-and-install-git/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/the-familiar-of-zero-and-the-summary-of-monthly-test/">展开全文 >></a>
         </p>
       
 
@@ -735,7 +789,7 @@
 
 
   
-    <article id="post-ubuntu-fonts-arphic-uming"
+    <article id="post-usaco-numtri"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -744,16 +798,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/ubuntu-fonts-arphic-uming/">Ubuntu 升级后字体变难看的解决办法</a>
+      <a class="article-title" href="/articles/usaco-numtri/">USACO —— numtri</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/ubuntu-fonts-arphic-uming/" class="archive-article-date">
-  <time datetime="2014-08-26T03:04:00.000Z" itemprop="datePublished">
-    Published on 2014 / 08 / 26
+          <a href="/articles/usaco-numtri/" class="archive-article-date">
+  <time datetime="2010-03-31T05:13:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 31
   </time>
   
 </a>
@@ -764,8 +818,14 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Ubuntu官方没配置好，多装了包。卸载掉之后恢复正常。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove fonts-arphic-ukai fonts-arphic-uming</span><br></pre></td></tr></table></figure>
+        <h2 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h2><p>两层搜索，用滚动数组可以节省空间。</p>
+<h2 id="递归方程："><a href="#递归方程：" class="headerlink" title="递归方程："></a>递归方程：</h2><p>Floor[Now][site]=Num[site]+Max(Floor[Last][site]，Floor[Last][site-1])；</p>
+<h2 id="耗时情况："><a href="#耗时情况：" class="headerlink" title="耗时情况："></a>耗时情况：</h2><blockquote>
+<p>Test 1: TEST OK [0.011 secs, 1916 KB]<br>Test 2: TEST OK [0.000 secs, 1916 KB]<br>Test 3: TEST OK [0.011 secs, 1916 KB]<br>Test 4: TEST OK [0.011 secs, 1916 KB]<br>Test 5: TEST OK [0.000 secs, 1916 KB]<br>Test 6: TEST OK [0.022 secs, 1916 KB]<br>Test 7: TEST OK [0.011 secs, 1916 KB]<br>Test 8: TEST OK [0.022 secs, 1916 KB]<br>Test 9: TEST OK [0.259 secs, 1916 KB]</p>
+</blockquote>
+<h2 id="我的代码："><a href="#我的代码：" class="headerlink" title="我的代码："></a>我的代码：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ID: </span></span><br><span class="line"><span class="comment">PROG: numtri</span></span><br><span class="line"><span class="comment">LANG: C</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> R, Num[<span class="number">2</span>][<span class="number">1001</span>], Floor[<span class="number">1001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FILE *fs, *fp;</span><br><span class="line">    fs = fopen(<span class="string">"numtri.in"</span>, <span class="string">"r"</span>);</span><br><span class="line">    fp = fopen(<span class="string">"numtri.out"</span>, <span class="string">"w"</span>);</span><br><span class="line">    <span class="built_in">fscanf</span>(fs, <span class="string">"%d"</span>, &amp;R);</span><br><span class="line">    <span class="keyword">int</span> a, b, c, <span class="built_in">floor</span> = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> now, last;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">floor</span> &lt;= R) &#123;</span><br><span class="line">        now = <span class="built_in">floor</span> % <span class="number">2</span>;</span><br><span class="line">        last = (<span class="built_in">floor</span> + <span class="number">1</span>) % <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= <span class="built_in">floor</span>; a++)</span><br><span class="line">            <span class="built_in">fscanf</span>(fs, <span class="string">"%d"</span>, &amp;Floor[a]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= <span class="built_in">floor</span>; a++) &#123;</span><br><span class="line">            Num[now][a] = Num[last][a] &gt; Num[last][a - <span class="number">1</span>] ? Num[last][a] : Num[last][a - <span class="number">1</span>];</span><br><span class="line">            Num[now][a] += Floor[a];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">floor</span>++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">1</span>, b = R % <span class="number">2</span>, c = <span class="number">0</span>; a &lt;= R; a++)</span><br><span class="line">        <span class="keyword">if</span> (c &lt; Num[b][a])</span><br><span class="line">            c = Num[b][a];</span><br><span class="line">    <span class="built_in">fprintf</span>(fp, <span class="string">"%d\n"</span>, c);</span><br><span class="line">    fclose(fs);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
       
 
       
@@ -773,6 +833,18 @@
     <div class="article-info article-info-index">
       
       
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">usaco</a>
+        </li>
+      
+    </ul>
+  </div>
+
 
       
   <div class="article-category tagcloud">
@@ -790,7 +862,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ubuntu-fonts-arphic-uming/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/usaco-numtri/">展开全文 >></a>
         </p>
       
 
@@ -821,7 +893,7 @@
 
 
   
-    <article id="post-git-command"
+    <article id="post-usaco-milk3"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -830,21 +902,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/git-command/">git 常用命令</a>
+      <a class="article-title" href="/articles/usaco-milk3/">USACO —— milk3</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/git-command/" class="archive-article-date">
-  <time datetime="2014-08-21T08:12:00.000Z" itemprop="datePublished">
-    Published on 2014 / 08 / 21
+          <a href="/articles/usaco-milk3/" class="archive-article-date">
+  <time datetime="2010-03-30T05:02:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 30
   </time>
-  
-    <time datetime="2014-10-15T02:01:12.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 15
-    </time>
   
 </a>
 
@@ -854,33 +922,132 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>新建分支</p>
-<blockquote>
-<p>git branch branch_name</p>
-</blockquote>
-<p>删除分支</p>
-<blockquote>
-<p>git branch -d branch_name （在未合并分支的情况下该命令会有提示）<br>git branch -D branch_name （直接删除分支）<br>git push remote_name branch_name –delete （删除远程分支）</p>
-</blockquote>
-<p>切换分支</p>
-<blockquote>
-<p>git checkout branch_name</p>
-</blockquote>
-<p>重置到上次提交</p>
-<blockquote>
-<p>git reset –hard</p>
-</blockquote>
-<p>合并本地分支</p>
-<blockquote>
-<p>git merge branch_name</p>
-</blockquote>
-<p>合并远程分支</p>
-<blockquote>
-<p>git merge remote_name/branch_name</p>
-</blockquote>
-<p>强制提交到远程版本库，从而删除之前的提交数据</p>
-<blockquote>
-<p>git push origin HEAD –force</p>
+        <p>这个题是典型的搜索题，判重之后过。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ID:</span></span><br><span class="line"><span class="comment">PROG: milk3</span></span><br><span class="line"><span class="comment">LANG: C</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> A, B, C;</span><br><span class="line"><span class="keyword">char</span> Hash[<span class="number">21</span>][<span class="number">21</span>][<span class="number">21</span>], Milk[<span class="number">21</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Fun</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!Hash[a][b][c]) &#123;</span><br><span class="line">        Hash[a][b][c] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="number">0</span>) Milk[c] = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//6种倒牛奶的情况</span></span><br><span class="line">        <span class="keyword">int</span> t1, t2, t3;</span><br><span class="line"></span><br><span class="line">        t1 = B - b;</span><br><span class="line">        t2 = a;</span><br><span class="line">        t3 = t1 &gt; t2 ? t2 : t1;</span><br><span class="line">        Fun(a - t3, b + t3, c);</span><br><span class="line"></span><br><span class="line">        t1 = C - c;</span><br><span class="line">        t2 = a;</span><br><span class="line">        t3 = t1 &gt; t2 ? t2 : t1;</span><br><span class="line">        Fun(a - t3, b, c + t3);</span><br><span class="line"></span><br><span class="line">        t1 = A - a;</span><br><span class="line">        t2 = b;</span><br><span class="line">        t3 = t1 &gt; t2 ? t2 : t1;</span><br><span class="line">        Fun(a + t3, b - t3, c);</span><br><span class="line"></span><br><span class="line">        t1 = C - c;</span><br><span class="line">        t2 = b;</span><br><span class="line">        t3 = t1 &gt; t2 ? t2 : t1;</span><br><span class="line">        Fun(a, b - t3, c + t3);</span><br><span class="line"></span><br><span class="line">        t1 = A - a;</span><br><span class="line">        t2 = c;</span><br><span class="line">        t3 = t1 &gt; t2 ? t2 : t1;</span><br><span class="line">        Fun(a + t3, b, c - t3);</span><br><span class="line"></span><br><span class="line">        t1 = B - b;</span><br><span class="line">        t2 = c;</span><br><span class="line">        t3 = t1 &gt; t2 ? t2 : t1;</span><br><span class="line">        Fun(a, b + t3, c - t3);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FILE *fs, *fp;</span><br><span class="line">    fs = fopen(<span class="string">"milk3.in"</span>, <span class="string">"r"</span>);</span><br><span class="line">    fp = fopen(<span class="string">"milk3.out"</span>, <span class="string">"w"</span>);</span><br><span class="line">    <span class="built_in">fscanf</span>(fs, <span class="string">"%d %d %d"</span>, &amp;A, &amp;B, &amp;C);</span><br><span class="line">    Fun(<span class="number">0</span>, <span class="number">0</span>, C);</span><br><span class="line">    <span class="keyword">int</span> var;</span><br><span class="line">    <span class="keyword">for</span> (var = <span class="number">0</span>; var &lt;= C; var++)</span><br><span class="line">        <span class="keyword">if</span> (Milk[var]) &#123;</span><br><span class="line">            <span class="built_in">fprintf</span>(fp, <span class="string">"%d"</span>, var);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">for</span> (var++; var &lt;= C; var++)</span><br><span class="line">        <span class="keyword">if</span> (Milk[var])</span><br><span class="line">            <span class="built_in">fprintf</span>(fp, <span class="string">" %d"</span>, var);</span><br><span class="line">    <span class="built_in">fprintf</span>(fp, <span class="string">"\n"</span>);</span><br><span class="line">    fclose(fs);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">usaco</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/usaco-milk3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-the-declaration-for-war-of-internet-addiction"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/the-declaration-for-war-of-internet-addiction/">《网瘾战争》的桀骜宣言</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/the-declaration-for-war-of-internet-addiction/" class="archive-article-date">
+  <time datetime="2010-03-29T10:04:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 29
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>《电子竞技》上的专题，加上几个班上几个玩WOW的同学推荐，我也看了这个以魔兽为背景的动画。</p>
+<p>一个小时多的片长，极精细的画质，加上最后在<strong>恩基爱</strong>那振奋人心的宣言，看得我兽血沸腾！</p>
+<p>不过，惊叹之余，反映的问题也令人思考，如果周记要写，就学D哥写它吧！</p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_1.webp" alt="war_of_internet_addiction_1"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_2.webp" alt="war_of_internet_addiction_2"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_3.webp" alt="war_of_internet_addiction_3"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_4.webp" alt="war_of_internet_addiction_4"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_5.webp" alt="war_of_internet_addiction_5"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_6.webp" alt="war_of_internet_addiction_6"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_7.webp" alt="war_of_internet_addiction_7"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_8.webp" alt="war_of_internet_addiction_8"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_9.webp" alt="war_of_internet_addiction_9"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_10.webp" alt="war_of_internet_addiction_10"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_11.webp" alt="war_of_internet_addiction_11"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_12.webp" alt="war_of_internet_addiction_12"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_13.webp" alt="war_of_internet_addiction_13"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_14.webp" alt="war_of_internet_addiction_14"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_15.webp" alt="war_of_internet_addiction_15"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_16.webp" alt="war_of_internet_addiction_16"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_17.webp" alt="war_of_internet_addiction_17"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_18.webp" alt="war_of_internet_addiction_18"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_19.webp" alt="war_of_internet_addiction_19"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_20.webp" alt="war_of_internet_addiction_20"></p>
+<p><img src="https://a.adcdn.cn/images/war_of_internet_addiction_21.webp" alt="war_of_internet_addiction_21"></p>
+<h3 id="看你妹的经典独白"><a href="#看你妹的经典独白" class="headerlink" title="看你妹的经典独白"></a>看你妹的经典独白</h3><blockquote>
+<p>我们是玩着游戏长大的一代人<br>这么多年来，人变了，游戏也变了<br>可我们对游戏的喜爱没有变<br>我们玩家群体在这个社会中的弱势地位也没有变<br>当我们累了一天，打开那扇月租2000块的房门<br>却面对的是一个如此畸形的版本时<br>我们心里只有无奈<br>就像你，杨永新<br>你天天叫嚣着魔兽世界让我们沉迷<br>没错，我们沉迷了<br>可我们沉迷的不是游戏<br>而是游戏给我们的那种归属感<br>我们沉迷的是这4年来的朋友和感情<br>是这4年来的眷恋和寄托<br>这一年里，即便是这样一个畸形的版本<br>我们还在坚持<br>这一年里，我们每次点天赋<br>都会想着什么时候能再多十点<br>这一年里，我们每次到幽暗<br>都会看到对面那座永远没有飞艇停靠的塔楼<br>这一年里，我们明知不可能<br>却仍不知疲倦地向北极游过去<br>游到地图的边缘<br>游到连海都没有的地方<br>可我们还是看不清那片冰冷的土地！<br>在这一年里，我和其他热爱这个游戏的人一样<br>认真地挤着公交车上班<br>认真地消费着各式各样的食品<br>不管里面有没有不认识的化学成分<br>我们没有因为工资微薄而抱怨过<br>没有因为你们拿着从我微薄工资里扣的税<br>住着联体排屋而心理失衡过<br>在这一年里，我和其他热爱这个游戏的人一样<br>为水灾，为地震而痛心哭泣<br>为载人航天，为奥运会而加油喝彩<br>我们打心眼里，就不想我们在任何一个方面<br>落后于这个世界上的任何一个民族<br>而这一年里，却因为你们这些人<br>我们迟迟不能与地球上其它国家的玩家一起，一决高下<br>为了真心喜爱的游戏<br>我们委曲求全，我们被迫离开<br>我们冒着被封号的危险去美服欧服<br>他们骂我们是金币农民<br>我们顶着上万的延时去台服<br>他们说我们是大陆蝗虫<br>这些何其贬低的称谓<br>我们都在默默地承受<br>我们凭什么就不能拥有每小时4毛钱的廉价娱乐？<br>就凭我在国服？<br>凭我是国服的魔兽玩家吗？<br>你们从小就对我灌输<br>金窝、银窝不如自己的狗窝<br>那现实呢？<br>你们已经让我只能暂住在自己的国家<br>难道我们精神上的家园<br>连暂住在自己的国家，都不行吗？<br>拜你们这些砖家叫兽所赐<br>现在的赞歌、粉脂、麻药还不够多吗？<br>你们除了每天无所事事，养尊处优<br>就只会站在道德的制高点上，对我们指手画脚<br>你们想过500万玩家一起“吸毒”的客观情况<br>和这背后所掩盖的深层次社会原因吗？<br>我知道，<br>他们杀油土鳖的时候，你没举<br>他们封推特的时候，你没举<br>他们杀饭否的时候，你也没举<br>现在，我们连魔兽世界也可能失去<br>我也知道，我们都是屁民<br>在老太碰瓷、捞尸卖钱、飞车撞人、钓鱼执法面前<br>我们做什么，也救不了心爱的游戏<br>但至少，你可以在电脑面前举起你的手<br>并把你的声音、你的力量<br>通过这局域网传给我<br>为了我们仅有的精神家园，一起高喊：<br>我们是魔兽玩家！<br>我们不敢说话<br>就算我们说了<br>也会被无视或断章取义<br>我们曾经和你一样天真<br>以为这里处处是花园<br>以为光凭努力，就能触及到理想<br>但抬头仰望金字塔顶的服务者们<br>手捧着被赐予的“幸福感”<br>退缩到全世界最自由的无路由网<br>以低廉的成本互相沟通<br>靠游戏来缓解生活的痛苦<br>仅仅这样<br>他们为了利益，仍然雁过拔毛般地想尽办法<br>我们已经习惯了<br>沉默……<br>但这沉默，并不代表奴颜婢膝<br>这钟声，会传给你我们的力量</p>
 </blockquote>
 
       
@@ -907,7 +1074,106 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/git-command/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/the-declaration-for-war-of-internet-addiction/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-minimum-cost-flow-problem-load-balancing"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/minimum-cost-flow-problem-load-balancing/">最小费用流问题 —— 负载平衡</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/minimum-cost-flow-problem-load-balancing/" class="archive-article-date">
+  <time datetime="2010-03-28T04:20:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 28
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最小费用流问题，花了两个中午解决，顺便写成了函数。</p>
+<p>直接将每个点i拆分成&lt;i,a&gt;,&lt;i,b&gt;，且之间连一条容量为无穷大，费用为0的边。我们将源点与&lt;i,a&gt;间连一条容量为a[i]，费用为0的边。将&lt;i,b&gt;与&lt;j,a&gt;间连一条容量为无穷大，费用为1的边(j为i旁边两点)。将&lt;i,b&gt;与汇点连一条容量为平均值，费用为0的边。最后的费用流即为答案。</p>
+<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>G 公司有n 个沿铁路运输线环形排列的仓库，每个仓库存储的货物数量不等。如何用最少搬运量可以使n 个仓库的库存数量相同。搬运货物时，只能在相邻的仓库之间搬运。</p>
+<h3 id="编程任务："><a href="#编程任务：" class="headerlink" title="编程任务："></a>编程任务：</h3><p>对于给定的n 个环形排列的仓库的库存量，编程计算使n 个仓库的库存数量相同的最少搬运量。</p>
+<h3 id="数据输入："><a href="#数据输入：" class="headerlink" title="数据输入："></a>数据输入：</h3><p>由文件input.txt 提供输入数据。文件的第1 行中有1 个正整数n （n&lt;=100），表示有n 个仓库。第2 行中有n 个正整数，表示n 个仓库的库存量。</p>
+<h3 id="结果输出："><a href="#结果输出：" class="headerlink" title="结果输出："></a>结果输出：</h3><p>程序运行结束时，将计算出的最少搬运量输出到文件output.txt 中。</p>
+<h3 id="样例："><a href="#样例：" class="headerlink" title="样例："></a>样例：</h3><blockquote>
+<p>input.txt<br>5<br>17 9 14 16 4</p>
+</blockquote>
+<blockquote>
+<p>output.txt<br>11</p>
+</blockquote>
+<h3 id="我的代码"><a href="#我的代码" class="headerlink" title="我的代码"></a>我的代码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Author ZHOU Cheng</span></span><br><span class="line"><span class="comment">Date 2010-3-24</span></span><br><span class="line"><span class="comment">Mincost flow</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Maxnum 1000000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N,S,T,Ans,Add,Traffic[<span class="number">222</span>][<span class="number">222</span>],Cost[<span class="number">222</span>][<span class="number">222</span>],Value[<span class="number">222</span>],Back[<span class="number">222</span>],Now[<span class="number">222</span>];</span><br><span class="line"><span class="keyword">char</span> Pan,Mark[<span class="number">222</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Min</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(a&gt;b) <span class="keyword">return</span> b;</span><br><span class="line"> <span class="keyword">else</span> <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> point)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(point!=T)</span><br><span class="line"> &#123;</span><br><span class="line">  Mark[point]=<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> a,b;</span><br><span class="line">  <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;=T;a++)</span><br><span class="line">   <span class="keyword">if</span>(Traffic[point][a]&gt;<span class="number">0</span>)</span><br><span class="line">   &#123;</span><br><span class="line">    <span class="keyword">if</span>(Now[a]==<span class="number">0</span>)</span><br><span class="line">     &#123;Now[a]=Min(Now[point],Traffic[point][a]);Back[a]=point;Value[a]=Value[point]+Cost[point][a];Find(a);&#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(Value[a]&gt;Value[point]+Cost[point][a])</span><br><span class="line">      &#123;Now[a]=Min(Now[point],Traffic[point][a]);Back[a]=point;Value[a]=Value[point]+Cost[point][a];Find(a);&#125;</span><br><span class="line">     <span class="keyword">else</span> <span class="keyword">if</span>(Value[a]==Value[point]+Cost[point][a])</span><br><span class="line">     &#123;</span><br><span class="line">      b=Min(Now[point],Traffic[point][a]);</span><br><span class="line">      <span class="keyword">if</span>(b&gt;Now[a])</span><br><span class="line">       &#123;Now[a]=b;Back[a]=point;Find(a);&#125;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   &#125;</span><br><span class="line">  Mark[point]=<span class="number">0</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span> point)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(point!=S)</span><br><span class="line"> &#123;</span><br><span class="line">  <span class="keyword">int</span> a,b;</span><br><span class="line">  a=Back[point];b=point;</span><br><span class="line">  Traffic[a][b]-=Add;</span><br><span class="line">  Traffic[b][a]+=Add;</span><br><span class="line">  Set(a);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    freopen(<span class="string">"Mincost flow.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    freopen(<span class="string">"Mincost flow.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">    <span class="comment">// 读入数据</span></span><br><span class="line"> <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;N);</span><br><span class="line"> <span class="keyword">int</span> a,b,c,d;</span><br><span class="line"> <span class="keyword">for</span>(a=<span class="number">1</span>,b=<span class="number">0</span>;a&lt;=N;a++)</span><br><span class="line"> &#123;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;c);</span><br><span class="line">  b+=c;</span><br><span class="line">  Traffic[<span class="number">0</span>][a]=c;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 初始化 源点 和 汇点 的流</span></span><br><span class="line"> b/=N;S=<span class="number">0</span>;T=<span class="number">2</span>*N+<span class="number">1</span>;</span><br><span class="line"> <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;=N;a++)</span><br><span class="line">  Traffic[a+N][T]=b;</span><br><span class="line"> <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;=N;a++)</span><br><span class="line">  Traffic[a][a+N]=Maxnum;</span><br><span class="line"> <span class="comment">// 对边赋权值</span></span><br><span class="line"> <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;=N;a++)</span><br><span class="line"> &#123;</span><br><span class="line">  b=a<span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">if</span>(b&lt;<span class="number">1</span>) b=N;</span><br><span class="line">  Traffic[a+N][b]=Maxnum;</span><br><span class="line">  Cost[a+N][b]=<span class="number">1</span>;</span><br><span class="line">  Cost[b][a+N]=<span class="number">-1</span>;</span><br><span class="line">  b=a+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span>(b&gt;N) b=<span class="number">1</span>;</span><br><span class="line">  Traffic[a+N][b]=Maxnum;</span><br><span class="line">  Cost[a+N][b]=<span class="number">1</span>;</span><br><span class="line">  Cost[b][a+N]=<span class="number">-1</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 最小费用流</span></span><br><span class="line"> Pan=<span class="number">1</span>;Ans=<span class="number">0</span>;</span><br><span class="line"> <span class="keyword">while</span>(Pan)</span><br><span class="line"> &#123;</span><br><span class="line">  <span class="built_in">memset</span>(Value,<span class="number">0</span>,<span class="keyword">sizeof</span>(Value));</span><br><span class="line">  <span class="built_in">memset</span>(Back,<span class="number">0</span>,<span class="keyword">sizeof</span>(Back));</span><br><span class="line">  <span class="built_in">memset</span>(Now,<span class="number">0</span>,<span class="keyword">sizeof</span>(Now));</span><br><span class="line">  <span class="keyword">for</span>(a=<span class="number">1</span>,Pan=<span class="number">0</span>;a&lt;=N;a++)</span><br><span class="line">      <span class="keyword">if</span>(Traffic[S][a]&gt;<span class="number">0</span>)</span><br><span class="line">      &#123;</span><br><span class="line">    <span class="keyword">if</span>(Now[a]==<span class="number">0</span>)</span><br><span class="line">     &#123;Back[a]=S;Now[a]=Traffic[S][a];Value[a]=Value[S]+Cost[S][a];Find(a);&#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">     <span class="keyword">if</span>(Value[a]&gt;Value[S]+Cost[S][a])</span><br><span class="line">      &#123;Back[a]=S;Now[a]=Traffic[S][a];Value[a]=Value[S]+Cost[S][a];Find(a);&#125;</span><br><span class="line">     <span class="keyword">else</span> <span class="keyword">if</span>(Value[a]==Value[S]+Cost[S][a]&amp;&amp;Now[a]&lt;Traffic[S][a])</span><br><span class="line">      &#123;Back[a]=S;Now[a]=Traffic[S][a];Value[a]=Value[S]+Cost[S][a];Find(a);&#125;</span><br><span class="line">    &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  <span class="keyword">if</span>(Now[T]!=<span class="number">0</span>)</span><br><span class="line">   &#123;Pan=<span class="number">1</span>;Add=Now[T];Set(T);Ans+=Add*Value[T];&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Ans);</span><br><span class="line"> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/minimum-cost-flow-problem-load-balancing/">展开全文 >></a>
         </p>
       
 
@@ -940,7 +1206,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/11/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/9/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/11/">Next &amp;raquo;</a>
     </nav>
   
 

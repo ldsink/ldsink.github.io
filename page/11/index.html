@@ -203,7 +203,7 @@
         <div id="js-content" class="content-ll">
           
   
-    <article id="post-git-quotepath"
+    <article id="post-usaco-ariprog"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -212,21 +212,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/git-quotepath/">解决 git 中文文件名乱码</a>
+      <a class="article-title" href="/articles/usaco-ariprog/">USACO —— ariprog</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/git-quotepath/" class="archive-article-date">
-  <time datetime="2014-08-13T14:26:00.000Z" itemprop="datePublished">
-    Published on 2014 / 08 / 13
+          <a href="/articles/usaco-ariprog/" class="archive-article-date">
+  <time datetime="2010-03-28T03:54:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 28
   </time>
-  
-    <time datetime="2014-10-12T04:14:16.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 12
-    </time>
   
 </a>
 
@@ -236,8 +232,36 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>解决git中文文件名乱码，git中文件名会变成类似 <code>\256\256\346\200</code> 的字符串。<br>试了很多，最简单只需一条搞定！设置之后中文文件名在Windows下和Linux下都能正常显示。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.quotepath false</span><br></pre></td></tr></table></figure>
+        <p>事隔半个月之后，又来USACO 做题了。</p>
+<p>这道题我开始一看蛮简单，写了50来行，结果</p>
+<p>第一次：没写NONE，第3个点挂……</p>
+<p>第二次：第八个点time limit execeeded。</p>
+<p>知道了，b从 1 开始 ++ 搜第8个点要5秒多……</p>
+<p>第三次：想了一下剪枝，就是每次寻找的d 是由两个能取的数之差，再将a，b存起来，最后一个加权排序，再输出，最大的点也只要 1.804 secs。过了<strong>Congratulations!</strong></p>
+<h2 id="Arithmetic-Progressions"><a href="#Arithmetic-Progressions" class="headerlink" title="Arithmetic Progressions"></a>Arithmetic Progressions</h2><p>An arithmetic progression is a sequence of the form a, a+b, a+2b, …, a+nb where n=0,1,2,3,… . For this problem, a is a non-negative integer and b is a positive integer. </p>
+<p>Write a program that finds all arithmetic progressions of length n in the set S of bisquares. The set of bisquares is defined as the set of all integers of the form p2 + q2 (where p and q are non-negative integers). </p>
+<p><strong>TIME LIMIT: 5 secs</strong></p>
+<p><strong>PROGRAM NAME: ariprog</strong></p>
+<p><strong>INPUT FORMAT</strong></p>
+<p>Line 1:  N (3 &lt;= N &lt;= 25), the length of progressions for which to search  </p>
+<p>Line 2:  M (1 &lt;= M &lt;= 250), an upper bound to limit the search to the bisquares with 0 &lt;= p,q &lt;= M.  </p>
+<p>SAMPLE INPUT (file ariprog.in)</p>
+<blockquote>
+<p>5<br>7</p>
+</blockquote>
+<p><strong>OUTPUT FORMAT</strong></p>
+<p>If no sequence is found, a singe line reading `NONE’. Otherwise, output one or more lines, each with two integers: the first element in a found sequence and the difference between consecutive elements in the same sequence. The lines should be ordered with smallest-difference sequences first and smallest starting number within those sequences first. </p>
+<p>There will be no more than 10,000 sequences. </p>
+<p>SAMPLE OUTPUT (file ariprog.out)</p>
+<blockquote>
+<p>1 4<br>37 4<br>2 8<br>29 8<br>1 12<br>5 12<br>13 12<br>17 12<br>5 20<br>2 24</p>
+</blockquote>
+<h2 id="我的代码"><a href="#我的代码" class="headerlink" title="我的代码"></a>我的代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ID: 这个被我删了，你猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜……</span></span><br><span class="line"><span class="comment">PROG: ariprog</span></span><br><span class="line"><span class="comment">LANG: C</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N, M, T, Ans, Maxnum, Out[<span class="number">10000</span>][<span class="number">2</span>], Num[<span class="number">100000</span>];</span><br><span class="line"><span class="keyword">char</span> Hash[<span class="number">125001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Fun</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a + (N - <span class="number">1</span>) * b &gt; Maxnum) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> var, re;</span><br><span class="line">    <span class="keyword">for</span> (re = <span class="number">1</span>, var = <span class="number">1</span>; var &lt; N; var++)</span><br><span class="line">        <span class="keyword">if</span> (Hash[var * b + a] == <span class="number">0</span>) &#123;</span><br><span class="line">            re = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> re;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Qsort</span><span class="params">(<span class="keyword">int</span> st, <span class="keyword">int</span> en, <span class="keyword">int</span> *line)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b, c;</span><br><span class="line">    a = st;</span><br><span class="line">    b = en;</span><br><span class="line">    c = line[st];</span><br><span class="line">    <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (line[b] &lt; c) &#123;</span><br><span class="line">                line[a] = line[b];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            b--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (line[a] &gt; c) &#123;</span><br><span class="line">                line[b] = line[a];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            a++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    line[a] = c;</span><br><span class="line">    <span class="keyword">if</span> (st &lt; a - <span class="number">1</span>) Qsort(st, a - <span class="number">1</span>, line);</span><br><span class="line">    <span class="keyword">if</span> (a + <span class="number">1</span> &lt; en) Qsort(a + <span class="number">1</span>, en, line);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Sort</span><span class="params">(<span class="keyword">int</span> st, <span class="keyword">int</span> en)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b, c, d;</span><br><span class="line">    c = st;</span><br><span class="line">    d = en;</span><br><span class="line">    a = Out[c][<span class="number">0</span>];</span><br><span class="line">    b = Out[c][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span> (c &lt; d) &#123;</span><br><span class="line">        <span class="keyword">while</span> (c &lt; d) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Out[d][<span class="number">1</span>] &lt; b) &#123;</span><br><span class="line">                Out[c][<span class="number">0</span>] = Out[d][<span class="number">0</span>];</span><br><span class="line">                Out[c][<span class="number">1</span>] = Out[d][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (Out[d][<span class="number">1</span>] == b &amp;&amp; Out[d][<span class="number">0</span>] &lt; a) &#123;</span><br><span class="line">                Out[c][<span class="number">0</span>] = Out[d][<span class="number">0</span>];</span><br><span class="line">                Out[c][<span class="number">1</span>] = Out[d][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            d--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (c &lt; d) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Out[c][<span class="number">1</span>] &gt; b) &#123;</span><br><span class="line">                Out[d][<span class="number">0</span>] = Out[c][<span class="number">0</span>];</span><br><span class="line">                Out[d][<span class="number">1</span>] = Out[c][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (Out[c][<span class="number">1</span>] == b &amp;&amp; Out[c][<span class="number">0</span>] &gt; a) &#123;</span><br><span class="line">                Out[d][<span class="number">0</span>] = Out[c][<span class="number">0</span>];</span><br><span class="line">                Out[d][<span class="number">1</span>] = Out[c][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            c++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Out[d][<span class="number">0</span>] = a;</span><br><span class="line">    Out[d][<span class="number">1</span>] = b;</span><br><span class="line">    <span class="keyword">if</span> (st &lt; d - <span class="number">1</span>) Sort(st, d - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (d + <span class="number">1</span> &lt; en) Sort(d + <span class="number">1</span>, en);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FILE *fs, *fp;</span><br><span class="line">    fs = fopen(<span class="string">"ariprog.in"</span>, <span class="string">"r"</span>);</span><br><span class="line">    fp = fopen(<span class="string">"ariprog.out"</span>, <span class="string">"w"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fscanf</span>(fs, <span class="string">"%d"</span>, &amp;N);</span><br><span class="line">    <span class="built_in">fscanf</span>(fs, <span class="string">"%d"</span>, &amp;M);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> a, b, c, d;</span><br><span class="line"></span><br><span class="line">    Maxnum = M * M * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">0</span>; a &lt;= M; a++)</span><br><span class="line">        <span class="keyword">for</span> (b = a; b &lt;= M; b++)</span><br><span class="line">            <span class="keyword">if</span> (Hash[a * a + b * b] == <span class="number">0</span>) &#123;</span><br><span class="line">                Num[T] = a * a + b * b;</span><br><span class="line">                Hash[a * a + b * b] = <span class="number">1</span>;</span><br><span class="line">                T++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    Qsort(<span class="number">0</span>, T - <span class="number">1</span>, Num);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (c = <span class="number">0</span>; c &lt; T; c++)</span><br><span class="line">        <span class="keyword">for</span> (a = Num[c], d = c + <span class="number">1</span>; d &lt; T; d++) &#123;</span><br><span class="line">            b = Num[d] - a;</span><br><span class="line">            <span class="keyword">if</span> (Fun(a, b) == <span class="number">1</span>) &#123;</span><br><span class="line">                Out[Ans][<span class="number">0</span>] = a;</span><br><span class="line">                Out[Ans][<span class="number">1</span>] = b;</span><br><span class="line">                Ans++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!Ans)</span><br><span class="line">        <span class="built_in">fprintf</span>(fp, <span class="string">"NONE\n"</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Sort(<span class="number">0</span>, Ans - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">0</span>; a &lt; Ans; a++)</span><br><span class="line">            <span class="built_in">fprintf</span>(fp, <span class="string">"%d %d\n"</span>, Out[a][<span class="number">0</span>], Out[a][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fclose(fs);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><blockquote>
+<p>TASK: ariprog<br>LANG: C<br>Compiling…<br>Compile: OK<br>Executing…<br>   Test 1: TEST OK [0.000 secs, 2500 KB]<br>   Test 2: TEST OK [0.000 secs, 2500 KB]<br>   Test 3: TEST OK [0.000 secs, 2500 KB]<br>   Test 4: TEST OK [0.000 secs, 2500 KB]<br>   Test 5: TEST OK [0.011 secs, 2500 KB]<br>   Test 6: TEST OK [0.065 secs, 2500 KB]<br>   Test 7: TEST OK [0.778 secs, 2500 KB]<br>   Test 8: TEST OK [1.804 secs, 2500 KB]<br>   Test 9: TEST OK [1.771 secs, 2500 KB]<br>All tests OK.<br>Your program (‘ariprog’) produced all correct answers!  This is your submission #3 for this problem.  <strong>Congratulations!</strong></p>
+</blockquote>
+
       
 
       
@@ -245,6 +269,18 @@
     <div class="article-info article-info-index">
       
       
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">usaco</a>
+        </li>
+      
+    </ul>
+  </div>
+
 
       
   <div class="article-category tagcloud">
@@ -262,7 +298,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/git-quotepath/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/usaco-ariprog/">展开全文 >></a>
         </p>
       
 
@@ -293,7 +329,7 @@
 
 
   
-    <article id="post-cd-open-folder-with-spaces"
+    <article id="post-2010-earth-hour"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -302,113 +338,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/cd-open-folder-with-spaces/">Linux 下用 cd 指令打开带空格的文件夹</a>
+      <a class="article-title" href="/articles/2010-earth-hour/">2010地球熄灯一小时</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/cd-open-folder-with-spaces/" class="archive-article-date">
-  <time datetime="2014-08-10T05:36:00.000Z" itemprop="datePublished">
-    Published on 2014 / 08 / 10
-  </time>
-  
-    <time datetime="2014-10-12T04:14:13.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 12
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>方法一：在每个空格前加”&quot; 号，如”cd my\ files” 打开my files文件夹。</p>
-</li>
-<li><p>方法二：在文件夹名字上添加两个引号，如cd “te st”打开te st文件夹。</p>
-</li>
-<li><p>方法三：输入能代表需要打开的文件夹几个字符后按tab就可以自动补全，如打开<br>/home/admin/.wine/drive_c/Program Files 只需要输入 cd /home/admin/.wine/drive_c/Pro<br>再按tab就能自动补全打开Program Files文件夹。</p>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/cd-open-folder-with-spaces/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-homemade-kindle-paperwhite-cartoons"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/homemade-kindle-paperwhite-cartoons/">自制 Kindle Paperwhite 漫画</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/homemade-kindle-paperwhite-cartoons/" class="archive-article-date">
-  <time datetime="2014-08-10T04:59:00.000Z" itemprop="datePublished">
-    Published on 2014 / 08 / 10
+          <a href="/articles/2010-earth-hour/" class="archive-article-date">
+  <time datetime="2010-03-26T04:56:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 26
   </time>
   
 </a>
@@ -419,17 +358,9 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>想在KPW上安心的看漫画，可是下的图片包不做处理直接丢进去是看不了的。我们得自己动手做一下转换，生成Mobi文件。</p>
-<p>核心思路：<strong>下载漫画 -&gt; 处理图片 -&gt; 生成MOBI文件</strong></p>
-<h2 id="获取漫画"><a href="#获取漫画" class="headerlink" title="获取漫画"></a>获取漫画</h2><ul>
-<li>这个大家各有各的方法，各显神通吧。<h2 id="处理图片"><a href="#处理图片" class="headerlink" title="处理图片"></a>处理图片</h2></li>
-<li>这里需要一个工具，<a href="http://www.hi-pda.com/forum/viewthread.php?tid=898291&extra=page%3D3" target="_blank" rel="noopener">Komic</a>，最新版本是 1.3.3。<br>这是个很聪明的切割图片的工具，能将下载的漫画处理成Kindle上E-ink上画质最好的形式。用这个唯一需要注意的是：<strong>Komic程序自身所处路径不能含有中文字符（输入输出目录不受影响）</strong><br><img src="https://a.adcdn.cn/images/5_1.webp" alt="Komic"></li>
-</ul>
-<h2 id="生成MOBI文件"><a href="#生成MOBI文件" class="headerlink" title="生成MOBI文件"></a>生成MOBI文件</h2><ul>
-<li>这里使用 <a href="https://github.com/ciromattia/kcc" target="_blank" rel="noopener">Kindle Comic Converter</a> + Amazon的kindlegen。</li>
-<li>kindlegen 直接以大陆IP访问不能下载，要么挂个代理，要么去其他地方下载。获取之后直接把kindlegen主程序丢到<a href="https://github.com/ciromattia/kcc" target="_blank" rel="noopener">KCC</a>安装目录下，打开<a href="https://github.com/ciromattia/kcc" target="_blank" rel="noopener">KCC</a>就可以使用了。</li>
-<li><a href="https://github.com/ciromattia/kcc" target="_blank" rel="noopener">KCC</a>中文件选择上一步<a href="http://www.hi-pda.com/forum/viewthread.php?tid=898291&extra=page%3D3" target="_blank" rel="noopener">Komic</a>输出的文件，点击“Convert”就开始自动生成漫画文件了<del>~</del><br><img src="https://a.adcdn.cn/images/5_2.webp" alt="KCC"></li>
-</ul>
+        <p>很早就关注了，去年的地球熄灯一小时现在还记得。今年同样参加！</p>
+<p><strong>保护环境，人人有责。</strong></p>
+<p><img src="https://a.adcdn.cn/images/2010-earth-hour.webp" alt="2010-earth-hour.webp"></p>
 
       
 
@@ -455,7 +386,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/homemade-kindle-paperwhite-cartoons/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/2010-earth-hour/">展开全文 >></a>
         </p>
       
 
@@ -486,7 +417,7 @@
 
 
   
-    <article id="post-install-oracle-java-jdk-on-ubuntu-linux"
+    <article id="post-20100325-anecdotes"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -495,21 +426,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/install-oracle-java-jdk-on-ubuntu-linux/">Ubuntu 安装配置 Java 环境</a>
+      <a class="article-title" href="/articles/20100325-anecdotes/">几个班级趣事</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/install-oracle-java-jdk-on-ubuntu-linux/" class="archive-article-date">
-  <time datetime="2014-07-26T07:17:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 26
+          <a href="/articles/20100325-anecdotes/" class="archive-article-date">
+  <time datetime="2010-03-25T12:35:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 25
   </time>
-  
-    <time datetime="2016-04-25T03:00:42.000Z" itemprop="dateUpdated">
-      , Updated on 2016 / 04 / 25
-    </time>
   
 </a>
 
@@ -519,26 +446,54 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li><p>首先去Oracle官网下载<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">jdk</a>，注意根据系统选择合适的版本。<br>我下载的文件为<code>jdk-8u40-linux-x64.tar.gz</code>，解压文件得到<code>jdk1.8.0_40</code>，移动到<code>/opt</code>目录下</p>
-</li>
-<li><p>在终端中打配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/profile</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在打开的配置文件末尾添加Java环境: </p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/opt/jdk1.8.0_40</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>重启电脑或注销当前用户即可生效，可以在终端中运行<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>查看java的版本。配置成功会出现如下的信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  ~  java -version</span><br><span class="line">Picked up _JAVA_OPTIONS:   -Dawt.useSystemAAFontSettings=gasp</span><br><span class="line">java version "1.8.0_40"</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_40-b26)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.40-b25, mixed mode)</span><br></pre></td></tr></table></figure>
-
-<h2 id="wikiHow上有一篇比较详细的图文版。"><a href="#wikiHow上有一篇比较详细的图文版。" class="headerlink" title="wikiHow上有一篇比较详细的图文版。"></a>wikiHow上有一篇比较详细的<a href="http://www.wikihow.com/Install-Oracle-Java-JDK-on-Ubuntu-Linux" target="_blank" rel="noopener">图文版</a>。</h2><p><em>最后更新时间：2015-03-30 15:02:58</em></p>
+        <p><strong>2010年3月24日</strong></p>
+<p>一日英语课，做语法题，彭老师又点名回答。原句为：</p>
+<blockquote>
+<p>The women standing there looks young.</p>
+</blockquote>
+<p>要求：改为否定句</p>
+<p>彭老师笑眯眯的走到了小工的面前。</p>
+<p>高大威猛的小工慢慢的站了起来，憨厚的笑着答道</p>
+<blockquote>
+<p>The women standing there looks old.</p>
+</blockquote>
+<p>全场爆笑！彭老师自己也笑倒了！O(∩_∩)O~</p>
+<p><strong>记录：HH</strong></p>
+<hr>
+<p><strong>2010年3月22日</strong></p>
+<p>英语课要默写M1U1的单词，好多不记得了，每过关，不得不重默。顺顺同学很自然的没有过关。结果，顺顺同学猛然对汤圆喊了一句话：“我给你5张草稿纸，你给我报（抱）一下好不？”（PS：这源于英语课代从单词默写不过关的同学中收取草稿纸的行为！）话说当时还没反应过来，一小会儿就沸腾了。唉<del>~</del>悲剧的汤圆啊……</p>
+<p>╮(╯﹏╰）╭</p>
+<p><strong>记录：XLS</strong></p>
+<hr>
+<p><strong>2010年3月19日</strong></p>
+<p>北京时间3月19日下午2：10，周嗲对我们说：“石老师有急事，最后两节课咱们就考试吧！”，生灵涂炭，民不聊生啊！</p>
+<p>然后我们就安静的坐在教室里，周嗲在黑板上端正的写下了考试时间和那六个熟悉的字“讲诚信，守纪律”，然后得意潇洒的走向了隔壁80班上化学课。</p>
+<p>我刚做完一题，只看见石老师迈着轻盈的步子走进了教室……然后我们安详的上了一节半课，周嗲在隔壁还在放开嗓子讲课…… o(≧v≦)o~~</p>
+<p>不会忘记周嗲下课后飘过教室门口那欲哭无泪的表情！真是戏剧，真是Happy！</p>
+<p><strong>记录：HM</strong></p>
+<hr>
+<p><strong>2010年3月17日</strong></p>
+<p>大清早没来得及吃早饭就赶去教室记单词，好不容易只剩几十个没记完了。我是根据中文来记英文的，靠的就是回忆，最忌讳被提醒。结果后面某人正好更我以几乎相同的速度在读，而进度稍前。我短暂无语之后决定从后面记。在我将要开始的时候，又发现同桌从后面开始读。受不了了……</p>
+<p>我最终对两人爆发：“你们两个到底要怎么样啊！！！！！”</p>
+<p><strong>记录：XLS</strong></p>
+<hr>
+<p><strong>2010年3月17日</strong></p>
+<p>语文课上学到一篇名为《墙上的斑点》的抽象文章，刚一开始大家都在感叹作者竟然近视到把蜗牛看成了斑点，近视不是她的错，不戴眼镜看到个什么东西就搅合自己的想法写下那纠结死人的文章让我们来学就是她的错了。当知道作者是位女权主义者时，后面的某经纬同学突然爆出一句话：“那只蜗牛肯定是一只母的……！” -_-|||</p>
+<p><strong>记录：XLS</strong></p>
+<hr>
+<p><strong>2010年3月17日</strong></p>
+<p>背景：某日，也就是昨天咯，别说得那么神秘。</p>
+<p>第一轮数学复习，讲排列组合，因球类问题与数学老师讨论（题意有些模糊）</p>
+<p>S = Students    石 = 石老师</p>
+<p>S:“老师，那些球不是完全一样么？”</p>
+<p>石：“怎么会一样呢？上面贴着有数字的标签啊！”</p>
+<p>S:“题目中没有说，怎么会有标签呢？”</p>
+<p>石：“没有？你给他贴上不就行吗？”</p>
+<p>S:“汗……”，不罢休，继续问“如果那种球全部一样呢？”</p>
+<p>石：“你们不是学了政治吗？世界上没有完全相同的物体！”</p>
+<p>一群同学无语中，另一群同学狂笑中，第三群同学“我不知道，我去师大了。”</p>
+<p>次日，又是同一类问题，只是改成了正方体……</p>
+<p><strong>记录：HH</strong></p>
 
       
 
@@ -564,7 +519,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/install-oracle-java-jdk-on-ubuntu-linux/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/20100325-anecdotes/">展开全文 >></a>
         </p>
       
 
@@ -595,7 +550,7 @@
 
 
   
-    <article id="post-about"
+    <article id="post-god-rolling-the-dice"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -604,21 +559,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/pages/about/">关于</a>
+      <a class="article-title" href="/books/god-rolling-the-dice/">让人想死的量子物理学</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/pages/about/" class="archive-article-date">
-  <time datetime="2014-07-26T06:06:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 26
+          <a href="/books/god-rolling-the-dice/" class="archive-article-date">
+  <time datetime="2010-03-11T12:02:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 11
   </time>
-  
-    <time datetime="2020-05-28T04:12:09.000Z" itemprop="dateUpdated">
-      , Updated on 2020 / 05 / 28
-    </time>
   
 </a>
 
@@ -628,13 +579,14 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="程序员-amp-amp-动漫宅-amp-amp-萝莉控"><a href="#程序员-amp-amp-动漫宅-amp-amp-萝莉控" class="headerlink" title="程序员 &amp;&amp; 动漫宅 &amp;&amp; 萝莉控"></a>程序员 &amp;&amp; 动漫宅 &amp;&amp; 萝莉控</h2><ul>
-<li><strong>ldsink</strong> 是 <strong>Linux Deepin Sink</strong> 的缩写，<strong><a href="https://www.deepin.org/" target="_blank" rel="noopener">deepin</a></strong> 是一款很棒的 Linux 发行版!</li>
-<li>任何问题请联系：<strong><a href="mailto:c.zhou@live.com">c.zhou@live.com</a></strong></li>
-</ul>
-<h2 id="密钥"><a href="#密钥" class="headerlink" title="密钥"></a>密钥</h2><p><strong><a href="https://a.adcdn.cn/files/id_ed25519.pub" target="_blank" rel="noopener">ed25519</a></strong> | <strong><a href="https://a.adcdn.cn/files/public-key.gpg" target="_blank" rel="noopener">GPG key</a></strong></p>
-<p><a href="https://a.adcdn.cn/files/id_ecdsa.pub" target="_blank" rel="noopener">id_ecdsa</a> | <a href="https://a.adcdn.cn/files/id_dsa.pub" target="_blank" rel="noopener">id_dsa</a> | <a href="https://a.adcdn.cn/files/id_rsa.pub" target="_blank" rel="noopener">id_rsa</a></p>
-<h2 id="gitconfig"><a href="#gitconfig" class="headerlink" title=".gitconfig"></a>.gitconfig</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[alias]</span><br><span class="line">    br &#x3D; branch</span><br><span class="line">    ci &#x3D; commit</span><br><span class="line">    co &#x3D; checkout</span><br><span class="line">[core]</span><br><span class="line">    editor &#x3D; vim</span><br><span class="line">    ignorecase &#x3D; false</span><br><span class="line">    excludesfile &#x3D; ~&#x2F;.gitignore</span><br><span class="line">[user]</span><br><span class="line">    name &#x3D; ZHOU Cheng</span><br><span class="line">    email &#x3D; c.zhou@live.com</span><br><span class="line">    signingkey &#x3D; D3FE87615B73F5CAE79A7C8DC0337CEC156A3AAD</span><br><span class="line">[commit]</span><br><span class="line">    gpgsign &#x3D; true</span><br><span class="line">[http &quot;https:&#x2F;&#x2F;github.com&quot;]</span><br><span class="line">    proxy &#x3D; socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">[https &quot;https:&#x2F;&#x2F;github.com&quot;]</span><br><span class="line">    proxy &#x3D; socks5:&#x2F;&#x2F;127.0.0.1:1080</span><br><span class="line">[credential]</span><br><span class="line">    helper &#x3D; store</span><br></pre></td></tr></table></figure>
+        <p>今天，做了一件很不应该的事，那就是看了我同桌的那本该死的《上帝掷骰子吗？——量子物理学史话》</p>
+<p>一切源于上午第三节物理课，老师正在讲波的衍射，我看到了这张图。</p>
+<p><img src="https://a.adcdn.cn/images/fifth-solvay-conference.webp" alt="fifth-solvay-conference"></p>
+<p>全是一群牛ＸＸ的物理学家，于是我怀着极大的好奇心看了这本书，也陷入了他们都争论不清的量子物理学。</p>
+<p>看完就一感觉，抽象，和宏观世界完全不相同！很多我都不完全看得懂，但薛定谔的猫这个实验我明白了，猫在密封的箱子里应该是一种半死半活状态……后面又有一种假说，大概认为超光速是存在的，人只是物质的聚集，人的组成物可以覆盖整个宇宙……</p>
+<p>更加可悲的是还有一种平行宇宙的假说，我直接就想到了《家庭教师　Reborn》里的平行宇宙，居然是一样的；依据这个原理，量子计算机也被某国的科学家认为是可行的……</p>
+<p>郁闷，在现实生活中完全不存在，在量子物理学中全是正常现象。</p>
+<p>最大的杯具是这本书我看了一天，上午（物理课＋生物课）＋下午（除体育课）（历史课＋政治课＋地理课），就像玩游戏一样，直接通关（看完，３００多页）才停手。唯一的感觉就是在这个世界，你我现在的世界，很失败。（不排除某一个平行世界中我们很强！）。</p>
 
       
 
@@ -650,8 +602,8 @@
     <ul class="article-tag-list">
       
         <li class="article-tag-list-item">
-          <a href="/categories/pages/"
-             class="article-tag-list-link color1">pages</a>
+          <a href="/categories/books/"
+             class="article-tag-list-link color1">books</a>
         </li>
       
     </ul>
@@ -660,7 +612,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/pages/about/">展开全文 >></a>
+          <a class="article-more-a" href="/books/god-rolling-the-dice/">展开全文 >></a>
         </p>
       
 
@@ -691,7 +643,7 @@
 
 
   
-    <article id="post-python3-use-polarssl-replace-pydes-realize-3des-encryption"
+    <article id="post-murphy-s-law"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -700,21 +652,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/">Python3中使用PolarSSL替换pyDes实现3DES加密</a>
+      <a class="article-title" href="/articles/murphy-s-law/">墨菲定律（Murphy&#39;s Law）</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/" class="archive-article-date">
-  <time datetime="2014-07-18T04:05:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 18
+          <a href="/articles/murphy-s-law/" class="archive-article-date">
+  <time datetime="2010-03-05T13:26:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 05
   </time>
-  
-    <time datetime="2014-10-12T04:13:56.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 12
-    </time>
   
 </a>
 
@@ -724,43 +672,272 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>pyDES是纯的python DES加密算法实现。系统目前使用PyDES的3DES加密算法，但是性能低下，已成为系统目前的瓶颈，为提高性能，考虑换用C语言实现。</p>
-<p>Google C语言的DES实现，PolarSSL排在前面，这是纯C的实现，决定采用。</p>
-<h1 id="编译PolarSSL"><a href="#编译PolarSSL" class="headerlink" title="编译PolarSSL"></a>编译PolarSSL</h1><p>首先在<a href="https://polarssl.org/" target="_blank" rel="noopener">PolarSSL</a>的网站下载最新的源代码，解压。使用默认的配置文件编译出的结果是静态链接库（.a 文件），我用这个静态库在Python那边的C语言文件编译会失败，所以得编译成动态链接库（.so 文件）。如下修改配置文件：</p>
-<ol>
-<li>打开PolarSSL的 library/Makefile 文件。</li>
-<li>在文件头添加 SHARED = -shared。</li>
-</ol>
-<p>然后在PolarSSL目录打开终端，执行</p>
-<blockquote>
-<p>make all</p>
-</blockquote>
-<p>等待编译完成之后执行安装</p>
-<blockquote>
-<p>sudo make install</p>
-</blockquote>
-<p>执行完上条命令之后我们可以看一下效果</p>
-<blockquote>
-<p>ls /usr/local/lib/<br>ls /usr/local/include/</p>
-</blockquote>
-<p>刚才编译好的文件都在以上目录存在了，这里需要注意，so文件只在 /usr/local/lib 目录下还是不够的，程序运行时会提示缺失，得复制到 /usr/lib 下。</p>
-<blockquote>
-<p>sudo cp /usr/local/lib/libpolarssl.so.7 /usr/lib/</p>
-</blockquote>
-<h1 id="配置Python"><a href="#配置Python" class="headerlink" title="配置Python"></a>配置Python</h1><p>按照我之前写的<a href="https://ldsink.com/articles/extending-python3-with-c/">探究：使用C语言扩展Python3</a>写好接口的C文件，源代码如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  Author : Zhou Cheng (Sink)</span></span><br><span class="line"><span class="comment">  Date   : July 17, 2014</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Python.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;polarssl/des.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// My C function</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tdes_encrypt</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *key_in, <span class="keyword">const</span> <span class="keyword">char</span> *data, <span class="keyword">char</span> *dest, <span class="keyword">const</span> <span class="keyword">int</span> byte_len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> KEY_SIZE = <span class="number">24</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> CHUNK_SIZE = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> key[KEY_SIZE];</span><br><span class="line">    <span class="built_in">memset</span>(key, <span class="number">0</span>, KEY_SIZE);</span><br><span class="line">    <span class="keyword">int</span> len  = (<span class="keyword">int</span>)<span class="built_in">strlen</span>(key_in);</span><br><span class="line">    <span class="keyword">if</span> (len &gt; KEY_SIZE)</span><br><span class="line">        len = KEY_SIZE;</span><br><span class="line">    <span class="built_in">memcpy</span>(key, key_in, len);</span><br><span class="line"></span><br><span class="line">    des3_context ctx;</span><br><span class="line">    des3_set3key_enc(&amp;ctx, (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)key);</span><br><span class="line">    <span class="keyword">int</span> i, j, k;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, j = byte_len / CHUNK_SIZE, k = <span class="number">0</span>; i &lt; j; i ++, k += CHUNK_SIZE)  &#123;</span><br><span class="line">        des3_crypt_ecb(&amp;ctx, (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)(data + k), (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)(dest + k));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// python extending with c function</span></span><br><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">triple_des_encrypt(PyObject *self, PyObject *args) &#123;</span><br><span class="line">    <span class="keyword">char</span> *key;</span><br><span class="line">    <span class="keyword">char</span> *data;</span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">"ss"</span>, &amp;key, &amp;data)) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> cur_len, new_len;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    i = <span class="built_in">strlen</span>(data);</span><br><span class="line">    j = i / <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">if</span> (i % <span class="number">8</span>)</span><br><span class="line">        j ++;</span><br><span class="line">    cur_len = i;</span><br><span class="line">    new_len = j * <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">char</span> *input = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(new_len);</span><br><span class="line">    <span class="keyword">char</span> *output = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(new_len);</span><br><span class="line">    <span class="built_in">memset</span>(input, <span class="string">'\0'</span>, new_len);</span><br><span class="line">    <span class="built_in">memset</span>(output, <span class="string">'\0'</span>, new_len);</span><br><span class="line">    <span class="built_in">memcpy</span>(input, data, cur_len);</span><br><span class="line">    tdes_encrypt(key, input, output, new_len);</span><br><span class="line"></span><br><span class="line">    PyObject *result = Py_BuildValue(<span class="string">"y#"</span>, output, new_len);</span><br><span class="line">    <span class="built_in">free</span>(input);</span><br><span class="line">    <span class="built_in">free</span>(output);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// method table</span></span><br><span class="line"><span class="keyword">static</span> PyMethodDef DemoMethods[] = &#123;</span><br><span class="line">    &#123;<span class="string">"tdes_encrypt"</span>, triple_des_encrypt, METH_VARARGS, <span class="literal">NULL</span>&#125;,</span><br><span class="line">    &#123;<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>&#125;        <span class="comment">/* Sentinel */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The method table must be referenced in the module definition structure.</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">PyModuleDef</span> <span class="title">demomodule</span> = &#123;</span></span><br><span class="line">    PyModuleDef_HEAD_INIT,</span><br><span class="line">    <span class="string">"demo"</span>,   <span class="comment">/* name of module */</span></span><br><span class="line">    <span class="literal">NULL</span>, <span class="comment">/* module documentation, may be NULL */</span></span><br><span class="line">    <span class="number">-1</span>,       <span class="comment">/* size of per-interpreter state of the module,</span></span><br><span class="line"><span class="comment">                or -1 if the module keeps state in global variables. */</span></span><br><span class="line">    DemoMethods</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The initialization function must be named PyInit_name()</span></span><br><span class="line">PyMODINIT_FUNC</span><br><span class="line">PyInit_demo(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> PyModule_Create(&amp;demomodule);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>昨天生物老师讲了马太效应，今天我的状态更像变到了墨菲定律，越不想看到事，偏偏发生……</p>
+<p>郁闷啊，7F的高手都哪去了，碰到的全是菜鸟。</p>
+<p>墨菲定律（英文名：Murphy’s Law），亦称莫非定律、莫非定理、或摩菲定理，是西方世界常用的俚语。墨菲定律主要内容是：<strong>事情如果有变坏的可能，不管这种可能性有多小，它总会发生。</strong>比如你衣袋里有两把钥匙，一把是你房间的，一把是汽车的，如果你现在想拿出车钥匙，会发生什么？是的，你往往是拿出了房间钥匙。</p>
+<p>“墨菲法则”、“派金森定理”和“彼得原理”并称为二十世纪西方文化中最杰出的三大发现。</p>
 
-<p>这里用到了PolarSSL库里面的函数，加密字符串不足8byte的整数倍补0,加密密钥不足24位同样。</p>
-<p>接下来配置编译文件 setup.py，在需要添加的库中包含 PolarSSL，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup, Extension</span><br><span class="line"></span><br><span class="line">module1 = Extension(<span class="string">'demo'</span>,</span><br><span class="line">    libraries = [<span class="string">'polarssl'</span>],</span><br><span class="line">    sources = [<span class="string">'demo.c'</span>])</span><br><span class="line"></span><br><span class="line">setup (name = <span class="string">'3DES'</span>,</span><br><span class="line">    version = <span class="string">'1.0'</span>,</span><br><span class="line">    description = <span class="string">'This is a demo package by Sink'</span>,</span><br><span class="line">    ext_modules = [module1])</span><br></pre></td></tr></table></figure>
+      
 
-<p>编译</p>
-<blockquote>
-<p>python3 setup.py build</p>
-</blockquote>
-<p>编译出的 so 文件就可以被调用了。</p>
-<h1 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h1><p>Python随机生成1000条data和key，保证正确的情况下分别调用两个函数测试性能。C语言只要0.02秒，Python则花了182秒，性能差距巨大。测试代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyDes</span><br><span class="line"><span class="keyword">import</span> demo</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> Random</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_str</span><span class="params">(randomlength=<span class="number">8</span>)</span>:</span></span><br><span class="line">    str = <span class="string">''</span></span><br><span class="line">    chars = <span class="string">'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789!@#$%^&amp;*()_+'</span></span><br><span class="line">    length = len(chars) - <span class="number">1</span></span><br><span class="line">    random = Random()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(randomlength):</span><br><span class="line">        str+=chars[random.randint(<span class="number">0</span>, length)]</span><br><span class="line">    <span class="keyword">return</span> str</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">des_encrypt_test</span><span class="params">(key, data)</span>:</span></span><br><span class="line">    <span class="string">"""3des encrypt"""</span></span><br><span class="line">    <span class="keyword">if</span> isinstance(key, str):</span><br><span class="line">        key = key.encode(<span class="string">'utf-8'</span>)</span><br><span class="line">    <span class="keyword">if</span> isinstance(data, str):</span><br><span class="line">        data = data.encode(<span class="string">'utf-8'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(key) &lt; <span class="number">24</span>:</span><br><span class="line">        key += (<span class="number">24</span> - len(key)) * <span class="string">b"\0"</span></span><br><span class="line">    k = pyDes.triple_des(key, pyDes.ECB, pad=<span class="string">b"\0"</span>)</span><br><span class="line">    d = k.encrypt(data)</span><br><span class="line">    <span class="comment"># print("Encrypted:%r" % binascii.hexlify(d))</span></span><br><span class="line">    <span class="comment"># print("Decrypted:%r" % binascii.hexlify(k.decrypt(d)))</span></span><br><span class="line">    <span class="comment"># print("pre str      :%r" % k.decrypt(d).decode("utf-8"))</span></span><br><span class="line">    <span class="keyword">return</span> d</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    data = []</span><br><span class="line">    key = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># data init</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">        data.append(random_str(x))</span><br><span class="line">        key.append(random_str(<span class="number">16</span> + (x % <span class="number">9</span>)))</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Correct</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        p = des_encrypt_test(key[x], data[x])</span><br><span class="line">        c = demo.tdes_encrypt(key[x], data[x])</span><br><span class="line">        <span class="keyword">if</span> (p != c):</span><br><span class="line">            print(<span class="string">"Error\n"</span>)</span><br><span class="line">            print(key[x])</span><br><span class="line">            print(data[x])</span><br><span class="line">            print(<span class="string">"\n"</span>)</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Performance</span></span><br><span class="line">    st = time.time()</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        des_encrypt_test(key[x], data[x])</span><br><span class="line">    et = time.time()</span><br><span class="line">    print(<span class="string">" P Time taken:  &#123;0&#125; seconds."</span>.format(et - st))</span><br><span class="line">    st = time.time()</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        demo.tdes_encrypt(key[x], data[x])</span><br><span class="line">    et = time.time()</span><br><span class="line">    print(<span class="string">" C Time taken:  &#123;0&#125; seconds."</span>.format(et - st))</span><br><span class="line"> <span class="comment"># P Time taken:  181.95579504966736 seconds.</span></span><br><span class="line"> <span class="comment"># C Time taken:  0.027108192443847656 seconds.</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/murphy-s-law/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-matthew-effect"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/matthew-effect/">马太效应（Matthew Effect）</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/matthew-effect/" class="archive-article-date">
+  <time datetime="2010-03-03T12:15:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 03
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>生物老师今天上课讲的马太效应：指强者愈强、弱者愈弱的现象，广泛应用于社会心理学、教育、金融以及科学等众多领域。其名字来自圣经《新约·马太福音》中的一则寓言： <strong>“凡有的，还要加给他叫他多余；没有的，连他所有的也要夺过来”</strong>。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/matthew-effect/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-perfect-milk"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/perfect-milk/">完美牛奶（二分图入门）</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/perfect-milk/" class="archive-article-date">
+  <time datetime="2010-02-03T02:09:00.000Z" itemprop="datePublished">
+    Published on 2010 / 02 / 03
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>网络流求二分图最大匹配。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Author:ZhouCheng</span></span><br><span class="line"><span class="comment">Date:20090203</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N, M, S, T, Add, Ans;</span><br><span class="line"><span class="keyword">char</span> Pan, Mark[<span class="number">520</span>];</span><br><span class="line"><span class="keyword">int</span> Link[<span class="number">520</span>][<span class="number">520</span>], Fa[<span class="number">520</span>], Now[<span class="number">520</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> point)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (point != T) &#123;</span><br><span class="line">        Mark[point] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= T; a++)</span><br><span class="line">            <span class="keyword">if</span> (Link[point][a] &gt; <span class="number">0</span> &amp;&amp; Mark[a] == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (Link[point][a] &gt;= Now[point] &amp;&amp; Now[point] &gt; Now[a]) &#123;</span><br><span class="line">                    Now[a] = Now[point];</span><br><span class="line">                    Fa[a] = point;</span><br><span class="line">                    Find(a);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Link[point][a] &lt; Now[point]) &#123;</span><br><span class="line">                    b = Link[point][a];</span><br><span class="line">                    <span class="keyword">if</span> (b &gt; Now[a]) &#123;</span><br><span class="line">                        Now[a] = b;</span><br><span class="line">                        Fa[a] = point;</span><br><span class="line">                        Find(a);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        Mark[point] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span> point)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (point != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        a = Fa[point];</span><br><span class="line">        b = point;</span><br><span class="line">        Link[a][b] -= Add;</span><br><span class="line">        Link[b][a] += Add;</span><br><span class="line">        Set(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;N, &amp;M);</span><br><span class="line">    <span class="keyword">int</span> a, b, c;</span><br><span class="line">    <span class="comment">//读入数据，Cow 和 Fence 都处理成点。</span></span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= N; a++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;b);</span><br><span class="line">        <span class="keyword">for</span> (; b &gt; <span class="number">0</span>; b--) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;c);</span><br><span class="line">            Link[a][N + c] = <span class="number">1000000000</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//S 源点，T 汇点。</span></span><br><span class="line">    S = <span class="number">0</span>;</span><br><span class="line">    T = N + M + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= N; a++)</span><br><span class="line">        Link[S][a] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (a = N + <span class="number">1</span>; a &lt; T; a++)</span><br><span class="line">        Link[a][T] = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//求最大流。</span></span><br><span class="line">    Pan = <span class="number">1</span>;</span><br><span class="line">    Ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (Pan) &#123;</span><br><span class="line">        <span class="built_in">memset</span>(Fa, <span class="number">0</span>, <span class="keyword">sizeof</span>(Fa));</span><br><span class="line">        <span class="built_in">memset</span>(Now, <span class="number">0</span>, <span class="keyword">sizeof</span>(Now));</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">1</span>, Pan = <span class="number">0</span>; a &lt;= N; a++)</span><br><span class="line">            <span class="keyword">if</span> (Link[<span class="number">0</span>][a] &gt; <span class="number">0</span> &amp;&amp; Link[<span class="number">0</span>][a] &gt; Now[a]) &#123;</span><br><span class="line">                Fa[a] = <span class="number">0</span>;</span><br><span class="line">                Now[a] = Link[<span class="number">0</span>][a];</span><br><span class="line">                Find(a);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (Now[T] != <span class="number">0</span>) &#123;</span><br><span class="line">            Pan = <span class="number">1</span>;</span><br><span class="line">            Add = Now[T];</span><br><span class="line">            Set(T);</span><br><span class="line">            Ans += Add;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//输出结果。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/perfect-milk/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-usaco-drainage-ditches"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/usaco-drainage-ditches/">USACO： Section 4.2  Drainage Ditches 草地排水</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/usaco-drainage-ditches/" class="archive-article-date">
+  <time datetime="2010-01-31T08:03:00.000Z" itemprop="datePublished">
+    Published on 2010 / 01 / 31
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>终于在 USACO 的正确指导下明白了网络流的算法，提交了N次，终于AC！</p>
+<p>详细、正确的网络流：<a href="http://www.nocow.cn/index.php/Translate:USACO/NetworkFlow" target="_blank" rel="noopener">http://www.nocow.cn/index.php/Translate:USACO/NetworkFlow</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Author:ZhouCheng</span></span><br><span class="line"><span class="comment">Date:20100131</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N, M, Ans, Add, Traffic[<span class="number">222</span>][<span class="number">222</span>], Fa[<span class="number">222</span>], Now[<span class="number">222</span>];</span><br><span class="line"><span class="keyword">char</span> Pan, Mark[<span class="number">222</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> point)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (point != M) &#123;</span><br><span class="line">        Mark[point] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">2</span>; a &lt;= M; a++)</span><br><span class="line">            <span class="keyword">if</span> (Traffic[point][a] &gt; <span class="number">0</span> &amp;&amp; Mark[a] == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (Traffic[point][a] &gt;= Now[point] &amp;&amp; Now[point] &gt; Now[a]) &#123;</span><br><span class="line">                    Now[a] = Now[point];</span><br><span class="line">                    Fa[a] = point;</span><br><span class="line">                    Find(a);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Traffic[point][a] &lt; Now[point]) &#123;</span><br><span class="line">                    b = Traffic[point][a];</span><br><span class="line">                    <span class="keyword">if</span> (b &gt; Now[a]) &#123;</span><br><span class="line">                        Now[a] = b;</span><br><span class="line">                        Fa[a] = point;</span><br><span class="line">                        Find(a);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        Mark[point] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Set</span><span class="params">(<span class="keyword">int</span> point)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (point != <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        a = Fa[point];</span><br><span class="line">        b = point;</span><br><span class="line">        Traffic[a][b] -= Add;</span><br><span class="line">        Traffic[b][a] += Add;</span><br><span class="line">        Set(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;N, &amp;M);</span><br><span class="line">    <span class="keyword">int</span> a, b, c, d;</span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">0</span>; a &lt; N; a++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;b, &amp;c);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;d);</span><br><span class="line">        Traffic[b][c] += d;</span><br><span class="line">    &#125;</span><br><span class="line">    Pan = <span class="number">1</span>;</span><br><span class="line">    Ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (Pan) &#123;</span><br><span class="line">        <span class="built_in">memset</span>(Fa, <span class="number">0</span>, <span class="keyword">sizeof</span>(Fa));</span><br><span class="line">        <span class="built_in">memset</span>(Now, <span class="number">0</span>, <span class="keyword">sizeof</span>(Now));</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">2</span>, Pan = <span class="number">0</span>; a &lt;= M; a++)</span><br><span class="line">            <span class="keyword">if</span> (Traffic[<span class="number">1</span>][a] &gt; <span class="number">0</span> &amp;&amp; Traffic[<span class="number">1</span>][a] &gt; Now[a]) &#123;</span><br><span class="line">                Fa[a] = <span class="number">1</span>;</span><br><span class="line">                Now[a] = Traffic[<span class="number">1</span>][a];</span><br><span class="line">                Find(a);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (Now[M] != <span class="number">0</span>) &#123;</span><br><span class="line">            Pan = <span class="number">1</span>;</span><br><span class="line">            Add = Now[M];</span><br><span class="line">            Set(M);</span><br><span class="line">            Ans += Add;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -776,7 +953,7 @@
       
         <li class="article-tag-list-item">
           <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">python</a>
+             class="js-tag article-tag-list-link color1">usaco</a>
         </li>
       
     </ul>
@@ -799,7 +976,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/usaco-drainage-ditches/">展开全文 >></a>
         </p>
       
 
@@ -830,7 +1007,7 @@
 
 
   
-    <article id="post-extending-python3-with-c"
+    <article id="post-winter-holiday-and-chinese-new-year"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -839,21 +1016,17 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/extending-python3-with-c/">探究：使用C语言扩展Python3</a>
+      <a class="article-title" href="/articles/winter-holiday-and-chinese-new-year/">寒假 过年</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/extending-python3-with-c/" class="archive-article-date">
-  <time datetime="2014-07-16T03:54:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 16
+          <a href="/articles/winter-holiday-and-chinese-new-year/" class="archive-article-date">
+  <time datetime="2010-01-31T07:55:00.000Z" itemprop="datePublished">
+    Published on 2010 / 01 / 31
   </time>
-  
-    <time datetime="2014-10-12T04:13:48.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 12
-    </time>
   
 </a>
 
@@ -863,59 +1036,7 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>用Python开发程序速度快，并且有许多现成模块可供使用，但执行速度相对较慢；C语言则正好相反，其执行速度快，但开发效率低。<br>为了充分利用两种语言各自的优点，比较好的做法是用Python开发整个软件框架，而用C语言实现其关键模块。Python目前的主流版本是3，本文探究如何使用C语言扩展Python3。</p>
-<h1 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h1><p>Ubuntu 14.04 LTS x64 + Python 3.4.0 + gcc 4.8.2</p>
-<h1 id="C该怎么写？"><a href="#C该怎么写？" class="headerlink" title="C该怎么写？"></a>C该怎么写？</h1><h2 id="0、新建一个C文件"><a href="#0、新建一个C文件" class="headerlink" title="0、新建一个C文件"></a>0、新建一个C文件</h2><p>话不多说，先新建一个C文件，命名 demo.c。</p>
-<h2 id="1、包含必要的头文件"><a href="#1、包含必要的头文件" class="headerlink" title="1、包含必要的头文件"></a>1、包含必要的头文件</h2><p>所有的PythonAPI必须包含 Python.h，这个文件包含了&lt;stdio.h&gt;、&lt;string.h&gt;、&lt;errno.h&gt;和&lt;stdlib.h&gt;。</p>
-<h2 id="2、开始写功能函数"><a href="#2、开始写功能函数" class="headerlink" title="2、开始写功能函数"></a>2、开始写功能函数</h2><h4 id="1-函数"><a href="#1-函数" class="headerlink" title="1) 函数"></a>1) 函数</h4><p>现在就可以开始写你想用C执行的函数了。这个函数的格式是有要求的，一个简单的函数如下所示：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">demo_hello(PyObject *self, PyObject *args) &#123;</span><br><span class="line">    PyObject *name, *result;</span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">"U"</span>, &amp;name))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    result = PyUnicode_FromFormat(<span class="string">"Hello, %S!"</span>, name);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们来慢慢看这个函数。</p>
-<p>首先函数类型必须是 static PyObject *，函数名可以随便取，函数接收的参数必须是 (PyObject *self, PyObject *args)。</p>
-<p>所有从python传过来的参数都在 args 里，但是C和Python的数据类型不同，为了使C可以顺利的使用参数，我们需要在这之间做转化。<br>这里使用了 PyArg_ParseTuple 函数（点击进入官方文档），其中的第二个参数是匹配字符串，函数根据这个匹配字符串将args的值传给后面的若干的参数。该例中“U”代表字符串，name的类型实际上可以定义为 char *。</p>
-<p>这个例子实际上没有使用任何C语言的数据类型，实际上PyArg_ParseTuple 函数提取出来的就是C的数据类型。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *name;</span><br><span class="line"><span class="keyword">int</span> age;</span><br><span class="line"><span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">"si"</span>, &amp;name, &amp;age)) </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-
-<p>上面这个例子，python函数的参数是一个字符串，一个整型。通过PyArg_ParseTuple 函数转换成了C语言的 char* 和 int。</p>
-<p>按C语言的数据类型处理完数据，就要返回了，显然直接返回也是不行的。我们使用 Py_BuildValue 函数将C语言的数据转换成Python的数据，这实际上就是上文PyArg_ParseTuple的逆过程。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> total[<span class="number">10000</span>];</span><br><span class="line"><span class="built_in">memset</span>(total, <span class="number">0</span>, <span class="keyword">sizeof</span>(total));</span><br><span class="line"><span class="built_in">strcat</span>(total, <span class="string">"strcat() 函数用来连接字符串："</span>);</span><br><span class="line"><span class="built_in">strcat</span>(total, <span class="string">"tset"</span>);</span><br><span class="line">PyObject *result = Py_BuildValue(<span class="string">"s"</span>, total);</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码在Python中调用之后收到的返回值就是 “strcat() 函数用来连接字符串：tset”。</p>
-<p>数据转换还有几个其他的函数，匹配字符串也有很多种写法。更多详细的请看官方文档。</p>
-<p><a href="http://www.ibm.com/developerworks/cn/linux/l-pythc/" target="_blank" rel="noopener">developerworks上介绍这个也有一篇不错的文章</a></p>
-<h4 id="2-模块结构"><a href="#2-模块结构" class="headerlink" title="2) 模块结构"></a>2) 模块结构</h4><p>写好了方法之后，我们需要构建一个方法表，如下所示</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// method table</span></span><br><span class="line"><span class="keyword">static</span> PyMethodDef DemoMethods[] = &#123;</span><br><span class="line">    &#123;<span class="string">"hello"</span>, <span class="comment">// python method name</span></span><br><span class="line">     demo_hello, <span class="comment">// matched c function name</span></span><br><span class="line">     METH_VARARGS, <span class="comment">/* a flag telling the interpreter the calling </span></span><br><span class="line"><span class="comment">                                 convention to be used for the C function. */</span></span><br><span class="line">     <span class="string">"I guess here is description."</span> &#125;,</span><br><span class="line"></span><br><span class="line">     &#123;<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>&#125;        <span class="comment">/* Sentinel */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>每个方法需要关注的变量是浅两个，第一个变量是你在python中调用的名称，第二个变量是你的C语言函数名称，这两个名称会通过这个表匹配。第三个设置你函数传入参数的情况，第四个只是个描述，填 NULL 也行。</p>
-<p>DemoMethods中可以包含多个方法，每个方法按照这个依样画葫芦就成。这个数组实际上就是个 Method Table，记录了你所有的方法匹配表。</p>
-<p>实际上我们提供给Python的是一个模块，上面只是构建了方法表，下面再将 DemoMethods 作为变量传入，构建模块结构，如下所示。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The method table must be referenced in the module definition structure.</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">PyModuleDef</span> <span class="title">demomodule</span> = &#123;</span></span><br><span class="line">    PyModuleDef_HEAD_INIT,</span><br><span class="line">    <span class="string">"demo"</span>,   <span class="comment">/* name of module */</span></span><br><span class="line">    <span class="literal">NULL</span>, <span class="comment">/* module documentation, may be NULL */</span></span><br><span class="line">    <span class="number">-1</span>,       <span class="comment">/* size of per-interpreter state of the module,</span></span><br><span class="line"><span class="comment">                or -1 if the module keeps state in global variables. */</span></span><br><span class="line">    DemoMethods</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-初始化"><a href="#3-初始化" class="headerlink" title="3) 初始化"></a>3) 初始化</h4><p>上面定义的结构，必须在模块的初始化函数中传给解释器。初始化函数必须命名为 PyInit_name（），其中name是模块的名称，这应该是在模块文件中定义的唯一的非静态项目：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The initialization function must be named PyInit_name()</span></span><br><span class="line">PyMODINIT_FUNC</span><br><span class="line">PyInit_demo(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> PyModule_Create(&amp;demomodule);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>至此，C语言模块代码已经编写完成。</p>
-<h1 id="C该怎么编译？"><a href="#C该怎么编译？" class="headerlink" title="C该怎么编译？"></a>C该怎么编译？</h1><p>代码写好就应该开始准备编译为动态链接库方便python调用了。这里可以参考文档<a href="https://docs.python.org/3/extending/building.html" target="_blank" rel="noopener">《Building C and C++ Extensions with distutils》</a>，方法很简单：新建文件setup.py，配置编译：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup, Extension</span><br><span class="line"></span><br><span class="line">module1 = Extension(<span class="string">'demo'</span>,</span><br><span class="line">                    sources = [<span class="string">'demo.c'</span>])</span><br><span class="line"></span><br><span class="line">setup (name = <span class="string">'Demo hello'</span>,</span><br><span class="line">       version = <span class="string">'1.0'</span>,</span><br><span class="line">       description = <span class="string">'This is a demo package by Sink'</span>,</span><br><span class="line">       ext_modules = [module1])</span><br></pre></td></tr></table></figure>
-
-<p>打开终端：</p>
-<blockquote>
-<p>python3 setup.py build</p>
-</blockquote>
-<p>在 build 目录下可以找到编译好的 so 文件。</p>
-<h1 id="Python怎么调用？"><a href="#Python怎么调用？" class="headerlink" title="Python怎么调用？"></a>Python怎么调用？</h1><p>想怎么用就怎么用。so文件和py文件放一起，下面是最简单的例子。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> demo</span><br><span class="line">hi = demo.hello(<span class="string">"Sink"</span>)</span><br><span class="line">print(hi)</span><br></pre></td></tr></table></figure>
-
-<h1 id="有趣的研究"><a href="#有趣的研究" class="headerlink" title="有趣的研究"></a>有趣的研究</h1><p><strong>Python传入的参数是tuple该怎么匹配</strong></p>
-<p>如果Python调用函数传入的参数是tuple，PyArg_ParseTuple函数的匹配字符串可以通过( )来加以区分。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> demo</span><br><span class="line">print(demo.tuple(<span class="string">"Sink"</span>, (<span class="number">2</span>, <span class="string">"Miku"</span>)))</span><br></pre></td></tr></table></figure>
-
-<p>C语言中PyArg_ParseTuple匹配字符串可以通过（）来匹配tuple的元素。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">demo_tuple(PyObject *self, PyObject *args) &#123;</span><br><span class="line">    <span class="keyword">char</span> *a, *b;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">"s(is)"</span>, &amp;a, &amp;c, &amp;b)) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">255</span>];</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">"%d"</span>, c);</span><br><span class="line">    <span class="built_in">strcat</span>(str, a);</span><br><span class="line">    <span class="built_in">strcat</span>(str, b);</span><br><span class="line">    PyObject *result = Py_BuildValue(<span class="string">"s"</span>, str);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码输出的结果是 “2SinkMiku”。这些功能的核心就是PyArg_ParseTuple函数中的匹配字符串，写好这个字符串可以处理很多复杂的数据结构。</p>
-<p>源代码已上传至<a href="http://www.oschina.net/code/snippet_818656_37278" target="_blank" rel="noopener">OSC</a></p>
-<p><a href="http://my.oschina.net/ldsink/blog/291514" target="_blank" rel="noopener">探究：使用C语言扩展Python3</a></p>
+        <p>现在终于补课补完了，开始了“提高班”的6天。现在只要去教室上数学和英语，其余时间就在机房弄信息，感觉还是会很好过的！</p>
 
       
 
@@ -924,23 +1045,6 @@
     <div class="article-info article-info-index">
       
       
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">python</a>
-        </li>
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color5">work</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
   <div class="article-category tagcloud">
@@ -958,7 +1062,116 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/extending-python3-with-c/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/winter-holiday-and-chinese-new-year/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-luyou-and-tangwan"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/luyou-and-tangwan/">山盟虽在，锦书难托 —— 陆游与唐琬</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/luyou-and-tangwan/" class="archive-article-date">
+  <time datetime="2009-12-13T05:16:00.000Z" itemprop="datePublished">
+    Published on 2009 / 12 / 13
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这周我写作文找的资料，现在我是真的背下两首《钗头凤》了！</p>
+<p>地址：<a href="http://hi.baidu.com/qingzhi%5F0825/blog/item/884a991befed221d8718bf7e.html" target="_blank" rel="noopener">http://hi.baidu.com/qingzhi%5F0825/blog/item/884a991befed221d8718bf7e.html</a></p>
+<hr>
+<p>曾经，一句“桃花落，闲池阁，山盟虽在，锦书难托”令我在读到的那一刹那便泪落如雨。当泪划下，滴落在古旧的书卷上时，依稀仿佛看到沈园的小池边，绿柳微扬，花瓣纷飞，隔柳相望的两人泪眼迷蒙，欲语还休，只能在默默的凝望中体味着同样的伤痛与悲凉。许久，他唇齿微动：“，琬儿，你……”他想问：你还好吗？可话到唇边，又觉得无谓，她如果过得好，又怎会是如今的苍白与憔悴？然而，就在同时，她眼中的泪蓦然滑落。他的心顿时如万箭刺穿一般疼痛，不由自主地，他向前踏了一步，想替她拭去脸上的泪。她却蓦然醒悟，转身离去。他黯然看她快步离去，走到白石桥上，与另一个白衫男子并肩离去。他凝望着他们登上小楼，把酒对饮。虽然隔着那么远的距离，但是，他还是看见了，看见了她虽然在笑，眼底的悲伤与落寞却如冷泉一般蔓延开来。她遣人送来一杯酒，他接过，一饮而尽，转身离去。曾经，他们也曾携手同游这沈园，那时，他们新婚燕尔，琴瑟和谐，她浅笑盈盈，轻轻捧过一杯酒，天地间似乎都溢满了他们的幸福。可如今，十年时光流过，他们却只能形同陌路，不动声色擦身而过。他心痛难当，挥笔在墙上题词一首：</p>
+<blockquote>
+<p><strong>钗头凤</strong><br>红酥手，黄藤酒，满城春色宫墙柳。东风恶，欢情薄，一杯愁绪，几年离索。错！错！错！<br>春如旧，人空瘦，泪痕红悒鲛绡透。桃花落，闲池阁，山盟虽在，锦书难托。莫，莫，莫！</p>
+</blockquote>
+<p>搁笔，他默然离去。从此，塞北大漠，北上抗金，想借此忘记这刻骨的伤痛，这一去，就是四十年。他过着醉里挑灯看剑，梦回吹角连营的军旅生活，心底深处那属于江南属于沈园的隐痛似乎已然淡了。然而，他不曾知道，在重逢的一年后，她重游沈园，走到与他重逢的旧地，看到墙上他的词，伤心欲绝。</p>
+<p>他们曾有过一段那么快乐的时光，携手出游，她轻启丹唇，唱起江南的小曲，他带着微笑细细倾听。他们十指紧扣，一同走过汉白玉的石桥，互相依偎着细听流水的欢歌。偶尔她起了童心，执着团扇在牡丹花丛中扑一对玉色的蝴蝶，他在一旁带着七分幸福三分宠溺的看着她。一不小心，她被一块石头绊到，他连忙过来扶她，于是她就跌入了他怀里。她脸颊微红，抬头看他，正对上他微笑着的眼睛。就是这样快乐的日子，让相爱的他们以为，这幸福一定会天长地久。可是，缠绕着他们的红线，却在瞬间断裂。他们成婚后，唐琬一直没有生育，而且，陆游与唐琬夫妻情深，日夜相伴形影不离，不再拼命追求功名。这些，终于激怒了陆游的母亲。母亲逼迫她休了唐琬，陆游一次次的苦苦哀求，到最后，只得低头，休了自己挚爱的琬儿。曾经以为的天长地久，就这样如水晶般片片破碎。她另嫁，他亦娶了别人。没缘法，转眼分离乍。她不怨他，他不能不孝，礼法大如天，百善孝为先，她怎能忍心，让他因了她而背上不孝的恶名？所以她走了，因为爱他，所以选择离去。虽然心中那么那么痛。她只能无声的在心中流泪。他又何尝不是呢？眼睁睁的看着她离去，痛如何哉？孔雀东南飞，五里一徘徊。</p>
+<p>已嫁作他人妇的她，对着他的词无声垂泪，心里怨着天意弄人。从离开他的那一天起，她的生命中再也没有了快乐。人道海水深，不抵相思半。海水尚有涯，相思渺无畔。任何一个相似的场景，都足以让眼泪决堤。但是，她还要强颜欢笑，因为不想伤害另一个同样深爱着她的男人。她心里的苦，无处可倾诉。她提笔，在他的词下面，亦写了一首：</p>
+<blockquote>
+<p><strong>钗头凤</strong><br>世情薄，人情恶，雨送黄昏花易落。晓风干，泪痕残，欲笺心事，独语斜栏。难！难！难！<br>人成各，今非昨，病魂常似秋千索。角声寒，夜阑珊，怕人寻问，咽泪装欢。瞒，瞒，瞒！</p>
+</blockquote>
+<p>唐琬是那样温柔而多情的女子，怎能经得起这样深沉的悲痛的摧折和消磨？不久，她就因为伤心过度而逝去。而这一场情殇，却并不曾因她的逝去而结束。</p>
+<p>时光依旧匆匆流过，四十年后的某一天，已经七十五岁的陆游重游沈园，看到当年她和的那首词，老泪纵横。他们错过了整整四十年啊，那是本该执手相看的年华，是本该琴瑟和谐的年华，而今，却只剩他独对着这面半倾颓的墙心痛。</p>
+<blockquote>
+<p>城上斜阳画角哀，沈园非复旧池台。<br>伤心桥下春波绿，曾是惊鸿照影来。</p>
+</blockquote>
+<blockquote>
+<p>梦断香消四十年，沈园柳老不吹绵，<br>此身行作稽山土，犹吊遗踪一泫然。</p>
+</blockquote>
+<p>少年时最深切的爱恋，历经了无数岁月和泪水的浸润，在他的心中越发的清晰。对她的爱，依旧深切而浓烈。就在去世的前一年，他还在写诗怀念：“沈家园里花如锦，半是当年识放翁，也信美人终作土，不堪幽梦太匆匆！”这种深挚无告，令人窒息的爱情能感动天地。这世间，这样的爱，有几人能拥有？</p>
+<p>读着放翁的诗，那里面透出的悲伤与爱恋，让我泪眼迷蒙。曾不止一次的想，如果他们能相伴到老，那该是多么幸福啊！可是，人生没有如果，人与人之间的缘分是注定的。从某种意义上来说，唐琬是幸福的，有陆游那么深深的爱着她，人世间，有多少女子能够得到这样深沉永久的爱情呢？</p>
+<p>伤心桥下春波绿，曾是惊鸿照影来。陆游与唐琬，凄美的爱情，千古不朽。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/luyou-and-tangwan/">展开全文 >></a>
         </p>
       
 
@@ -991,7 +1204,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/10/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/12/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/10/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/">Next &amp;raquo;</a>
     </nav>
   
 

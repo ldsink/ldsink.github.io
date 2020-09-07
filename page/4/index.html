@@ -203,7 +203,7 @@
         <div id="js-content" class="content-ll">
           
   
-    <article id="post-a-brief-history-of-humankind"
+    <article id="post-fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -212,16 +212,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/books/a-brief-history-of-humankind/">人类简史</a>
+      <a class="article-title" href="/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/">修复Ubuntu和Win10双系统时间差</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/books/a-brief-history-of-humankind/" class="archive-article-date">
-  <time datetime="2018-02-11T09:39:16.000Z" itemprop="datePublished">
-    Published on 2018 / 02 / 11
+          <a href="/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/" class="archive-article-date">
+  <time datetime="2016-12-25T09:24:32.000Z" itemprop="datePublished">
+    Published on 2016 / 12 / 25
   </time>
   
 </a>
@@ -232,18 +232,19 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>人类这种生物，从何而来，走向何处。这本书，试着回答这一系列问题。</p>
-<p>以前我想的，人类之所以区分于动物，在于人类会使用工具。使用工具，能捕获更多的猎物，防御更多天敌，适应更多环境。双手朝着使用更多工具的方向进化，继而更好的食物、条件，巩固这种趋势，继而人类逐渐成为万物之灵。很合理的发展，但是太简单粗暴，透着一股不自然。</p>
-<p>《人类简史》的开篇极其精彩，通过八卦故事的例子引出了<strong>认知革命</strong>，解答了我的一些疑惑。人类使用的工具会进化，个人能力会变强，但是是什么支撑着人类从最开始的一个个原始部落进化到现在的地球村呢？答案是认识革命。</p>
-<p>在人类早期的八卦中，我们有了对抽象概念的认识，才有了共同的目标，才能组织起这么大的群体。公司、民族、政党、国家，这些现在我们耳熟能详的概念，都不是实际的物体，都是我们认知中的概念，但是这些概念能支撑起成千上万的人的团队。进一步，认知革命延伸开的，比如信任，比如创新，比如协作，能发展出金融、工业、互联网等，支撑起了现在的美好生活。</p>
-<p>有了<strong>认知革命</strong>，之后的一切发展是如此的水到渠成。</p>
-<p>之后的农业革命、资本主义相关的章节，相比认知革命，没有那么精彩，但是读完也还是有些有意思的点。比如从物种延续的角度讨论的小麦/家养牲畜这些被人类驯化的物种：</p>
-<ul>
-<li>族群角度上是扩大了基因存在的范围，个体角度而言每个却很惨。</li>
-<li>小麦给人类提供食物，但是人类要好好伺候小麦。小麦因为被人类种植，从一种不怎么特别的野草到覆盖了大半个地球，谁利用谁？</li>
-</ul>
-<p>《人类简史》提到了资本、帝国和科技的相辅相成。很推荐再看看温铁军博士在中国地质大学的一个演讲。<a href="https://www.bilibili.com/video/av17547117/" target="_blank" rel="noopener">温铁军-三农与三治</a></p>
-<p>看这本书是因为别人的推荐。因为<strong>认知革命</strong>的精彩，在 KPW 上看完了电子版。之后再在京东上买了一本纸质书留作纪念。最近重新看了一遍纸质书，留下本文做阅读笔记。</p>
+        <p>启动了电脑上另一块SSD上的Ubuntu，又注意到了时间差问题。Windows默认会将BIOS上的时间认为是本地时间（我们这里表现就是CST，东八区时间），Ubuntu默认是UTC标准时间，会在此基础上增加8小时，作为显示的时间。如果在Win系统下将时间调整对，在Ubuntu下则会快了8个小时，反之也是。为了让两者都能正确的显示时间，得让两个系统使用相同的计算方式。</p>
+<p>调整时间一致，要么改Win设置，要么改Ubuntu。Windows要改注册表，还是Ubuntu改配置文件比较简单。现在网上搜出来的，很多都是那个以前的老方法：在<code>/etc/default/rcS</code>里面增加<code>UTC=no</code>，这个我在Ubuntu 16.04 LTS上尝试过，已经失效了。</p>
+<p>ArchWiki给出过现在的解决方法，现在需要设置如下命令：</p>
+<blockquote>
+<p>timedatectl set-local-rtc 1</p>
+</blockquote>
+<p>如果要改回来，将 1 改回 0 即可。</p>
+<blockquote>
+<p>timedatectl set-local-rtc 0</p>
+</blockquote>
+<p>设置成功之后，在Win和Ubuntu上都可以正确显示时间。使用<code>timedatectl</code>命令显示的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ timedatectl</span><br><span class="line">      Local time: Sun 2016-12-25 17:14:19 CST</span><br><span class="line">  Universal time: Sun 2016-12-25 09:14:19 UTC</span><br><span class="line">        RTC time: Sun 2016-12-25 17:14:19</span><br><span class="line">       Time zone: Asia/Shanghai (CST, +0800)</span><br><span class="line"> Network time on: yes</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: yes</span><br><span class="line"></span><br><span class="line">Warning: The system is configured to read the RTC time in the local time zone.</span><br><span class="line">         This mode can not be fully supported. It will create various problems</span><br><span class="line">         with time zone changes and daylight saving time adjustments. The RTC</span><br><span class="line">         time is never updated, it relies on external facilities to maintain it.</span><br><span class="line">         If at all possible, use RTC in UTC by calling</span><br><span class="line">         &apos;timedatectl set-local-rtc 0&apos;.</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -259,8 +260,8 @@
     <ul class="article-tag-list">
       
         <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
         </li>
       
     </ul>
@@ -269,7 +270,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/books/a-brief-history-of-humankind/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/">展开全文 >></a>
         </p>
       
 
@@ -300,7 +301,7 @@
 
 
   
-    <article id="post-date-and-time-on-the-internet"
+    <article id="post-let-s-encrypt"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -309,16 +310,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/date-and-time-on-the-internet/">互联网上的日期和时间</a>
+      <a class="article-title" href="/articles/let-s-encrypt/">Let&#39;s Encrypt</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/date-and-time-on-the-internet/" class="archive-article-date">
-  <time datetime="2017-12-08T07:02:52.000Z" itemprop="datePublished">
-    Published on 2017 / 12 / 08
+          <a href="/articles/let-s-encrypt/" class="archive-article-date">
+  <time datetime="2016-11-03T09:08:00.000Z" itemprop="datePublished">
+    Published on 2016 / 11 / 03
   </time>
   
 </a>
@@ -329,499 +330,574 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://a.adcdn.cn/images/time-zone-map.webp" alt="time-zone-map"></p>
-<p>最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间/时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。</p>
-<h1 id="日期（Date）、时间（Time）和时间戳（Timestamp）"><a href="#日期（Date）、时间（Time）和时间戳（Timestamp）" class="headerlink" title="日期（Date）、时间（Time）和时间戳（Timestamp）"></a>日期（Date）、时间（Time）和时间戳（Timestamp）</h1><p>互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一个统一的标准，来规范统一不同语言、不同时区对同一个时刻的表示。</p>
-<p>国际标准组织（ISO）制定了<a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank" rel="noopener">ISO 8601</a>,我们的<a href="http://www.cmaph.org/attachment/2013530/1369881489484.pdf" target="_blank" rel="noopener">中华人民共和国国家标准GB/T 7408-2005《数据元和交换格式 信息交换 日期和时间表示法》</a>与ISO 8601:2000等效采用。</p>
-<p>上面两个标准，对开发者而言，太过于严肃。其实有一份更加简单易读的文件 <a href="https://www.ietf.org/rfc/rfc3339.txt" target="_blank" rel="noopener">RFC3339 Date and Time on the Internet: Timestamps</a>。本文之后的讨论，都基于 RFC3339。</p>
-<p>RFC3339 比 ISO 8601 有一个很一个明显的限制，这里提一下：ISO允许24点，而 RFC3339 为了减少混淆，限制小时必须在0至23之间。23:59过1分钟，是第二天的0:00。</p>
-<p>阅读RFC3339，我主要明确下面三个定义：</p>
+        <h2 id="Wosign-被封"><a href="#Wosign-被封" class="headerlink" title="Wosign 被封"></a>Wosign 被封</h2><p>以下是最近的三则新闻：</p>
 <ul>
-<li>时间戳</li>
-<li>本地时间</li>
-<li>标准时间</li>
+<li><a href="https://linux.cn/article-7846-1.html" target="_blank" rel="noopener">沃通 CEO 辞职，苹果在 iOS 中封杀沃通 CA 证书</a></li>
+<li><a href="https://linux.cn/article-7814-1.html" target="_blank" rel="noopener">Mozilla 将封杀沃通和 StartSSL 一年内新签发的所有证书</a></li>
+<li><a href="https://linux.cn/article-7922-1.html" target="_blank" rel="noopener">谷歌也不信任沃通的证书了，StartCom CA 一并受到同等处罚</a></li>
 </ul>
-<h2 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h2><p>时间戳是一个数字，定义为格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。<strong>注意，同一时刻，不同时区获得的时间戳是相同的。</strong>以前很多用来记录时间的字段，在数据库中往往不会存储为Datetime类型，而是直接存储为无符号整形，存放时间戳的值。</p>
-<p>Python获取时间戳的代码为</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line">int(time.time())</span><br></pre></td></tr></table></figure>
-
-<h2 id="本地时间"><a href="#本地时间" class="headerlink" title="本地时间"></a>本地时间</h2><p>当前时区的本地时间</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">datetime.datetime.now()</span><br></pre></td></tr></table></figure>
-
-<p>上面的输出值为</p>
-<blockquote>
-<p>2017-12-08 11:50:03.537506</p>
-</blockquote>
-<h2 id="标准时间"><a href="#标准时间" class="headerlink" title="标准时间"></a>标准时间</h2><p>本地时间只包括当前的时间，不包含任何时区信息。同一时刻，东八区的本地时间比零时区的本地时间快了8个小时。在不同时区之间交换时间数据，除了用纯数字的时间戳，还有一种更方便人类阅读的表示方式：标准时间的偏移量表示方法。</p>
-<p>RFC3339详细定义了互联网上日期/时间的偏移量表示：</p>
-<blockquote>
-<p>2017-12-08T00:00:00.00Z</p>
-</blockquote>
-<p>这个代表了UTC时间的2017年12月08日零时</p>
-<blockquote>
-<p>2017-12-08T00:08:00.00+08:00</p>
-</blockquote>
-<p>这个代表了同一时刻的，东八区北京时间（CST）表示的方法</p>
-<p>上面两个时间的时间戳是等价的。两个的区别，就是在本地时间后面增加了时区信息。Z表示零时区。+08:00表示UTC时间增加8小时。</p>
-<p>这种表示方式容易让人疑惑的点是从标准时间换算UTC时间。以CST转换UTC为例，没有看文档的情况下，根据 +08:00 的结尾，很容易根据直觉在本地时间再加上8小时。正确的计算方法是本地时间减去多增加的8小时。+08:00减去8小时才是UTC时间，-08:00加上8小时才是UTC时间。</p>
-<h1 id="为什么我们会踩坑"><a href="#为什么我们会踩坑" class="headerlink" title="为什么我们会踩坑"></a>为什么我们会踩坑</h1><p>了解了本地时间和标准时间之后，很容易想到为什么我们会在这里出问题。</p>
-<p>很自然的，开发者编写代码处理用户输入的时间类型数据，处理的都是本地时间的格式。而计算机系统处理逻辑，依赖标准时间。从用户输入的本地时间，转化成系统能处理的标准时间，这个过程是系统隐式的自动转换。当系统的时区设置和用户所处的时区不一致的时候，时间经过一次输入，处理之后再输出，就有了差异。</p>
-<p>为了避免在时间处理上出现问题，核心就是统一输入输出时间的转化。因此解决的思路也是两个：</p>
+<p>沃通作的死，自己得慢慢还。苹果、Chrome、Firefox都封杀之后，那些用了沃通证书的人（比如我），就得考虑更换了。<a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a>项目刚出来的时候我就有关注，但是当时这个项目还不稳定。<br>这次乘着这次机会，使用了一下。</p>
+<p><code>Let&#39;s Encrypt</code>官网还是很大气的，看着非常舒服。首页就直接有<code>Get Started</code>，利用<code>Certbot</code>工具很快就申请到了新的证书，再去Nginx更新配置就可以正常使用。</p>
+<p><code>DigitalOcean</code>上对于配置还有一篇很详细的介绍，可以点击<a href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04" target="_blank" rel="noopener">这里</a>。</p>
+<h2 id="使用-Let’s-Encrypt"><a href="#使用-Let’s-Encrypt" class="headerlink" title="使用 Let’s Encrypt"></a>使用 Let’s Encrypt</h2><p>我有Shell权限，整个过程就三步：</p>
 <ol>
-<li>强制用户输入的时间类型是标准的，使用时间戳/标准时间。如果你的系统是给全球用户使用的，应该采用这种功能方法。这是最准确，最不容易出错的。</li>
-<li>系统的时区和用户的时区严格一致。项目规模小，全部都是一个时区的用户。采用这种方案，一旦用户跨时区了，还是会存在问题。不是很推荐。</li>
-</ol>
-<p>时区的名称可以查维基百科，也可以查官方的数据库 <a href="https://www.iana.org/time-zones" target="_blank" rel="noopener">Time Zone Database</a>。</p>
-<h1 id="踩过的坑和解决方法"><a href="#踩过的坑和解决方法" class="headerlink" title="踩过的坑和解决方法"></a>踩过的坑和解决方法</h1><p>避免踩时间坑，总的改进方式：</p>
-<ul>
-<li>系统最好都配好<a href="http://www.ntp.org/" target="_blank" rel="noopener">NTP</a>，保证时间准确。</li>
-<li>所有的输入数据，最好转换成标准时间，再交给业务逻辑处理。</li>
-<li>在天朝，还是把系统时区设置成北京时间比较好。</li>
-</ul>
-<h2 id="下面是一些踩过的坑："><a href="#下面是一些踩过的坑：" class="headerlink" title="下面是一些踩过的坑："></a>下面是一些踩过的坑：</h2><h3 id="Docker-设置时区"><a href="#Docker-设置时区" class="headerlink" title="Docker 设置时区"></a>Docker 设置时区</h3><p>很多Docker镜像都是UTC时区，在上海使用镜像启用容器，容器里面获取的本地时间都会慢8个小时。可以在Dockerfile里面设置时区。<a href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes" target="_blank" rel="noopener">参考这个问题的回答</a></p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Ubuntu-设置时区"><a href="#Ubuntu-设置时区" class="headerlink" title="Ubuntu 设置时区"></a>Ubuntu 设置时区</h3><p>Docker里面大部分镜像是基于Debian的，Docker这么解决，Ubuntu上思路类似，直接执行命令就好了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TZ=Asia/Shanghai</span><br><span class="line">ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
-
-<p>可以执行<code>date</code>命令查看时间，CST是中国标准时间。</p>
-<blockquote>
-<p>➜  ~ date<br>Fri Dec  8 14:12:46 CST 2017</p>
-</blockquote>
-<h3 id="Linux-和-Windows-双系统时间差"><a href="#Linux-和-Windows-双系统时间差" class="headerlink" title="Linux 和 Windows 双系统时间差"></a>Linux 和 Windows 双系统时间差</h3><p>以前写过<a href="https://ldsink.com/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/">修复Ubuntu和Win10双系统时间差</a>。</p>
-<h3 id="Celery-4-1-0-时区计算错误"><a href="#Celery-4-1-0-时区计算错误" class="headerlink" title="Celery 4.1.0 时区计算错误"></a>Celery 4.1.0 时区计算错误</h3><p>这个PR <a href="https://github.com/celery/celery/pull/4173/" target="_blank" rel="noopener">Correct calculation of application current time with timezone</a> 已经修复了，但是现在还没发布新版本。要么回退4.0.2，要么等下个版本。</p>
-<h3 id="Python-怎么从本地时间转换成标准时间"><a href="#Python-怎么从本地时间转换成标准时间" class="headerlink" title="Python 怎么从本地时间转换成标准时间"></a>Python 怎么从本地时间转换成标准时间</h3><p><strong>Python 里面的 datetime.datetime.now() 拿到的是本地时间。</strong>如果用这个保存时间，请务必确保系统的时区设置正确，统一。</p>
-<p>Python中间的时间戳、datetime之间的转换，最好强制写清楚时区。<a href="https://github.com/hui-z/meican/pull/7/" target="_blank" rel="noopener">这是个例子</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳转换到CST时间</span></span><br><span class="line">timestamp = int(time.time())</span><br><span class="line">datetime.datetime.fromtimestamp(timestamp, tz=datetime.timezone(datetime.timedelta(hours=<span class="number">8</span>)))</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color4">rfc</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/date-and-time-on-the-internet/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-toml"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/toml/">聊一聊TOML</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/toml/" class="archive-article-date">
-  <time datetime="2017-11-22T08:47:02.000Z" itemprop="datePublished">
-    Published on 2017 / 11 / 22
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近配置 Gitlab Runner，发现他的配置文件是<code>.toml</code>后缀。对<code>toml</code>类型一番了解之后，发现这是个非常值得使用的配置文件语言。</p>
-<h2 id="TOML的由来"><a href="#TOML的由来" class="headerlink" title="TOML的由来"></a>TOML的由来</h2><p>TOML是<code>Tom&#39;s Obvious, Minimal Language.</code>的首字母缩写，是Tom的浅显的、极简的语言。<br>那么问题来了，Tom是谁？搜索之后得到答案，<code>Tom</code>是<code>Tom Preston-Werner</code>，全球最大的同性交友网站<a href="https://github.com/" target="_blank" rel="noopener">Github</a>联合创始人。<br>还有小道消息，GitHub 新项目转用CoffeeScript 之后，CoffeeScript 比 JavaScript 要简洁优雅得多。同样地，GitHub 也觉得 YAML 不够简洁优雅，因此捣鼓出了一个 TOML。</p>
-<h2 id="TOML的目标"><a href="#TOML的目标" class="headerlink" title="TOML的目标"></a>TOML的目标</h2><p>成为一个极简的配置文件格式。<br>关键词：极简、配置文件<br>TOML的语法足够简单，同时保证一个标准的TOML文件的所有配置项目都能被无歧义的转换成一个哈希表。TOML可以被各种语言解析使用。</p>
-<p>TOML目前的版本还是<code>0.4.0</code>，官网还是提示在<code>1.0</code>以前，语言表现可能还是不稳定。这个只是个免责条款，在很多生产系统里面，TOML配置文件已经大规模使用了，比如友商<code>GibLab</code>。</p>
-<h2 id="简单样例"><a href="#简单样例" class="headerlink" title="简单样例"></a>简单样例</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/toml-lang/toml# This is a TOML document.</span><br><span class="line"></span><br><span class="line"><span class="attr">title</span> = <span class="string">"TOML Example"</span></span><br><span class="line"></span><br><span class="line"><span class="section">[owner]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">"Tom Preston-Werner"</span></span><br><span class="line"><span class="attr">dob</span> = <span class="number">1979</span>-<span class="number">05</span>-<span class="number">27</span>T07:<span class="number">32</span>:<span class="number">00</span>-<span class="number">08</span>:<span class="number">00</span> https://github.com/toml-lang/toml# First class dates</span><br><span class="line"></span><br><span class="line"><span class="section">[database]</span></span><br><span class="line"><span class="attr">server</span> = <span class="string">"192.168.1.1"</span></span><br><span class="line"><span class="attr">ports</span> = [ <span class="number">8001</span>, <span class="number">8001</span>, <span class="number">8002</span> ]</span><br><span class="line"><span class="attr">connection_max</span> = <span class="number">5000</span></span><br><span class="line"><span class="attr">enabled</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[servers]</span></span><br><span class="line"></span><br><span class="line">  https://github.com/toml-lang/toml# Indentation (tabs and/or spaces) is allowed but not required</span><br><span class="line"><span class="section">  [servers.alpha]</span></span><br><span class="line">  ip = "10.0.0.1"</span><br><span class="line">  dc = "eqdc10"</span><br><span class="line"></span><br><span class="line"><span class="section">  [servers.beta]</span></span><br><span class="line">  ip = "10.0.0.2"</span><br><span class="line">  dc = "eqdc10"</span><br><span class="line"></span><br><span class="line"><span class="section">[clients]</span></span><br><span class="line"><span class="attr">data</span> = [ [<span class="string">"gamma"</span>, <span class="string">"delta"</span>], [<span class="number">1</span>, <span class="number">2</span>] ]</span><br><span class="line"></span><br><span class="line">https://github.com/toml-lang/toml# Line breaks are OK when inside arrays</span><br><span class="line"><span class="attr">hosts</span> = [</span><br><span class="line">  "alpha",</span><br><span class="line">  "omega"</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>上面的样例就展示了很多TOML的特点。</p>
-<ul>
-<li>主要通过键值对表达</li>
-<li>使用 <code>#</code> 作为注释</li>
-<li>支持数字、字符串、布尔量、日期等数据类型</li>
-<li>有块、列表等数据结构</li>
-</ul>
-<p>还有一些特性，也列出来</p>
-<ul>
-<li>TOML是大小写敏感的</li>
-<li>TOML文件必须是UTF8编码的</li>
-<li>空白符可以是制表符(0x09)或空格(0x20)</li>
-<li>换行符可以是 LF (0x0A) 或 CRLF (0x0D0A)</li>
-<li>可以使用空字符串作为key <strong>强烈不推荐这么用</strong></li>
-</ul>
-<p>看完样例，对TOML就能有基本的认识，参照文档就能快速写出合适的配置文件。</p>
-<h2 id="很棒的点"><a href="#很棒的点" class="headerlink" title="很棒的点"></a>很棒的点</h2><h4 id="Offset-Date-Time"><a href="#Offset-Date-Time" class="headerlink" title="Offset Date-Time"></a>Offset Date-Time</h4><p>TOML支持<a href="https://tools.ietf.org/html/rfc3339" target="_blank" rel="noopener">RFC 3339</a>格式的时间，可以精准的描述一个地区时间。</p>
-<h4 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h4><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">str1</span> = <span class="string">"""</span></span><br><span class="line"><span class="string">Roses are red</span></span><br><span class="line"><span class="string">Violets are blue"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># On a Unix system, the above multi-line string will most likely be the same as:</span></span><br><span class="line"><span class="attr">str2</span> = <span class="string">"Roses are red\nViolets are blue"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># On a Windows system, it will most likely be equivalent to:</span></span><br><span class="line"><span class="attr">str3</span> = <span class="string">"Roses are red\r\nViolets are blue"</span></span><br></pre></td></tr></table></figure>
-
-<p>直接换行编写配置文件，在各个系统都能准确表达。</p>
-<h4 id="分割z数字"><a href="#分割z数字" class="headerlink" title="_分割z数字"></a><code>_</code>分割z数字</h4><p>数字，可以加入<code>_</code>作为标记，不影响数值。每三位加一个，快速区分量级。玩EVE再也不用担心多付ISK了。</p>
-<pre><code class="toml"><span class="attr">num1</span> = <span class="number">1_000</span>  # 一千
-<span class="attr">num2</span> = <span class="number">2_000_000</span>  # 两百万
-<span class="attr">num3</span> = <span class="number">3_000_000_000</span>  # 三十亿</code></pre>
-<h4 id="表示层级"><a href="#表示层级" class="headerlink" title=".表示层级"></a><code>.</code>表示层级</h4><p>块可以用<code>.</code>表示层级。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://github.com/toml-lang/toml" target="_blank" rel="noopener">Github TOML</a></li>
-<li><a href="https://segmentfault.com/a/1190000000477752" target="_blank" rel="noopener">TOML： GitHub 这是要革 YAML 的命呀！</a></li>
-</ul>
-<p>TOML Github 的目录</p>
-<ul>
-<li><a href="https://github.com/toml-lang/toml#user-content-example" target="_blank" rel="noopener">Example</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-spec" target="_blank" rel="noopener">Spec</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-comment" target="_blank" rel="noopener">Comment</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-keyvalue-pair" target="_blank" rel="noopener">Key/Value Pair</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-string" target="_blank" rel="noopener">String</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-integer" target="_blank" rel="noopener">Integer</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-float" target="_blank" rel="noopener">Float</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-boolean" target="_blank" rel="noopener">Boolean</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-offset-date-time" target="_blank" rel="noopener">Offset Date-Time</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-local-date-time" target="_blank" rel="noopener">Local Date-Time</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-local-date" target="_blank" rel="noopener">Local Date</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-local-time" target="_blank" rel="noopener">Local Time</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-array" target="_blank" rel="noopener">Array</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-table" target="_blank" rel="noopener">Table</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-inline-table" target="_blank" rel="noopener">Inline Table</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-array-of-tables" target="_blank" rel="noopener">Array of Tables</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-filename-extension" target="_blank" rel="noopener">Filename Extension</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-comparison-with-other-formats" target="_blank" rel="noopener">Comparison with Other Formats</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-get-involved" target="_blank" rel="noopener">Get Involved</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-projects-using-toml" target="_blank" rel="noopener">Projects using TOML</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-implementations" target="_blank" rel="noopener">Implementations</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-validators" target="_blank" rel="noopener">Validators</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-language-agnostic-test-suite-for-toml-decoders-and-encoders" target="_blank" rel="noopener">Language agnostic test suite for TOML decoders and encoders</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-editor-support" target="_blank" rel="noopener">Editor support</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-encoder" target="_blank" rel="noopener">Encoder</a></li>
-<li><a href="https://github.com/toml-lang/toml#user-content-converters" target="_blank" rel="noopener">Converters</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color5">toml</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/toml/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-nginx-with-certbot"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/nginx-with-certbot/">Nginx 与 Certbot</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/nginx-with-certbot/" class="archive-article-date">
-  <time datetime="2017-11-15T07:13:43.000Z" itemprop="datePublished">
-    Published on 2017 / 11 / 15
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>管理了很多内部系统，每个在内网部署好之后，需要在入口的 Nginx 配置。内部系统，安全性也很重要，出于习惯都会配置上HTTPS。以前数量少，手动申请再配置免费的DV证书。现在站点一多，这么整就太麻烦了。<br>很幸运，现在的<a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a>附带的<code>Certbot</code>已经比以前好多了，能自动的处理这些，稍加配置，就能轻松让全部域名实现。</p>
-<h2 id="Certbot是什么"><a href="#Certbot是什么" class="headerlink" title="Certbot是什么"></a>Certbot是什么</h2><blockquote>
-<p>Automatically enable HTTPS on your website with EFF’s Certbot, deploying Let’s Encrypt certificates.</p>
-</blockquote>
-<h2 id="怎么部署"><a href="#怎么部署" class="headerlink" title="怎么部署"></a>怎么部署</h2><p><a href="https://certbot.eff.org/" target="_blank" rel="noopener">官网首页</a>就有文档，选择好<code>Software</code>和<code>System</code>就有具体的细节。Certbot在Ubuntu上有PPA，安装很方便。<br><code>Ubuntu Xenial</code>上<code>Nginx</code>的自动化部署方式<a href="https://certbot.eff.org/#ubuntuxenial-nginx" target="_blank" rel="noopener">点这里</a>，核心流程就是：</p>
-<ol>
-<li>安装好<code>Certbot</code></li>
-<li><code>$ sudo certbot --nginx</code>，自动检测Nginx站点，自动配置HTTPS跳转</li>
-<li><code>sudo certbot renew --dry-run</code>，检测更新是否正常工作</li>
-<li>在<code>crontab</code>里面添加<code>certbot renew</code>任务<br><code>0 0 * * 1 /usr/bin/certbot --nginx renew &gt;&gt; /var/log/certbot_renew.log</code></li>
-</ol>
-<h2 id="可能会出问题的点"><a href="#可能会出问题的点" class="headerlink" title="可能会出问题的点"></a>可能会出问题的点</h2><ul>
-<li>域名DNS解析不能是<code>cname</code>记录，得是<code>a</code>记录</li>
-<li><a href="https://certbot.eff.org/" target="_blank" rel="noopener">Certbot</a>的配置、证书都在<code>/etc/letsencrypt</code>目录，有时候可以去删除一些错误的配置</li>
-<li><a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a>证书有效时间3个月，注意自动更新证书的时间。<code>certbot renew</code>在快接近失效时间的时候才会更新，可以放心的重复调用。我的<code>crontab</code>设置的每周一更新一次。</li>
-</ul>
-<p><strong>期待明年一月放出的通配符证书，有了这个，几个环境也可以不用买证书啦。 <code>*★,°*:.☆\(￣▽￣)/$:*.°★*</code></strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color1">nginx</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/nginx-with-certbot/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-python3-upgrade-notes"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/python3-upgrade-notes/">Python3 升级注意事项</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/python3-upgrade-notes/" class="archive-article-date">
-  <time datetime="2017-08-02T07:28:20.000Z" itemprop="datePublished">
-    Published on 2017 / 08 / 02
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>面向开发同事的分享。</strong><br><strong>整个迁移过程可以看<a href="http://www.liriansu.com/py2-to-py3" target="_blank" rel="noopener">这里</a>。</strong></p>
-<h1 id="开发-服务器环境"><a href="#开发-服务器环境" class="headerlink" title="开发/服务器环境"></a>开发/服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
-<ul>
-<li>新建 Python3 环境的 virtualenv，并且安装 requirements.txt</li>
-</ul>
-<blockquote>
-<p>virtualenv -p /usr/bin/python3 &lt;path/to/virtualenv&gt;</p>
-</blockquote>
-<ul>
-<li><p>PyCharm 设置新的虚拟环境，设置 Python3.5 的检测</p>
+<li><p>执行 <code>apt install letsencrypt</code> 安装 <code>Certbot</code>。</p>
 </li>
-<li><p>Terminal 可以使用如下命令载入，可以自由在多个 virtualenv 之间切换</p>
+<li><p>执行 <code>letsencrypt certonly --webroot -w /var/www/path/to/your/website -d yourdomian.com</code>。执行完成之后会有以下输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - If you lose your account credentials, you can recover through</span><br><span class="line">   e-mails sent to youremail@domian.com.</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at</span><br><span class="line">   /etc/letsencrypt/live/domian.com/fullchain.pem. Your cert will</span><br><span class="line">   expire on 2017-01-30. To obtain a new version of the certificate in</span><br><span class="line">   the future, simply run Let&apos;s Encrypt again.</span><br><span class="line"> - Your account credentials have been saved in your Let&apos;s Encrypt</span><br><span class="line">   configuration directory at /etc/letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Let&apos;s</span><br><span class="line">   Encrypt so making regular backups of this folder is ideal.</span><br><span class="line"> - If you like Let&apos;s Encrypt, please consider supporting our work by:</span><br><span class="line"></span><br><span class="line">   Donating to ISRG / Let&apos;s Encrypt:   https://letsencrypt.org/donate</span><br><span class="line">   Donating to EFF:                    https://eff.org/donate-le</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>去 Nginx 配置文件更新证书。<code>ssl_certificate</code>是<code>fullchain.pem</code>，<code>ssl_certificate_key</code>是<code>privkey.pem</code>。更新好配置重启/重载生效。</p>
+</li>
+</ol>
+<h2 id="自动更新"><a href="#自动更新" class="headerlink" title="自动更新"></a>自动更新</h2><p><code>Let&#39;s Encrypt</code>的证书有效期是三个月，可以在服务器上配置自动更新证书。这个我现在还没用，下次折腾了再记。</p>
+<p>另外，<code>Let&#39;s Encrypt</code>正在众筹资金，有意向的可以支持一下。** <a href="https://linux.cn/article-7926-1.html" target="_blank" rel="noopener">捐赠 Let’s Encrypt，共建安全的互联网</a> **</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/let-s-encrypt/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-setup-sentry-with-docker"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/setup-sentry-with-docker/">使用 Docker 搭建 Sentry</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/setup-sentry-with-docker/" class="archive-article-date">
+  <time datetime="2016-08-20T08:32:00.000Z" itemprop="datePublished">
+    Published on 2016 / 08 / 20
+  </time>
+  
+    <time datetime="2016-09-11T08:35:49.000Z" itemprop="dateUpdated">
+      , Updated on 2016 / 09 / 11
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目之前使用的是<a href="https://sentry.io/welcome/" target="_blank" rel="noopener">Sentry</a>官方提供的付费服务，但是因为我们在国内，访问比较慢，体验很糟糕。Sentry本身就是开源的，打算自己动手搭建一个，老板就把这个光荣的任务交给我，Fight～～～</p>
+<p>配置环境一直是一个比较繁琐的事情，还好现在容器盛行，我计划就是直接使用 Docker 来启动 Sentry 的服务。</p>
+<h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><p>不得不说现在 Docker 的生态链比2014年我刚了解这个工具的时候好太多了，现在安装 Docker 也很简单。</p>
+<p>系统源里面可能有 Docker，但是我喜欢使用最新版软件，于是打算从官网下载安装。但是现在已经有了<a href="https://get.docker.com/" target="_blank" rel="noopener">Get Docker</a>，打开这个网页，复制一行命令，再终端执行，OK，Docker 安装完成。</p>
+<blockquote>
+<p>如果服务器的用户权限不是 root 的话，每次调用 docker 的命令需要加 sudo，有些人可能觉得这个很烦。<br>可以添加一个 docker 组来解决这个问题。参见：<a href="https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group" target="_blank" rel="noopener">https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group</a></p>
+</blockquote>
+<h2 id="Sentry-安装"><a href="#Sentry-安装" class="headerlink" title="Sentry 安装"></a>Sentry 安装</h2><p>Sentry 在 <a href="https://hub.docker.com/" target="_blank" rel="noopener">DockerHub</a> 上有官方的镜像，这个就大大方便了我们。</p>
+<p>Sentry Official <a href="https://hub.docker.com/_/sentry/" target="_blank" rel="noopener">https://hub.docker.com/_/sentry/</a></p>
+<h4 id="核心的流程如下："><a href="#核心的流程如下：" class="headerlink" title="核心的流程如下："></a>核心的流程如下：</h4><p><strong>启动Sentry需要的Redis实例</strong></p>
+<p><code>docker run -d --name sentry-redis redis</code></p>
+<p><strong>启动Sentry需要的PostgreSQL实例</strong></p>
+<p> <code>docker run -d --name sentry-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=sentry postgres</code></p>
+<p><strong>生成 SENTRY_SECRET_KEY</strong></p>
+<p><code>docker run --rm sentry config generate-secret-key</code></p>
+<p>这个生成的 SENTRY_SECRET_KEY 需要记住，后面都要用到</p>
+<p><strong>初始化数据库</strong></p>
+<p><code>docker run -it --rm -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade</code></p>
+<p>这里需要使用刚才生成的 SENTRY_SECRET_KEY。这个操作会在PostgresQL里面初始化表信息。</p>
+<p><strong>启动Sentry的Web服务</strong></p>
+<p><code>docker run -d -p 80:9000 --name my-sentry -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-redis:redis --link sentry-postgres:postgres sentry</code></p>
+<p>-p 参数设置实例暴露的端口号，我这台机器只跑这个就直接占了80端口。</p>
+<p><strong>启动Sentry的Worker</strong></p>
+<p><code>docker run -d --name sentry-cron -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run cron</code></p>
+<p><code>docker run -d --name sentry-worker-1 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
+<p>worker 和 celery beat 根据实际情况添加，我这里就只加1个。</p>
+<h2 id="必要的配置"><a href="#必要的配置" class="headerlink" title="必要的配置"></a>必要的配置</h2><p><strong>邮件设置</strong></p>
+<p>上面的步骤跑完，Sentry 就已经搭建好并且可以使用了，还有问题，你会发现没有邮件提醒，我们需要配置邮件服务。</p>
+<p>官方的介绍了两种方法，一个是再 link 一个 SMTP 的 instance，一个是添加SMTP服务的配置。我两个都试了，前者发出的邮件很容易被当做垃圾邮件拦截，我现在采用的是后者。现在国内的免费邮件服务都提供了SMTP功能，一开始我直接使用了免费的QQ邮箱和163邮箱，一部分邮件可以发送成功，一部分会连接超时，这个让我很无语，这种不稳定不能用。Gmail估计不会有问题，但是可能被墙，就没试（其实是拿老板手机注册的时候没成功，没成功的原因的老板手机欠费停机，没收到验证短信。o(╯□╰)o）</p>
+<p>考虑邮件推送服务。服务器在AWS中国上，AWS有邮件推送服务，但是这个AWS中国貌似还没开发这个功能；搜狐家有<a href="https://sendcloud.sohu.com/" target="_blank" rel="noopener">SendCloud</a>,注册之后发现要获取免费的额度需要填太多东西，作罢；因为有阿里云的账号，阿里云家配置比较简单，暂时用的阿里云的邮件推送服务，地址：<a href="https://www.aliyun.com/product/directmail" target="_blank" rel="noopener">https://www.aliyun.com/product/directmail</a>。实际使用中还是有发送失败的情况，没有说的那么好。</p>
+<p>配好之后，我们需要将这些配置加到我们的Sentry实例中。我没有作为 instance 的启动参数，而是直接修改了 sentry.conf.py 文件，直接将配置文件 mount 到 instance 内。相关的部分如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># email = env('SENTRY_EMAIL_HOST') or (env('SMTP_PORT_25_TCP_ADDR') and 'smtp')</span></span><br><span class="line"><span class="comment"># if email:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS['mail.backend'] = 'smtp'</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS['mail.host'] = email</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS['mail.password'] = env('SENTRY_EMAIL_PASSWORD') or ''</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS['mail.username'] = env('SENTRY_EMAIL_USER') or ''</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS['mail.port'] = int(env('SENTRY_EMAIL_PORT') or 25)</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS['mail.use-tls'] = Bool(env('SENTRY_EMAIL_USE_TLS', False))</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS['mail.backend'] = 'dummy'</span></span><br><span class="line"></span><br><span class="line">SENTRY_OPTIONS[<span class="string">'mail.backend'</span>] = <span class="string">'smtp'</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">'mail.host'</span>] = <span class="string">'smtpdm.aliyun.com'</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">'mail.password'</span>] = <span class="string">'your password'</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">'mail.username'</span>] = <span class="string">'your email address'</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">'mail.port'</span>] = <span class="number">25</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">'mail.use-tls'</span>] = <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+
+<p>启动命令如下:</p>
+<p><code>docker run -d -p 80:9000 -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry</code></p>
+<p><code>docker run -d -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
+<blockquote>
+<p>注意：如果只启动 Web，在 Sentry 内的测试发送邮件会成功，但是通知邮件依旧会失败。因为通知邮件是 Worker instance 发送的，不是 Web instance 发送的，邮件配置必须也传到 Worker instance 里面。</p>
+</blockquote>
+<p><strong>关闭注册功能</strong></p>
+<p>内部用的系统，不希望开放公开的注册。需要把这个功能 disable 掉。还是改<code>sentry.conf.py</code>文件，添加一行 <code>SENTRY_FEATURES[&#39;auth:register&#39;] = False</code></p>
+<p><strong>更多的参数写到 sentry.conf.py</strong></p>
+<p>很多参数都是可以直接写到 sentry.conf.py 内的。我把<code>system.secret-key</code>这个也写到文件内，这样 docker  run 需要带的参数就大大减少。</p>
+<h2 id="Sentry-使用"><a href="#Sentry-使用" class="headerlink" title="Sentry 使用"></a>Sentry 使用</h2><p>这个就不多说了。用管理员账号登录之后，自己添加 Project 和 Member，再把 Sentry 的 Track 加到需要监测的项目里面就好。我们项目用的 Django，里面的 raven 配置加上新的链接就可用，非常方便。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/setup-sentry-with-docker/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-congratulations-wings"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/congratulations-wings/">Congratulations Wings!</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/congratulations-wings/" class="archive-article-date">
+  <time datetime="2016-08-14T11:48:00.000Z" itemprop="datePublished">
+    Published on 2016 / 08 / 14
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>天道勤酬，恭喜Wings获得TI6冠军！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一支曾因没有LOL分部而被DACE拒之门外的战队，</span><br><span class="line">一支队服上连赞助商Logo都没有的战队，</span><br><span class="line">一支全队没有一个人开直播的战队，</span><br><span class="line">一支为了梦想坚持到底的战队，</span><br><span class="line">一支创造了奇迹的战队，</span><br><span class="line">一支无敌的战队！</span><br><span class="line">Wings！</span><br><span class="line">来自微信公众号 天辉夜魇</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/congratulations-wings/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-ccg-2016"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/ccg-2016/">CCG 2016</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/ccg-2016/" class="archive-article-date">
+  <time datetime="2016-07-09T12:46:00.000Z" itemprop="datePublished">
+    Published on 2016 / 07 / 09
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="入场"><a href="#入场" class="headerlink" title="入场"></a>入场</h1><p>昨晚看小说三点多才睡，但是早上七点钟依旧爬了起来。展会是九点整入场，提前出发是希望入场的时候不要排那么长的队伍，结果到了才发现已经有很多人在排队……</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_1.webp" alt="排队"></p>
+<p>排队的时候和小伙伴们聊天，慢慢的把人凑齐。我其实主要就是想看水濑祈，毕竟就是因为她会来才决定出门看这个展会的，腹黑的上神大人还是很萌的。Harmony Ribbon 绝赞发售中！</p>
+<p>门票有两种，很早买的是邮寄的纸质票。近期买的是电子票。电子票得多排一个队兑换纸质票。</p>
+<h1 id="EXPO"><a href="#EXPO" class="headerlink" title="EXPO"></a>EXPO</h1><p>进入之后领了本小册子，仔细看了下，其实有三个馆（EXPO，MAX和电竞），主要参观的应该是EXPO。</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_2.webp" alt="分布图"></p>
+<p>川原今天有签售，貌似买满200可以抽奖，中了去要签名。要排队这么麻烦的事情我是不会去的，主要还是看看手办。</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_3.webp" alt="image"></p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_4.webp" alt="image"></p>
+<p>万代的高达馆，一些模型挺好玩</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_5.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_6.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_7.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_8.webp" alt="image"></p>
+<p>FATE的痛车</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_9.webp" alt="image"></p>
+<p>11：30有心欲呐喊主创见面会，水濑祈来了。不让牌照，我很老实的遵守了。正面太多人，我们站在侧面，感觉距离反而进了。真人好可爱，(๑•ᴗ•๑)。</p>
+<p>穹妹这个数量限定的手办，一开始没排队，后面想买的时候已经没了。(┬＿┬)</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_10.webp" alt="image"></p>
+<p>买了两本画册，走之前5个小伙伴买了小圆的5个人，凑成了五色战队。我的小圆明明很可爱，盒子也最大，为什么价格最便宜，不解。</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_11.webp" alt="image"></p>
+<h1 id="MAX"><a href="#MAX" class="headerlink" title="MAX"></a>MAX</h1><p>这个貌似是同人馆，但是没啥好东西买。主要就是等水濑祈一点半的歌，听完就走。此时腿已经很疼了，果然家里最舒服。</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_12.webp" alt="image"></p>
+<p>这个馆COS挺多的，有个COS成Nico的在拍雷姆，感觉很好玩。话说这个Nico脸有点像空丸啊。</p>
+<h1 id="电竞馆"><a href="#电竞馆" class="headerlink" title="电竞馆"></a>电竞馆</h1><p>G联赛Dota2的决赛，同福打IG，没其他好玩的东西，拍了张图就走了。今年Ti6中国队加油！</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_13.webp" alt="image"></p>
+<h1 id="归途"><a href="#归途" class="headerlink" title="归途"></a>归途</h1><p>临走拍了一张，发现这个位置过一条街就是上次看Dota2春季特锦标赛的梅赛德斯-奔驰文化中心。<br><img src="https://a.adcdn.cn/images/ccg2016_14.webp" alt="image"></p>
+<h1 id="小圆"><a href="#小圆" class="headerlink" title="小圆"></a>小圆</h1><p>小圆的浴衣做的很精致啊，为什么这么便宜。(/ □ \)</p>
+<p><img src="https://a.adcdn.cn/images/ccg2016_15.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_16.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_17.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_18.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_19.webp" alt="image"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/ccg-2016/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-unified-social-credit-identifier"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/unified-social-credit-identifier/">统一社会信用代码</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/unified-social-credit-identifier/" class="archive-article-date">
+  <time datetime="2016-05-25T10:55:00.000Z" itemprop="datePublished">
+    Published on 2016 / 05 / 25
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是统一社会信用代码"><a href="#什么是统一社会信用代码" class="headerlink" title="什么是统一社会信用代码"></a>什么是统一社会信用代码</h3><p>很久很久以前，注册一家公司会有公司营业执照，上面会有营业执照注册号。公司赚钱了，要依法纳税，去税务局又会办理一个税务登记证，上面又有一个编号。<br>一个人只需要一个公民身份证号码就可以确定了，公司在不同的场合却需要多个证件编号。对企业而言，麻烦，办各种手续都不方便。对管理者而言，监管不便，管理成本高。</p>
+<p>我们都知道，统一的标准可以减少成本，提高效率。<code>GOV</code>作为某种意义上的特大企业，也明白这个道理，于是有了<a href="http://baike.baidu.com/view/15172871.htm" target="_blank" rel="noopener">三证合一</a>，统一多个编号，使用唯一一个编号。</p>
+<p>企业编号决定统一使用一个标准，个人编号已经是一个标准，于是<code>GOV</code>再加了一把劲。怀着<code>为了更好的服务大众，构建信用社会</code>的目标，在现在的基础上，<code>GOV</code>倒腾出了<a href="http://baike.baidu.com/item/%E7%BB%9F%E4%B8%80%E7%A4%BE%E4%BC%9A%E4%BF%A1%E7%94%A8%E4%BB%A3%E7%A0%81%E5%88%B6%E5%BA%A6" target="_blank" rel="noopener">统一社会信用代码制度</a>。</p>
+<p>这个企业的身份证号码就是<code>统一社会信用代码</code>，用于替换之前企业各个证件上的编号。和公民身份证号码一样，<code>统一社会信用代码</code>也是18位。</p>
+<h3 id="统一社会信用代码的用处"><a href="#统一社会信用代码的用处" class="headerlink" title="统一社会信用代码的用处"></a>统一社会信用代码的用处</h3><ul>
+<li>以前，业务上标识一家企业通过<code>公司名称</code>或者<code>营业执照注册号</code>，这些都不稳定。名称可以变，注册编号长度不确定。</li>
+<li>以后的新数据可以统一的通过<code>统一社会信用代码</code>标识，这个在稳定性和权威性上都好于以前。</li>
+</ul>
+<h3 id="统一社会信用代码编码规则"><a href="#统一社会信用代码编码规则" class="headerlink" title="统一社会信用代码编码规则"></a>统一社会信用代码编码规则</h3><p>工商总局在官网上发布了标准文件：<a href="http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html" target="_blank" rel="noopener">法人和其他组织统一社会信用代码编码规则</a>。和身份证编号类似，根据编码规则可以进行一下判断并获取有用的一些信息。我们在审核的时候，可以通过检测编号来判断公司的真假。</p>
+<p>下面是我用PHP实现的简单检测函数，<code>管理部门</code>、<code>机构类别</code>、<code>登记地区</code>这些信息还没有充分利用起来，只根据校验码检测。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法人和其他组织统一社会信用代码</span></span><br><span class="line"><span class="comment">// 编码规则：http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unifiedSocialCreditIdentifier</span><span class="params">($value)</span> </span>&#123;</span><br><span class="line">4<span class="comment">// 统一代码由十八位的阿拉伯数字或者大写英文字母（不使用I、O、Z、S、V）组成</span></span><br><span class="line">4<span class="keyword">if</span> (!is_string($value)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">4$value = strtoupper($value);</span><br><span class="line">4<span class="keyword">if</span> (strlen($value) !== <span class="number">18</span> || !preg_match(<span class="string">'/^[\dA-HJ-NP-RT-UW-Y]&#123;18&#125;$/'</span>, $value)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">4<span class="comment">// todo 第1位：登记管理部门代码检查</span></span><br><span class="line">4<span class="comment">// todo 第2位：机构类别代码检查</span></span><br><span class="line">4<span class="comment">// todo 第3位～第8位：登记机关行政区划码检查</span></span><br><span class="line">4<span class="keyword">if</span> (!is_numeric(substr($value, <span class="number">2</span>, <span class="number">6</span>))) <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">// 简单检查，这部分一定是阿拉伯数字</span></span><br><span class="line">4<span class="comment">// todo 第9位～第17位：主体标识码检查</span></span><br><span class="line">4<span class="comment">// 第18位：检验码检查</span></span><br><span class="line">4$加权因子 = [</span><br><span class="line">44<span class="number">1</span> =&gt; <span class="number">1</span>, <span class="number">2</span> =&gt; <span class="number">3</span>, <span class="number">3</span> =&gt; <span class="number">9</span>, <span class="number">4</span> =&gt; <span class="number">27</span>, <span class="number">5</span> =&gt; <span class="number">19</span>, <span class="number">6</span> =&gt; <span class="number">26</span>, <span class="number">7</span> =&gt; <span class="number">16</span>, <span class="number">8</span> =&gt; <span class="number">17</span>, <span class="number">9</span> =&gt; <span class="number">20</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="number">29</span>, <span class="number">11</span> =&gt; <span class="number">25</span>, <span class="number">12</span> =&gt; <span class="number">13</span>, <span class="number">13</span> =&gt; <span class="number">8</span>, <span class="number">14</span> =&gt; <span class="number">24</span>, <span class="number">15</span> =&gt; <span class="number">10</span>, <span class="number">16</span> =&gt; <span class="number">30</span>, <span class="number">17</span> =&gt; <span class="number">28</span></span><br><span class="line">4];</span><br><span class="line">4$代码字符集 = [</span><br><span class="line">44<span class="number">0</span> =&gt; <span class="string">'0'</span>, <span class="number">1</span> =&gt; <span class="string">'1'</span>, <span class="number">2</span> =&gt; <span class="string">'2'</span>, <span class="number">3</span> =&gt; <span class="string">'3'</span>, <span class="number">4</span> =&gt; <span class="string">'4'</span>, <span class="number">5</span> =&gt; <span class="string">'5'</span>, <span class="number">6</span> =&gt; <span class="string">'6'</span>, <span class="number">7</span> =&gt; <span class="string">'7'</span>, <span class="number">8</span> =&gt; <span class="string">'8'</span>, <span class="number">9</span> =&gt; <span class="string">'9'</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="string">'A'</span>, <span class="number">11</span> =&gt; <span class="string">'B'</span>, <span class="number">12</span> =&gt; <span class="string">'C'</span>, <span class="number">13</span> =&gt; <span class="string">'D'</span>, <span class="number">14</span> =&gt; <span class="string">'E'</span>, <span class="number">15</span> =&gt; <span class="string">'F'</span>, <span class="number">16</span> =&gt; <span class="string">'G'</span>, <span class="number">17</span> =&gt; <span class="string">'H'</span>, <span class="number">18</span> =&gt; <span class="string">'J'</span>, <span class="number">19</span> =&gt; <span class="string">'K'</span>,</span><br><span class="line">44<span class="number">20</span> =&gt; <span class="string">'L'</span>, <span class="number">21</span> =&gt; <span class="string">'M'</span>, <span class="number">22</span> =&gt; <span class="string">'N'</span>, <span class="number">23</span> =&gt; <span class="string">'P'</span>, <span class="number">24</span> =&gt; <span class="string">'Q'</span>, <span class="number">25</span> =&gt; <span class="string">'R'</span>, <span class="number">26</span> =&gt; <span class="string">'T'</span>, <span class="number">27</span> =&gt; <span class="string">'U'</span>, <span class="number">28</span> =&gt; <span class="string">'W'</span>, <span class="number">29</span> =&gt; <span class="string">'X'</span>, <span class="number">30</span> =&gt; <span class="string">'Y'</span></span><br><span class="line">4];</span><br><span class="line">4$校验值 = <span class="number">0</span>;</span><br><span class="line">4<span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; <span class="number">17</span>; $i++) &#123;</span><br><span class="line">44<span class="keyword">foreach</span> ($代码字符集 <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">444<span class="keyword">if</span> ($value[$i] === $v) <span class="keyword">break</span>;</span><br><span class="line">44&#125;</span><br><span class="line">44$校验值 += $k * $加权因子[$i + <span class="number">1</span>];</span><br><span class="line">4&#125;</span><br><span class="line">4$校验值 = <span class="number">31</span> - ($校验值 % <span class="number">31</span>);</span><br><span class="line">4$校验值 = ($校验值 === <span class="number">31</span>) ? <span class="number">0</span> : $校验值; <span class="comment">// 校验值为 31 的时候，校验码使用 0 表示</span></span><br><span class="line">4<span class="keyword">return</span> $代码字符集[$校验值] === $value[<span class="number">17</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/unified-social-credit-identifier/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-ubuntu-16-04-lts-experience"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/ubuntu-16-04-lts-experience/">Ubuntu 16.04 LTS 体验</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/ubuntu-16-04-lts-experience/" class="archive-article-date">
+  <time datetime="2016-04-27T01:06:01.000Z" itemprop="datePublished">
+    Published on 2016 / 04 / 27
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我的工作系统一直是<code>Ubuntu LTS</code>。21日最新的<code>xenial</code>发布之后，马上安装进行了一些体验。Ubuntu 16.04 LTS的一些主要更新可以看<a href="https://linux.cn/article-7254-1.html" target="_blank" rel="noopener">这里</a>。</p>
+<h2 id="外观变化"><a href="#外观变化" class="headerlink" title="外观变化"></a>外观变化</h2><ul>
+<li>整体外观和上一个LTS相比变化不大。</li>
+<li>挂载硬盘的时候弹出标志会显示成一个突出的按钮，个人感觉没有之前好看。</li>
+<li>中文字体有变化，感觉更圆润。</li>
+</ul>
+<h2 id="必要设置"><a href="#必要设置" class="headerlink" title="必要设置"></a>必要设置</h2><ul>
+<li>关闭访客账户和<a href="https://ldsink.com/articles/disable-guest-session-in-Ubuntu.html">之前介绍</a>的差不多，Ubuntu自己在帮助中心也有<a href="https://help.ubuntu.com/16.04/ubuntu-help/shell-guest-session.html" target="_blank" rel="noopener">说明</a>。</li>
+<li>不需要手动在<code>隐私设置</code>中关闭在线搜索，默认已经关闭。文件记录、<br>发送错误报告还是要自己动手关闭。</li>
+</ul>
+<h2 id="软件变化"><a href="#软件变化" class="headerlink" title="软件变化"></a>软件变化</h2><ul>
+<li>推荐使用<code>apt</code>来管理软件，代替之前的<code>apt-get</code>。</li>
+<li>感觉更新需要连接的源变少了，使用<code>apt update</code>只会出几条日志，比起之前滚屏清爽很多。</li>
+<li>大量基础软甲包更新，我比较关心的有<code>Kernel 4.4</code>、<code>Python 3.</code>5、<code>OpenSSH 7.2p2</code>、<code>PHP 7.0</code>、<code>MySQL 5.7</code>、<code>GCC 5.3</code>，这些基础软件都升级到了最新的稳定版。看日志我一开始以为和<code>Arch Linux</code>一样只有默认的<code>Python3</code>了，实际使用发现只有服务器版是这样的，桌面版2和3都有，并且更新到了最新版。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 2.7.11+ (default, Apr 17 2016, 14:00:29)</span><br><span class="line">[GCC 5.3.1 20160413] on linux2</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<blockquote>
-<p>cd &lt;path/to/virtualenv&gt; &amp;&amp; source bin/activate &amp;&amp; cd - </p>
-</blockquote>
-<h1 id="Python3-需要注意的点"><a href="#Python3-需要注意的点" class="headerlink" title="Python3 需要注意的点"></a>Python3 需要注意的点</h1><h2 id="基础的-print"><a href="#基础的-print" class="headerlink" title="基础的 print"></a>基础的 print</h2><p>现在是函数了，不再是关键词</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">'hello world!'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3</span><br><span class="line">Python 3.5.1+ (default, Mar 30 2016, 22:46:26)</span><br><span class="line">[GCC 5.3.1 20160330] on linux</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br></pre></td></tr></table></figure>
 
-<h2 id="字符串与字节"><a href="#字符串与字节" class="headerlink" title="字符串与字节"></a>字符串与字节</h2><p>没有 unicode 类型。所有的 str 就是 unicode 类型。Python3 严格区分字节和字符串，以前字符串和字节混用的地方都会出问题，需要注意。</p>
-<p>常见的问题如下：</p>
 <ul>
-<li>requests 的 response，<code>text</code>属性返回的是自动 decode 的字符串。<code>content</code>属性返回的是未处理的字节。</li>
-<li>redis 所有获取到的返回值，都是字节。如果需要获取到字符串，需要 decode() 。</li>
-<li>加密相关的，需要二进制数据。原来的字符串需要 encode() 转换成 utf-8 编码的字节。</li>
-<li>json.loads() 接收的是字符串。</li>
-<li>StringIO.StringIO 字节数据替换成 io.BytesIO，字符串使用 io.StringIO。</li>
+<li>依旧预装了<code>Amazon</code>等鸡肋应用。这些可以通过一条命令全部卸载 <code>sudo apt remove unity-webapps-common</code>。</li>
+<li>去掉了<code>Ubuntu软件中心</code>，使用了<code>Gnome软件</code>改成的<code>Ubuntu软件</code>。我使用感觉响应很慢，还是习惯直接敲命令行。</li>
+<li>支持<code>snap</code>包，最近新闻好像<code>Firefox</code>以后在<code>Ubuntu</code>上就用<code>snap</code>包发行了。这个功能暂时没用上，但感觉挺不错的。</li>
 </ul>
-<h2 id="列表与迭代器"><a href="#列表与迭代器" class="headerlink" title="列表与迭代器"></a>列表与迭代器</h2><ul>
-<li>map，filter，range 之类的返回都是 iterator。</li>
-<li>dict 类型的 keys, values, items 返回 iterator，不再是 list。</li>
-<li>iterator 不具有 len() 方法，使用 len(list(iterator))</li>
-<li>iterator 和 list 大部分方法，基本一致，不需要特别注意。</li>
-</ul>
-<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
-<li>expect SomeException as e。</li>
-<li>raise Exception(‘content’)</li>
-<li>Exception 类不再默认含有 message 方法，通过 str 获取到字符串。</li>
-</ul>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
-<li>很多 2.6、2.7 新增加的不稳定的方法名称，在 3.0-3.5 版本逐渐移除或者重命名。</li>
-<li>现在单元测试已兼容 Python3，以后新的单元测试请依照 Python3.5 的文档函数编写。</li>
+<h2 id="第三方软件"><a href="#第三方软件" class="headerlink" title="第三方软件"></a>第三方软件</h2><ul>
+<li>Chrome 可以正常使用，但是他签名使用的是弱密钥，更新会有提示<code>W: http://dl.google.com/linux/chrome/deb/dists/stable/Release.gpg: Signature by key 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 uses weak digest algorithm (SHA1)</code>。另外，默认设置中文字体显示特别细，需要自己再设置一下。</li>
+<li>Atom 我从PPA安装的，正常使用，很方便。</li>
+<li>WPS 用的Alpha 20 Patch 2，文件名<code>wps-office_10.1.0.5503-a20p2_amd64.deb</code>，没有问题。</li>
+<li>搜狗拼音 用的最新的包<code>sogoupinyin_2.0.0.0072_amd64.deb</code>,<code>dpkg -i</code>安装之后还需要<code>apt-get -f install</code>才成功，使用起来没问题。安装包感觉还没做好，以后应该更方便才行。</li>
+<li>快盘 直接安装，文件可以同步。</li>
 </ul>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>一些内置库、内置函数的变更，用到了，按照 Python3.5 文档更新。</li>
-<li>/ 默认是除法。3/2=1.5。整除严格使用 //。</li>
-<li>统一 long 和 int。</li>
-<li>强制 absolute_import。</li>
-<li>可以使用 Type Hints 进行标记（只有标记作用，不影响实际运行）。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(name: str)</span> -&gt; str:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello &#123;&#125;'</span>.format(name)</span><br></pre></td></tr></table></figure>
-
-<h1 id="后续的一些改动"><a href="#后续的一些改动" class="headerlink" title="后续的一些改动"></a>后续的一些改动</h1><ul>
-<li>全部切换到 Python3 之后，所有的 <code>__future__</code> 引入会删除。</li>
-<li>Python3 buildin 的库，会从 requirements.txt 移除，如 enum。</li>
-<li>以前的一些兼容代码，也会移除，如 unicode，urlencode。</li>
+<li>zsh、git、htop、tmux、keepass2、openvpn 等常用软件从源里安装都正常。</li>
+<li>配置好<code>Java</code>环境之后，<code>PhpStorm</code>和<code>PyCharm</code>正常。</li>
+<li>我用来干活的系统已经从<code>14.04 LTS</code>切换到<code>16.04 LTS</code></li>
 </ul>
 
       
@@ -831,18 +907,6 @@
     <div class="article-info article-info-index">
       
       
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">python</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
   <div class="article-category tagcloud">
@@ -860,7 +924,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/python3-upgrade-notes/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/ubuntu-16-04-lts-experience/">展开全文 >></a>
         </p>
       
 
@@ -891,7 +955,7 @@
 
 
   
-    <article id="post-restart-sogou-input-script"
+    <article id="post-apache-kafka-notes"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -900,16 +964,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/restart-sogou-input-script/">重启搜狗输入法脚本</a>
+      <a class="article-title" href="/articles/apache-kafka-notes/">Apache Kafka Notes</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/restart-sogou-input-script/" class="archive-article-date">
-  <time datetime="2017-06-21T03:08:07.000Z" itemprop="datePublished">
-    Published on 2017 / 06 / 21
+          <a href="/articles/apache-kafka-notes/" class="archive-article-date">
+  <time datetime="2016-03-10T09:03:00.000Z" itemprop="datePublished">
+    Published on 2016 / 03 / 10
   </time>
   
 </a>
@@ -920,9 +984,67 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近搜狗输入法老是卡死，o(╯□╰)o。整了个脚本，丢到<code>/usr/local/bin</code>下面，一卡重启，干净利落。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"></span><br><span class="line">pidof fcitx | xargs kill</span><br><span class="line">pidof sogou-qimpanel | xargs kill</span><br><span class="line">nohup fcitx  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">nohup sogou-qimpanel  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br></pre></td></tr></table></figure>
-
+        <h3 id="Kafka简介"><a href="#Kafka简介" class="headerlink" title="Kafka简介"></a>Kafka简介</h3><ul>
+<li>分布式日志分发系统，可用于消息队列</li>
+<li>创建背景<ul>
+<li><code>LinkedIn</code>开发，2011年贡献给<code>Apache基金会</code></li>
+<li>使用 Scala 编写</li>
+</ul>
+</li>
+<li>设计目标<ul>
+<li>以时间复杂度为O(1)的方式提供消息持久化能力，即使对TB级以上数据也能保证常数时间复杂度的访问性能。</li>
+<li>高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒100K条以上消息的传输。</li>
+<li>支持Kafka Server间的消息分区，及分布式消费，同时保证每个Partition内的消息顺序传输。</li>
+<li>同时支持离线数据处理和实时数据处理。</li>
+<li>Scale out：支持在线水平扩展。</li>
+</ul>
+</li>
+<li>和常用MQ对比<ul>
+<li>吞吐快</li>
+</ul>
+</li>
+<li>与ZooKeeper配合使用</li>
+</ul>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_performance_numbers.webp" alt="Performance Numbers"></p>
+<h3 id="Kafka架构"><a href="#Kafka架构" class="headerlink" title="Kafka架构"></a>Kafka架构</h3><h4 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h4><p><strong>Broker</strong><br>Kafka物理机器节点，一个Kafka集群包含多个Kafka Broker</p>
+<p><strong>Topic</strong><br>消息的类别（逻辑上概念）</p>
+<p><strong>Partition</strong><br>消息存储物理上的概念</p>
+<p><strong>Producer</strong><br>消息生产者</p>
+<p><strong>Consumer</strong><br>消息消费者</p>
+<p><strong>Consumer Group</strong><br>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）</p>
+<h4 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h4><p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_topological_graph.webp" alt="Topological graph"></p>
+<ul>
+<li>Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。</li>
+<li>Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。</li>
+</ul>
+<h4 id="Topic-amp-Partition"><a href="#Topic-amp-Partition" class="headerlink" title="Topic &amp; Partition"></a>Topic &amp; Partition</h4><ul>
+<li>Topic在逻辑上可以被认为是一个queue，每条消费都必须指定它的Topic</li>
+<li>物理上把Topic分成一个或多个Partition，每个Partition在物理上对应一个文件夹，该文件夹下存储这个Partition的所有消息和索引文件。</li>
+<li>消息文件会分成多个segment，每个segment以该segment第一条消息的offset命名并以“.kafka”为后缀。</li>
+<li>索引文件标明了每个segment下包含的消息的offset范围，如下图所示。</li>
+</ul>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_segment_offset.webp" alt="Segment offset"></p>
+<ul>
+<li>在一个Partition上，每条消息都是顺序写入，因此在一个Partition上是有时序的。</li>
+</ul>
+<p>![Partition Order](<a href="https://static.ldsink.com/Apache" target="_blank" rel="noopener">https://static.ldsink.com/Apache</a> Kafka Notes - Partition Order.png)</p>
+<h4 id="Producer消息路由"><a href="#Producer消息路由" class="headerlink" title="Producer消息路由"></a>Producer消息路由</h4><p>通过指定key将消息发送到某个Partition。</p>
+<h4 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h4><p>同一Topic的一条消息只能被同一个Consumer Group内的一个Consumer消费，但多个Consumer Group可同时消费这一消息。</p>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_queue.webp" alt="Queue"></p>
+<h3 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h3><h4 id="Replica-分配策略"><a href="#Replica-分配策略" class="headerlink" title="Replica 分配策略"></a>Replica 分配策略</h4><p>尽量将所有的Partition均匀分配到整个集群上。<br>Replica分配算法如下：</p>
+<ul>
+<li>将所有Broker（假设共n个Broker）和待分配的Partition排序</li>
+<li>将第i个Partition分配到第（i mod n）个Broker上</li>
+<li>将第i个Partition的第j个Replica分配到第（(i + j) mode n）个Broker上</li>
+</ul>
+<h4 id="消息接受"><a href="#消息接受" class="headerlink" title="消息接受"></a>消息接受</h4><ol>
+<li>Producer通过ZooKeeper找到Partition的Leader，只将消息发给Leader</li>
+<li>Follower从Leader pull数据，在接收到数据后就立马向Leader发送ACK。（一个在性能和持久化上比较好的平衡）</li>
+<li>一旦Leader收到了ISR中的所有Replica的ACK，就认为已经commit，Leader将增加HW并且向Producer发送ACK。</li>
+</ol>
+<p>对于已经commit的消息，Kafka只能保证它被存于多个Replica的内存中，而不能保证它们被持久化到磁盘中，也就不能完全保证异常发生后该条消息一定能被Consumer消费。但这种场景非常少见</p>
+<p>Leader会跟踪与其保持同步的Replica列表，该列表称为ISR（即in-sync Replica）。如果一个Follower宕机，或者落后太多，Leader将把它从ISR中移除。</p>
+<h5 id="Leader-Election"><a href="#Leader-Election" class="headerlink" title="Leader Election"></a>Leader Election</h5><p>ISR谁先连接到就是谁</p>
 
       
 
@@ -948,7 +1070,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/restart-sogou-input-script/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/apache-kafka-notes/">展开全文 >></a>
         </p>
       
 
@@ -979,7 +1101,7 @@
 
 
   
-    <article id="post-v2ex-auto-sign"
+    <article id="post-mongodb-ttl-indexes"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -988,16 +1110,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/v2ex-auto-sign/">v2ex.com 自动签到</a>
+      <a class="article-title" href="/articles/mongodb-ttl-indexes/">MongoDB TTL 索引</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/v2ex-auto-sign/" class="archive-article-date">
-  <time datetime="2017-03-12T08:21:00.000Z" itemprop="datePublished">
-    Published on 2017 / 03 / 12
+          <a href="/articles/mongodb-ttl-indexes/" class="archive-article-date">
+  <time datetime="2016-02-24T08:21:07.000Z" itemprop="datePublished">
+    Published on 2016 / 02 / 24
   </time>
   
 </a>
@@ -1008,10 +1130,25 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>拖了好久，今天终于动手把<a href="https://www.v2ex.com/" target="_blank" rel="noopener">v2ex</a>的自动签到给做了。</p>
-<p>签到脚本在<a href="https://raw.githubusercontent.com/ldsink/toolbox/master/v2ex_auto_sign.py" target="_blank" rel="noopener">这里</a>。</p>
-<p>丢到服务器上，使用 chmod 增加可执行权限，建立一个 crontab 任务，每天这个小脚本就可以忠实的帮你签到了。</p>
-<p><code>crontab -l</code> 查看我建立的任务如下，每天早上八点定期签到：<br><code>0 8 * * * /path_to_script/v2ex_auto_sign.py &lt;username&gt; &lt;password&gt; &gt;&gt; /var/log/v2ex_sign.log</code></p>
+        <p>MongoDB提供了TTL索引自动从集合中删除过期文档，这个功能在<code>存储日志</code>等一些只需要在固定时间内存储数据的场景下使用起来非常方便。最近用了一下，发现这个功能没有想象中的那么好。</p>
+<p>TTL索引的建立很简单，要求是只能在一个<code>field</code>上创建，并且这个<code>field</code>是一个Date类型数据或者是一个包含Date类型数据的Array。<br>在创建索引的时候只需要多增加一个<code>expireAfterSeconds</code>参数，在<code>field</code>加上这个<code>expireAfterSeconds</code>的时间大于当前时间后，这个文档就会被自动删除。</p>
+<p>TTL索引相比一般索引还多了一些合理的限制，比如：</p>
+<ul>
+<li>必须是单个字段（field），多字段不支持</li>
+<li><code>_id</code>字段不支持TTL索引</li>
+<li><code>定长集合(Capped Collections)</code>不支持</li>
+<li>不能使用<a href="https://docs.mongodb.org/manual/reference/method/db.collection.createIndex/#db.collection.createIndex" target="_blank" rel="noopener">createIndex()</a>来改变已有索引的<code>expireAfterSeconds</code>值。可以使用<a href="https://docs.mongodb.org/manual/reference/command/collMod/#dbcmd.collMod" target="_blank" rel="noopener">collMod</a>尝试，失败则只能删除并重建索引</li>
+<li>当目标字段（field）已有非TTL索引，必须先删除旧的，再重建新的TTL索引。<strong>不能建立一个只有这个参数（带有<code>expireAfterSeconds</code>）不同的索引</strong></li>
+</ul>
+<p>TTL索引有一般索引的功能，上面的限制大多数情况下能让人接受。但是因为TTL索引的删除机制，想要好好的用它，还需要斟酌。</p>
+<p>首先说一下TTL索引的实现方式：<br><code>mongod</code>每60s会启动一个后台线程来删除过期文档，这就意味这MongoDB的TTL不同于Redis，是一定有延迟的。<br>而且这个60s也不是硬性保证的，万一节点压力非常大，过期文档的删除时间会超过60s。<br>MongoDB只保证文档最后一定会删除，在没有删除之前，即使过了失效时间，文档依旧可以查询。</p>
+<p>在副本集的情况下，TTL后台线程只会在主节点删除文档，然后通过主节点把删除操作同步到从节点。但是每个从节点自身也会执行自己的TTL后台线程。<br>当主节点压力很大，从节点压力小的时候，就会出现过期文档在主节点依旧可以查询，在从节点却已被TTL索引删除的情况。</p>
+<p>索引的建立方式也会对这个造成影响。为了避免对读写造成堵塞，我一般会使用<code>background</code>后台建立索引。<br>当使用<code>background</code>方式建立索引，TTL线程可以在建立索引的过程中删除过期文档。而<code>foreground</code>则要等到索引建立完成才可以开始删除。</p>
+<p><code>TTL Indexes</code>和<code>Capped Collections</code>实现的功能其实有点类似，一个是是限定时间，一个是限定大小，但是<code>TTL Indexes</code>的不确定性大了很多。要使用他们肯定要根据具体的场景，我更倾向于使用确定的<code>Capped Collections</code>。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><ul>
+<li><a href="https://docs.mongodb.org/manual/core/index-ttl/#ttl-indexes" target="_blank" rel="noopener">TTL Indexes</a></li>
+<li><a href="https://docs.mongodb.org/manual/tutorial/expire-data/" target="_blank" rel="noopener">Expire Data from Collections by Setting TTL</a></li>
+</ul>
 
       
 
@@ -1037,7 +1174,98 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/v2ex-auto-sign/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/mongodb-ttl-indexes/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-github-offline-maintain"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/github-offline-maintain/">Github 离线维护</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/github-offline-maintain/" class="archive-article-date">
+  <time datetime="2016-01-28T02:32:34.000Z" itemprop="datePublished">
+    Published on 2016 / 01 / 28
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天Github出现故障，离线维护，认识了几个可爱的图标。</p>
+<p>一个是独角兽，不知道是不是彩虹小马神教里面的。</p>
+<p><img src="https://a.adcdn.cn/images/%E7%8B%AC%E8%A7%92%E5%85%BD.webp" alt="独角兽"></p>
+<p>过一阵子变水管工了。</p>
+<p><img src="https://a.adcdn.cn/images/%E6%B0%B4%E7%AE%A1%E5%B7%A5.webp" alt="水管工"></p>
+<p>这个是查看Github运行状态的地址：<a href="https://status.github.com/" target="_blank" rel="noopener">https://status.github.com/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/github-offline-maintain/">展开全文 >></a>
         </p>
       
 
@@ -1070,7 +1298,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 

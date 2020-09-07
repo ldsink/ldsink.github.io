@@ -203,7 +203,7 @@
         <div id="js-content" class="content-ll">
           
   
-    <article id="post-unified-social-credit-identifier"
+    <article id="post-bookmarks"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -212,17 +212,21 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/unified-social-credit-identifier/">统一社会信用代码</a>
+      <a class="article-title" href="/pages/bookmarks/">书签</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/unified-social-credit-identifier/" class="archive-article-date">
-  <time datetime="2016-05-25T10:55:00.000Z" itemprop="datePublished">
-    Published on 2016 / 05 / 25
+          <a href="/pages/bookmarks/" class="archive-article-date">
+  <time datetime="2015-09-03T13:27:00.000Z" itemprop="datePublished">
+    Published on 2015 / 09 / 03
   </time>
+  
+    <time datetime="2018-07-09T09:03:14.000Z" itemprop="dateUpdated">
+      , Updated on 2018 / 07 / 09
+    </time>
   
 </a>
 
@@ -232,17 +236,36 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="什么是统一社会信用代码"><a href="#什么是统一社会信用代码" class="headerlink" title="什么是统一社会信用代码"></a>什么是统一社会信用代码</h3><p>很久很久以前，注册一家公司会有公司营业执照，上面会有营业执照注册号。公司赚钱了，要依法纳税，去税务局又会办理一个税务登记证，上面又有一个编号。<br>一个人只需要一个公民身份证号码就可以确定了，公司在不同的场合却需要多个证件编号。对企业而言，麻烦，办各种手续都不方便。对管理者而言，监管不便，管理成本高。</p>
-<p>我们都知道，统一的标准可以减少成本，提高效率。<code>GOV</code>作为某种意义上的特大企业，也明白这个道理，于是有了<a href="http://baike.baidu.com/view/15172871.htm" target="_blank" rel="noopener">三证合一</a>，统一多个编号，使用唯一一个编号。</p>
-<p>企业编号决定统一使用一个标准，个人编号已经是一个标准，于是<code>GOV</code>再加了一把劲。怀着<code>为了更好的服务大众，构建信用社会</code>的目标，在现在的基础上，<code>GOV</code>倒腾出了<a href="http://baike.baidu.com/item/%E7%BB%9F%E4%B8%80%E7%A4%BE%E4%BC%9A%E4%BF%A1%E7%94%A8%E4%BB%A3%E7%A0%81%E5%88%B6%E5%BA%A6" target="_blank" rel="noopener">统一社会信用代码制度</a>。</p>
-<p>这个企业的身份证号码就是<code>统一社会信用代码</code>，用于替换之前企业各个证件上的编号。和公民身份证号码一样，<code>统一社会信用代码</code>也是18位。</p>
-<h3 id="统一社会信用代码的用处"><a href="#统一社会信用代码的用处" class="headerlink" title="统一社会信用代码的用处"></a>统一社会信用代码的用处</h3><ul>
-<li>以前，业务上标识一家企业通过<code>公司名称</code>或者<code>营业执照注册号</code>，这些都不稳定。名称可以变，注册编号长度不确定。</li>
-<li>以后的新数据可以统一的通过<code>统一社会信用代码</code>标识，这个在稳定性和权威性上都好于以前。</li>
+        <h3 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h3><ul>
+<li><a href="https://linux.cn/article-6132-weibo.html" target="_blank" rel="noopener">Linux 文件系统结构介绍</a></li>
+<li><a href="http://segmentfault.com/a/1190000003063859" target="_blank" rel="noopener">Linux IO模式及 select、poll、epoll详解</a></li>
 </ul>
-<h3 id="统一社会信用代码编码规则"><a href="#统一社会信用代码编码规则" class="headerlink" title="统一社会信用代码编码规则"></a>统一社会信用代码编码规则</h3><p>工商总局在官网上发布了标准文件：<a href="http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html" target="_blank" rel="noopener">法人和其他组织统一社会信用代码编码规则</a>。和身份证编号类似，根据编码规则可以进行一下判断并获取有用的一些信息。我们在审核的时候，可以通过检测编号来判断公司的真假。</p>
-<p>下面是我用PHP实现的简单检测函数，<code>管理部门</code>、<code>机构类别</code>、<code>登记地区</code>这些信息还没有充分利用起来，只根据校验码检测。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法人和其他组织统一社会信用代码</span></span><br><span class="line"><span class="comment">// 编码规则：http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unifiedSocialCreditIdentifier</span><span class="params">($value)</span> </span>&#123;</span><br><span class="line">4<span class="comment">// 统一代码由十八位的阿拉伯数字或者大写英文字母（不使用I、O、Z、S、V）组成</span></span><br><span class="line">4<span class="keyword">if</span> (!is_string($value)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">4$value = strtoupper($value);</span><br><span class="line">4<span class="keyword">if</span> (strlen($value) !== <span class="number">18</span> || !preg_match(<span class="string">'/^[\dA-HJ-NP-RT-UW-Y]&#123;18&#125;$/'</span>, $value)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">4<span class="comment">// todo 第1位：登记管理部门代码检查</span></span><br><span class="line">4<span class="comment">// todo 第2位：机构类别代码检查</span></span><br><span class="line">4<span class="comment">// todo 第3位～第8位：登记机关行政区划码检查</span></span><br><span class="line">4<span class="keyword">if</span> (!is_numeric(substr($value, <span class="number">2</span>, <span class="number">6</span>))) <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">// 简单检查，这部分一定是阿拉伯数字</span></span><br><span class="line">4<span class="comment">// todo 第9位～第17位：主体标识码检查</span></span><br><span class="line">4<span class="comment">// 第18位：检验码检查</span></span><br><span class="line">4$加权因子 = [</span><br><span class="line">44<span class="number">1</span> =&gt; <span class="number">1</span>, <span class="number">2</span> =&gt; <span class="number">3</span>, <span class="number">3</span> =&gt; <span class="number">9</span>, <span class="number">4</span> =&gt; <span class="number">27</span>, <span class="number">5</span> =&gt; <span class="number">19</span>, <span class="number">6</span> =&gt; <span class="number">26</span>, <span class="number">7</span> =&gt; <span class="number">16</span>, <span class="number">8</span> =&gt; <span class="number">17</span>, <span class="number">9</span> =&gt; <span class="number">20</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="number">29</span>, <span class="number">11</span> =&gt; <span class="number">25</span>, <span class="number">12</span> =&gt; <span class="number">13</span>, <span class="number">13</span> =&gt; <span class="number">8</span>, <span class="number">14</span> =&gt; <span class="number">24</span>, <span class="number">15</span> =&gt; <span class="number">10</span>, <span class="number">16</span> =&gt; <span class="number">30</span>, <span class="number">17</span> =&gt; <span class="number">28</span></span><br><span class="line">4];</span><br><span class="line">4$代码字符集 = [</span><br><span class="line">44<span class="number">0</span> =&gt; <span class="string">'0'</span>, <span class="number">1</span> =&gt; <span class="string">'1'</span>, <span class="number">2</span> =&gt; <span class="string">'2'</span>, <span class="number">3</span> =&gt; <span class="string">'3'</span>, <span class="number">4</span> =&gt; <span class="string">'4'</span>, <span class="number">5</span> =&gt; <span class="string">'5'</span>, <span class="number">6</span> =&gt; <span class="string">'6'</span>, <span class="number">7</span> =&gt; <span class="string">'7'</span>, <span class="number">8</span> =&gt; <span class="string">'8'</span>, <span class="number">9</span> =&gt; <span class="string">'9'</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="string">'A'</span>, <span class="number">11</span> =&gt; <span class="string">'B'</span>, <span class="number">12</span> =&gt; <span class="string">'C'</span>, <span class="number">13</span> =&gt; <span class="string">'D'</span>, <span class="number">14</span> =&gt; <span class="string">'E'</span>, <span class="number">15</span> =&gt; <span class="string">'F'</span>, <span class="number">16</span> =&gt; <span class="string">'G'</span>, <span class="number">17</span> =&gt; <span class="string">'H'</span>, <span class="number">18</span> =&gt; <span class="string">'J'</span>, <span class="number">19</span> =&gt; <span class="string">'K'</span>,</span><br><span class="line">44<span class="number">20</span> =&gt; <span class="string">'L'</span>, <span class="number">21</span> =&gt; <span class="string">'M'</span>, <span class="number">22</span> =&gt; <span class="string">'N'</span>, <span class="number">23</span> =&gt; <span class="string">'P'</span>, <span class="number">24</span> =&gt; <span class="string">'Q'</span>, <span class="number">25</span> =&gt; <span class="string">'R'</span>, <span class="number">26</span> =&gt; <span class="string">'T'</span>, <span class="number">27</span> =&gt; <span class="string">'U'</span>, <span class="number">28</span> =&gt; <span class="string">'W'</span>, <span class="number">29</span> =&gt; <span class="string">'X'</span>, <span class="number">30</span> =&gt; <span class="string">'Y'</span></span><br><span class="line">4];</span><br><span class="line">4$校验值 = <span class="number">0</span>;</span><br><span class="line">4<span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; <span class="number">17</span>; $i++) &#123;</span><br><span class="line">44<span class="keyword">foreach</span> ($代码字符集 <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">444<span class="keyword">if</span> ($value[$i] === $v) <span class="keyword">break</span>;</span><br><span class="line">44&#125;</span><br><span class="line">44$校验值 += $k * $加权因子[$i + <span class="number">1</span>];</span><br><span class="line">4&#125;</span><br><span class="line">4$校验值 = <span class="number">31</span> - ($校验值 % <span class="number">31</span>);</span><br><span class="line">4$校验值 = ($校验值 === <span class="number">31</span>) ? <span class="number">0</span> : $校验值; <span class="comment">// 校验值为 31 的时候，校验码使用 0 表示</span></span><br><span class="line">4<span class="keyword">return</span> $代码字符集[$校验值] === $value[<span class="number">17</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><ul>
+<li><a href="https://www.codecompiled.com/understanding-https-protocol/" target="_blank" rel="noopener">Understanding HTTPS Protocol</a></li>
+<li><a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/" target="_blank" rel="noopener">Nginx Config Pitfalls</a></li>
+</ul>
+<h3 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h3><ul>
+<li><a href="https://redis.io/documentation" target="_blank" rel="noopener">Redis Documentation</a></li>
+<li><a href="https://docs.mongodb.org/manual/" target="_blank" rel="noopener">MongoDB Manual</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1057763" target="_blank" rel="noopener">Kafka文件存储机制那些事</a></li>
+<li><a href="https://www.vertabelo.com/blog/technical-articles/what-datatype-should-you-use-to-represent-time-in-mysql-we-compare-datetime-timestamp-and-int" target="_blank" rel="noopener">What Datatype Should You Use to Represent Time in MySQL?</a></li>
+</ul>
+<h3 id="Programming-languages"><a href="#Programming-languages" class="headerlink" title="Programming languages"></a>Programming languages</h3><h4 id="Python-3"><a href="#Python-3" class="headerlink" title="Python 3"></a>Python 3</h4><ul>
+<li><a href="https://docs.python.org/3/" target="_blank" rel="noopener">Python 3.x Docs</a></li>
+<li><a href="https://github.com/RafeKettler/magicmethods" target="_blank" rel="noopener">A Guide to Python’s Magic Methods</a></li>
+<li><a href="https://python3-cookbook.readthedocs.org/zh_CN/latest/" target="_blank" rel="noopener">Python Cookbook 3rd Edition Documentation</a></li>
+<li><a href="https://speakerdeck.com/kennethreitz/the-future-of-python-dependency-management" target="_blank" rel="noopener">The Future of Python Dependency Management</a></li>
+</ul>
+<h4 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h4><ul>
+<li><a href="https://eev.ee/blog/2012/04/09/php-a-fractal-of-bad-design/" target="_blank" rel="noopener">PHP: a fractal of bad design</a></li>
+</ul>
+<h4 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a>Markdown</h4><ul>
+<li><a href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="noopener">Mastering Markdown</a></li>
+</ul>
+<h3 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h3><ul>
+<li><a href="https://backlog.com/git-tutorial/cn/" target="_blank" rel="noopener">猴子都能懂的GIT入门</a></li>
+</ul>
+
       
 
       
@@ -257,8 +280,8 @@
     <ul class="article-tag-list">
       
         <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
+          <a href="/categories/pages/"
+             class="article-tag-list-link color1">pages</a>
         </li>
       
     </ul>
@@ -267,7 +290,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/unified-social-credit-identifier/">展开全文 >></a>
+          <a class="article-more-a" href="/pages/bookmarks/">展开全文 >></a>
         </p>
       
 
@@ -298,7 +321,7 @@
 
 
   
-    <article id="post-ubuntu-16-04-lts-experience"
+    <article id="post-permit-password-authentication"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -307,16 +330,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/ubuntu-16-04-lts-experience/">Ubuntu 16.04 LTS 体验</a>
+      <a class="article-title" href="/articles/permit-password-authentication/">服务器禁止使用常规的用户名密码方式登录</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/ubuntu-16-04-lts-experience/" class="archive-article-date">
-  <time datetime="2016-04-27T01:06:01.000Z" itemprop="datePublished">
-    Published on 2016 / 04 / 27
+          <a href="/articles/permit-password-authentication/" class="archive-article-date">
+  <time datetime="2015-08-14T06:02:00.000Z" itemprop="datePublished">
+    Published on 2015 / 08 / 14
   </time>
   
 </a>
@@ -327,42 +350,18 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我的工作系统一直是<code>Ubuntu LTS</code>。21日最新的<code>xenial</code>发布之后，马上安装进行了一些体验。Ubuntu 16.04 LTS的一些主要更新可以看<a href="https://linux.cn/article-7254-1.html" target="_blank" rel="noopener">这里</a>。</p>
-<h2 id="外观变化"><a href="#外观变化" class="headerlink" title="外观变化"></a>外观变化</h2><ul>
-<li>整体外观和上一个LTS相比变化不大。</li>
-<li>挂载硬盘的时候弹出标志会显示成一个突出的按钮，个人感觉没有之前好看。</li>
-<li>中文字体有变化，感觉更圆润。</li>
-</ul>
-<h2 id="必要设置"><a href="#必要设置" class="headerlink" title="必要设置"></a>必要设置</h2><ul>
-<li>关闭访客账户和<a href="https://ldsink.com/articles/disable-guest-session-in-Ubuntu.html">之前介绍</a>的差不多，Ubuntu自己在帮助中心也有<a href="https://help.ubuntu.com/16.04/ubuntu-help/shell-guest-session.html" target="_blank" rel="noopener">说明</a>。</li>
-<li>不需要手动在<code>隐私设置</code>中关闭在线搜索，默认已经关闭。文件记录、<br>发送错误报告还是要自己动手关闭。</li>
-</ul>
-<h2 id="软件变化"><a href="#软件变化" class="headerlink" title="软件变化"></a>软件变化</h2><ul>
-<li>推荐使用<code>apt</code>来管理软件，代替之前的<code>apt-get</code>。</li>
-<li>感觉更新需要连接的源变少了，使用<code>apt update</code>只会出几条日志，比起之前滚屏清爽很多。</li>
-<li>大量基础软甲包更新，我比较关心的有<code>Kernel 4.4</code>、<code>Python 3.</code>5、<code>OpenSSH 7.2p2</code>、<code>PHP 7.0</code>、<code>MySQL 5.7</code>、<code>GCC 5.3</code>，这些基础软件都升级到了最新的稳定版。看日志我一开始以为和<code>Arch Linux</code>一样只有默认的<code>Python3</code>了，实际使用发现只有服务器版是这样的，桌面版2和3都有，并且更新到了最新版。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 2.7.11+ (default, Apr 17 2016, 14:00:29)</span><br><span class="line">[GCC 5.3.1 20160413] on linux2</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3</span><br><span class="line">Python 3.5.1+ (default, Mar 30 2016, 22:46:26)</span><br><span class="line">[GCC 5.3.1 20160330] on linux</span><br><span class="line">Type "help", "copyright", "credits" or "license" for more information.</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>依旧预装了<code>Amazon</code>等鸡肋应用。这些可以通过一条命令全部卸载 <code>sudo apt remove unity-webapps-common</code>。</li>
-<li>去掉了<code>Ubuntu软件中心</code>，使用了<code>Gnome软件</code>改成的<code>Ubuntu软件</code>。我使用感觉响应很慢，还是习惯直接敲命令行。</li>
-<li>支持<code>snap</code>包，最近新闻好像<code>Firefox</code>以后在<code>Ubuntu</code>上就用<code>snap</code>包发行了。这个功能暂时没用上，但感觉挺不错的。</li>
-</ul>
-<h2 id="第三方软件"><a href="#第三方软件" class="headerlink" title="第三方软件"></a>第三方软件</h2><ul>
-<li>Chrome 可以正常使用，但是他签名使用的是弱密钥，更新会有提示<code>W: http://dl.google.com/linux/chrome/deb/dists/stable/Release.gpg: Signature by key 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 uses weak digest algorithm (SHA1)</code>。另外，默认设置中文字体显示特别细，需要自己再设置一下。</li>
-<li>Atom 我从PPA安装的，正常使用，很方便。</li>
-<li>WPS 用的Alpha 20 Patch 2，文件名<code>wps-office_10.1.0.5503-a20p2_amd64.deb</code>，没有问题。</li>
-<li>搜狗拼音 用的最新的包<code>sogoupinyin_2.0.0.0072_amd64.deb</code>,<code>dpkg -i</code>安装之后还需要<code>apt-get -f install</code>才成功，使用起来没问题。安装包感觉还没做好，以后应该更方便才行。</li>
-<li>快盘 直接安装，文件可以同步。</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>zsh、git、htop、tmux、keepass2、openvpn 等常用软件从源里安装都正常。</li>
-<li>配置好<code>Java</code>环境之后，<code>PhpStorm</code>和<code>PyCharm</code>正常。</li>
-<li>我用来干活的系统已经从<code>14.04 LTS</code>切换到<code>16.04 LTS</code></li>
-</ul>
+        <p>服务器操作系统：Ubuntu 14.04 LTS x64</p>
+<p>1、修改配置</p>
+<blockquote>
+<p>vim /etc/ssh/sshd_config</p>
+</blockquote>
+<p>将 PasswordAuthentication 设置为 no</p>
+<p>2、重启SSH服务</p>
+<blockquote>
+<p>service ssh restart</p>
+</blockquote>
+<p>之后就只能使用私钥登录了。没有私钥登录会提示：<code>Permission Denied (publickey).</code></p>
+<p>顺便提一下快速把自己公钥添加到服务器的方法，使用 <code>ssh-copy-id + host</code> 命令可以将当前电脑上的公钥快速添加到服务器。</p>
 
       
 
@@ -371,6 +370,18 @@
     <div class="article-info article-info-index">
       
       
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">ubuntu</a>
+        </li>
+      
+    </ul>
+  </div>
+
 
       
   <div class="article-category tagcloud">
@@ -388,7 +399,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ubuntu-16-04-lts-experience/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/permit-password-authentication/">展开全文 >></a>
         </p>
       
 
@@ -419,7 +430,7 @@
 
 
   
-    <article id="post-apache-kafka-notes"
+    <article id="post-regular-expression-traps-in-php"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -428,17 +439,21 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/apache-kafka-notes/">Apache Kafka Notes</a>
+      <a class="article-title" href="/articles/regular-expression-traps-in-php/">PHP 中使用正则表达式的那些坑</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/apache-kafka-notes/" class="archive-article-date">
-  <time datetime="2016-03-10T09:03:00.000Z" itemprop="datePublished">
-    Published on 2016 / 03 / 10
+          <a href="/articles/regular-expression-traps-in-php/" class="archive-article-date">
+  <time datetime="2015-07-27T01:06:00.000Z" itemprop="datePublished">
+    Published on 2015 / 07 / 27
   </time>
+  
+    <time datetime="2015-08-17T06:02:28.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 08 / 17
+    </time>
   
 </a>
 
@@ -448,67 +463,142 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Kafka简介"><a href="#Kafka简介" class="headerlink" title="Kafka简介"></a>Kafka简介</h3><ul>
-<li>分布式日志分发系统，可用于消息队列</li>
-<li>创建背景<ul>
-<li><code>LinkedIn</code>开发，2011年贡献给<code>Apache基金会</code></li>
-<li>使用 Scala 编写</li>
-</ul>
-</li>
-<li>设计目标<ul>
-<li>以时间复杂度为O(1)的方式提供消息持久化能力，即使对TB级以上数据也能保证常数时间复杂度的访问性能。</li>
-<li>高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒100K条以上消息的传输。</li>
-<li>支持Kafka Server间的消息分区，及分布式消费，同时保证每个Partition内的消息顺序传输。</li>
-<li>同时支持离线数据处理和实时数据处理。</li>
-<li>Scale out：支持在线水平扩展。</li>
-</ul>
-</li>
-<li>和常用MQ对比<ul>
-<li>吞吐快</li>
-</ul>
-</li>
-<li>与ZooKeeper配合使用</li>
-</ul>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_performance_numbers.webp" alt="Performance Numbers"></p>
-<h3 id="Kafka架构"><a href="#Kafka架构" class="headerlink" title="Kafka架构"></a>Kafka架构</h3><h4 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h4><p><strong>Broker</strong><br>Kafka物理机器节点，一个Kafka集群包含多个Kafka Broker</p>
-<p><strong>Topic</strong><br>消息的类别（逻辑上概念）</p>
-<p><strong>Partition</strong><br>消息存储物理上的概念</p>
-<p><strong>Producer</strong><br>消息生产者</p>
-<p><strong>Consumer</strong><br>消息消费者</p>
-<p><strong>Consumer Group</strong><br>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）</p>
-<h4 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h4><p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_topological_graph.webp" alt="Topological graph"></p>
-<ul>
-<li>Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。</li>
-<li>Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。</li>
-</ul>
-<h4 id="Topic-amp-Partition"><a href="#Topic-amp-Partition" class="headerlink" title="Topic &amp; Partition"></a>Topic &amp; Partition</h4><ul>
-<li>Topic在逻辑上可以被认为是一个queue，每条消费都必须指定它的Topic</li>
-<li>物理上把Topic分成一个或多个Partition，每个Partition在物理上对应一个文件夹，该文件夹下存储这个Partition的所有消息和索引文件。</li>
-<li>消息文件会分成多个segment，每个segment以该segment第一条消息的offset命名并以“.kafka”为后缀。</li>
-<li>索引文件标明了每个segment下包含的消息的offset范围，如下图所示。</li>
-</ul>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_segment_offset.webp" alt="Segment offset"></p>
-<ul>
-<li>在一个Partition上，每条消息都是顺序写入，因此在一个Partition上是有时序的。</li>
-</ul>
-<p>![Partition Order](<a href="https://static.ldsink.com/Apache" target="_blank" rel="noopener">https://static.ldsink.com/Apache</a> Kafka Notes - Partition Order.png)</p>
-<h4 id="Producer消息路由"><a href="#Producer消息路由" class="headerlink" title="Producer消息路由"></a>Producer消息路由</h4><p>通过指定key将消息发送到某个Partition。</p>
-<h4 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h4><p>同一Topic的一条消息只能被同一个Consumer Group内的一个Consumer消费，但多个Consumer Group可同时消费这一消息。</p>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_queue.webp" alt="Queue"></p>
-<h3 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h3><h4 id="Replica-分配策略"><a href="#Replica-分配策略" class="headerlink" title="Replica 分配策略"></a>Replica 分配策略</h4><p>尽量将所有的Partition均匀分配到整个集群上。<br>Replica分配算法如下：</p>
-<ul>
-<li>将所有Broker（假设共n个Broker）和待分配的Partition排序</li>
-<li>将第i个Partition分配到第（i mod n）个Broker上</li>
-<li>将第i个Partition的第j个Replica分配到第（(i + j) mode n）个Broker上</li>
-</ul>
-<h4 id="消息接受"><a href="#消息接受" class="headerlink" title="消息接受"></a>消息接受</h4><ol>
-<li>Producer通过ZooKeeper找到Partition的Leader，只将消息发给Leader</li>
-<li>Follower从Leader pull数据，在接收到数据后就立马向Leader发送ACK。（一个在性能和持久化上比较好的平衡）</li>
-<li>一旦Leader收到了ISR中的所有Replica的ACK，就认为已经commit，Leader将增加HW并且向Producer发送ACK。</li>
+        <p>最近弄关键词匹配，主要用的正则表达式。之前一直没写过PHP的正则表达式的代码，一番折腾之后表示这其中好多坑。</p>
+<h1 id="慎用"><a href="#慎用" class="headerlink" title="慎用 |"></a>慎用 |</h1><p>任务场景是需要在一段字符串中匹配多个关键字。一开始想当然的使用了<code>|</code>拼接全部的关键字作为pattern，然后直接<code>preg_match</code>解决问题。<br>但我这样想当然的做法在<code>Code Review</code>的时候被拒，理由是可能存在安全等问题。<br>因为PHP内存限制，pattern过长会造成段异常，而且这样使用性能很低。正确的做法是每一个关键词都是pattern，运行n次<code>preg_match</code>函数。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一次匹配（不推荐）</span></span><br><span class="line">$pattern = implode(<span class="string">'|'</span>, $keywords);</span><br><span class="line">$ret = preg_match(<span class="string">'/'</span> . $pattern . <span class="string">'/u'</span>, $subject, $matches);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多次匹配</span></span><br><span class="line"><span class="keyword">foreach</span> ($keywords <span class="keyword">as</span> $keyword) &#123;</span><br><span class="line">4$ret = preg_match(<span class="string">'/'</span> . $keyword . <span class="string">'/u'</span>, $subject, $matches);</span><br><span class="line">4<span class="keyword">if</span> ($ret) <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在我的测试中，字符串在一万、十万甚至百万长度的时候都是下面多次匹配快于上面的一次匹配，时间差甚至能达到九倍。<br>想想原因其实很简单，因为上面和下面的逻辑本质上是一样的，但是下面因为一次只匹配一个单词，很自然的能用一些高性能的字符串匹配算法，如KMP。<br>上面的很长的pattern，反而不好使用各种优化算法，只能用最原始的方法，性能当然会下降。</p>
+<p>那<code>|</code>应该用在什么场合呢？</p>
+<p>在拆分开不便于程序代码理解的时候使用。当使用<code>|</code>可以使代码更加直观简洁，使逻辑更加易于理解，那就放心大胆的用。<br>当决定要使用正则表达式，其实不太需要考虑性能问题，一般来说性能差别不会很大。</p>
+<h1 id="preg-quote-注意添加分隔符"><a href="#preg-quote-注意添加分隔符" class="headerlink" title="preg_quote 注意添加分隔符"></a>preg_quote 注意添加分隔符</h1><p><code>php</code>提供了<code>preg_match</code>函数用于转义正则表达式字符，但是需要注意，这个函数仅仅转义正则表达式的特殊字符“ . \ + * ? [ ^ ] $ ( ) { } = ! &lt; &gt; | : -”。<br>其中并不包含分隔符，调用这个函数的时候最好把使用的分隔符也作为<code>delimiter</code>参数传递进去。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// '/'是最通用的分隔符。</span></span><br><span class="line">$keywords = preg_quote($keywords, <span class="string">'/'</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="才能在正则表达式中表示-‘-‘字符"><a href="#才能在正则表达式中表示-‘-‘字符" class="headerlink" title="\\\\ 才能在正则表达式中表示 ‘\‘字符"></a>\\\\ 才能在正则表达式中表示 ‘\‘字符</h1><p>在编写正则表达式反转义函数的时候，我遇到了这个问题。这个函数很简单，就是去掉所有带’\‘字符前的’\‘，但是弄起来总是不对。<br>在仔细看完PHP文档之后，我终于理清了逻辑。</p>
+<p>“\\\\“这是写在代码中的，首先PHP会理解一次，”\\“会表示’\‘，这样传给正则的字符串就是是”\\“。<br>然后正则表达式再理解一次，这时”\\“对应的就是’\‘字符。在使用’\‘的时候一定要考虑这些情况。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $keywords 就是需要反转义的字符串</span></span><br><span class="line">preg_replace_callback(<span class="string">"/\\\\./u"</span>, <span class="function"><span class="keyword">function</span> <span class="params">($matches)</span> </span>&#123; <span class="keyword">return</span> substr($matches[<span class="number">0</span>],<span class="number">1</span>);&#125;, $keywords);</span><br></pre></td></tr></table></figure>
+
+<h1 id="善用模式修饰符"><a href="#善用模式修饰符" class="headerlink" title="善用模式修饰符"></a>善用模式修饰符</h1><p><code>php</code>正则表达式中，分隔符之后是可以添加模式修饰符的，这里可以参阅<a href="http://php.net/manual/zh/reference.pcre.pattern.modifiers.php" target="_blank" rel="noopener">PHP文档</a>。</p>
+<p>我最常用的是<code>u</code>，此修正符使模式字符串被认为是utf-8的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/regular-expression-traps-in-php/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-monit-and-mmonit"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/monit-and-mmonit/">Monit 和 M/Monit 的调教笔记</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/monit-and-mmonit/" class="archive-article-date">
+  <time datetime="2015-07-07T07:42:00.000Z" itemprop="datePublished">
+    Published on 2015 / 07 / 07
+  </time>
+  
+    <time datetime="2016-03-25T10:52:23.000Z" itemprop="dateUpdated">
+      , Updated on 2016 / 03 / 25
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://mmonit.com/monit/" target="_blank" rel="noopener">Monit</a>是一款强大的系统监控软件。<code>M/Monit</code>是<code>Monit</code>的扩展,可以作为中心节点监控多台<code>Monit</code>机器。<br>以下是这息息相关的两者的调教笔记。</p>
+<h2 id="Monit-安装"><a href="#Monit-安装" class="headerlink" title="Monit 安装"></a>Monit 安装</h2><p><a href="https://mmonit.com/monit/" target="_blank" rel="noopener">Monit官网</a>有源代码，有二进制安装包，怎么喜欢怎么来。</p>
+<h2 id="M-Monit-安装"><a href="#M-Monit-安装" class="headerlink" title="M/Monit 安装"></a>M/Monit 安装</h2><p><a href="https://mmonit.com/download/" target="_blank" rel="noopener">M/Monit下载地址</a>，下载好之后就按<a href="https://mmonit.com/wiki/MMonit/Setup" target="_blank" rel="noopener">官方手册</a>在30S内运行起来吧。</p>
+<ol>
+<li>解压下载好的安装包，将解压出的文件夹放在合适的位置。推荐<code>/opt</code>或者<code>/usr/local</code>。</li>
+<li>进入目录，执行<code>./bin/mmonit</code>,<code>M/Monit</code>启动完成。</li>
+<li>打开浏览器，输入 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> 。成功的话就可以看到登录界面。</li>
+<li>默认用户<code>admin</code>，默认密码<code>swordfish</code>。登录之后尽情玩耍。</li>
 </ol>
-<p>对于已经commit的消息，Kafka只能保证它被存于多个Replica的内存中，而不能保证它们被持久化到磁盘中，也就不能完全保证异常发生后该条消息一定能被Consumer消费。但这种场景非常少见</p>
-<p>Leader会跟踪与其保持同步的Replica列表，该列表称为ISR（即in-sync Replica）。如果一个Follower宕机，或者落后太多，Leader将把它从ISR中移除。</p>
-<h5 id="Leader-Election"><a href="#Leader-Election" class="headerlink" title="Leader Election"></a>Leader Election</h5><p>ISR谁先连接到就是谁</p>
+<h2 id="M-Monit-自动启动"><a href="#M-Monit-自动启动" class="headerlink" title="M/Monit 自动启动"></a>M/Monit 自动启动</h2><p>推荐使用<code>Monit</code>来管理<code>M/Monit</code>。</p>
+<p>首先在<code>Monit</code>的配置文件里面加上监控<code>M/Monit</code>的设置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 假设你存放 M/Monit 的目录是 /usr/local。</span><br><span class="line">check process mmonit with pidfile /usr/local/mmonit/logs/mmonit.pid</span><br><span class="line">    start program = &quot;/usr/local/mmonit/bin/mmonit&quot;</span><br><span class="line">    stop program = &quot;/usr/local/mmonit/bin/mmonit stop&quot;</span><br></pre></td></tr></table></figure>
+
+<p>再载入新的配置就OK了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monit reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="Monit-向-M-Monit-报告存在"><a href="#Monit-向-M-Monit-报告存在" class="headerlink" title="Monit 向 M/Monit 报告存在"></a>Monit 向 M/Monit 报告存在</h2><p>新建的每个<code>Monit</code>需要向<code>M/Monit</code>报告，这样<code>M/Monit</code>作为中心节点才能了解并管理新的<code>Monit</code>实例。</p>
+<p><code>Monit</code>报告的具体设置方法可以查阅<a href="http://mmonit.com/documentation/" target="_blank" rel="noopener">官方手册</a>，下面是简化的步骤。</p>
+<ol>
+<li>首先需要在配置文件中声明<code>M/Monit</code>的位置。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set mmonit http://&lt;username&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/collector</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>其中<code>username</code>和<code>password</code>是<code>M/Monit</code>中任何有效用户。可以使用管理员账户登录<code>M/Monit</code>对这些用户进行管理。<br><code>&lt;host&gt;:&lt;port&gt;</code>是<code>M/Monit</code>的位置，端口默认是8080。</p>
+<ol>
+<li>然后再启用httpd服务，以便接收 M/Monit 的操作指令。新版本的默认配置文件是开启的，只需要确认一下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set httpd port 2812 and</span><br><span class="line">    set httpd port 2812</span><br><span class="line">    allow localhost</span><br><span class="line">    allow &lt;host&gt;</span><br><span class="line">    allow admin:secret</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>需要注意<host>的值是前面设置的M/Monit的位置，否则不生效。</host></p>
+<p><strong>Monit和M/Monit之间的联系是有版本要求的，如果已经正确设置，但是还不生效，请查看日志检查错误原因。</strong><br><strong>需要注意CentOS默认源的Monit版本是5.1，而最新版的M/Monit要求Monit版本不低于5.2，直接使用默认源安装会造成连接问题。</strong></p>
 
       
 
@@ -534,7 +624,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/apache-kafka-notes/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/monit-and-mmonit/">展开全文 >></a>
         </p>
       
 
@@ -565,7 +655,7 @@
 
 
   
-    <article id="post-mongodb-ttl-indexes"
+    <article id="post-usage-of-digital-fingerprint"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -574,16 +664,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/mongodb-ttl-indexes/">MongoDB TTL 索引</a>
+      <a class="article-title" href="/articles/usage-of-digital-fingerprint/">数字指纹用法</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/mongodb-ttl-indexes/" class="archive-article-date">
-  <time datetime="2016-02-24T08:21:07.000Z" itemprop="datePublished">
-    Published on 2016 / 02 / 24
+          <a href="/articles/usage-of-digital-fingerprint/" class="archive-article-date">
+  <time datetime="2015-06-24T17:00:00.000Z" itemprop="datePublished">
+    Published on 2015 / 06 / 25
   </time>
   
 </a>
@@ -594,24 +684,104 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MongoDB提供了TTL索引自动从集合中删除过期文档，这个功能在<code>存储日志</code>等一些只需要在固定时间内存储数据的场景下使用起来非常方便。最近用了一下，发现这个功能没有想象中的那么好。</p>
-<p>TTL索引的建立很简单，要求是只能在一个<code>field</code>上创建，并且这个<code>field</code>是一个Date类型数据或者是一个包含Date类型数据的Array。<br>在创建索引的时候只需要多增加一个<code>expireAfterSeconds</code>参数，在<code>field</code>加上这个<code>expireAfterSeconds</code>的时间大于当前时间后，这个文档就会被自动删除。</p>
-<p>TTL索引相比一般索引还多了一些合理的限制，比如：</p>
+        <p>下载一些资源，网站可能不直接提供下载，但会机智的给出数字指纹。<br>这样的情况下加上磁力链接的前缀 <code>magnet:?xt=urn:btih:</code> 就是正确的下载地址啦<del>~</del></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/usage-of-digital-fingerprint/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-upgrade_mongodb_from_2_to_3"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/upgrade_mongodb_from_2_to_3/">MongoDB从2.6升级到3.0</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/upgrade_mongodb_from_2_to_3/" class="archive-article-date">
+  <time datetime="2015-05-04T13:49:00.000Z" itemprop="datePublished">
+    Published on 2015 / 05 / 04
+  </time>
+  
+    <time datetime="2015-07-13T13:53:31.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 07 / 13
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个爬虫项目，数据存储使用的 MongoDB 2.6，按网站和月份划分数据库。每次到月末，存储性能就大幅下降，<code>mongostat</code>查看是锁操作花费太多的时间。</p>
+<p>MongoDB 2.6 默认的MMAP引擎只支持数据库锁，虽然做过一些优化，但是在我这实际用起来发现效果并不是很好。<br>想要降低锁操作的时间，要么减少数据库体积，要么就换引擎。前者需要拆分出更多的数据库，不方便管理，就只能在引擎上下手。</p>
+<p>MongoDB 3.0 自三月份正式发布已经快两个月，应该趋于稳定。3.0除了将默认的存储引擎MMAP升级到支持集合锁，更是带入了支持文档锁的WiredTiger引擎。本着试一试的想法，最近把MongoDB升级到了3.0，引擎切换到 WiredTiger，结果是在没做其他优化的情况下解决了爬虫存储性能下降的问题。：P</p>
 <ul>
-<li>必须是单个字段（field），多字段不支持</li>
-<li><code>_id</code>字段不支持TTL索引</li>
-<li><code>定长集合(Capped Collections)</code>不支持</li>
-<li>不能使用<a href="https://docs.mongodb.org/manual/reference/method/db.collection.createIndex/#db.collection.createIndex" target="_blank" rel="noopener">createIndex()</a>来改变已有索引的<code>expireAfterSeconds</code>值。可以使用<a href="https://docs.mongodb.org/manual/reference/command/collMod/#dbcmd.collMod" target="_blank" rel="noopener">collMod</a>尝试，失败则只能删除并重建索引</li>
-<li>当目标字段（field）已有非TTL索引，必须先删除旧的，再重建新的TTL索引。<strong>不能建立一个只有这个参数（带有<code>expireAfterSeconds</code>）不同的索引</strong></li>
-</ul>
-<p>TTL索引有一般索引的功能，上面的限制大多数情况下能让人接受。但是因为TTL索引的删除机制，想要好好的用它，还需要斟酌。</p>
-<p>首先说一下TTL索引的实现方式：<br><code>mongod</code>每60s会启动一个后台线程来删除过期文档，这就意味这MongoDB的TTL不同于Redis，是一定有延迟的。<br>而且这个60s也不是硬性保证的，万一节点压力非常大，过期文档的删除时间会超过60s。<br>MongoDB只保证文档最后一定会删除，在没有删除之前，即使过了失效时间，文档依旧可以查询。</p>
-<p>在副本集的情况下，TTL后台线程只会在主节点删除文档，然后通过主节点把删除操作同步到从节点。但是每个从节点自身也会执行自己的TTL后台线程。<br>当主节点压力很大，从节点压力小的时候，就会出现过期文档在主节点依旧可以查询，在从节点却已被TTL索引删除的情况。</p>
-<p>索引的建立方式也会对这个造成影响。为了避免对读写造成堵塞，我一般会使用<code>background</code>后台建立索引。<br>当使用<code>background</code>方式建立索引，TTL线程可以在建立索引的过程中删除过期文档。而<code>foreground</code>则要等到索引建立完成才可以开始删除。</p>
-<p><code>TTL Indexes</code>和<code>Capped Collections</code>实现的功能其实有点类似，一个是是限定时间，一个是限定大小，但是<code>TTL Indexes</code>的不确定性大了很多。要使用他们肯定要根据具体的场景，我更倾向于使用确定的<code>Capped Collections</code>。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><ul>
-<li><a href="https://docs.mongodb.org/manual/core/index-ttl/#ttl-indexes" target="_blank" rel="noopener">TTL Indexes</a></li>
-<li><a href="https://docs.mongodb.org/manual/tutorial/expire-data/" target="_blank" rel="noopener">Expire Data from Collections by Setting TTL</a></li>
+<li>升级的步骤可以参见<a href="http://docs.mongodb.org/manual/" target="_blank" rel="noopener">官方文档</a>。</li>
+<li>WiredTiger引擎还可以开启数据压缩，据说可以大幅降低空间占用，提升内存的效率。现在爬虫系统还没遇到新的瓶颈，就不做尝试了，之后可以在这个点上进行进一步的优化。</li>
+<li>3.0之后出的修复版本，更新内容很多都是修复WiredTiger引擎的问题的，希望 WT 引擎早日稳定。</li>
+<li>MMAP引擎和WiredTiger的数据文件不兼容，单库切换引擎需要将旧的数据使用<code>mongoexport</code>全部导出，在使用<code>mongoimport</code>重新导入。</li>
 </ul>
 
       
@@ -638,7 +808,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/mongodb-ttl-indexes/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/upgrade_mongodb_from_2_to_3/">展开全文 >></a>
         </p>
       
 
@@ -669,7 +839,7 @@
 
 
   
-    <article id="post-github-offline-maintain"
+    <article id="post-deepin-2014-3-released"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -678,16 +848,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/articles/github-offline-maintain/">Github 离线维护</a>
+      <a class="article-title" href="/articles/deepin-2014-3-released/">Deepin 2014.3 已经发布</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/articles/github-offline-maintain/" class="archive-article-date">
-  <time datetime="2016-01-28T02:32:34.000Z" itemprop="datePublished">
-    Published on 2016 / 01 / 28
+          <a href="/articles/deepin-2014-3-released/" class="archive-article-date">
+  <time datetime="2015-04-28T18:18:00.000Z" itemprop="datePublished">
+    Published on 2015 / 04 / 29
   </time>
   
 </a>
@@ -698,12 +868,108 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>今天Github出现故障，离线维护，认识了几个可爱的图标。</p>
-<p>一个是独角兽，不知道是不是彩虹小马神教里面的。</p>
-<p><img src="https://a.adcdn.cn/images/%E7%8B%AC%E8%A7%92%E5%85%BD.webp" alt="独角兽"></p>
-<p>过一阵子变水管工了。</p>
-<p><img src="https://a.adcdn.cn/images/%E6%B0%B4%E7%AE%A1%E5%B7%A5.webp" alt="水管工"></p>
-<p>这个是查看Github运行状态的地址：<a href="https://status.github.com/" target="_blank" rel="noopener">https://status.github.com/</a></p>
+        <p>Deepin 2014.3 已经发布，欢迎下载体验！详细内容请移步<a href="http://planet.linuxdeepin.com/deepin-2014-3-released-free%C2%B7unique%C2%B7avant-garde/" target="_blank" rel="noopener">官方博客</a>。</p>
+<p>这是一个维护版本，所以版本号还是 2014。<br>Deepin 2015 据说已经在稳步开发中，将会直接基于Debian。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">deepin</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/deepin-2014-3-released/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-fix-openssl-freak"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/fix-openssl-freak/">修复 Openssl FREAK 中间人劫持漏洞</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/fix-openssl-freak/" class="archive-article-date">
+  <time datetime="2015-03-31T02:33:14.000Z" itemprop="datePublished">
+    Published on 2015 / 03 / 31
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>收到阿里云的漏洞提示邮件，网站存在 OpenSSL FREAK 漏洞，现在已经修复。主要操作是升级了OpenSSL并且修改了nginx配置。</p>
+<p>修改 nginx 配置<br><code>ssl_ciphers HIGH:!aNULL:!MD5:!EXPORT56:!EXP;</code></p>
+<p>关于这个漏洞的详细资料可以看相关链接：<br><a href="http://www.freebuf.com/news/60057.html" target="_blank" rel="noopener">“历史遗留”漏洞：浅析新型SSL/TLS漏洞FREAK</a><br><a href="http://bbs.aliyun.com/read/231806.html" target="_blank" rel="noopener">[分享]漏洞预警公告–Openssl SSL/TLS中间人劫持漏洞</a><br><a href="http://help.aliyun.com/knowledge_detail.htm?knowledgeId=5995398" target="_blank" rel="noopener">Openssl FREAK 中间人劫持漏洞</a></p>
 
       
 
@@ -729,7 +995,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/articles/github-offline-maintain/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/fix-openssl-freak/">展开全文 >></a>
         </p>
       
 
@@ -760,7 +1026,7 @@
 
 
   
-    <article id="post-dragon-iv"
+    <article id="post-python-json-dump-datetime"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -769,16 +1035,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/books/dragon-iv/">读书笔记：《龙族IV：奥丁之渊》</a>
+      <a class="article-title" href="/articles/python-json-dump-datetime/">Python 使用 json 序列化 datetime 类型</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/books/dragon-iv/" class="archive-article-date">
-  <time datetime="2016-01-14T08:41:00.000Z" itemprop="datePublished">
-    Published on 2016 / 01 / 14
+          <a href="/articles/python-json-dump-datetime/" class="archive-article-date">
+  <time datetime="2015-03-22T04:21:00.000Z" itemprop="datePublished">
+    Published on 2015 / 03 / 22
   </time>
   
 </a>
@@ -789,30 +1055,12 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这是该系列的第六本，但是内容读起来却像一本全新的书（贬义）。全文大部分都是师姐和师兄那无聊的吐槽，中间再穿插这一些动漫梗，大概是江南想以此引起动漫读者的共鸣，但实际上这种流水账凑字数的内容，很乏味，难以让人有更多的想象。龙族I铺垫剧情，介绍世界观，结尾三峡战斗感觉很好。龙族Ⅱ靠着夏弥的死和面瘫师兄的爱情也还不错。龙族Ⅲ厚厚的三本，虽说拖沓，但是小怪物绘梨衣的悲剧结局赚了一票眼泪。到系列第六本，应该更加成熟了才对，但是完全不是这样。</p>
-<p>这里用豆瓣的一份评论很贴切</p>
-<blockquote>
-<p>整本书你就只能看到江南像一个祥林嫂一样大段大段的描绘人物感情，不断给你煽情，拼命想戳中你的泪点，就好像瞎子射箭一样，抓了一堆的箭来，胡乱射出去，总有一只会中的。</p>
-</blockquote>
-<blockquote>
-<p>而我呢，书里那大段大段煽情的戏码就像一只小爪子在给我挠痒痒，偶尔挠中一次，我会心头一动，之后他继续挠，我还会起鸡皮疙瘩，再往后，我只会想说你丫烦不烦，我真的快要吐了。</p>
-</blockquote>
-<blockquote>
-<p>我一直都觉得，作为一个作者，保持感情的克制是很有必要的，虽然江南一直都不是一个克制的人，但这次，他完全就是打开了煽情水坝的大闸，恨不得把读者淹死。</p>
-</blockquote>
-<blockquote>
-<p>好好好，我知道路明非是个衰仔，诺诺在他最衰的时候把他拉了出来，于是她就是他的电，他的光，是他唯一的神话，但能不能别老叨逼叨逼这些段落，说一两次也就算了，每次都说是几个意思，能不能好好写剧情。</p>
-</blockquote>
-<blockquote>
-<p>还有那个唐僧和猴子的故事，江南你怎么了？一个小破故事居然在整本书的后半部分不断被拿出来讲，几个人物讲来讲去把它奉为圣经一般，搞得我一看到什么唐僧小猴子就忍不住跳过去，我都能感觉到那些情节煽情过度拧出来的苦水。</p>
-</blockquote>
-<blockquote>
-<p>另外苏晓樯和那个黑太子集团大公子在书里占据大量戏份是几个意思？强行扯上一些廉价又矫情的情节，不断重复他们那些煽情又幼稚的故事，很多桥段简直看得我尴尬症都要犯了好吗。</p>
-</blockquote>
-<p>龙族IV依然会大卖，但是看的人真的不会再有期待了。我看这本书的时候，满脑子冒出来的不是剧情的猜想，而是满满的回忆。我会看龙族，就是因为回忆，因为龙I出现的两句秘籍<code>show me the money</code>和<code>black sheep wall</code>。因为小学玩了两年的SC，眼睛才近视，所以SC作为目前唯一一款在我身上留下了痕迹的游戏，印象绝对的深刻。看见一个玩星际的主角，很自然的就看了龙族。</p>
-<p>时间是一个轮回，当时看龙族想的更多的是六年前，而现在看龙族，想的也是六年前。2010年，高中。每周稳定的看《知音漫客》和《龙漫少年星期天》；和同学讨论的火影还是佩恩六道在火影村这个最高潮的剧情；看完了整套《明朝那些事儿》，成王阳明这个妖孽人物的粉丝；从这年开始追轻小说传勇传（这本2002年开始连载的小说也是个坑）、夏娜和零使；推完了缘之空，现在还记得刚玩的时候只想妹线，谁都没选，最后进女仆线被醉酒女仆推倒的窘境；元旦是班上半数的男生去网吧通宵Dota，能够十人对黑。那种氛(fēn)围真的好玩~～～</p>
-<p>扯远了，再说回这本书。龙族在商业上是成功的，江南就是靠着这个拿了几年的作家富豪榜第一。但是剧情上已经有坑的趋势，看过的人会怀着微小的期望继续追下去，没看过的人可以畅快忽略之。</p>
+        <p>需要从 mongodb 导出数据，不使用 mongoexport，直接写 python 函数导出到文件。导出过程中发现了一个问题，mongodb 中的 Date 类型会转换成 python 中的 datetime，但在使用 json.dumps 的时候会抛出 <code>TypeError: datetime.datetime is not JSON serializable</code>，datetime 默认不支持 json 序列化。</p>
+<p>得手动扩展，我这里的需求是把 datetime 转换成时间戳：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DatetimeEncoder</span><span class="params">(json.JSONEncoder)</span>:</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">dict转json的时候将datetime类型转换成timestamp</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default</span><span class="params">(self, obj)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> isinstance(obj, datetime.datetime):</span><br><span class="line">        <span class="keyword">return</span> int(time.mktime(obj.timetuple()))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> json.JSONEncoder.default(self, obj)</span><br></pre></td></tr></table></figure>
 
+<p>使用的时候指定就可以了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json.dumps(data, ensure_ascii=<span class="keyword">False</span>, cls=DatetimeEncoder)</span><br></pre></td></tr></table></figure>
       
 
       
@@ -827,8 +1075,8 @@
     <ul class="article-tag-list">
       
         <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
         </li>
       
     </ul>
@@ -837,7 +1085,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/books/dragon-iv/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/python-json-dump-datetime/">展开全文 >></a>
         </p>
       
 
@@ -868,7 +1116,7 @@
 
 
   
-    <article id="post-javascript-in-24-hours-sams-teach-yourself-5th-edition"
+    <article id="post-nginx-typecho-enable-pseudo-static"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
   <div class="article-inner">
@@ -877,16 +1125,16 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/books/javascript-in-24-hours-sams-teach-yourself-5th-edition/">读书笔记：JavaScript入门经典（第5版）</a>
+      <a class="article-title" href="/articles/nginx-typecho-enable-pseudo-static/">Nginx 下 Typecho 开启伪静态</a>
     </h1>
   
 
       </header>
       
         <div style="text-align: center">
-          <a href="/books/javascript-in-24-hours-sams-teach-yourself-5th-edition/" class="archive-article-date">
-  <time datetime="2016-01-06T06:10:00.000Z" itemprop="datePublished">
-    Published on 2016 / 01 / 06
+          <a href="/articles/nginx-typecho-enable-pseudo-static/" class="archive-article-date">
+  <time datetime="2015-02-28T09:38:00.000Z" itemprop="datePublished">
+    Published on 2015 / 02 / 28
   </time>
   
 </a>
@@ -897,7 +1145,12 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Javascript的入门书籍，一句话评价是：<br>看之前我知道Java和JavaScript是不同的，看完之后我知道JavaScript和jQuery是不同的。</p>
+        <p>Typecho 支持开启伪静态的，开启之后网址链接更加美观。今天配置了一下，打开了这个功能，此处做记录。</p>
+<p>相关的nginx配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^[^.]+\.php(&#x2F;|$) &#123;</span><br><span class="line">    fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">    fastcgi_index index.php;</span><br><span class="line">    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">    include fastcgi_params;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 用于伪静态</span><br><span class="line">if (-f $request_filename&#x2F;index.html) &#123;</span><br><span class="line">  rewrite (.*) $1&#x2F;index.html break;</span><br><span class="line">&#125;</span><br><span class="line">if (-f $request_filename&#x2F;index.php) &#123;</span><br><span class="line">  rewrite (.*) $1&#x2F;index.php;</span><br><span class="line">&#125;</span><br><span class="line">if (!-f $request_filename) &#123;</span><br><span class="line">  rewrite (.*) &#x2F;index.php;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Nginx修改好之后reload新的配置文件，再进入Typecho就可以直接在配置中开启伪静态选项了。</p>
+<p><img src="https://a.adcdn.cn/images/typecho_rewrite.webp" alt="typecho_rewrite"></p>
 
       
 
@@ -913,8 +1166,8 @@
     <ul class="article-tag-list">
       
         <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
         </li>
       
     </ul>
@@ -923,7 +1176,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/books/javascript-in-24-hours-sams-teach-yourself-5th-edition/">展开全文 >></a>
+          <a class="article-more-a" href="/articles/nginx-typecho-enable-pseudo-static/">展开全文 >></a>
         </p>
       
 
@@ -956,7 +1209,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
     </nav>
   
 
