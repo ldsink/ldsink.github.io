@@ -203,6 +203,107 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-deploy-https"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/deploy-https/">公司全站部署HTTPS</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/deploy-https/" class="archive-article-date">
+  <time datetime="2017-01-01T09:30:00.000Z" itemprop="datePublished">
+    Published on 2017 / 01 / 01
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2017年来了，新年新气象，公司网站也迎来了全站HTTPS。HTTPS的好处有很多，安全是第一位的（远离运营商劫持）。各个大厂商推广HTTPS也是不遗余力，Google优先收录此类链接，苹果和微信小程序接口都走HTTPS。</p>
+<p>上一家公司因为前端CDN的问题，部署HTTPS一拖再拖。新公司网站还不大，现在部署成本低。感觉再拖延下去等以后复杂了，更加没人想干了，赶在新年前部署了。:-D</p>
+<p>简单的Checklist:</p>
+<ul>
+<li>申请SSL证书</li>
+<li>LB配置证书</li>
+<li>CDN配置证书</li>
+</ul>
+<p>按照以上的列表，一个一个来。</p>
+<h2 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请SSL证书</h2><p>公司有个业务需要使用<code>Apple Wallet</code>，当时在<code>RapidSSL</code>申请了公司二级域名的通配符证书。这个我向以前的同事咨询，获取到了相关的数据。</p>
+<h2 id="LB配置证书"><a href="#LB配置证书" class="headerlink" title="LB配置证书"></a>LB配置证书</h2><p>公司网站运行在AWS的云服务上，AWS的负载均衡器很方便的就可以部署证书，将证书上传到<code>IAM(Identity and Access Management)</code>之后，直接启用。配置好之后是HTTP和HTTPS都可以正常调用接口，过一阵子等移动端的客户端都更新之后，再强制全部跳转HTTPS。</p>
+<h2 id="CDN配置证书"><a href="#CDN配置证书" class="headerlink" title="CDN配置证书"></a>CDN配置证书</h2><p>公司CDN使用的网宿的，部署HTTPS需要上传私钥，我不太想把通配符证书上传到一个第三方的网站，好在现在腾讯云、<a href="https://yundun.console.aliyun.com/?p=cas#/cas/home" target="_blank" rel="noopener">阿里云</a>、七牛等都联合赛门铁克，免费提供了明细域名一年时间的DV证书。免费申请了<code>static</code>和<code>media</code>这两个静态资源二级域名的证书，专门用于CDN。这个问题也顺利解决。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="安卓上证书不受信任（微信、浏览器等打不开）"><a href="#安卓上证书不受信任（微信、浏览器等打不开）" class="headerlink" title="安卓上证书不受信任（微信、浏览器等打不开）"></a>安卓上证书不受信任（微信、浏览器等打不开）</h3><blockquote>
+<p>macOS和iPhone上都没有问题，但是安卓手机上会出现证书不受信任的错误。看到了<a href="https://www.v2ex.com/t/183715" target="_blank" rel="noopener">v2ex t183715</a>这个帖子，判断是一样的问题，<strong>证书链不完整</strong>。通过<a href="https://www.ssllabs.com/ssltest/index.html" target="_blank" rel="noopener">SSL LABS</a>检测网站，直接获得了网站带完整证书链的证书，重新部署完整证书链的证书，问题解决。</p>
+</blockquote>
+<p>总共试了两次，第一次因为遇到上面的问题，回滚了。第二天仔细了解了一下证书链，完善之后再部署，这次成功，浏览器、微信、Android端调用都没有问题。这让我想到了以前搭建的一个内部系统出现的问题：A是使用Docker搭建的Jenkins，用于自动测试和部署；B是Gitlab仓库，用于代码管理。A、B网址均开启<code>HSTS</code>，A通过OAuth插件使用B的权限管理。刚开始A访问B，证书不受信。我是手动进到A的Container里面，在JVM导入了B的证书，临时解决了问题。因为内部系统，没多想，能用了之后就没关注。现在想来应该是一样的问题。一开始的通配符证书不带完整的证书链，中级证书不会自动下载，所以不受信。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/deploy-https/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1175,97 +1276,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/mongodb-ttl-indexes/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-github-offline-maintain"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/github-offline-maintain/">Github 离线维护</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/github-offline-maintain/" class="archive-article-date">
-  <time datetime="2016-01-28T02:32:34.000Z" itemprop="datePublished">
-    Published on 2016 / 01 / 28
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天Github出现故障，离线维护，认识了几个可爱的图标。</p>
-<p>一个是独角兽，不知道是不是彩虹小马神教里面的。</p>
-<p><img src="https://a.adcdn.cn/images/%E7%8B%AC%E8%A7%92%E5%85%BD.webp" alt="独角兽"></p>
-<p>过一阵子变水管工了。</p>
-<p><img src="https://a.adcdn.cn/images/%E6%B0%B4%E7%AE%A1%E5%B7%A5.webp" alt="水管工"></p>
-<p>这个是查看Github运行状态的地址：<a href="https://status.github.com/" target="_blank" rel="noopener">https://status.github.com/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/github-offline-maintain/">展开全文 >></a>
         </p>
       
 

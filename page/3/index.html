@@ -203,6 +203,139 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-django-collectstatic-retrofit"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/django-collectstatic-retrofit/">Django collectstatic 改造</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/django-collectstatic-retrofit/" class="archive-article-date">
+  <time datetime="2018-04-14T03:23:19.000Z" itemprop="datePublished">
+    Published on 2018 / 04 / 14
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Collect-Static-执行的原理"><a href="#Collect-Static-执行的原理" class="headerlink" title="Collect Static 执行的原理"></a>Collect Static 执行的原理</h2><p><code>Django</code>默认使用<code>staticfiles</code>这个app来将整个项目下的静态文件收集到一个目录。主要用到了两个参数：</p>
+<ul>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/settings/#static-root" target="_blank" rel="noopener">STATIC_ROOT</a></li>
+<li><a href="https://docs.djangoproject.com/en/2.0/ref/settings/#static-url" target="_blank" rel="noopener">STATIC_URL</a></li>
+</ul>
+<p>项目相关的静态文件，按照默认的配置会收集到<code>STATIC_ROOT</code>目录。<br>模板文件中，使用<code>{% static "path/to/static/file "%}</code>方式引入的项目静态资源，会根据<code>STATIC_URL</code>替换成目标值。</p>
+<p>这一层需要注意的一个点是，全部独立APP下面的<code>static</code>都对应到<code>STATIC_ROOT</code>这一层。所以按照文档的建议，每个单独的APP下面的static目录最好也带上app名称。<br>直观的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py</span><br><span class="line">    mysite/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        wsgi.py</span><br><span class="line">    appa/</span><br><span class="line">        static/</span><br><span class="line">            a.jpg</span><br><span class="line">    appb/</span><br><span class="line">        static/</span><br><span class="line">            a.jpg</span><br></pre></td></tr></table></figure>
+
+<p><code>appa</code>和<code>appb</code>下面有共同的<code>a.jpg</code>，都会收集到<code>STATIC_ROOT</code>下面。某一个项目的<code>a.jpg</code>会覆盖掉另一个项目的，造成问题。<br>正确的做法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py</span><br><span class="line">    mysite/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        wsgi.py</span><br><span class="line">    appa/</span><br><span class="line">        static/</span><br><span class="line">            appa/</span><br><span class="line">                a.jpg</span><br><span class="line">    appb/</span><br><span class="line">        static/</span><br><span class="line">            appb/</span><br><span class="line">                a.jpg</span><br></pre></td></tr></table></figure>
+
+<p>在每个app下的static目录下，相关资源放到以当前app命名的文件夹，能避免碰到同名文件覆盖的问题。</p>
+<h2 id="Hash-和自动上传云存储兼得"><a href="#Hash-和自动上传云存储兼得" class="headerlink" title="Hash 和自动上传云存储兼得"></a>Hash 和自动上传云存储兼得</h2><p>默认的方式存在两个问题</p>
+<ul>
+<li>修改文件内容，链接不会变更，CDN/浏览器等各层会有文件缓存，新内容不会生效。</li>
+<li>需要手动/写脚本把<code>STATIC_ROOT</code>目录的资源上传到CDN。</li>
+</ul>
+<p>这两个问题，都有单独的解决方案。使用<a href="https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-STATICFILES_STORAGE" target="_blank" rel="noopener">STATICFILES_STORAGE</a>。<br>默认的<code>STATICFILES_STORAGE</code>使用的系统的文件存储，会将文件放置到<code>STATIC_ROOT</code>目录，使用不同的<code>STATICFILES_STORAGE</code>可以实现更多丰富的功能。</p>
+<h4 id="Hash-静态文件"><a href="#Hash-静态文件" class="headerlink" title="Hash 静态文件"></a>Hash 静态文件</h4><p><a href="https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#django.contrib.staticfiles.storage.ManifestStaticFilesStorage" target="_blank" rel="noopener">ManifestStaticFilesStorage</a>是Django自带的hash静态资源的工具。<br>一个关联的静态资源，会由</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import url(&quot;../admin/css/base.css&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>会变成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import url(&quot;../admin/css/base.27e20196a850.css&quot;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="自动上传到CDN"><a href="#自动上传到CDN" class="headerlink" title="自动上传到CDN"></a>自动上传到CDN</h4><p>自动上传到各种CDN的本质，就是将对象存储的Bucket作为静态文件的FileStorage。<br>Django框架下有<a href="https://github.com/jschneier/django-storages" target="_blank" rel="noopener">django-storages</a>和<a href="https://github.com/etianen/django-s3-storage" target="_blank" rel="noopener">django-s3-storage</a>。<br>这两个库做的事情都是将静态资源文件上传到对象存储的Bucket。现在国内的提供对象存储的云服务商的接口，大部分都兼容事实上的行业标准AWS S3的接口，修改<code>endpoint_url</code>之后都能使用。</p>
+<h4 id="Hash-和自动上传兼得"><a href="#Hash-和自动上传兼得" class="headerlink" title="Hash 和自动上传兼得"></a>Hash 和自动上传兼得</h4><p>两种<code>FileStorage</code>各自只实现了一种功能，怎么同时实现两个需求呢。Hash这个功能比较麻烦，尽量复用现有的。那就需要将上传整合进现有的模块。<br>落到处理静态资源的命令<a href="https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#collectstatic" target="_blank" rel="noopener">collectstatic</a>上。<br>处理完静态资源文件之后，会调用<code>post_process</code>。<br>查看<a href="https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#django.contrib.staticfiles.storage.ManifestStaticFilesStorage" target="_blank" rel="noopener">ManifestStaticFilesStorage</a>对应的函数，涉及到两个函数<code>read_manifest</code>和<code>save_manifest</code>。<br>问题就简单了，利用Django自带的<code>ManifestStaticFilesStorage</code>生成好带Hash的静态文件，再修改这个方法，自动根据文件列表上传到CDN。<br>Django 启动的时候会根据<code>read_manifest</code>读取<code>manifest.json</code>，根据他的结果渲染页面。这个函数使用到正确的<code>manifest.json</code>文件就能保证链接的是正确的静态文件。</p>
+<p>自定义的FileStorage代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> mimetypes</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> boto3</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> django.contrib.staticfiles.storage <span class="keyword">import</span> ManifestStaticFilesStorage</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line">logger.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyManifestStaticFilesStorage</span><span class="params">(ManifestStaticFilesStorage)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">read_manifest</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            url = <span class="string">'https://cdn.domain/staticfiles/staticfiles.&#123;&#125;.json'</span></span><br><span class="line">            url = url.format(settings.STATICFILES_VERSION)</span><br><span class="line">            response = requests.get(url)</span><br><span class="line">            <span class="keyword">return</span> response.text</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">save_manifest</span><span class="params">(self)</span>:</span></span><br><span class="line">        r = super(MyManifestStaticFilesStorage, self).save_manifest()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upload static file to S3</span></span><br><span class="line">        s3 = boto3.client(</span><br><span class="line">            <span class="string">'s3'</span>,</span><br><span class="line">            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,</span><br><span class="line">            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,</span><br><span class="line">            endpoint_url=settings.AWS_S3_ENDPOINT_URL,</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">for</span> hashed_file <span class="keyword">in</span> self.hashed_files.values():</span><br><span class="line">            <span class="keyword">with</span> self._open(hashed_file) <span class="keyword">as</span> file:</span><br><span class="line">                mime_type, _ = mimetypes.guess_type(hashed_file)</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    s3.head_object(Bucket=settings.STATICFILES_BUCKET, Key=hashed_file)</span><br><span class="line">                    logger.info(<span class="string">'Skipped uploading \'&#123;&#125;\''</span>.format(hashed_file))</span><br><span class="line">                <span class="keyword">except</span> Exception:</span><br><span class="line">                    logger.info(<span class="string">'Uploading \'&#123;&#125;\' to S3'</span>.format(hashed_file))</span><br><span class="line">                    extra_args = &#123;</span><br><span class="line">                        <span class="string">'ACL'</span>: <span class="string">'public-read'</span>,</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> mime_type:</span><br><span class="line">                        extra_args[<span class="string">'ContentType'</span>] = mime_type</span><br><span class="line">                    s3.upload_fileobj(file, settings.STATICFILES_BUCKET, hashed_file, ExtraArgs=extra_args)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upload manifest file to S3</span></span><br><span class="line">        manifest_file_name = <span class="string">'staticfiles.json'</span></span><br><span class="line">        manifest_hashed_file_name = self.hashed_name(manifest_file_name)</span><br><span class="line">        <span class="keyword">with</span> self._open(manifest_file_name) <span class="keyword">as</span> file:</span><br><span class="line">            target = <span class="string">'staticfiles/&#123;&#125;'</span>.format(manifest_hashed_file_name)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                s3.head_object(Bucket=settings.STATICFILES_BUCKET, Key=target)</span><br><span class="line">                logger.info(<span class="string">'Skipped uploading \'&#123;&#125;\''</span>.format(manifest_hashed_file_name))</span><br><span class="line">            <span class="keyword">except</span> Exception:</span><br><span class="line">                s3.upload_fileobj(file, settings.STATICFILES_BUCKET, target, ExtraArgs=&#123;</span><br><span class="line">                    <span class="string">'ACL'</span>: <span class="string">'public-read'</span>, <span class="string">'ContentType'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">                &#125;)</span><br><span class="line">                logger.info(<span class="string">'Uploading manifest hashed file \'&#123;&#125;\' to S3'</span>.format(manifest_hashed_file_name))</span><br><span class="line">            logger.info(<span class="string">'&#123;&#125;'</span>.format(manifest_hashed_file_name.split(<span class="string">'.'</span>)[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
+
+<p>我还是通过配置文件的<code>STATICFILES_VERSION</code>来决定使用的静态资源的版本。但是其他的一系列操作（Hash、Upload）都自动完成。</p>
+<h2 id="以后的改造计划"><a href="#以后的改造计划" class="headerlink" title="以后的改造计划"></a>以后的改造计划</h2><ul>
+<li>压缩 js、css 文件</li>
+<li>压缩图片</li>
+<li>自动使用最新版本的<code>STATICFILES_VERSION</code>（比如通过一个接口获取、使用当前 git head 之类)</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">django</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/django-collectstatic-retrofit/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-initialize-react-project"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1289,107 +1422,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/nginx-php-fpm-permission-denied/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-deploy-https"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/deploy-https/">公司全站部署HTTPS</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/deploy-https/" class="archive-article-date">
-  <time datetime="2017-01-01T09:30:00.000Z" itemprop="datePublished">
-    Published on 2017 / 01 / 01
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2017年来了，新年新气象，公司网站也迎来了全站HTTPS。HTTPS的好处有很多，安全是第一位的（远离运营商劫持）。各个大厂商推广HTTPS也是不遗余力，Google优先收录此类链接，苹果和微信小程序接口都走HTTPS。</p>
-<p>上一家公司因为前端CDN的问题，部署HTTPS一拖再拖。新公司网站还不大，现在部署成本低。感觉再拖延下去等以后复杂了，更加没人想干了，赶在新年前部署了。:-D</p>
-<p>简单的Checklist:</p>
-<ul>
-<li>申请SSL证书</li>
-<li>LB配置证书</li>
-<li>CDN配置证书</li>
-</ul>
-<p>按照以上的列表，一个一个来。</p>
-<h2 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请SSL证书</h2><p>公司有个业务需要使用<code>Apple Wallet</code>，当时在<code>RapidSSL</code>申请了公司二级域名的通配符证书。这个我向以前的同事咨询，获取到了相关的数据。</p>
-<h2 id="LB配置证书"><a href="#LB配置证书" class="headerlink" title="LB配置证书"></a>LB配置证书</h2><p>公司网站运行在AWS的云服务上，AWS的负载均衡器很方便的就可以部署证书，将证书上传到<code>IAM(Identity and Access Management)</code>之后，直接启用。配置好之后是HTTP和HTTPS都可以正常调用接口，过一阵子等移动端的客户端都更新之后，再强制全部跳转HTTPS。</p>
-<h2 id="CDN配置证书"><a href="#CDN配置证书" class="headerlink" title="CDN配置证书"></a>CDN配置证书</h2><p>公司CDN使用的网宿的，部署HTTPS需要上传私钥，我不太想把通配符证书上传到一个第三方的网站，好在现在腾讯云、<a href="https://yundun.console.aliyun.com/?p=cas#/cas/home" target="_blank" rel="noopener">阿里云</a>、七牛等都联合赛门铁克，免费提供了明细域名一年时间的DV证书。免费申请了<code>static</code>和<code>media</code>这两个静态资源二级域名的证书，专门用于CDN。这个问题也顺利解决。</p>
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="安卓上证书不受信任（微信、浏览器等打不开）"><a href="#安卓上证书不受信任（微信、浏览器等打不开）" class="headerlink" title="安卓上证书不受信任（微信、浏览器等打不开）"></a>安卓上证书不受信任（微信、浏览器等打不开）</h3><blockquote>
-<p>macOS和iPhone上都没有问题，但是安卓手机上会出现证书不受信任的错误。看到了<a href="https://www.v2ex.com/t/183715" target="_blank" rel="noopener">v2ex t183715</a>这个帖子，判断是一样的问题，<strong>证书链不完整</strong>。通过<a href="https://www.ssllabs.com/ssltest/index.html" target="_blank" rel="noopener">SSL LABS</a>检测网站，直接获得了网站带完整证书链的证书，重新部署完整证书链的证书，问题解决。</p>
-</blockquote>
-<p>总共试了两次，第一次因为遇到上面的问题，回滚了。第二天仔细了解了一下证书链，完善之后再部署，这次成功，浏览器、微信、Android端调用都没有问题。这让我想到了以前搭建的一个内部系统出现的问题：A是使用Docker搭建的Jenkins，用于自动测试和部署；B是Gitlab仓库，用于代码管理。A、B网址均开启<code>HSTS</code>，A通过OAuth插件使用B的权限管理。刚开始A访问B，证书不受信。我是手动进到A的Container里面，在JVM导入了B的证书，临时解决了问题。因为内部系统，没多想，能用了之后就没关注。现在想来应该是一样的问题。一开始的通配符证书不带完整的证书链，中级证书不会自动下载，所以不受信。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/deploy-https/">展开全文 >></a>
         </p>
       
 

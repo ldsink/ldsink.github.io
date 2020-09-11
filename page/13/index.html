@@ -203,6 +203,112 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-p1097-merge"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/p1097-merge/">P1097 合并果子</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/p1097-merge/" class="archive-article-date">
+  <time datetime="2009-10-22T10:21:00.000Z" itemprop="datePublished">
+    Published on 2009 / 10 / 22
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>解法是每次取最小的两堆合并，N-1次后合并完成。</p>
+<p>问题是每次取最小的两个数怎么找，我用双栈解决。</p>
+<p>A是原来的数组，B是合并后的数组。开始读入以后给A一个快速排序，以后每次合并后存入B。</p>
+<p>合并的最小两个数从A、B头取最小的数！</p>
+<blockquote>
+<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N,As,Ae,Bs,Be;<span class="keyword">long</span> Ans,A[<span class="number">20000</span>],B[<span class="number">20000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">KP</span><span class="params">(<span class="keyword">int</span> st,<span class="keyword">int</span> en)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;<span class="keyword">long</span> c;</span><br><span class="line">    a=st,b=en,c=A[a];</span><br><span class="line">    <span class="keyword">while</span>(a&lt;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(a&lt;b)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(A[b]&lt;c)</span><br><span class="line">                &#123;A[a]=A[b];<span class="keyword">break</span>;&#125;</span><br><span class="line">            b--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(a&lt;b)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(A[a]&gt;c)</span><br><span class="line">                &#123;A[b]=A[a];<span class="keyword">break</span>;&#125;</span><br><span class="line">            a++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    A[a]=c;</span><br><span class="line">    <span class="keyword">if</span>(st&lt;a<span class="number">-1</span>) KP(st,a<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span>(a+<span class="number">1</span>&lt;en) KP(a+<span class="number">1</span>,en);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">Get</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> a,b;</span><br><span class="line">    a=<span class="number">100000000</span>;b=<span class="number">100000000</span>;</span><br><span class="line">    <span class="keyword">if</span>(As&lt;Ae) a=A[As];</span><br><span class="line">    <span class="keyword">if</span>(Bs&lt;Be) b=B[Bs];</span><br><span class="line">    <span class="keyword">if</span>(a&lt;b) </span><br><span class="line">        &#123;As++;<span class="keyword">return</span> a;&#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        &#123;Bs++;<span class="keyword">return</span> b;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;N);</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    <span class="keyword">for</span>(a=<span class="number">0</span>;a&lt;N;a++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%ld"</span>,&amp;A[a]);</span><br><span class="line">    KP(<span class="number">0</span>,N<span class="number">-1</span>);Ae=N;</span><br><span class="line">    <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;N;a++)</span><br><span class="line">        &#123;B[Be]=Get()+Get();Ans+=B[Be];Be++;&#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%ld\n"</span>,Ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">vijos</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/p1097-merge/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-p1317-happy"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1124,109 +1230,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/p1484-isbn/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-p1258"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/p1258/">P1258 多项式表示 解题报告</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/p1258/" class="archive-article-date">
-  <time datetime="2009-05-16T05:35:00.000Z" itemprop="datePublished">
-    Published on 2009 / 05 / 16
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>字符串处理的细节活。用了N个 if 。</p>
-<blockquote>
-<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> xiang[<span class="number">10</span>],count,pan; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">First</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(a&gt;<span class="number">1</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="keyword">if</span>(xiang[a]&gt;<span class="number">0</span>)</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">if</span>(xiang[a]==<span class="number">1</span>)</span><br><span class="line">                 <span class="built_in">printf</span>(<span class="string">"x^%d"</span>,a);</span><br><span class="line">             <span class="keyword">else</span></span><br><span class="line">                 <span class="built_in">printf</span>(<span class="string">"%dx^%d"</span>,xiang[a],a);</span><br><span class="line">             pan=<span class="number">1</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span> <span class="keyword">if</span>(xiang[a]&lt;<span class="number">0</span>)</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">if</span>(xiang[a]==<span class="number">-1</span>)</span><br><span class="line">                 <span class="built_in">printf</span>(<span class="string">"-x^%d"</span>,a);</span><br><span class="line">             <span class="keyword">else</span></span><br><span class="line">                 <span class="built_in">printf</span>(<span class="string">"%dx^%d"</span>,xiang[a],a);  </span><br><span class="line">             pan=<span class="number">1</span>;</span><br><span class="line">         &#125;</span><br><span class="line">         count--;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">     &#123;</span><br><span class="line">         <span class="keyword">if</span>(a==<span class="number">1</span>)</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">if</span>(xiang[a]&gt;<span class="number">0</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                 <span class="keyword">if</span>(xiang[a]==<span class="number">1</span>)</span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">"x"</span>);</span><br><span class="line">                 <span class="keyword">else</span></span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">"%dx"</span>,xiang[a]);</span><br><span class="line">                 pan=<span class="number">1</span>;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">else</span> <span class="keyword">if</span>(xiang[a]&lt;<span class="number">0</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                 <span class="keyword">if</span>(xiang[a]==<span class="number">-1</span>)</span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">"-x"</span>);</span><br><span class="line">                 <span class="keyword">else</span></span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">"%dx"</span>,xiang[a]);  </span><br><span class="line">                 pan=<span class="number">1</span>;</span><br><span class="line">             &#125;</span><br><span class="line">             count--;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span></span><br><span class="line">         &#123;</span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">"%d"</span>,xiang[a]);</span><br><span class="line">         pan=<span class="number">1</span>;</span><br><span class="line">         count--;</span><br><span class="line">         &#125; </span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Second</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(a&gt;<span class="number">1</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="keyword">if</span>(pan==<span class="number">1</span>)</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">if</span>(xiang[a]&gt;<span class="number">0</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                 <span class="keyword">if</span>(xiang[a]==<span class="number">1</span>)</span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">" + x^%d"</span>,a);</span><br><span class="line">                 <span class="keyword">else</span></span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">" + %dx^%d"</span>,xiang[a],a);</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">else</span> <span class="keyword">if</span>(xiang[a]&lt;<span class="number">0</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                 <span class="keyword">if</span>(xiang[a]==<span class="number">-1</span>)</span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">" - x^%d"</span>,a);</span><br><span class="line">                 <span class="keyword">else</span></span><br><span class="line">                     <span class="built_in">printf</span>(<span class="string">" - %dx^%d"</span>,-xiang[a],a);  </span><br><span class="line">             &#125;</span><br><span class="line">             count--;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">else</span></span><br><span class="line">             First(a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a==<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(pan==<span class="number">1</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                 <span class="keyword">if</span>(xiang[a]&gt;<span class="number">0</span>)</span><br><span class="line">                 &#123;</span><br><span class="line">                     <span class="keyword">if</span>(xiang[a]==<span class="number">1</span>)</span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" + x"</span>);</span><br><span class="line">                     <span class="keyword">else</span></span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" + %dx"</span>,xiang[a]);</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="keyword">else</span> <span class="keyword">if</span>(xiang[a]&lt;<span class="number">0</span>)</span><br><span class="line">                 &#123;</span><br><span class="line">                     <span class="keyword">if</span>(xiang[a]==<span class="number">-1</span>)</span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" - x"</span>,a);</span><br><span class="line">                     <span class="keyword">else</span></span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" - %dx"</span>,-xiang[a]);  </span><br><span class="line">                 &#125;</span><br><span class="line">                 count--;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">else</span></span><br><span class="line">                 First(a);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(pan==<span class="number">1</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                 <span class="keyword">if</span>(xiang[a]&gt;<span class="number">0</span>)</span><br><span class="line">                 &#123;</span><br><span class="line">                     <span class="keyword">if</span>(xiang[a]==<span class="number">1</span>)</span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" + 1"</span>);</span><br><span class="line">                     <span class="keyword">else</span></span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" + %d"</span>,xiang[a]);</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="keyword">else</span> <span class="keyword">if</span>(xiang[a]&lt;<span class="number">0</span>)</span><br><span class="line">                 &#123;</span><br><span class="line">                     <span class="keyword">if</span>(xiang[a]==<span class="number">-1</span>)</span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" - 1"</span>);</span><br><span class="line">                     <span class="keyword">else</span></span><br><span class="line">                         <span class="built_in">printf</span>(<span class="string">" - %d"</span>,-xiang[a]);  </span><br><span class="line">                 &#125;</span><br><span class="line">                 count--;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">else</span></span><br><span class="line">                 First(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">8</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;xiang);</span><br><span class="line">    pan=<span class="number">0</span>;count=<span class="number">8</span>;</span><br><span class="line">    First(count);</span><br><span class="line">    <span class="keyword">while</span>(count&gt;=<span class="number">0</span>)</span><br><span class="line">        Second(count); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color1">vijos</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/p1258/">展开全文 >></a>
         </p>
       
 
