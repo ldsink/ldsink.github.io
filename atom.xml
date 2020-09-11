@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2020-09-11T05:56:36.732Z</updated>
+  <updated>2020-09-11T06:18:21.604Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -21,14 +21,14 @@
     <link href="https://ldsink.com/articles/organize-key-files/"/>
     <id>https://ldsink.com/articles/organize-key-files/</id>
     <published>2020-09-11T04:30:46.000Z</published>
-    <updated>2020-09-11T05:56:36.732Z</updated>
+    <updated>2020-09-11T06:18:21.604Z</updated>
     
-    <content type="html"><![CDATA[<p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保持一种，选用安全性高的”</strong> 的原则进行清理。已知：</p><ul><li><code>rsa</code> 和 <code>dsa</code> 基于大数因数分解。</li><li><code>ecdsa</code> 和 <code>ed25519</code> 基于椭圆曲线离散对数问题。</li><li><code>rsa</code> 长度 4096 位之后目前可以视为安全。</li><li><code>dsa</code> 已被认为不安全。</li><li><code>ecdsa</code> 政治上：算法选择由 <a href="https://www.nist.gov/" target="_blank" rel="noopener">NIST</a> 设定；技术上：过于复杂以至于无法完善的检查。因此也视为不安全。</li><li><code>ed25519</code> 安全性最高，性能最好。<a href="https://www.openssh.com/txt/release-6.5" target="_blank" rel="noopener">但是需要比较新的版本（OpenSSH 6.5+）才支持</a>。</li></ul><p>最后保留4096位的<code>rsa</code>密钥和<code>ed25519</code>密钥。在允许的情况下优先使用<code>ed25519</code>密钥。</p><h3 id="“秘”和“密”的区别"><a href="#“秘”和“密”的区别" class="headerlink" title="“秘”和“密”的区别"></a>“秘”和“密”的区别</h3><p>这是一个题外话。前几天同事注释把密钥写成了秘钥，我发现了这个错别字。改正之后，我们对这个字的含义产生了兴趣。因为“秘密”这个词表示隐秘，两个单字应该都有近似的含义，那为什么是“密钥”而不是“秘钥”。“秘”和“密”的区别是什么？</p><p>一番查证，归纳出了如下区别：</p><table><thead><tr><th>秘</th><th>密</th></tr></thead><tbody><tr><td>客观，被动</td><td>主观，主动</td></tr><tr><td>内容本身隐蔽，强调的是不易知</td><td>需要去隐蔽内容，强调的是不让知</td></tr><tr><td>神鬼之事、高深莫测、罕闻稀见</td><td>人为之事、故意遮掩、严加控制</td></tr><tr><td>例词：秘本、秘方、秘史、秘闻、秘笈</td><td>例词：密封、密谈、密约、保密、泄密、解密、绝密、机密</td></tr></tbody></table><h3 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h3><ul><li><a href="https://medium.com/@honglong/%E9%81%B8%E6%93%87-ssh-key-%E7%9A%84%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95-70ca45c94d8e" target="_blank" rel="noopener">選擇 SSH key 的加密演算法</a></li><li><a href="https://sohfrance.com/%E7%A7%98%E3%80%81%E5%AF%86%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/" target="_blank" rel="noopener">秘、密如何区别</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保留一种，安全性高优先”</strong> 的原则进行清理。已知：</p><ul><li><code>rsa</code> 和 <code>dsa</code> 基于大数因数分解。</li><li><code>ecdsa</code> 和 <code>ed25519</code> 基于椭圆曲线离散对数问题。</li><li><code>rsa</code> 长度 4096 位之后目前可以视为安全。</li><li><code>dsa</code> 已被认为不安全。</li><li><code>ecdsa</code> 政治上：算法选择由 <a href="https://www.nist.gov/" target="_blank" rel="noopener">NIST</a> 设定；技术上：过于复杂以至于无法完善的检查。因此也视为不安全。</li><li><code>ed25519</code> 安全性最高，性能最好。<a href="https://www.openssh.com/txt/release-6.5" target="_blank" rel="noopener">但是需要比较新的版本（OpenSSH 6.5+）才支持</a>。</li></ul><p>最后保留4096位的<code>rsa</code>密钥和<code>ed25519</code>密钥。在允许的情况下优先使用<code>ed25519</code>密钥。</p><h3 id="“秘”和“密”的区别"><a href="#“秘”和“密”的区别" class="headerlink" title="“秘”和“密”的区别"></a>“秘”和“密”的区别</h3><p>这是一个题外话。前几天同事注释把密钥写成了秘钥，我发现了这个错别字。改正之后，我们对这个字的含义产生了兴趣。因为“秘密”这个词表示隐秘，两个单字应该都有近似的含义，那为什么是“密钥”而不是“秘钥”。“秘”和“密”的区别是什么？</p><p>一番查证，归纳出了如下区别：</p><table><thead><tr><th>秘</th><th>密</th></tr></thead><tbody><tr><td>客观，被动</td><td>主观，主动</td></tr><tr><td>内容本身隐蔽，强调的是不易知</td><td>需要去隐蔽内容，强调的是不让知</td></tr><tr><td>神鬼之事、高深莫测、罕闻稀见</td><td>人为之事、故意遮掩、严加控制</td></tr><tr><td>例词：秘本、秘方、秘史、秘闻、秘笈</td><td>例词：密封、密谈、密约、保密、泄密、解密、绝密、机密</td></tr></tbody></table><p>汉语博大精深。</p><h3 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h3><ul><li><a href="https://medium.com/@honglong/%E9%81%B8%E6%93%87-ssh-key-%E7%9A%84%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95-70ca45c94d8e" target="_blank" rel="noopener">選擇 SSH key 的加密演算法</a></li><li><a href="https://sohfrance.com/%E7%A7%98%E3%80%81%E5%AF%86%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/" target="_blank" rel="noopener">秘、密如何区别</a></li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;系统里面，积累起来的 SSH 密钥已经包含了 &lt;code&gt;rsa&lt;/code&gt;、&lt;code&gt;dsa&lt;/code&gt;、&lt;code&gt;ecdsa&lt;/code&gt; 和 &lt;code&gt;ed25519&lt;/code&gt; 四对。基于 &lt;strong&gt;“同类型的保持一种，选用安全性高的”&lt;/stro</summary>
+    <summary type="html">&lt;p&gt;系统里面，积累起来的 SSH 密钥已经包含了 &lt;code&gt;rsa&lt;/code&gt;、&lt;code&gt;dsa&lt;/code&gt;、&lt;code&gt;ecdsa&lt;/code&gt; 和 &lt;code&gt;ed25519&lt;/code&gt; 四对。基于 &lt;strong&gt;“同类型的保留一种，安全性高优先”&lt;/stron</summary>
       
     
     
