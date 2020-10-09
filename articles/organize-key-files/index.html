@@ -7,18 +7,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://ldsink.com">
   <title>
-    整理密钥文件 |
+    密钥文件取舍 |
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="系统里面，积累起来的 SSH 密钥已经包含了 rsa、dsa、ecdsa 和 ed25519 四对。基于 “同类型的保留一种，安全性高优先” 的原则进行清理。已知：  rsa 和 dsa 基于大数因数分解。 ecdsa 和 ed25519 基于椭圆曲线离散对数问题。 rsa 长度 4096 位之后目前可以视为安全。 dsa 已被认为不安全。 ecdsa 政治上：算法选择由 NIST 设定；技术上：">
+  <meta name="description" content="密钥的取舍系统里面，积累起来的 SSH 密钥已经包含了 rsa、dsa、ecdsa 和 ed25519 四对。基于 “同类型的保留一种，安全性高优先” 的原则进行清理。已知：  rsa 和 dsa 基于大数因数分解。 ecdsa 和 ed25519 基于椭圆曲线离散对数问题。 rsa 长度 4096 位之后目前可以视为安全。 dsa 已被认为不安全。 ecdsa 政治上：算法选择由 NIST 设定">
 <meta property="og:type" content="article">
-<meta property="og:title" content="整理密钥文件">
+<meta property="og:title" content="密钥文件取舍">
 <meta property="og:url" content="https://ldsink.com/articles/organize-key-files/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="系统里面，积累起来的 SSH 密钥已经包含了 rsa、dsa、ecdsa 和 ed25519 四对。基于 “同类型的保留一种，安全性高优先” 的原则进行清理。已知：  rsa 和 dsa 基于大数因数分解。 ecdsa 和 ed25519 基于椭圆曲线离散对数问题。 rsa 长度 4096 位之后目前可以视为安全。 dsa 已被认为不安全。 ecdsa 政治上：算法选择由 NIST 设定；技术上：">
+<meta property="og:description" content="密钥的取舍系统里面，积累起来的 SSH 密钥已经包含了 rsa、dsa、ecdsa 和 ed25519 四对。基于 “同类型的保留一种，安全性高优先” 的原则进行清理。已知：  rsa 和 dsa 基于大数因数分解。 ecdsa 和 ed25519 基于椭圆曲线离散对数问题。 rsa 长度 4096 位之后目前可以视为安全。 dsa 已被认为不安全。 ecdsa 政治上：算法选择由 NIST 设定">
 <meta property="article:published_time" content="2020-09-11T04:30:46.000Z">
-<meta property="article:modified_time" content="2020-09-11T06:18:21.604Z">
+<meta property="article:modified_time" content="2020-10-09T12:05:34.481Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -213,7 +213,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      整理密钥文件
+      密钥文件取舍
     </h1>
   
 
@@ -233,7 +233,7 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保留一种，安全性高优先”</strong> 的原则进行清理。已知：</p>
+        <h3 id="密钥的取舍"><a href="#密钥的取舍" class="headerlink" title="密钥的取舍"></a>密钥的取舍</h3><p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保留一种，安全性高优先”</strong> 的原则进行清理。已知：</p>
 <ul>
 <li><code>rsa</code> 和 <code>dsa</code> 基于大数因数分解。</li>
 <li><code>ecdsa</code> 和 <code>ed25519</code> 基于椭圆曲线离散对数问题。</li>
