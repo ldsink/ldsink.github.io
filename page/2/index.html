@@ -314,6 +314,10 @@
     Published on 2019 / 06 / 25
   </time>
   
+    <time datetime="2020-10-30T03:09:20.000Z" itemprop="dateUpdated">
+      , Updated on 2020 / 10 / 30
+    </time>
+  
 </a>
 
         </div>
@@ -328,7 +332,7 @@
 <p>下面的方法在 deepin 上测试通过，应该同样适用于 Debian、Ubuntu。</p>
 </blockquote>
 <h2 id="0x0-升级系统-amp-安装依赖"><a href="#0x0-升级系统-amp-安装依赖" class="headerlink" title="0x0 升级系统 &amp; 安装依赖"></a>0x0 升级系统 &amp; 安装依赖</h2><p>打算编译安装以前，首先升级系统，安装必要的依赖。这样可以避免之后安装 Python 时缺少第三方库的问题。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y make build-essential libssl-dev zlib1g-dev</span><br><span class="line">sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm</span><br><span class="line">sudo apt install -y libncurses5-dev  libncursesw5-dev xz-utils tk-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y make build-essential libssl-dev zlib1g-dev</span><br><span class="line">sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev wget curl llvm</span><br><span class="line">sudo apt install -y libncurses5-dev libncursesw5-dev xz-utils tk-dev</span><br></pre></td></tr></table></figure>
 
 <h2 id="0x1-下载-Python-包并编译安装"><a href="#0x1-下载-Python-包并编译安装" class="headerlink" title="0x1 下载 Python 包并编译安装"></a>0x1 下载 Python 包并编译安装</h2><p>这次计划安装 Python 3.6.8，相关页面：<a href="https://www.python.org/downloads/release/python-368/" target="_blank" rel="noopener">https://www.python.org/downloads/release/python-368/</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tgz</span><br></pre></td></tr></table></figure>

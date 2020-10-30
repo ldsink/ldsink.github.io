@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="Sink 的笔记本">
 <meta property="og:description" content="最近整理博客，发现很大一部人都是新手教程性质的“How to”类，内容主要是记录怎么手把手解决事情。没什么难度，非常简单，都是查询官方文档或者Google搜索出的解决方案。考虑到国内很多人其实只会用百度，看CSDN来工作的现实，我这类“How to”类的小笔记是有意义和有价值的。比那些不知道经过多少手的“资料”，自己的一手小笔记更加准确。我是个喜欢整理的人，这类小笔记，以后打算做成一个系列，名称会">
 <meta property="article:published_time" content="2019-06-25T09:05:25.000Z">
-<meta property="article:modified_time" content="2019-11-22T02:37:28.382Z">
+<meta property="article:modified_time" content="2020-10-30T03:09:27.035Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="how-to">
 <meta name="twitter:card" content="summary">
@@ -226,6 +226,10 @@
     Published on 2019 / 06 / 25
   </time>
   
+    <time datetime="2020-10-30T03:09:20.000Z" itemprop="dateUpdated">
+      , Updated on 2020 / 10 / 30
+    </time>
+  
 </a>
 
         </div>
@@ -240,7 +244,7 @@
 <p>下面的方法在 deepin 上测试通过，应该同样适用于 Debian、Ubuntu。</p>
 </blockquote>
 <h2 id="0x0-升级系统-amp-安装依赖"><a href="#0x0-升级系统-amp-安装依赖" class="headerlink" title="0x0 升级系统 &amp; 安装依赖"></a>0x0 升级系统 &amp; 安装依赖</h2><p>打算编译安装以前，首先升级系统，安装必要的依赖。这样可以避免之后安装 Python 时缺少第三方库的问题。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y make build-essential libssl-dev zlib1g-dev</span><br><span class="line">sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm</span><br><span class="line">sudo apt install -y libncurses5-dev  libncursesw5-dev xz-utils tk-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y make build-essential libssl-dev zlib1g-dev</span><br><span class="line">sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev wget curl llvm</span><br><span class="line">sudo apt install -y libncurses5-dev libncursesw5-dev xz-utils tk-dev</span><br></pre></td></tr></table></figure>
 
 <h2 id="0x1-下载-Python-包并编译安装"><a href="#0x1-下载-Python-包并编译安装" class="headerlink" title="0x1 下载 Python 包并编译安装"></a>0x1 下载 Python 包并编译安装</h2><p>这次计划安装 Python 3.6.8，相关页面：<a href="https://www.python.org/downloads/release/python-368/" target="_blank" rel="noopener">https://www.python.org/downloads/release/python-368/</a></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tgz</span><br></pre></td></tr></table></figure>
