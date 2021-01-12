@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2021-01-12T03:31:46.299Z</updated>
+  <updated>2021-01-12T03:37:01.074Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="https://ldsink.com/archives/firefox-were-finally-getting-hw-acceleration-on-linux/"/>
     <id>https://ldsink.com/archives/firefox-were-finally-getting-hw-acceleration-on-linux/</id>
     <published>2021-01-12T03:20:14.000Z</published>
-    <updated>2021-01-12T03:31:46.299Z</updated>
+    <updated>2021-01-12T03:37:01.074Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/firefox-quantum-engine.webp" alt="firefox-quantum-engine"></p><p>看到这一则令人开心的消息<a href="https://mastransky.wordpress.com/2021/01/10/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox – we’re finally getting HW acceleration on Linux</a>。目前 Firefox 在 Linux 下并不支持硬件加速，导致其在B站播放视频非常容易卡顿。我目前安装了一个 Chrome 专门用于观看B站视频。期望 Firefox 早日实现全部功能，能让 Linux 下也有流畅的使用体验。</p><p>可以在 <code>about:support</code> 内查看目前使用的图像合成引擎，我这里 Firefox Developer Edition 85.0b7 还是 <code>OpenGL</code>，希望早日用上 <code>WebRender</code>。</p>]]></content>
+    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/firefox-quantum-engine.webp" alt="firefox-quantum-engine"></p><p>看到一则令人开心的消息<a href="https://mastransky.wordpress.com/2021/01/10/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox – we’re finally getting HW acceleration on Linux</a>。目前 Firefox 在 Linux 下并不支持硬件加速，导致其在B站播放视频非常容易卡顿。我目前安装了一个 Chrome 专门用于看B站视频。期待 Firefox 早日实现全部功能，在 Linux 下也拥有流畅的效果。</p><p>可以在 <code>about:support</code> 内查看目前使用的图像合成引擎，我这里 Firefox Developer Edition 85.0b7 还是 <code>OpenGL</code>，希望早日用上 <code>WebRender</code>。</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/firefox-quantum-engine.webp&quot; alt=&quot;firefox-quantum-engine&quot;&gt;&lt;/p&gt;
-&lt;p&gt;看到这一则令人开心的消息&lt;a href=&quot;https://mastra</summary>
+&lt;p&gt;看到一则令人开心的消息&lt;a href=&quot;https://mastran</summary>
       
     
     
