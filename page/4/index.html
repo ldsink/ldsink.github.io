@@ -201,6 +201,103 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-nginx-php-fpm-permission-denied"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/nginx-php-fpm-permission-denied/">nginx 和 php-fpm 的 php7.0-fpm.sock Permission denied 错误</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/nginx-php-fpm-permission-denied/" class="archive-article-date">
+  <time datetime="2017-02-25T14:34:47.000Z" itemprop="datePublished">
+    Published on 2017 / 02 / 25
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>error.log 内容为：</p>
+<blockquote>
+<p>2017/02/25 20:20:58 [crit] 10745#10745: *1 connect() to unix:/var/run/php/php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream</p>
+</blockquote>
+<p>这个是因为 nginx 和 php-fpm 分别使用了不同的用户权限。我的习惯是都统一成 www-data 用户。</p>
+<ul>
+<li><p>nginx 的默认配置文件位于<code>/etc/nginx/nginx.conf</code>，将其中的<code>user</code>的值修改为目标的用户组。</p>
+</li>
+<li><p>php-fpm 的配置文件位于<code>/etc/php/7.0/fpm/pool.d/www.conf</code>，将其中的<code>user</code>的值修改为目标的用户组。</p>
+</li>
+</ul>
+<p>无论修改哪个，改好之后重启对应的服务应该就能解决这个问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/nginx-php-fpm-permission-denied/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-deploy-https"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1200,113 +1297,9 @@
 
 
   
-    <article id="post-mongodb-ttl-indexes"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/mongodb-ttl-indexes/">MongoDB TTL 索引</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/mongodb-ttl-indexes/" class="archive-article-date">
-  <time datetime="2016-02-24T08:21:07.000Z" itemprop="datePublished">
-    Published on 2016 / 02 / 24
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MongoDB提供了TTL索引自动从集合中删除过期文档，这个功能在<code>存储日志</code>等一些只需要在固定时间内存储数据的场景下使用起来非常方便。最近用了一下，发现这个功能没有想象中的那么好。</p>
-<p>TTL索引的建立很简单，要求是只能在一个<code>field</code>上创建，并且这个<code>field</code>是一个Date类型数据或者是一个包含Date类型数据的Array。<br>在创建索引的时候只需要多增加一个<code>expireAfterSeconds</code>参数，在<code>field</code>加上这个<code>expireAfterSeconds</code>的时间大于当前时间后，这个文档就会被自动删除。</p>
-<p>TTL索引相比一般索引还多了一些合理的限制，比如：</p>
-<ul>
-<li>必须是单个字段（field），多字段不支持</li>
-<li><code>_id</code>字段不支持TTL索引</li>
-<li><code>定长集合(Capped Collections)</code>不支持</li>
-<li>不能使用<a href="https://docs.mongodb.org/manual/reference/method/db.collection.createIndex/#db.collection.createIndex" target="_blank" rel="noopener">createIndex()</a>来改变已有索引的<code>expireAfterSeconds</code>值。可以使用<a href="https://docs.mongodb.org/manual/reference/command/collMod/#dbcmd.collMod" target="_blank" rel="noopener">collMod</a>尝试，失败则只能删除并重建索引</li>
-<li>当目标字段（field）已有非TTL索引，必须先删除旧的，再重建新的TTL索引。<strong>不能建立一个只有这个参数（带有<code>expireAfterSeconds</code>）不同的索引</strong></li>
-</ul>
-<p>TTL索引有一般索引的功能，上面的限制大多数情况下能让人接受。但是因为TTL索引的删除机制，想要好好的用它，还需要斟酌。</p>
-<p>首先说一下TTL索引的实现方式：<br><code>mongod</code>每60s会启动一个后台线程来删除过期文档，这就意味这MongoDB的TTL不同于Redis，是一定有延迟的。<br>而且这个60s也不是硬性保证的，万一节点压力非常大，过期文档的删除时间会超过60s。<br>MongoDB只保证文档最后一定会删除，在没有删除之前，即使过了失效时间，文档依旧可以查询。</p>
-<p>在副本集的情况下，TTL后台线程只会在主节点删除文档，然后通过主节点把删除操作同步到从节点。但是每个从节点自身也会执行自己的TTL后台线程。<br>当主节点压力很大，从节点压力小的时候，就会出现过期文档在主节点依旧可以查询，在从节点却已被TTL索引删除的情况。</p>
-<p>索引的建立方式也会对这个造成影响。为了避免对读写造成堵塞，我一般会使用<code>background</code>后台建立索引。<br>当使用<code>background</code>方式建立索引，TTL线程可以在建立索引的过程中删除过期文档。而<code>foreground</code>则要等到索引建立完成才可以开始删除。</p>
-<p><code>TTL Indexes</code>和<code>Capped Collections</code>实现的功能其实有点类似，一个是是限定时间，一个是限定大小，但是<code>TTL Indexes</code>的不确定性大了很多。要使用他们肯定要根据具体的场景，我更倾向于使用确定的<code>Capped Collections</code>。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><ul>
-<li><a href="https://docs.mongodb.org/manual/core/index-ttl/#ttl-indexes" target="_blank" rel="noopener">TTL Indexes</a></li>
-<li><a href="https://docs.mongodb.org/manual/tutorial/expire-data/" target="_blank" rel="noopener">Expire Data from Collections by Setting TTL</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/mongodb-ttl-indexes/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1319,7 +1312,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2020 Sink.
+        Copyrights &copy; 2009 - 2021 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">
@@ -1562,6 +1555,10 @@
             
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">usaco</a>
+              </li>
+            
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">firefox</a>
               </li>
             
             <div class="clearfix"></div>

@@ -201,6 +201,110 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-p1484-isbn"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/p1484-isbn/">P1484 ISBN号码 解题报告</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/p1484-isbn/" class="archive-article-date">
+  <time datetime="2009-05-16T05:43:00.000Z" itemprop="datePublished">
+    Published on 2009 / 05 / 16
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目不难，但是了解了许多关于ISBN的知识。</p>
+<p>百度百科：<a href="http://bk.baidu.com/view/20171.html" target="_blank" rel="noopener">http://bk.baidu.com/view/20171.html</a></p>
+<blockquote>
+<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ISBN[<span class="number">10</span>],i,j;</span><br><span class="line">    <span class="keyword">char</span> temp;</span><br><span class="line">    i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;<span class="number">10</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        temp=getchar();</span><br><span class="line">        <span class="keyword">if</span>(temp!=<span class="string">'-'</span>)</span><br><span class="line">            <span class="keyword">if</span>(i&lt;<span class="number">9</span>)</span><br><span class="line">                &#123;ISBN=temp-<span class="string">'0'</span>;i++;&#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                &#123;ISBN=temp;i++;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>,j=<span class="number">0</span>;i&lt;=<span class="number">8</span>;i++)</span><br><span class="line">        j+=(i+<span class="number">1</span>)*ISBN;</span><br><span class="line">    j%=<span class="number">11</span>;</span><br><span class="line">    <span class="keyword">if</span>(j==<span class="number">10</span>) j=<span class="string">'X'</span>;</span><br><span class="line">    <span class="keyword">else</span> j+=<span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">if</span>(j==ISBN[<span class="number">9</span>])</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Right"</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d-%d%d%d-%d%d%d%d%d-%c"</span>,</span><br><span class="line">        ISBN[<span class="number">0</span>],ISBN[<span class="number">1</span>],ISBN[<span class="number">2</span>],ISBN[<span class="number">3</span>],ISBN[<span class="number">4</span>],ISBN[<span class="number">5</span>],ISBN[<span class="number">6</span>],ISBN[<span class="number">7</span>],ISBN[<span class="number">8</span>],j);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">vijos</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/p1484-isbn/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-p1258"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1124,111 +1228,9 @@
 
 
   
-    <article id="post-p1024"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/p1024/">P1024 卡布列克圆舞曲</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/p1024/" class="archive-article-date">
-  <time datetime="2009-04-19T12:11:00.000Z" itemprop="datePublished">
-    Published on 2009 / 04 / 19
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这是我在 <strong>Vijos</strong> 上做的，我是借鉴了 <strong>yzl1117</strong> 借鉴 <strong>talent123</strong> 前辈的程序写成的程序写成的。除了对 <code>sprintf</code> 函数了解了以外，还学到许多东西。</p>
-<p>原题地址：<a href="http://www.vijos.cn/Problem_Show.asp?id=1024" target="_blank" rel="noopener">http://www.vijos.cn/Problem_Show.asp?id=1024</a></p>
-<p>以下是我改的程序（和他们的相似比很高<del>~</del>） </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">double</span> numble,circle[<span class="number">1000</span>];</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Cal</span><span class="params">(<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Change</span><span class="params">(<span class="keyword">double</span> num)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Subordination</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;numble)==<span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            Subordination(numble);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Cal</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        <span class="keyword">return</span> Cal(n<span class="number">-1</span>)*<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Change</span><span class="params">(<span class="keyword">double</span> num)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> ch[<span class="number">150</span>];</span><br><span class="line">    <span class="keyword">int</span> temp;</span><br><span class="line">    <span class="keyword">double</span> max=<span class="number">0</span>,min=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">sprintf</span>(ch,<span class="string">"%.0f"</span>,num);</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(ch);i++)</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="built_in">strlen</span>(ch)-i<span class="number">-1</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(ch[j]&gt;ch[j+<span class="number">1</span>])</span><br><span class="line">            &#123;</span><br><span class="line">            temp=ch[j];</span><br><span class="line">            ch[j]=ch[j+<span class="number">1</span>];</span><br><span class="line">            ch[j+<span class="number">1</span>]=temp;</span><br><span class="line">            &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(ch);i++)</span><br><span class="line">        &#123;</span><br><span class="line">        max+=Cal(i)*(ch-<span class="string">'0'</span>);</span><br><span class="line">        min+=Cal(<span class="built_in">strlen</span>(ch)-i<span class="number">-1</span>)*(ch-<span class="string">'0'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> max-min;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">if</span>(circle[j]==circle)<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span>(j==i)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">        <span class="keyword">for</span>(;j&lt;i;j++)<span class="built_in">printf</span>(<span class="string">"%.0lf "</span>,circle[j]);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Subordination</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;;i++)</span><br><span class="line">        &#123;</span><br><span class="line">        circle=numble;</span><br><span class="line">        <span class="keyword">if</span>(Print(i)==<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            numble=Change(numble);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color1">vijos</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/p1024/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/13/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span>
+      <a class="extend prev" rel="prev" href="/page/13/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/15/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1241,7 +1243,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2020 Sink.
+        Copyrights &copy; 2009 - 2021 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">
@@ -1484,6 +1486,10 @@
             
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">usaco</a>
+              </li>
+            
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">firefox</a>
               </li>
             
             <div class="clearfix"></div>

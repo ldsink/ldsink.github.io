@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2020-10-09T12:05:34.481Z</updated>
+  <updated>2021-01-12T03:31:46.299Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Firefox 首次支持 Linux 上的硬件加速功能</title>
+    <link href="https://ldsink.com/archives/firefox-were-finally-getting-hw-acceleration-on-linux/"/>
+    <id>https://ldsink.com/archives/firefox-were-finally-getting-hw-acceleration-on-linux/</id>
+    <published>2021-01-12T03:20:14.000Z</published>
+    <updated>2021-01-12T03:31:46.299Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/firefox-quantum-engine.webp" alt="firefox-quantum-engine"></p><p>看到这一则令人开心的消息<a href="https://mastransky.wordpress.com/2021/01/10/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox – we’re finally getting HW acceleration on Linux</a>。目前 Firefox 在 Linux 下并不支持硬件加速，导致其在B站播放视频非常容易卡顿。我目前安装了一个 Chrome 专门用于观看B站视频。期望 Firefox 早日实现全部功能，能让 Linux 下也有流畅的使用体验。</p><p>可以在 <code>about:support</code> 内查看目前使用的图像合成引擎，我这里 Firefox Developer Edition 85.0b7 还是 <code>OpenGL</code>，希望早日用上 <code>WebRender</code>。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/firefox-quantum-engine.webp&quot; alt=&quot;firefox-quantum-engine&quot;&gt;&lt;/p&gt;
+&lt;p&gt;看到这一则令人开心的消息&lt;a href=&quot;https://mastra</summary>
+      
+    
+    
+    
+    
+    <category term="firefox" scheme="https://ldsink.com/tags/firefox/"/>
+    
+  </entry>
   
   <entry>
     <title>密钥文件取舍</title>
@@ -482,29 +505,6 @@
     
     
     <category term="python" scheme="https://ldsink.com/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>套利的常识</title>
-    <link href="https://ldsink.com/books/the-common-sense-of-arbitrage/"/>
-    <id>https://ldsink.com/books/the-common-sense-of-arbitrage/</id>
-    <published>2018-05-28T04:04:21.000Z</published>
-    <updated>2018-06-21T05:14:07.268Z</updated>
-    
-    <content type="html"><![CDATA[<p>京东Plus的畅读包括本书。介绍了很多金融、套利相关的基本概念，符合名字“常识”的定义。有些内容很明显夹带了作者想法的一些私货。</p><h3 id="72-法则"><a href="#72-法则" class="headerlink" title="72 法则"></a>72 法则</h3><p>以 1% 的复利计息，72 年后（72 是约数，准确值是 100ln2），本金翻倍。此规律称为 72 法则。</p><p>应用场景：以12%的年化收益，复利投资，资金翻倍大约需要 72 / 12 = 6 年。</p><h3 id="帕累托法则80-20法则"><a href="#帕累托法则80-20法则" class="headerlink" title="帕累托法则80/20法则"></a>帕累托法则80/20法则</h3><p>维尔弗雷多．帕累托，1848年7月15 - 1923年8月19日。意大利经济学家、社会学家，对经 济学、社会学和伦理学作出了很多重要的贡献，特别是在收入分配的研究和个人选择的分析中。他提出了帕累托最优的概念，并用无差异曲线来帮助发展了个体经济学领域。帕累托因对意大利20％的人口拥有80％的财产的观察而著名，后来他人概括为帕累托法则80/20法则。</p><h3 id="最大效用"><a href="#最大效用" class="headerlink" title="最大效用"></a>最大效用</h3><p>丹尼尔·伯努利在1738年的论文中对这个悖论作了解答，提出了效用的概念，以挑战以金额期望值为决策标准，论文主要包括两条原理:</p><ol><li>边际效用递减原理:一个人对于财富的占有多多益善，但随着财富的增加，满足程度的增加速度不断下降。</li><li>最大效用原理:在风险和不确定条件下，个人的决策行为准则是为了获得最大期望效用值而非最大期望金额值。</li></ol><h3 id="一鸟在手胜过十鸟在林"><a href="#一鸟在手胜过十鸟在林" class="headerlink" title="一鸟在手胜过十鸟在林"></a>一鸟在手胜过十鸟在林</h3><p>出现阿莱悖论的原因是确定效应，即人在决策时，对结果确定的现象过度重视。<br>看来确定的结果比不确定的更多收益更吸引人，正如那句老话“一鸟在手胜过十鸟在林”。</p><h3 id="沉锚效应"><a href="#沉锚效应" class="headerlink" title="沉锚效应"></a>沉锚效应</h3><p>做出决策时会根据之前的情况做出判断，而不是当前客观情况。这个能在一定程度上解释股市博弈环境下，所谓的“压力位”、“支撑位”的形成原因。</p><p><strong>套利是门科学的，有意思的生意。赞同作者的一个观点，套利不应该属于投机的范畴。</strong></p><p>接下来读《非理性繁荣（第三版）》和《思考，快与慢》</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;京东Plus的畅读包括本书。介绍了很多金融、套利相关的基本概念，符合名字“常识”的定义。有些内容很明显夹带了作者想法的一些私货。&lt;/p&gt;
-&lt;h3 id=&quot;72-法则&quot;&gt;&lt;a href=&quot;#72-法则&quot; class=&quot;headerlink&quot; title=&quot;72 法则&quot;&gt;&lt;/a</summary>
-      
-    
-    
-    
-    <category term="books" scheme="https://ldsink.com/categories/books/"/>
-    
     
   </entry>
   
