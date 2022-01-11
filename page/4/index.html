@@ -201,6 +201,448 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-nginx-with-certbot"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/nginx-with-certbot/">Nginx 与 Certbot</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/nginx-with-certbot/" class="archive-article-date">
+  <time datetime="2017-11-15T07:13:43.000Z" itemprop="datePublished">
+    Published on 2017 / 11 / 15
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>管理了很多内部系统，每个在内网部署好之后，需要在入口的 Nginx 配置。内部系统，安全性也很重要，出于习惯都会配置上HTTPS。以前数量少，手动申请再配置免费的DV证书。现在站点一多，这么整就太麻烦了。<br>很幸运，现在的<a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a>附带的<code>Certbot</code>已经比以前好多了，能自动的处理这些，稍加配置，就能轻松让全部域名实现。</p>
+<h2 id="Certbot是什么"><a href="#Certbot是什么" class="headerlink" title="Certbot是什么"></a>Certbot是什么</h2><blockquote>
+<p>Automatically enable HTTPS on your website with EFF’s Certbot, deploying Let’s Encrypt certificates.</p>
+</blockquote>
+<h2 id="怎么部署"><a href="#怎么部署" class="headerlink" title="怎么部署"></a>怎么部署</h2><p><a target="_blank" rel="noopener" href="https://certbot.eff.org/">官网首页</a>就有文档，选择好<code>Software</code>和<code>System</code>就有具体的细节。Certbot在Ubuntu上有PPA，安装很方便。<br><code>Ubuntu Xenial</code>上<code>Nginx</code>的自动化部署方式<a target="_blank" rel="noopener" href="https://certbot.eff.org/#ubuntuxenial-nginx">点这里</a>，核心流程就是：</p>
+<ol>
+<li>安装好<code>Certbot</code></li>
+<li><code>$ sudo certbot --nginx</code>，自动检测Nginx站点，自动配置HTTPS跳转</li>
+<li><code>sudo certbot renew --dry-run</code>，检测更新是否正常工作</li>
+<li>在<code>crontab</code>里面添加<code>certbot renew</code>任务<br><code>0 0 * * 1 /usr/bin/certbot --nginx renew &gt;&gt; /var/log/certbot_renew.log</code></li>
+</ol>
+<h2 id="可能会出问题的点"><a href="#可能会出问题的点" class="headerlink" title="可能会出问题的点"></a>可能会出问题的点</h2><ul>
+<li>域名DNS解析不能是<code>cname</code>记录，得是<code>a</code>记录</li>
+<li><a target="_blank" rel="noopener" href="https://certbot.eff.org/">Certbot</a>的配置、证书都在<code>/etc/letsencrypt</code>目录，有时候可以去删除一些错误的配置</li>
+<li><a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a>证书有效时间3个月，注意自动更新证书的时间。<code>certbot renew</code>在快接近失效时间的时候才会更新，可以放心的重复调用。我的<code>crontab</code>设置的每周一更新一次。</li>
+</ul>
+<p><strong>期待明年一月放出的通配符证书，有了这个，几个环境也可以不用买证书啦。 <code>*★,°*:.☆\(￣▽￣)/$:*.°★*</code></strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">nginx</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/nginx-with-certbot/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-python3-upgrade-notes"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/python3-upgrade-notes/">Python3 升级注意事项</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/python3-upgrade-notes/" class="archive-article-date">
+  <time datetime="2017-08-02T07:28:20.000Z" itemprop="datePublished">
+    Published on 2017 / 08 / 02
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>面向开发同事的分享。</strong><br><strong>整个迁移过程可以看<a target="_blank" rel="noopener" href="http://www.liriansu.com/py2-to-py3">这里</a>。</strong></p>
+<h1 id="开发-服务器环境"><a href="#开发-服务器环境" class="headerlink" title="开发/服务器环境"></a>开发/服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
+<ul>
+<li>新建 Python3 环境的 virtualenv，并且安装 requirements.txt</li>
+</ul>
+<blockquote>
+<p>virtualenv -p /usr/bin/python3 &lt;path/to/virtualenv&gt;</p>
+</blockquote>
+<ul>
+<li><p>PyCharm 设置新的虚拟环境，设置 Python3.5 的检测</p>
+</li>
+<li><p>Terminal 可以使用如下命令载入，可以自由在多个 virtualenv 之间切换</p>
+</li>
+</ul>
+<blockquote>
+<p>cd &lt;path/to/virtualenv&gt; &amp;&amp; source bin/activate &amp;&amp; cd - </p>
+</blockquote>
+<h1 id="Python3-需要注意的点"><a href="#Python3-需要注意的点" class="headerlink" title="Python3 需要注意的点"></a>Python3 需要注意的点</h1><h2 id="基础的-print"><a href="#基础的-print" class="headerlink" title="基础的 print"></a>基础的 print</h2><p>现在是函数了，不再是关键词</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">&#x27;hello world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="字符串与字节"><a href="#字符串与字节" class="headerlink" title="字符串与字节"></a>字符串与字节</h2><p>没有 unicode 类型。所有的 str 就是 unicode 类型。Python3 严格区分字节和字符串，以前字符串和字节混用的地方都会出问题，需要注意。</p>
+<p>常见的问题如下：</p>
+<ul>
+<li>requests 的 response，<code>text</code>属性返回的是自动 decode 的字符串。<code>content</code>属性返回的是未处理的字节。</li>
+<li>redis 所有获取到的返回值，都是字节。如果需要获取到字符串，需要 decode() 。</li>
+<li>加密相关的，需要二进制数据。原来的字符串需要 encode() 转换成 utf-8 编码的字节。</li>
+<li>json.loads() 接收的是字符串。</li>
+<li>StringIO.StringIO 字节数据替换成 io.BytesIO，字符串使用 io.StringIO。</li>
+</ul>
+<h2 id="列表与迭代器"><a href="#列表与迭代器" class="headerlink" title="列表与迭代器"></a>列表与迭代器</h2><ul>
+<li>map，filter，range 之类的返回都是 iterator。</li>
+<li>dict 类型的 keys, values, items 返回 iterator，不再是 list。</li>
+<li>iterator 不具有 len() 方法，使用 len(list(iterator))</li>
+<li>iterator 和 list 大部分方法，基本一致，不需要特别注意。</li>
+</ul>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
+<li>expect SomeException as e。</li>
+<li>raise Exception(‘content’)</li>
+<li>Exception 类不再默认含有 message 方法，通过 str 获取到字符串。</li>
+</ul>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
+<li>很多 2.6、2.7 新增加的不稳定的方法名称，在 3.0-3.5 版本逐渐移除或者重命名。</li>
+<li>现在单元测试已兼容 Python3，以后新的单元测试请依照 Python3.5 的文档函数编写。</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>一些内置库、内置函数的变更，用到了，按照 Python3.5 文档更新。</li>
+<li>/ 默认是除法。3/2=1.5。整除严格使用 //。</li>
+<li>统一 long 和 int。</li>
+<li>强制 absolute_import。</li>
+<li>可以使用 Type Hints 进行标记（只有标记作用，不影响实际运行）。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; str:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(name)</span><br></pre></td></tr></table></figure>
+<h1 id="后续的一些改动"><a href="#后续的一些改动" class="headerlink" title="后续的一些改动"></a>后续的一些改动</h1><ul>
+<li>全部切换到 Python3 之后，所有的 <code>__future__</code> 引入会删除。</li>
+<li>Python3 buildin 的库，会从 requirements.txt 移除，如 enum。</li>
+<li>以前的一些兼容代码，也会移除，如 unicode，urlencode。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">python</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/python3-upgrade-notes/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-restart-sogou-input-script"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/restart-sogou-input-script/">重启搜狗输入法脚本</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/restart-sogou-input-script/" class="archive-article-date">
+  <time datetime="2017-06-21T03:08:07.000Z" itemprop="datePublished">
+    Published on 2017 / 06 / 21
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近搜狗输入法老是卡死，o(╯□╰)o。整了个脚本，丢到<code>/usr/local/bin</code>下面，一卡重启，干净利落。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">pidof fcitx | xargs kill</span><br><span class="line">pidof sogou-qimpanel | xargs kill</span><br><span class="line">nohup fcitx  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">nohup sogou-qimpanel  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/restart-sogou-input-script/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-v2ex-auto-sign"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/v2ex-auto-sign/">v2ex.com 自动签到</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/v2ex-auto-sign/" class="archive-article-date">
+  <time datetime="2017-03-12T08:21:00.000Z" itemprop="datePublished">
+    Published on 2017 / 03 / 12
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>拖了好久，今天终于动手把<a target="_blank" rel="noopener" href="https://www.v2ex.com/">v2ex</a>的自动签到给做了。</p>
+<p>签到脚本在<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ldsink/toolbox/master/v2ex_auto_sign.py">这里</a>。</p>
+<p>丢到服务器上，使用 chmod 增加可执行权限，建立一个 crontab 任务，每天这个小脚本就可以忠实的帮你签到了。</p>
+<p><code>crontab -l</code> 查看我建立的任务如下，每天早上八点定期签到：<br><code> 0 8 * * * /path_to_script/v2ex_auto_sign.py &lt;username&gt; &lt;password&gt; &gt;&gt; /var/log/v2ex_sign.log</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/v2ex-auto-sign/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-nginx-php-fpm-permission-denied"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -815,474 +1257,6 @@
 
 
   
-    <article id="post-ccg-2016"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/ccg-2016/">CCG 2016</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/ccg-2016/" class="archive-article-date">
-  <time datetime="2016-07-09T12:46:00.000Z" itemprop="datePublished">
-    Published on 2016 / 07 / 09
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="入场"><a href="#入场" class="headerlink" title="入场"></a>入场</h1><p>昨晚看小说三点多才睡，但是早上七点钟依旧爬了起来。展会是九点整入场，提前出发是希望入场的时候不要排那么长的队伍，结果到了才发现已经有很多人在排队……</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_1.webp" alt="排队"></p>
-<p>排队的时候和小伙伴们聊天，慢慢的把人凑齐。我其实主要就是想看水濑祈，毕竟就是因为她会来才决定出门看这个展会的，腹黑的上神大人还是很萌的。Harmony Ribbon 绝赞发售中！</p>
-<p>门票有两种，很早买的是邮寄的纸质票。近期买的是电子票。电子票得多排一个队兑换纸质票。</p>
-<h1 id="EXPO"><a href="#EXPO" class="headerlink" title="EXPO"></a>EXPO</h1><p>进入之后领了本小册子，仔细看了下，其实有三个馆（EXPO，MAX和电竞），主要参观的应该是EXPO。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_2.webp" alt="分布图"></p>
-<p>川原今天有签售，貌似买满200可以抽奖，中了去要签名。要排队这么麻烦的事情我是不会去的，主要还是看看手办。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_3.webp" alt="image"></p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_4.webp" alt="image"></p>
-<p>万代的高达馆，一些模型挺好玩</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_5.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_6.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_7.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_8.webp" alt="image"></p>
-<p>FATE的痛车</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_9.webp" alt="image"></p>
-<p>11：30有心欲呐喊主创见面会，水濑祈来了。不让牌照，我很老实的遵守了。正面太多人，我们站在侧面，感觉距离反而进了。真人好可爱，(๑•ᴗ•๑)。</p>
-<p>穹妹这个数量限定的手办，一开始没排队，后面想买的时候已经没了。(┬＿┬)</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_10.webp" alt="image"></p>
-<p>买了两本画册，走之前5个小伙伴买了小圆的5个人，凑成了五色战队。我的小圆明明很可爱，盒子也最大，为什么价格最便宜，不解。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_11.webp" alt="image"></p>
-<h1 id="MAX"><a href="#MAX" class="headerlink" title="MAX"></a>MAX</h1><p>这个貌似是同人馆，但是没啥好东西买。主要就是等水濑祈一点半的歌，听完就走。此时腿已经很疼了，果然家里最舒服。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_12.webp" alt="image"></p>
-<p>这个馆COS挺多的，有个COS成Nico的在拍雷姆，感觉很好玩。话说这个Nico脸有点像空丸啊。</p>
-<h1 id="电竞馆"><a href="#电竞馆" class="headerlink" title="电竞馆"></a>电竞馆</h1><p>G联赛Dota2的决赛，同福打IG，没其他好玩的东西，拍了张图就走了。今年Ti6中国队加油！</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_13.webp" alt="image"></p>
-<h1 id="归途"><a href="#归途" class="headerlink" title="归途"></a>归途</h1><p>临走拍了一张，发现这个位置过一条街就是上次看Dota2春季特锦标赛的梅赛德斯-奔驰文化中心。<br><img src="https://a.adcdn.cn/images/ccg2016_14.webp" alt="image"></p>
-<h1 id="小圆"><a href="#小圆" class="headerlink" title="小圆"></a>小圆</h1><p>小圆的浴衣做的很精致啊，为什么这么便宜。(/ □ \)</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_15.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_16.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_17.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_18.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_19.webp" alt="image"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ccg-2016/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-unified-social-credit-identifier"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/unified-social-credit-identifier/">统一社会信用代码</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/unified-social-credit-identifier/" class="archive-article-date">
-  <time datetime="2016-05-25T10:55:00.000Z" itemprop="datePublished">
-    Published on 2016 / 05 / 25
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是统一社会信用代码"><a href="#什么是统一社会信用代码" class="headerlink" title="什么是统一社会信用代码"></a>什么是统一社会信用代码</h3><p>很久很久以前，注册一家公司会有公司营业执照，上面会有营业执照注册号。公司赚钱了，要依法纳税，去税务局又会办理一个税务登记证，上面又有一个编号。<br>一个人只需要一个公民身份证号码就可以确定了，公司在不同的场合却需要多个证件编号。对企业而言，麻烦，办各种手续都不方便。对管理者而言，监管不便，管理成本高。</p>
-<p>我们都知道，统一的标准可以减少成本，提高效率。<code>GOV</code>作为某种意义上的特大企业，也明白这个道理，于是有了<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/15172871.htm">三证合一</a>，统一多个编号，使用唯一一个编号。</p>
-<p>企业编号决定统一使用一个标准，个人编号已经是一个标准，于是<code>GOV</code>再加了一把劲。怀着<code>为了更好的服务大众，构建信用社会</code>的目标，在现在的基础上，<code>GOV</code>倒腾出了<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E7%BB%9F%E4%B8%80%E7%A4%BE%E4%BC%9A%E4%BF%A1%E7%94%A8%E4%BB%A3%E7%A0%81%E5%88%B6%E5%BA%A6">统一社会信用代码制度</a>。</p>
-<p>这个企业的身份证号码就是<code>统一社会信用代码</code>，用于替换之前企业各个证件上的编号。和公民身份证号码一样，<code>统一社会信用代码</code>也是18位。</p>
-<h3 id="统一社会信用代码的用处"><a href="#统一社会信用代码的用处" class="headerlink" title="统一社会信用代码的用处"></a>统一社会信用代码的用处</h3><ul>
-<li>以前，业务上标识一家企业通过<code>公司名称</code>或者<code>营业执照注册号</code>，这些都不稳定。名称可以变，注册编号长度不确定。</li>
-<li>以后的新数据可以统一的通过<code>统一社会信用代码</code>标识，这个在稳定性和权威性上都好于以前。</li>
-</ul>
-<h3 id="统一社会信用代码编码规则"><a href="#统一社会信用代码编码规则" class="headerlink" title="统一社会信用代码编码规则"></a>统一社会信用代码编码规则</h3><p>工商总局在官网上发布了标准文件：<a target="_blank" rel="noopener" href="http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html">法人和其他组织统一社会信用代码编码规则</a>。和身份证编号类似，根据编码规则可以进行一下判断并获取有用的一些信息。我们在审核的时候，可以通过检测编号来判断公司的真假。</p>
-<p>下面是我用PHP实现的简单检测函数，<code>管理部门</code>、<code>机构类别</code>、<code>登记地区</code>这些信息还没有充分利用起来，只根据校验码检测。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法人和其他组织统一社会信用代码</span></span><br><span class="line"><span class="comment">// 编码规则：http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unifiedSocialCreditIdentifier</span>(<span class="params"><span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">4<span class="comment">// 统一代码由十八位的阿拉伯数字或者大写英文字母（不使用I、O、Z、S、V）组成</span></span><br><span class="line">4<span class="keyword">if</span> (!is_string(<span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">4<span class="variable">$value</span> = strtoupper(<span class="variable">$value</span>);</span><br><span class="line">4<span class="keyword">if</span> (strlen(<span class="variable">$value</span>) !== <span class="number">18</span> || !preg_match(<span class="string">&#x27;/^[\dA-HJ-NP-RT-UW-Y]&#123;18&#125;$/&#x27;</span>, <span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">4<span class="comment">// todo 第1位：登记管理部门代码检查</span></span><br><span class="line">4<span class="comment">// todo 第2位：机构类别代码检查</span></span><br><span class="line">4<span class="comment">// todo 第3位～第8位：登记机关行政区划码检查</span></span><br><span class="line">4<span class="keyword">if</span> (!is_numeric(substr(<span class="variable">$value</span>, <span class="number">2</span>, <span class="number">6</span>))) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 简单检查，这部分一定是阿拉伯数字</span></span><br><span class="line">4<span class="comment">// todo 第9位～第17位：主体标识码检查</span></span><br><span class="line">4<span class="comment">// 第18位：检验码检查</span></span><br><span class="line">4$加权因子 = [</span><br><span class="line">44<span class="number">1</span> =&gt; <span class="number">1</span>, <span class="number">2</span> =&gt; <span class="number">3</span>, <span class="number">3</span> =&gt; <span class="number">9</span>, <span class="number">4</span> =&gt; <span class="number">27</span>, <span class="number">5</span> =&gt; <span class="number">19</span>, <span class="number">6</span> =&gt; <span class="number">26</span>, <span class="number">7</span> =&gt; <span class="number">16</span>, <span class="number">8</span> =&gt; <span class="number">17</span>, <span class="number">9</span> =&gt; <span class="number">20</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="number">29</span>, <span class="number">11</span> =&gt; <span class="number">25</span>, <span class="number">12</span> =&gt; <span class="number">13</span>, <span class="number">13</span> =&gt; <span class="number">8</span>, <span class="number">14</span> =&gt; <span class="number">24</span>, <span class="number">15</span> =&gt; <span class="number">10</span>, <span class="number">16</span> =&gt; <span class="number">30</span>, <span class="number">17</span> =&gt; <span class="number">28</span></span><br><span class="line">4];</span><br><span class="line">4$代码字符集 = [</span><br><span class="line">44<span class="number">0</span> =&gt; <span class="string">&#x27;0&#x27;</span>, <span class="number">1</span> =&gt; <span class="string">&#x27;1&#x27;</span>, <span class="number">2</span> =&gt; <span class="string">&#x27;2&#x27;</span>, <span class="number">3</span> =&gt; <span class="string">&#x27;3&#x27;</span>, <span class="number">4</span> =&gt; <span class="string">&#x27;4&#x27;</span>, <span class="number">5</span> =&gt; <span class="string">&#x27;5&#x27;</span>, <span class="number">6</span> =&gt; <span class="string">&#x27;6&#x27;</span>, <span class="number">7</span> =&gt; <span class="string">&#x27;7&#x27;</span>, <span class="number">8</span> =&gt; <span class="string">&#x27;8&#x27;</span>, <span class="number">9</span> =&gt; <span class="string">&#x27;9&#x27;</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="string">&#x27;A&#x27;</span>, <span class="number">11</span> =&gt; <span class="string">&#x27;B&#x27;</span>, <span class="number">12</span> =&gt; <span class="string">&#x27;C&#x27;</span>, <span class="number">13</span> =&gt; <span class="string">&#x27;D&#x27;</span>, <span class="number">14</span> =&gt; <span class="string">&#x27;E&#x27;</span>, <span class="number">15</span> =&gt; <span class="string">&#x27;F&#x27;</span>, <span class="number">16</span> =&gt; <span class="string">&#x27;G&#x27;</span>, <span class="number">17</span> =&gt; <span class="string">&#x27;H&#x27;</span>, <span class="number">18</span> =&gt; <span class="string">&#x27;J&#x27;</span>, <span class="number">19</span> =&gt; <span class="string">&#x27;K&#x27;</span>,</span><br><span class="line">44<span class="number">20</span> =&gt; <span class="string">&#x27;L&#x27;</span>, <span class="number">21</span> =&gt; <span class="string">&#x27;M&#x27;</span>, <span class="number">22</span> =&gt; <span class="string">&#x27;N&#x27;</span>, <span class="number">23</span> =&gt; <span class="string">&#x27;P&#x27;</span>, <span class="number">24</span> =&gt; <span class="string">&#x27;Q&#x27;</span>, <span class="number">25</span> =&gt; <span class="string">&#x27;R&#x27;</span>, <span class="number">26</span> =&gt; <span class="string">&#x27;T&#x27;</span>, <span class="number">27</span> =&gt; <span class="string">&#x27;U&#x27;</span>, <span class="number">28</span> =&gt; <span class="string">&#x27;W&#x27;</span>, <span class="number">29</span> =&gt; <span class="string">&#x27;X&#x27;</span>, <span class="number">30</span> =&gt; <span class="string">&#x27;Y&#x27;</span></span><br><span class="line">4];</span><br><span class="line">4$校验值 = <span class="number">0</span>;</span><br><span class="line">4<span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">17</span>; <span class="variable">$i</span>++) &#123;</span><br><span class="line">44<span class="keyword">foreach</span> ($代码字符集 <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">444<span class="keyword">if</span> (<span class="variable">$value</span>[<span class="variable">$i</span>] === <span class="variable">$v</span>) <span class="keyword">break</span>;</span><br><span class="line">44&#125;</span><br><span class="line">44$校验值 += <span class="variable">$k</span> * $加权因子[<span class="variable">$i</span> + <span class="number">1</span>];</span><br><span class="line">4&#125;</span><br><span class="line">4$校验值 = <span class="number">31</span> - ($校验值 % <span class="number">31</span>);</span><br><span class="line">4$校验值 = ($校验值 === <span class="number">31</span>) ? <span class="number">0</span> : $校验值; <span class="comment">// 校验值为 31 的时候，校验码使用 0 表示</span></span><br><span class="line">4<span class="keyword">return</span> $代码字符集[$校验值] === <span class="variable">$value</span>[<span class="number">17</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/unified-social-credit-identifier/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-ubuntu-16-04-lts-experience"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/ubuntu-16-04-lts-experience/">Ubuntu 16.04 LTS 体验</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/ubuntu-16-04-lts-experience/" class="archive-article-date">
-  <time datetime="2016-04-27T01:06:01.000Z" itemprop="datePublished">
-    Published on 2016 / 04 / 27
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我的工作系统一直是<code>Ubuntu LTS</code>。21日最新的<code>xenial</code>发布之后，马上安装进行了一些体验。Ubuntu 16.04 LTS的一些主要更新可以看<a target="_blank" rel="noopener" href="https://linux.cn/article-7254-1.html">这里</a>。</p>
-<h2 id="外观变化"><a href="#外观变化" class="headerlink" title="外观变化"></a>外观变化</h2><ul>
-<li>整体外观和上一个LTS相比变化不大。</li>
-<li>挂载硬盘的时候弹出标志会显示成一个突出的按钮，个人感觉没有之前好看。</li>
-<li>中文字体有变化，感觉更圆润。</li>
-</ul>
-<h2 id="必要设置"><a href="#必要设置" class="headerlink" title="必要设置"></a>必要设置</h2><ul>
-<li>关闭访客账户和<a href="https://ldsink.com/articles/disable-guest-session-in-Ubuntu.html">之前介绍</a>的差不多，Ubuntu自己在帮助中心也有<a target="_blank" rel="noopener" href="https://help.ubuntu.com/16.04/ubuntu-help/shell-guest-session.html">说明</a>。</li>
-<li>不需要手动在<code>隐私设置</code>中关闭在线搜索，默认已经关闭。文件记录、<br>发送错误报告还是要自己动手关闭。</li>
-</ul>
-<h2 id="软件变化"><a href="#软件变化" class="headerlink" title="软件变化"></a>软件变化</h2><ul>
-<li>推荐使用<code>apt</code>来管理软件，代替之前的<code>apt-get</code>。</li>
-<li>感觉更新需要连接的源变少了，使用<code>apt update</code>只会出几条日志，比起之前滚屏清爽很多。</li>
-<li>大量基础软甲包更新，我比较关心的有<code>Kernel 4.4</code>、<code>Python 3.</code>5、<code>OpenSSH 7.2p2</code>、<code>PHP 7.0</code>、<code>MySQL 5.7</code>、<code>GCC 5.3</code>，这些基础软件都升级到了最新的稳定版。看日志我一开始以为和<code>Arch Linux</code>一样只有默认的<code>Python3</code>了，实际使用发现只有服务器版是这样的，桌面版2和3都有，并且更新到了最新版。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 2.7.11+ (default, Apr 17 2016, 14:00:29)</span><br><span class="line">[GCC 5.3.1 20160413] on linux2</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3</span><br><span class="line">Python 3.5.1+ (default, Mar 30 2016, 22:46:26)</span><br><span class="line">[GCC 5.3.1 20160330] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br></pre></td></tr></table></figure></li>
-<li>依旧预装了<code>Amazon</code>等鸡肋应用。这些可以通过一条命令全部卸载 <code>sudo apt remove unity-webapps-common</code>。</li>
-<li>去掉了<code>Ubuntu软件中心</code>，使用了<code>Gnome软件</code>改成的<code>Ubuntu软件</code>。我使用感觉响应很慢，还是习惯直接敲命令行。</li>
-<li>支持<code>snap</code>包，最近新闻好像<code>Firefox</code>以后在<code>Ubuntu</code>上就用<code>snap</code>包发行了。这个功能暂时没用上，但感觉挺不错的。</li>
-</ul>
-<h2 id="第三方软件"><a href="#第三方软件" class="headerlink" title="第三方软件"></a>第三方软件</h2><ul>
-<li>Chrome 可以正常使用，但是他签名使用的是弱密钥，更新会有提示<code>W: http://dl.google.com/linux/chrome/deb/dists/stable/Release.gpg: Signature by key 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 uses weak digest algorithm (SHA1)</code>。另外，默认设置中文字体显示特别细，需要自己再设置一下。</li>
-<li>Atom 我从PPA安装的，正常使用，很方便。</li>
-<li>WPS 用的Alpha 20 Patch 2，文件名<code>wps-office_10.1.0.5503-a20p2_amd64.deb</code>，没有问题。</li>
-<li>搜狗拼音 用的最新的包<code>sogoupinyin_2.0.0.0072_amd64.deb</code>,<code>dpkg -i</code>安装之后还需要<code>apt-get -f install</code>才成功，使用起来没问题。安装包感觉还没做好，以后应该更方便才行。</li>
-<li>快盘 直接安装，文件可以同步。</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>zsh、git、htop、tmux、keepass2、openvpn 等常用软件从源里安装都正常。</li>
-<li>配置好<code>Java</code>环境之后，<code>PhpStorm</code>和<code>PyCharm</code>正常。</li>
-<li>我用来干活的系统已经从<code>14.04 LTS</code>切换到<code>16.04 LTS</code></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ubuntu-16-04-lts-experience/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-apache-kafka-notes"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/apache-kafka-notes/">Apache Kafka Notes</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/apache-kafka-notes/" class="archive-article-date">
-  <time datetime="2016-03-10T09:03:00.000Z" itemprop="datePublished">
-    Published on 2016 / 03 / 10
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Kafka简介"><a href="#Kafka简介" class="headerlink" title="Kafka简介"></a>Kafka简介</h3><ul>
-<li>分布式日志分发系统，可用于消息队列</li>
-<li>创建背景<ul>
-<li><code>LinkedIn</code>开发，2011年贡献给<code>Apache基金会</code></li>
-<li>使用 Scala 编写</li>
-</ul>
-</li>
-<li>设计目标<ul>
-<li>以时间复杂度为O(1)的方式提供消息持久化能力，即使对TB级以上数据也能保证常数时间复杂度的访问性能。</li>
-<li>高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒100K条以上消息的传输。</li>
-<li>支持Kafka Server间的消息分区，及分布式消费，同时保证每个Partition内的消息顺序传输。</li>
-<li>同时支持离线数据处理和实时数据处理。</li>
-<li>Scale out：支持在线水平扩展。</li>
-</ul>
-</li>
-<li>和常用MQ对比<ul>
-<li>吞吐快</li>
-</ul>
-</li>
-<li>与ZooKeeper配合使用</li>
-</ul>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_performance_numbers.webp" alt="Performance Numbers"></p>
-<h3 id="Kafka架构"><a href="#Kafka架构" class="headerlink" title="Kafka架构"></a>Kafka架构</h3><h4 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h4><p><strong>Broker</strong><br>Kafka物理机器节点，一个Kafka集群包含多个Kafka Broker</p>
-<p><strong>Topic</strong><br>消息的类别（逻辑上概念）</p>
-<p><strong>Partition</strong><br>消息存储物理上的概念</p>
-<p><strong>Producer</strong><br>消息生产者</p>
-<p><strong>Consumer</strong><br>消息消费者</p>
-<p><strong>Consumer Group</strong><br>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）</p>
-<h4 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h4><p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_topological_graph.webp" alt="Topological graph"></p>
-<ul>
-<li>Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。</li>
-<li>Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。</li>
-</ul>
-<h4 id="Topic-amp-Partition"><a href="#Topic-amp-Partition" class="headerlink" title="Topic &amp; Partition"></a>Topic &amp; Partition</h4><ul>
-<li>Topic在逻辑上可以被认为是一个queue，每条消费都必须指定它的Topic</li>
-<li>物理上把Topic分成一个或多个Partition，每个Partition在物理上对应一个文件夹，该文件夹下存储这个Partition的所有消息和索引文件。</li>
-<li>消息文件会分成多个segment，每个segment以该segment第一条消息的offset命名并以“.kafka”为后缀。</li>
-<li>索引文件标明了每个segment下包含的消息的offset范围，如下图所示。</li>
-</ul>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_segment_offset.webp" alt="Segment offset"></p>
-<ul>
-<li>在一个Partition上，每条消息都是顺序写入，因此在一个Partition上是有时序的。</li>
-</ul>
-<p>![Partition Order](<a target="_blank" rel="noopener" href="https://static.ldsink.com/Apache">https://static.ldsink.com/Apache</a> Kafka Notes - Partition Order.png)</p>
-<h4 id="Producer消息路由"><a href="#Producer消息路由" class="headerlink" title="Producer消息路由"></a>Producer消息路由</h4><p>通过指定key将消息发送到某个Partition。</p>
-<h4 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h4><p>同一Topic的一条消息只能被同一个Consumer Group内的一个Consumer消费，但多个Consumer Group可同时消费这一消息。</p>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_queue.webp" alt="Queue"></p>
-<h3 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h3><h4 id="Replica-分配策略"><a href="#Replica-分配策略" class="headerlink" title="Replica 分配策略"></a>Replica 分配策略</h4><p>尽量将所有的Partition均匀分配到整个集群上。<br>Replica分配算法如下：</p>
-<ul>
-<li>将所有Broker（假设共n个Broker）和待分配的Partition排序</li>
-<li>将第i个Partition分配到第（i mod n）个Broker上</li>
-<li>将第i个Partition的第j个Replica分配到第（(i + j) mode n）个Broker上</li>
-</ul>
-<h4 id="消息接受"><a href="#消息接受" class="headerlink" title="消息接受"></a>消息接受</h4><ol>
-<li>Producer通过ZooKeeper找到Partition的Leader，只将消息发给Leader</li>
-<li>Follower从Leader pull数据，在接收到数据后就立马向Leader发送ACK。（一个在性能和持久化上比较好的平衡）</li>
-<li>一旦Leader收到了ISR中的所有Replica的ACK，就认为已经commit，Leader将增加HW并且向Producer发送ACK。</li>
-</ol>
-<p>对于已经commit的消息，Kafka只能保证它被存于多个Replica的内存中，而不能保证它们被持久化到磁盘中，也就不能完全保证异常发生后该条消息一定能被Consumer消费。但这种场景非常少见</p>
-<p>Leader会跟踪与其保持同步的Replica列表，该列表称为ISR（即in-sync Replica）。如果一个Follower宕机，或者落后太多，Leader将把它从ISR中移除。</p>
-<h5 id="Leader-Election"><a href="#Leader-Election" class="headerlink" title="Leader Election"></a>Leader Election</h5><p>ISR谁先连接到就是谁</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/apache-kafka-notes/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
@@ -1298,7 +1272,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2021 Sink.
+        Copyrights &copy; 2009 - 2022 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">

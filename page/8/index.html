@@ -201,6 +201,444 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-linux-terminal-shortcuts"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/linux-terminal-shortcuts/">Linux 终端常用快捷键</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/linux-terminal-shortcuts/" class="archive-article-date">
+  <time datetime="2014-12-16T01:21:00.000Z" itemprop="datePublished">
+    Published on 2014 / 12 / 16
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="移动光标快捷键"><a href="#移动光标快捷键" class="headerlink" title="移动光标快捷键"></a>移动光标快捷键</h2><p><code>Ctrl</code>+<code>f</code> 向前移动一个字符<br><code>Ctrl</code>+<code>b</code> 向后移动一个字符<br><code>Alt</code>+<code>f</code> 向前移动一个单词<br><code>Alt</code>+<code>b</code> 向后移动一个单词<br><code>Ctrl</code>+<code>a</code> 移动到当前行首<br><code>Ctrl</code>+<code>e</code> 移动到当前行尾</p>
+<h2 id="编辑命令行快捷键"><a href="#编辑命令行快捷键" class="headerlink" title="编辑命令行快捷键"></a>编辑命令行快捷键</h2><p><code>Ctrl</code>+<code>d</code> 删除当前的字符<br><code>Ctrl</code>+<code>t</code> 交换当前字符和前一个字符的位置<br><code>Alt</code>+<code>t</code> 交换当前单词和前一个单词的位置<br><code>Alt</code>+<code>u</code> 把当前单词变成大写<br><code>Alt</code>+<code>c</code> 把当前单词变成首字母大写的单词</p>
+<h2 id="剪切、粘贴快捷键"><a href="#剪切、粘贴快捷键" class="headerlink" title="剪切、粘贴快捷键"></a>剪切、粘贴快捷键</h2><p><code>Ctrl</code>+<code>k</code> 剪切文本直到行的末尾<br><code>Ctrl</code>+<code>u</code> 剪切文本直到行的起始<br><code>Ctrl</code>+<code>w</code> 剪切光标前的单词<br><code>Alt</code>+<code>d</code> 剪切光标后的单词<br><code>Ctrl</code>+<code>y</code> 粘贴最近剪切的文本<br><code>Ctrl</code>+<code>c</code> 删除整行</p>
+<h2 id="Deepin终端快捷键"><a href="#Deepin终端快捷键" class="headerlink" title="Deepin终端快捷键"></a>Deepin终端快捷键</h2><p><img src="https://a.adcdn.cn/images/deepin-terminal-shortcut.webp" alt="deepin-terminal"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/linux-terminal-shortcuts/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-find-a-linux-system-disk-space-before-the-10-largest-files-or-folders"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">查找 Linux 系统中的占用磁盘空间最大的前10个文件或文件夹</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/" class="archive-article-date">
+  <time datetime="2014-12-01T00:10:00.000Z" itemprop="datePublished">
+    Published on 2014 / 12 / 01
+  </time>
+  
+    <time datetime="2015-03-22T04:25:52.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 03 / 22
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>收到邮件警报，服务器硬盘使用率大于90%。需要快速找出占用硬盘空间大的文件或者文件夹。<br>一番搜索之后学习到可以使用三个组合命令快速找出:</p>
+<ul>
+<li>du : 计算出单个文件或者文件夹的磁盘空间占用。</li>
+<li>sort : 对文件行或者标准输出行记录排序后输出。</li>
+<li>head : 输出文件内容的前面部分。</li>
+</ul>
+<p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
+<blockquote>
+<p>du -hsx <strong>target_path/*</strong> | sort -rh | head -10</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-database-isolation-review"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/database-isolation-review/">数据库事务隔离级别复习</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/database-isolation-review/" class="archive-article-date">
+  <time datetime="2014-10-14T03:43:00.000Z" itemprop="datePublished">
+    Published on 2014 / 10 / 14
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目更新数据库数据出错了，因为我对数据库的隔离级别及实现细节理解有问题。<br>今天复习了一次。</p>
+<p>首先再明确一次数据库的四个隔离级别：</p>
+<ol>
+<li>Read uncommitted</li>
+<li>Read committed</li>
+<li>Repeatable read</li>
+<li>Serializable</li>
+</ol>
+<p>这四个隔离级别对应是要解决脏读（Dirty read）、不可重复读（Non-repeatable read）、幻象读（Phantom read）的问题。</p>
+<p>MySQL 可以通过</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@global</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@session</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@tx</span>_isolation;</span><br></pre></td></tr></table></figure>
+<p>查看当前数据库设置的隔离级别。</p>
+<h1 id="Read-uncommitted"><a href="#Read-uncommitted" class="headerlink" title="Read uncommitted"></a>Read uncommitted</h1><p>最低级的隔离级别就是 Read uncommitted，这是最低级的，拥有最高的并发性能，但是也有一列的并发问题。<br>除非数据并发安全性要求不是特别高，否则一般都不怎么使用。</p>
+<h1 id="Read-committed-与-脏读"><a href="#Read-committed-与-脏读" class="headerlink" title="Read committed 与 脏读"></a>Read committed 与 脏读</h1><p>Read uncommitted 之上就是 Read committed，这一级解决了脏读问题。<br>所谓脏读，就是一个事务可以读到另一个事务没有提交的数据。带来的问题是当另一个事务最终回滚，<br>脏读读到的数据实际上是不在数据库里面的。</p>
+<p><img src="https://a.adcdn.cn/images/dirty_reads.webp" alt="dirty_read"></p>
+<p>如上图所示，事务1最后读到的age的值是21。但是事务2最后回滚数据，所以21的值是不在数据库里面存在的。<br>Read committed 解决了脏读问题，不会允许事务读取另一个事务未提交的数据。<br>大部分支持事务的数据库默认隔离级别就是 Read committed。</p>
+<h1 id="Repeatable-read-与-不可重复读"><a href="#Repeatable-read-与-不可重复读" class="headerlink" title="Repeatable read 与 不可重复读"></a>Repeatable read 与 不可重复读</h1><p>第三级 Repeatable read 在之前的基础上，还解决了不可重复读的问题。</p>
+<h2 id="MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。"><a href="#MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。" class="headerlink" title="MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。"></a>MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。</h2><p>下面的图是不可重复读的情况。</p>
+<p><img src="https://a.adcdn.cn/images/non-repeatable_read.webp" alt="non-repeatable_read"></p>
+<p>当事务2更新id为1的users的age并提交后，事务1第二次查询的信息是事务2更新之后的数据，与事务开始的时候的查询结果不一致。<br>这样前后两次的查询结果不一致的问题，就是不可重复读。</p>
+<p>有两种策略可以避免不可重复读(non-repeatable read)。</p>
+<ul>
+<li>一个是要求事务2延迟到事务1提交或者回滚之后再执行。这种方式实现了T1, T2 的串行化调度。<br>串行化调度可以支持可重复读(repeatable reads)。</li>
+<li>另一种策略是多版本并发控制。为了得到更好的并发性能，允许事务2先提交。<br>但因为事务1在事务2之前开始，事务1必须在其开始执行时间点的数据库的快照上面操作。<br>当事务1最终提交时候，数据库会检查其结果是否等价于T1, T2串行调度。<br>如果等价，则允许事务1提交，如果不等价，事务1需要回滚并抛出个串行化失败的错误。</li>
+</ul>
+<p>我出错的地方就是这里，我以为 MySQL 会串行化调度，<br>实际上为了并发性能，MySQL使用的是多版本并发控制。<br>我想在一个事务内加载数据，再根据加载出来的数据的情况对数据库做不同的操作。<br>虽然我在事务内虽然读取到的值和第一次是一样的，但这是因为读取的是快照的值，<br>数据库已经更新为新的值了。<br>这就造成了我的项目中重复计费……</p>
+<h1 id="Serializable-与-幻象读"><a href="#Serializable-与-幻象读" class="headerlink" title="Serializable 与 幻象读"></a>Serializable 与 幻象读</h1><p>隔离级别最高级的就是 Serializable，这一级除了解决之前所有的问题，还解决了幻象读的问题。</p>
+<p><img src="https://a.adcdn.cn/images/phantom_read.webp" alt="phantom_read"></p>
+<p>幻象读主要就是指另一个事务执行了 Insert 操作，导致当前事务两次查询出来的结果集不一致，<br>第二次的结果集会比第一次多出新插入的数据。</p>
+<p>Serializable 解决了脏读、不可重复读和幻象读这三个问题。</p>
+<h1 id="总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena"><a href="#总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena" class="headerlink" title="总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)"></a>总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)</h1><table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻影读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>未授权读</td>
+<td>可能发生</td>
+<td>可能发生</td>
+<td>可能发生</td>
+</tr>
+<tr>
+<td>授权读</td>
+<td>-</td>
+<td>可能发生</td>
+<td>可能发生</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>-</td>
+<td>-</td>
+<td>可能发生</td>
+</tr>
+<tr>
+<td>可序列化</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>“可能发生”表示这个隔离级别会发生对应现象，”-“表示不会发生。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/database-isolation-review/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-ubuntu-compile-and-install-git"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/ubuntu-compile-and-install-git/">Ubuntu 编译安装最新版 git</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/ubuntu-compile-and-install-git/" class="archive-article-date">
+  <time datetime="2014-09-21T07:25:00.000Z" itemprop="datePublished">
+    Published on 2014 / 09 / 21
+  </time>
+  
+    <time datetime="2014-10-14T06:01:59.000Z" itemprop="dateUpdated">
+      , Updated on 2014 / 10 / 14
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ubuntu仓库里面是提供<code>git</code>工具的，可是很遗憾，一般来说仓库提供的不会最新版本。需要使用最新版本的<code>git</code>，需要靠我们自己编译安装。</p>
+<h2 id="获取最新版git"><a href="#获取最新版git" class="headerlink" title="获取最新版git"></a>获取最新版<code>git</code></h2><p>可以在<a target="_blank" rel="noopener" href="https://github.com/git/git/releases">Github</a>上下载最新版的<code>git</code>源代码。<br><code>wget https://github.com/git/git/archive/v2.1.1.tar.gz</code> (以<code>2.1.1</code>版本为例)</p>
+<h2 id="编译安装git"><a href="#编译安装git" class="headerlink" title="编译安装git"></a>编译安装<code>git</code></h2><ol>
+<li>首先需要安装依赖的包：<br><code>sudo apt-get -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev</code></li>
+<li>解压压缩包：<br><code>tar -zxvf v2.1.1.tar.gz</code><br><code>cd git-2.1.1</code></li>
+<li>编译安装<br><code>make prefix=/usr/local all</code><br><code>sudo make prefix=/usr/local install</code></li>
+</ol>
+<h2 id="添加补全"><a href="#添加补全" class="headerlink" title="添加补全"></a>添加补全</h2><p>此时<code>git</code>已经可以使用了，但是这样安装的<code>git</code>在终端里面按下<code>Tab</code>是没有自动补全的，我们需要自己添加配置。<br>进入解压后的<code>git</code>目录，执行下面两条命令：<br><code>cp contrib/completion/git-completion.bash /etc/bash_completion.d/</code><br><code>sed -i &#39;$a source /etc/bash_completion.d/git-completion.bash&#39; ~/.bashrc</code><br>就添加了自动补全，注销或重启生效。想要立即生效可以手动运行一次<br><code>source /etc/bash_completion.d/git-completion.bash</code></p>
+<h2 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h2><p>在已经有<code>git</code>的情况下，更新版本是很简单的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:git&#x2F;git.git</span><br><span class="line">cd git</span><br><span class="line">git pull origin master</span><br><span class="line">make prefix&#x3D;&#x2F;usr&#x2F;local all</span><br><span class="line">sudo make prefix&#x3D;&#x2F;usr&#x2F;local install</span><br></pre></td></tr></table></figure>
+<p>每次只需要 pull 最新的代码再执行 make &amp;&amp; make install 就行了！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/ubuntu-compile-and-install-git/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-ubuntu-fonts-arphic-uming"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -792,476 +1230,6 @@
 
 
   
-    <article id="post-about"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/pages/about/">关于</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/pages/about/" class="archive-article-date">
-  <time datetime="2014-07-26T06:06:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 26
-  </time>
-  
-    <time datetime="2021-06-22T06:51:04.000Z" itemprop="dateUpdated">
-      , Updated on 2021 / 06 / 22
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="程序员-amp-amp-动漫宅-amp-amp-萝莉控"><a href="#程序员-amp-amp-动漫宅-amp-amp-萝莉控" class="headerlink" title="程序员 &amp;&amp; 动漫宅 &amp;&amp; 萝莉控"></a>程序员 &amp;&amp; 动漫宅 &amp;&amp; 萝莉控</h2><ul>
-<li><p><strong>ldsink</strong> 是 <strong>Linux Deepin Sink</strong> 的缩写， <strong><a target="_blank" rel="noopener" href="https://www.deepin.org/">deepin</a></strong> 是一款很棒的 Linux 发行版!</p>
-</li>
-<li><p>有问题请联系： <strong><a href="mailto:c.zhou@live.com">c.zhou@live.com</a></strong></p>
-</li>
-</ul>
-<h2 id="密钥"><a href="#密钥" class="headerlink" title="密钥"></a>密钥</h2><p><strong><a target="_blank" rel="noopener" href="https://a.adcdn.cn/files/id_ed25519.pub">ed25519</a></strong> | <strong><a target="_blank" rel="noopener" href="https://a.adcdn.cn/files/public-key.gpg">GPG key</a></strong> | <a target="_blank" rel="noopener" href="https://a.adcdn.cn/files/id_rsa.pub">rsa</a></p>
-<h2 id="gitconfig"><a href="#gitconfig" class="headerlink" title=".gitconfig"></a>.gitconfig</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[alias]</span><br><span class="line">    br = branch</span><br><span class="line">    ci = commit</span><br><span class="line">    co = checkout</span><br><span class="line">[core]</span><br><span class="line">    editor = vim</span><br><span class="line">    ignorecase = false</span><br><span class="line">    excludesfile = ~/.gitignore</span><br><span class="line">[user]</span><br><span class="line">    name = ZHOU Cheng</span><br><span class="line">    email = c.zhou@live.com</span><br><span class="line">    signingkey = 5233A9D383EAD23BAEF6CB2D8CE00782B0AF5E1C</span><br><span class="line">[commit]</span><br><span class="line">    gpgsign = true</span><br><span class="line">[http &quot;https://github.com&quot;]</span><br><span class="line">    proxy = socks5://127.0.0.1:1080</span><br><span class="line">[https &quot;https://github.com&quot;]</span><br><span class="line">    proxy = socks5://127.0.0.1:1080</span><br><span class="line">[credential]</span><br><span class="line">    helper = store</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/pages/"
-             class="article-tag-list-link color1">pages</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/pages/about/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-python3-use-polarssl-replace-pydes-realize-3des-encryption"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/">Python3中使用PolarSSL替换pyDes实现3DES加密</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/" class="archive-article-date">
-  <time datetime="2014-07-18T04:05:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 18
-  </time>
-  
-    <time datetime="2014-10-12T04:13:56.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 12
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>pyDES是纯的python DES加密算法实现。系统目前使用PyDES的3DES加密算法，但是性能低下，已成为系统目前的瓶颈，为提高性能，考虑换用C语言实现。</p>
-<p>Google C语言的DES实现，PolarSSL排在前面，这是纯C的实现，决定采用。</p>
-<h1 id="编译PolarSSL"><a href="#编译PolarSSL" class="headerlink" title="编译PolarSSL"></a>编译PolarSSL</h1><p>首先在<a target="_blank" rel="noopener" href="https://polarssl.org/">PolarSSL</a>的网站下载最新的源代码，解压。使用默认的配置文件编译出的结果是静态链接库（.a 文件），我用这个静态库在Python那边的C语言文件编译会失败，所以得编译成动态链接库（.so 文件）。如下修改配置文件：</p>
-<ol>
-<li>打开PolarSSL的 library/Makefile 文件。</li>
-<li>在文件头添加 SHARED = -shared。</li>
-</ol>
-<p>然后在PolarSSL目录打开终端，执行</p>
-<blockquote>
-<p>make all</p>
-</blockquote>
-<p>等待编译完成之后执行安装</p>
-<blockquote>
-<p>sudo make install</p>
-</blockquote>
-<p>执行完上条命令之后我们可以看一下效果</p>
-<blockquote>
-<p>ls /usr/local/lib/<br>ls /usr/local/include/</p>
-</blockquote>
-<p>刚才编译好的文件都在以上目录存在了，这里需要注意，so文件只在 /usr/local/lib 目录下还是不够的，程序运行时会提示缺失，得复制到 /usr/lib 下。</p>
-<blockquote>
-<p>sudo cp /usr/local/lib/libpolarssl.so.7 /usr/lib/</p>
-</blockquote>
-<h1 id="配置Python"><a href="#配置Python" class="headerlink" title="配置Python"></a>配置Python</h1><p>按照我之前写的<a href="https://ldsink.com/articles/extending-python3-with-c/">探究：使用C语言扩展Python3</a>写好接口的C文件，源代码如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  Author : Zhou Cheng (Sink)</span></span><br><span class="line"><span class="comment">  Date   : July 17, 2014</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Python.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;polarssl/des.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// My C function</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tdes_encrypt</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *key_in, <span class="keyword">const</span> <span class="keyword">char</span> *data, <span class="keyword">char</span> *dest, <span class="keyword">const</span> <span class="keyword">int</span> byte_len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> KEY_SIZE = <span class="number">24</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> CHUNK_SIZE = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> key[KEY_SIZE];</span><br><span class="line">    <span class="built_in">memset</span>(key, <span class="number">0</span>, KEY_SIZE);</span><br><span class="line">    <span class="keyword">int</span> len  = (<span class="keyword">int</span>)<span class="built_in">strlen</span>(key_in);</span><br><span class="line">    <span class="keyword">if</span> (len &gt; KEY_SIZE)</span><br><span class="line">        len = KEY_SIZE;</span><br><span class="line">    <span class="built_in">memcpy</span>(key, key_in, len);</span><br><span class="line"></span><br><span class="line">    des3_context ctx;</span><br><span class="line">    des3_set3key_enc(&amp;ctx, (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)key);</span><br><span class="line">    <span class="keyword">int</span> i, j, k;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, j = byte_len / CHUNK_SIZE, k = <span class="number">0</span>; i &lt; j; i ++, k += CHUNK_SIZE)  &#123;</span><br><span class="line">        des3_crypt_ecb(&amp;ctx, (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)(data + k), (<span class="keyword">unsigned</span> <span class="keyword">char</span> *)(dest + k));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// python extending with c function</span></span><br><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">triple_des_encrypt(PyObject *self, PyObject *args) &#123;</span><br><span class="line">    <span class="keyword">char</span> *key;</span><br><span class="line">    <span class="keyword">char</span> *data;</span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">&quot;ss&quot;</span>, &amp;key, &amp;data)) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> cur_len, new_len;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    i = <span class="built_in">strlen</span>(data);</span><br><span class="line">    j = i / <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">if</span> (i % <span class="number">8</span>)</span><br><span class="line">        j ++;</span><br><span class="line">    cur_len = i;</span><br><span class="line">    new_len = j * <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">char</span> *input = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(new_len);</span><br><span class="line">    <span class="keyword">char</span> *output = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(new_len);</span><br><span class="line">    <span class="built_in">memset</span>(input, <span class="string">&#x27;\0&#x27;</span>, new_len);</span><br><span class="line">    <span class="built_in">memset</span>(output, <span class="string">&#x27;\0&#x27;</span>, new_len);</span><br><span class="line">    <span class="built_in">memcpy</span>(input, data, cur_len);</span><br><span class="line">    tdes_encrypt(key, input, output, new_len);</span><br><span class="line"></span><br><span class="line">    PyObject *result = Py_BuildValue(<span class="string">&quot;y#&quot;</span>, output, new_len);</span><br><span class="line">    <span class="built_in">free</span>(input);</span><br><span class="line">    <span class="built_in">free</span>(output);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// method table</span></span><br><span class="line"><span class="keyword">static</span> PyMethodDef DemoMethods[] = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;tdes_encrypt&quot;</span>, triple_des_encrypt, METH_VARARGS, <span class="literal">NULL</span>&#125;,</span><br><span class="line">    &#123;<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>&#125;        <span class="comment">/* Sentinel */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The method table must be referenced in the module definition structure.</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">PyModuleDef</span> <span class="title">demomodule</span> =</span> &#123;</span><br><span class="line">    PyModuleDef_HEAD_INIT,</span><br><span class="line">    <span class="string">&quot;demo&quot;</span>,   <span class="comment">/* name of module */</span></span><br><span class="line">    <span class="literal">NULL</span>, <span class="comment">/* module documentation, may be NULL */</span></span><br><span class="line">    <span class="number">-1</span>,       <span class="comment">/* size of per-interpreter state of the module,</span></span><br><span class="line"><span class="comment">                or -1 if the module keeps state in global variables. */</span></span><br><span class="line">    DemoMethods</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The initialization function must be named PyInit_name()</span></span><br><span class="line">PyMODINIT_FUNC</span><br><span class="line">PyInit_demo(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> PyModule_Create(&amp;demomodule);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里用到了PolarSSL库里面的函数，加密字符串不足8byte的整数倍补0,加密密钥不足24位同样。</p>
-<p>接下来配置编译文件 setup.py，在需要添加的库中包含 PolarSSL，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup, Extension</span><br><span class="line"></span><br><span class="line">module1 = Extension(<span class="string">&#x27;demo&#x27;</span>,</span><br><span class="line">    libraries = [<span class="string">&#x27;polarssl&#x27;</span>],</span><br><span class="line">    sources = [<span class="string">&#x27;demo.c&#x27;</span>])</span><br><span class="line"></span><br><span class="line">setup (name = <span class="string">&#x27;3DES&#x27;</span>,</span><br><span class="line">    version = <span class="string">&#x27;1.0&#x27;</span>,</span><br><span class="line">    description = <span class="string">&#x27;This is a demo package by Sink&#x27;</span>,</span><br><span class="line">    ext_modules = [module1])</span><br></pre></td></tr></table></figure>
-<p>编译</p>
-<blockquote>
-<p>python3 setup.py build</p>
-</blockquote>
-<p>编译出的 so 文件就可以被调用了。</p>
-<h1 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h1><p>Python随机生成1000条data和key，保证正确的情况下分别调用两个函数测试性能。C语言只要0.02秒，Python则花了182秒，性能差距巨大。测试代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyDes</span><br><span class="line"><span class="keyword">import</span> demo</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> Random</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_str</span>(<span class="params">randomlength=<span class="number">8</span></span>):</span></span><br><span class="line">    <span class="built_in">str</span> = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    chars = <span class="string">&#x27;AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789!@#$%^&amp;*()_+&#x27;</span></span><br><span class="line">    length = <span class="built_in">len</span>(chars) - <span class="number">1</span></span><br><span class="line">    random = Random()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(randomlength):</span><br><span class="line">        <span class="built_in">str</span>+=chars[random.randint(<span class="number">0</span>, length)]</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">des_encrypt_test</span>(<span class="params">key, data</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;3des encrypt&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(key, <span class="built_in">str</span>):</span><br><span class="line">        key = key.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(data, <span class="built_in">str</span>):</span><br><span class="line">        data = data.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(key) &lt; <span class="number">24</span>:</span><br><span class="line">        key += (<span class="number">24</span> - <span class="built_in">len</span>(key)) * <span class="string">b&quot;\0&quot;</span></span><br><span class="line">    k = pyDes.triple_des(key, pyDes.ECB, pad=<span class="string">b&quot;\0&quot;</span>)</span><br><span class="line">    d = k.encrypt(data)</span><br><span class="line">    <span class="comment"># print(&quot;Encrypted:%r&quot; % binascii.hexlify(d))</span></span><br><span class="line">    <span class="comment"># print(&quot;Decrypted:%r&quot; % binascii.hexlify(k.decrypt(d)))</span></span><br><span class="line">    <span class="comment"># print(&quot;pre str      :%r&quot; % k.decrypt(d).decode(&quot;utf-8&quot;))</span></span><br><span class="line">    <span class="keyword">return</span> d</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    data = []</span><br><span class="line">    key = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># data init</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">        data.append(random_str(x))</span><br><span class="line">        key.append(random_str(<span class="number">16</span> + (x % <span class="number">9</span>)))</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Correct</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        p = des_encrypt_test(key[x], data[x])</span><br><span class="line">        c = demo.tdes_encrypt(key[x], data[x])</span><br><span class="line">        <span class="keyword">if</span> (p != c):</span><br><span class="line">            print(<span class="string">&quot;Error\n&quot;</span>)</span><br><span class="line">            print(key[x])</span><br><span class="line">            print(data[x])</span><br><span class="line">            print(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Performance</span></span><br><span class="line">    st = time.time()</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        des_encrypt_test(key[x], data[x])</span><br><span class="line">    et = time.time()</span><br><span class="line">    print(<span class="string">&quot; P Time taken:  &#123;0&#125; seconds.&quot;</span>.<span class="built_in">format</span>(et - st))</span><br><span class="line">    st = time.time()</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        demo.tdes_encrypt(key[x], data[x])</span><br><span class="line">    et = time.time()</span><br><span class="line">    print(<span class="string">&quot; C Time taken:  &#123;0&#125; seconds.&quot;</span>.<span class="built_in">format</span>(et - st))</span><br><span class="line"> <span class="comment"># P Time taken:  181.95579504966736 seconds.</span></span><br><span class="line"> <span class="comment"># C Time taken:  0.027108192443847656 seconds.</span></span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">python</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-extending-python3-with-c"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/extending-python3-with-c/">探究：使用C语言扩展Python3</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/extending-python3-with-c/" class="archive-article-date">
-  <time datetime="2014-07-16T03:54:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 16
-  </time>
-  
-    <time datetime="2014-10-12T04:13:48.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 12
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>用Python开发程序速度快，并且有许多现成模块可供使用，但执行速度相对较慢；C语言则正好相反，其执行速度快，但开发效率低。<br>为了充分利用两种语言各自的优点，比较好的做法是用Python开发整个软件框架，而用C语言实现其关键模块。Python目前的主流版本是3，本文探究如何使用C语言扩展Python3。</p>
-<h1 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h1><p>Ubuntu 14.04 LTS x64 + Python 3.4.0 + gcc 4.8.2</p>
-<h1 id="C该怎么写？"><a href="#C该怎么写？" class="headerlink" title="C该怎么写？"></a>C该怎么写？</h1><h2 id="0、新建一个C文件"><a href="#0、新建一个C文件" class="headerlink" title="0、新建一个C文件"></a>0、新建一个C文件</h2><p>话不多说，先新建一个C文件，命名 demo.c。</p>
-<h2 id="1、包含必要的头文件"><a href="#1、包含必要的头文件" class="headerlink" title="1、包含必要的头文件"></a>1、包含必要的头文件</h2><p>所有的PythonAPI必须包含 Python.h，这个文件包含了&lt;stdio.h&gt;、&lt;string.h&gt;、&lt;errno.h&gt;和&lt;stdlib.h&gt;。</p>
-<h2 id="2、开始写功能函数"><a href="#2、开始写功能函数" class="headerlink" title="2、开始写功能函数"></a>2、开始写功能函数</h2><h4 id="1-函数"><a href="#1-函数" class="headerlink" title="1) 函数"></a>1) 函数</h4><p>现在就可以开始写你想用C执行的函数了。这个函数的格式是有要求的，一个简单的函数如下所示：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">demo_hello(PyObject *self, PyObject *args) &#123;</span><br><span class="line">    PyObject *name, *result;</span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">&quot;U&quot;</span>, &amp;name))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    result = PyUnicode_FromFormat(<span class="string">&quot;Hello, %S!&quot;</span>, name);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们来慢慢看这个函数。</p>
-<p>首先函数类型必须是 static PyObject *，函数名可以随便取，函数接收的参数必须是 (PyObject *self, PyObject *args)。</p>
-<p>所有从python传过来的参数都在 args 里，但是C和Python的数据类型不同，为了使C可以顺利的使用参数，我们需要在这之间做转化。<br>这里使用了 PyArg_ParseTuple 函数（点击进入官方文档），其中的第二个参数是匹配字符串，函数根据这个匹配字符串将args的值传给后面的若干的参数。该例中“U”代表字符串，name的类型实际上可以定义为 char *。</p>
-<p>这个例子实际上没有使用任何C语言的数据类型，实际上PyArg_ParseTuple 函数提取出来的就是C的数据类型。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *name;</span><br><span class="line"><span class="keyword">int</span> age;</span><br><span class="line"><span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">&quot;si&quot;</span>, &amp;name, &amp;age)) </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-<p>上面这个例子，python函数的参数是一个字符串，一个整型。通过PyArg_ParseTuple 函数转换成了C语言的 char* 和 int。</p>
-<p>按C语言的数据类型处理完数据，就要返回了，显然直接返回也是不行的。我们使用 Py_BuildValue 函数将C语言的数据转换成Python的数据，这实际上就是上文PyArg_ParseTuple的逆过程。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> total[<span class="number">10000</span>];</span><br><span class="line"><span class="built_in">memset</span>(total, <span class="number">0</span>, <span class="keyword">sizeof</span>(total));</span><br><span class="line"><span class="built_in">strcat</span>(total, <span class="string">&quot;strcat() 函数用来连接字符串：&quot;</span>);</span><br><span class="line"><span class="built_in">strcat</span>(total, <span class="string">&quot;tset&quot;</span>);</span><br><span class="line">PyObject *result = Py_BuildValue(<span class="string">&quot;s&quot;</span>, total);</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
-<p>上面的代码在Python中调用之后收到的返回值就是 “strcat() 函数用来连接字符串：tset”。</p>
-<p>数据转换还有几个其他的函数，匹配字符串也有很多种写法。更多详细的请看官方文档。</p>
-<p><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/linux/l-pythc/">developerworks上介绍这个也有一篇不错的文章</a></p>
-<h4 id="2-模块结构"><a href="#2-模块结构" class="headerlink" title="2) 模块结构"></a>2) 模块结构</h4><p>写好了方法之后，我们需要构建一个方法表，如下所示</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// method table</span></span><br><span class="line"><span class="keyword">static</span> PyMethodDef DemoMethods[] = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;hello&quot;</span>, <span class="comment">// python method name</span></span><br><span class="line">     demo_hello, <span class="comment">// matched c function name</span></span><br><span class="line">     METH_VARARGS, <span class="comment">/* a flag telling the interpreter the calling </span></span><br><span class="line"><span class="comment">                                 convention to be used for the C function. */</span></span><br><span class="line">     <span class="string">&quot;I guess here is description.&quot;</span> &#125;,</span><br><span class="line"></span><br><span class="line">     &#123;<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>&#125;        <span class="comment">/* Sentinel */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>每个方法需要关注的变量是浅两个，第一个变量是你在python中调用的名称，第二个变量是你的C语言函数名称，这两个名称会通过这个表匹配。第三个设置你函数传入参数的情况，第四个只是个描述，填 NULL 也行。</p>
-<p>DemoMethods中可以包含多个方法，每个方法按照这个依样画葫芦就成。这个数组实际上就是个 Method Table，记录了你所有的方法匹配表。</p>
-<p>实际上我们提供给Python的是一个模块，上面只是构建了方法表，下面再将 DemoMethods 作为变量传入，构建模块结构，如下所示。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The method table must be referenced in the module definition structure.</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">PyModuleDef</span> <span class="title">demomodule</span> =</span> &#123;</span><br><span class="line">    PyModuleDef_HEAD_INIT,</span><br><span class="line">    <span class="string">&quot;demo&quot;</span>,   <span class="comment">/* name of module */</span></span><br><span class="line">    <span class="literal">NULL</span>, <span class="comment">/* module documentation, may be NULL */</span></span><br><span class="line">    <span class="number">-1</span>,       <span class="comment">/* size of per-interpreter state of the module,</span></span><br><span class="line"><span class="comment">                or -1 if the module keeps state in global variables. */</span></span><br><span class="line">    DemoMethods</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h4 id="3-初始化"><a href="#3-初始化" class="headerlink" title="3) 初始化"></a>3) 初始化</h4><p>上面定义的结构，必须在模块的初始化函数中传给解释器。初始化函数必须命名为 PyInit_name（），其中name是模块的名称，这应该是在模块文件中定义的唯一的非静态项目：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The initialization function must be named PyInit_name()</span></span><br><span class="line">PyMODINIT_FUNC</span><br><span class="line">PyInit_demo(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> PyModule_Create(&amp;demomodule);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>至此，C语言模块代码已经编写完成。</p>
-<h1 id="C该怎么编译？"><a href="#C该怎么编译？" class="headerlink" title="C该怎么编译？"></a>C该怎么编译？</h1><p>代码写好就应该开始准备编译为动态链接库方便python调用了。这里可以参考文档<a target="_blank" rel="noopener" href="https://docs.python.org/3/extending/building.html">《Building C and C++ Extensions with distutils》</a>，方法很简单：新建文件setup.py，配置编译：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup, Extension</span><br><span class="line"></span><br><span class="line">module1 = Extension(<span class="string">&#x27;demo&#x27;</span>,</span><br><span class="line">                    sources = [<span class="string">&#x27;demo.c&#x27;</span>])</span><br><span class="line"></span><br><span class="line">setup (name = <span class="string">&#x27;Demo hello&#x27;</span>,</span><br><span class="line">       version = <span class="string">&#x27;1.0&#x27;</span>,</span><br><span class="line">       description = <span class="string">&#x27;This is a demo package by Sink&#x27;</span>,</span><br><span class="line">       ext_modules = [module1])</span><br></pre></td></tr></table></figure>
-<p>打开终端：</p>
-<blockquote>
-<p>python3 setup.py build</p>
-</blockquote>
-<p>在 build 目录下可以找到编译好的 so 文件。</p>
-<h1 id="Python怎么调用？"><a href="#Python怎么调用？" class="headerlink" title="Python怎么调用？"></a>Python怎么调用？</h1><p>想怎么用就怎么用。so文件和py文件放一起，下面是最简单的例子。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> demo</span><br><span class="line">hi = demo.hello(<span class="string">&quot;Sink&quot;</span>)</span><br><span class="line">print(hi)</span><br></pre></td></tr></table></figure>
-<h1 id="有趣的研究"><a href="#有趣的研究" class="headerlink" title="有趣的研究"></a>有趣的研究</h1><p><strong>Python传入的参数是tuple该怎么匹配</strong></p>
-<p>如果Python调用函数传入的参数是tuple，PyArg_ParseTuple函数的匹配字符串可以通过( )来加以区分。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> demo</span><br><span class="line">print(demo.<span class="built_in">tuple</span>(<span class="string">&quot;Sink&quot;</span>, (<span class="number">2</span>, <span class="string">&quot;Miku&quot;</span>)))</span><br></pre></td></tr></table></figure>
-<p>C语言中PyArg_ParseTuple匹配字符串可以通过（）来匹配tuple的元素。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> PyObject *</span><br><span class="line">demo_tuple(PyObject *self, PyObject *args) &#123;</span><br><span class="line">    <span class="keyword">char</span> *a, *b;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">&quot;s(is)&quot;</span>, &amp;a, &amp;c, &amp;b)) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">255</span>];</span><br><span class="line">    <span class="built_in">sprintf</span>(str, <span class="string">&quot;%d&quot;</span>, c);</span><br><span class="line">    <span class="built_in">strcat</span>(str, a);</span><br><span class="line">    <span class="built_in">strcat</span>(str, b);</span><br><span class="line">    PyObject *result = Py_BuildValue(<span class="string">&quot;s&quot;</span>, str);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码输出的结果是 “2SinkMiku”。这些功能的核心就是PyArg_ParseTuple函数中的匹配字符串，写好这个字符串可以处理很多复杂的数据结构。</p>
-<p>源代码已上传至<a target="_blank" rel="noopener" href="http://www.oschina.net/code/snippet_818656_37278">OSC</a></p>
-<p><a target="_blank" rel="noopener" href="http://my.oschina.net/ldsink/blog/291514">探究：使用C语言扩展Python3</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color5">work</a>
-        </li>
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">python</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/extending-python3-with-c/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-20110821-new-semester-new-things"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/20110821-new-semester-new-things/">2011-8-21 开学这点事</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/20110821-new-semester-new-things/" class="archive-article-date">
-  <time datetime="2011-08-21T04:23:00.000Z" itemprop="datePublished">
-    Published on 2011 / 08 / 21
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/2011_new_semester_calendar.webp" alt="2011_new_semester_calendar"></p>
-<blockquote>
-<p>开学时间 : 九月三号<br>学校的新变化 : 第一次去SJTU<br>晒晒学费 : 5000多，真贵<br>校园抓拍 : 忘记拍了，有时间再拍<br>开学心情 : 又要上课了<br>学习计划 : 还没想好<br>交友计划 : 顺其自然<br>新学期宣言 : 没啥想说的</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/20110821-new-semester-new-things/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/9/">Next &amp;raquo;</a>
@@ -1277,7 +1245,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2021 Sink.
+        Copyrights &copy; 2009 - 2022 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">

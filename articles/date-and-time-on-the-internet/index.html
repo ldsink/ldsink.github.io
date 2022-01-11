@@ -20,7 +20,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://a.adcdn.cn/images/time-zone-map.webp">
 <meta property="article:published_time" content="2017-12-08T07:02:52.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2021-11-24T10:04:19.965Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="rfc">
 <meta name="twitter:card" content="summary">
@@ -249,8 +249,10 @@
 <h2 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h2><p>时间戳是一个数字，定义为格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。<strong>注意，同一时刻，不同时区获得的时间戳是相同的。</strong>以前很多用来记录时间的字段，在数据库中往往不会存储为Datetime类型，而是直接存储为无符号整形，存放时间戳的值。</p>
 <p>Python获取时间戳的代码为</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="built_in">int</span>(time.time())</span><br></pre></td></tr></table></figure>
+
 <h2 id="本地时间"><a href="#本地时间" class="headerlink" title="本地时间"></a>本地时间</h2><p>当前时区的本地时间</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">datetime.datetime.now()</span><br></pre></td></tr></table></figure>
+
 <p>上面的输出值为</p>
 <blockquote>
 <p>2017-12-08 11:50:03.537506</p>
@@ -262,7 +264,7 @@
 </blockquote>
 <p>这个代表了UTC时间的2017年12月08日零时</p>
 <blockquote>
-<p>2017-12-08T00:08:00.00+08:00</p>
+<p>2017-12-08T08:00:00.00+08:00</p>
 </blockquote>
 <p>这个代表了同一时刻的，东八区北京时间（CST）表示的方法</p>
 <p>上面两个时间的时间戳是等价的。两个的区别，就是在本地时间后面增加了时区信息。Z表示零时区。+08:00表示UTC时间增加8小时。</p>
@@ -283,8 +285,10 @@
 </ul>
 <h2 id="下面是一些踩过的坑："><a href="#下面是一些踩过的坑：" class="headerlink" title="下面是一些踩过的坑："></a>下面是一些踩过的坑：</h2><h3 id="Docker-设置时区"><a href="#Docker-设置时区" class="headerlink" title="Docker 设置时区"></a>Docker 设置时区</h3><p>很多Docker镜像都是UTC时区，在上海使用镜像启用容器，容器里面获取的本地时间都会慢8个小时。可以在Dockerfile里面设置时区。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes">参考这个问题的回答</a></p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="Ubuntu-设置时区"><a href="#Ubuntu-设置时区" class="headerlink" title="Ubuntu 设置时区"></a>Ubuntu 设置时区</h3><p>Docker里面大部分镜像是基于Debian的，Docker这么解决，Ubuntu上思路类似，直接执行命令就好了。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TZ=Asia/Shanghai</span><br><span class="line">ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
+
 <p>可以执行<code>date</code>命令查看时间，CST是中国标准时间。</p>
 <blockquote>
 <p>➜  ~ date<br>Fri Dec  8 14:12:46 CST 2017</p>
@@ -294,6 +298,7 @@
 <h3 id="Python-怎么从本地时间转换成标准时间"><a href="#Python-怎么从本地时间转换成标准时间" class="headerlink" title="Python 怎么从本地时间转换成标准时间"></a>Python 怎么从本地时间转换成标准时间</h3><p><strong>Python 里面的 datetime.datetime.now() 拿到的是本地时间。</strong>如果用这个保存时间，请务必确保系统的时区设置正确，统一。</p>
 <p>Python中间的时间戳、datetime之间的转换，最好强制写清楚时区。<a target="_blank" rel="noopener" href="https://github.com/hui-z/meican/pull/7/">这是个例子</a></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳转换到CST时间</span></span><br><span class="line">timestamp = <span class="built_in">int</span>(time.time())</span><br><span class="line">datetime.datetime.fromtimestamp(timestamp, tz=datetime.timezone(datetime.timedelta(hours=<span class="number">8</span>)))</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -449,7 +454,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2021 Sink.
+        Copyrights &copy; 2009 - 2022 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">

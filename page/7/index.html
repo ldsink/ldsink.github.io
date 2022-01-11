@@ -201,6 +201,377 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-usage-of-digital-fingerprint"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/usage-of-digital-fingerprint/">数字指纹用法</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/usage-of-digital-fingerprint/" class="archive-article-date">
+  <time datetime="2015-06-24T17:00:00.000Z" itemprop="datePublished">
+    Published on 2015 / 06 / 25
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下载一些资源，网站可能不直接提供下载，但会机智的给出数字指纹。<br>这样的情况下加上磁力链接的前缀 <code>magnet:?xt=urn:btih:</code> 就是正确的下载地址啦~~~</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/usage-of-digital-fingerprint/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-upgrade_mongodb_from_2_to_3"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/upgrade_mongodb_from_2_to_3/">MongoDB从2.6升级到3.0</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/upgrade_mongodb_from_2_to_3/" class="archive-article-date">
+  <time datetime="2015-05-04T13:49:00.000Z" itemprop="datePublished">
+    Published on 2015 / 05 / 04
+  </time>
+  
+    <time datetime="2015-07-13T13:53:31.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 07 / 13
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个爬虫项目，数据存储使用的 MongoDB 2.6，按网站和月份划分数据库。每次到月末，存储性能就大幅下降，<code>mongostat</code>查看是锁操作花费太多的时间。</p>
+<p>MongoDB 2.6 默认的MMAP引擎只支持数据库锁，虽然做过一些优化，但是在我这实际用起来发现效果并不是很好。<br>想要降低锁操作的时间，要么减少数据库体积，要么就换引擎。前者需要拆分出更多的数据库，不方便管理，就只能在引擎上下手。</p>
+<p>MongoDB 3.0 自三月份正式发布已经快两个月，应该趋于稳定。3.0除了将默认的存储引擎MMAP升级到支持集合锁，更是带入了支持文档锁的WiredTiger引擎。本着试一试的想法，最近把MongoDB升级到了3.0，引擎切换到 WiredTiger，结果是在没做其他优化的情况下解决了爬虫存储性能下降的问题。：P</p>
+<ul>
+<li>升级的步骤可以参见<a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/">官方文档</a>。</li>
+<li>WiredTiger引擎还可以开启数据压缩，据说可以大幅降低空间占用，提升内存的效率。现在爬虫系统还没遇到新的瓶颈，就不做尝试了，之后可以在这个点上进行进一步的优化。</li>
+<li>3.0之后出的修复版本，更新内容很多都是修复WiredTiger引擎的问题的，希望 WT 引擎早日稳定。</li>
+<li>MMAP引擎和WiredTiger的数据文件不兼容，单库切换引擎需要将旧的数据使用<code>mongoexport</code>全部导出，在使用<code>mongoimport</code>重新导入。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/upgrade_mongodb_from_2_to_3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-deepin-2014-3-released"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/deepin-2014-3-released/">Deepin 2014.3 已经发布</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/deepin-2014-3-released/" class="archive-article-date">
+  <time datetime="2015-04-28T18:18:00.000Z" itemprop="datePublished">
+    Published on 2015 / 04 / 29
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Deepin 2014.3 已经发布，欢迎下载体验！详细内容请移步<a target="_blank" rel="noopener" href="http://planet.linuxdeepin.com/deepin-2014-3-released-free%C2%B7unique%C2%B7avant-garde/">官方博客</a>。</p>
+<p>这是一个维护版本，所以版本号还是 2014。<br>Deepin 2015 据说已经在稳步开发中，将会直接基于Debian。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">deepin</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/deepin-2014-3-released/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-fix-openssl-freak"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/fix-openssl-freak/">修复 Openssl FREAK 中间人劫持漏洞</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/fix-openssl-freak/" class="archive-article-date">
+  <time datetime="2015-03-31T02:33:14.000Z" itemprop="datePublished">
+    Published on 2015 / 03 / 31
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>收到阿里云的漏洞提示邮件，网站存在 OpenSSL FREAK 漏洞，现在已经修复。主要操作是升级了OpenSSL并且修改了nginx配置。</p>
+<p>修改 nginx 配置<br><code>ssl_ciphers HIGH:!aNULL:!MD5:!EXPORT56:!EXP;</code></p>
+<p>关于这个漏洞的详细资料可以看相关链接：<br><a target="_blank" rel="noopener" href="http://www.freebuf.com/news/60057.html">“历史遗留”漏洞：浅析新型SSL/TLS漏洞FREAK</a><br><a target="_blank" rel="noopener" href="http://bbs.aliyun.com/read/231806.html">[分享]漏洞预警公告–Openssl SSL/TLS中间人劫持漏洞</a><br><a target="_blank" rel="noopener" href="http://help.aliyun.com/knowledge_detail.htm?knowledgeId=5995398">Openssl FREAK 中间人劫持漏洞</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/fix-openssl-freak/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-python-json-dump-datetime"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -775,444 +1146,6 @@
 
 
   
-    <article id="post-linux-terminal-shortcuts"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/linux-terminal-shortcuts/">Linux 终端常用快捷键</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/linux-terminal-shortcuts/" class="archive-article-date">
-  <time datetime="2014-12-16T01:21:00.000Z" itemprop="datePublished">
-    Published on 2014 / 12 / 16
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="移动光标快捷键"><a href="#移动光标快捷键" class="headerlink" title="移动光标快捷键"></a>移动光标快捷键</h2><p><code>Ctrl</code>+<code>f</code> 向前移动一个字符<br><code>Ctrl</code>+<code>b</code> 向后移动一个字符<br><code>Alt</code>+<code>f</code> 向前移动一个单词<br><code>Alt</code>+<code>b</code> 向后移动一个单词<br><code>Ctrl</code>+<code>a</code> 移动到当前行首<br><code>Ctrl</code>+<code>e</code> 移动到当前行尾</p>
-<h2 id="编辑命令行快捷键"><a href="#编辑命令行快捷键" class="headerlink" title="编辑命令行快捷键"></a>编辑命令行快捷键</h2><p><code>Ctrl</code>+<code>d</code> 删除当前的字符<br><code>Ctrl</code>+<code>t</code> 交换当前字符和前一个字符的位置<br><code>Alt</code>+<code>t</code> 交换当前单词和前一个单词的位置<br><code>Alt</code>+<code>u</code> 把当前单词变成大写<br><code>Alt</code>+<code>c</code> 把当前单词变成首字母大写的单词</p>
-<h2 id="剪切、粘贴快捷键"><a href="#剪切、粘贴快捷键" class="headerlink" title="剪切、粘贴快捷键"></a>剪切、粘贴快捷键</h2><p><code>Ctrl</code>+<code>k</code> 剪切文本直到行的末尾<br><code>Ctrl</code>+<code>u</code> 剪切文本直到行的起始<br><code>Ctrl</code>+<code>w</code> 剪切光标前的单词<br><code>Alt</code>+<code>d</code> 剪切光标后的单词<br><code>Ctrl</code>+<code>y</code> 粘贴最近剪切的文本<br><code>Ctrl</code>+<code>c</code> 删除整行</p>
-<h2 id="Deepin终端快捷键"><a href="#Deepin终端快捷键" class="headerlink" title="Deepin终端快捷键"></a>Deepin终端快捷键</h2><p><img src="https://a.adcdn.cn/images/deepin-terminal-shortcut.webp" alt="deepin-terminal"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/linux-terminal-shortcuts/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-find-a-linux-system-disk-space-before-the-10-largest-files-or-folders"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">查找 Linux 系统中的占用磁盘空间最大的前10个文件或文件夹</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/" class="archive-article-date">
-  <time datetime="2014-12-01T00:10:00.000Z" itemprop="datePublished">
-    Published on 2014 / 12 / 01
-  </time>
-  
-    <time datetime="2015-03-22T04:25:52.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 03 / 22
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>收到邮件警报，服务器硬盘使用率大于90%。需要快速找出占用硬盘空间大的文件或者文件夹。<br>一番搜索之后学习到可以使用三个组合命令快速找出:</p>
-<ul>
-<li>du : 计算出单个文件或者文件夹的磁盘空间占用。</li>
-<li>sort : 对文件行或者标准输出行记录排序后输出。</li>
-<li>head : 输出文件内容的前面部分。</li>
-</ul>
-<p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
-<blockquote>
-<p>du -hsx <strong>target_path/*</strong> | sort -rh | head -10</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-database-isolation-review"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/database-isolation-review/">数据库事务隔离级别复习</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/database-isolation-review/" class="archive-article-date">
-  <time datetime="2014-10-14T03:43:00.000Z" itemprop="datePublished">
-    Published on 2014 / 10 / 14
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目更新数据库数据出错了，因为我对数据库的隔离级别及实现细节理解有问题。<br>今天复习了一次。</p>
-<p>首先再明确一次数据库的四个隔离级别：</p>
-<ol>
-<li>Read uncommitted</li>
-<li>Read committed</li>
-<li>Repeatable read</li>
-<li>Serializable</li>
-</ol>
-<p>这四个隔离级别对应是要解决脏读（Dirty read）、不可重复读（Non-repeatable read）、幻象读（Phantom read）的问题。</p>
-<p>MySQL 可以通过</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@global</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@session</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@tx</span>_isolation;</span><br></pre></td></tr></table></figure>
-<p>查看当前数据库设置的隔离级别。</p>
-<h1 id="Read-uncommitted"><a href="#Read-uncommitted" class="headerlink" title="Read uncommitted"></a>Read uncommitted</h1><p>最低级的隔离级别就是 Read uncommitted，这是最低级的，拥有最高的并发性能，但是也有一列的并发问题。<br>除非数据并发安全性要求不是特别高，否则一般都不怎么使用。</p>
-<h1 id="Read-committed-与-脏读"><a href="#Read-committed-与-脏读" class="headerlink" title="Read committed 与 脏读"></a>Read committed 与 脏读</h1><p>Read uncommitted 之上就是 Read committed，这一级解决了脏读问题。<br>所谓脏读，就是一个事务可以读到另一个事务没有提交的数据。带来的问题是当另一个事务最终回滚，<br>脏读读到的数据实际上是不在数据库里面的。</p>
-<p><img src="https://a.adcdn.cn/images/dirty_reads.webp" alt="dirty_read"></p>
-<p>如上图所示，事务1最后读到的age的值是21。但是事务2最后回滚数据，所以21的值是不在数据库里面存在的。<br>Read committed 解决了脏读问题，不会允许事务读取另一个事务未提交的数据。<br>大部分支持事务的数据库默认隔离级别就是 Read committed。</p>
-<h1 id="Repeatable-read-与-不可重复读"><a href="#Repeatable-read-与-不可重复读" class="headerlink" title="Repeatable read 与 不可重复读"></a>Repeatable read 与 不可重复读</h1><p>第三级 Repeatable read 在之前的基础上，还解决了不可重复读的问题。</p>
-<h2 id="MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。"><a href="#MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。" class="headerlink" title="MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。"></a>MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。</h2><p>下面的图是不可重复读的情况。</p>
-<p><img src="https://a.adcdn.cn/images/non-repeatable_read.webp" alt="non-repeatable_read"></p>
-<p>当事务2更新id为1的users的age并提交后，事务1第二次查询的信息是事务2更新之后的数据，与事务开始的时候的查询结果不一致。<br>这样前后两次的查询结果不一致的问题，就是不可重复读。</p>
-<p>有两种策略可以避免不可重复读(non-repeatable read)。</p>
-<ul>
-<li>一个是要求事务2延迟到事务1提交或者回滚之后再执行。这种方式实现了T1, T2 的串行化调度。<br>串行化调度可以支持可重复读(repeatable reads)。</li>
-<li>另一种策略是多版本并发控制。为了得到更好的并发性能，允许事务2先提交。<br>但因为事务1在事务2之前开始，事务1必须在其开始执行时间点的数据库的快照上面操作。<br>当事务1最终提交时候，数据库会检查其结果是否等价于T1, T2串行调度。<br>如果等价，则允许事务1提交，如果不等价，事务1需要回滚并抛出个串行化失败的错误。</li>
-</ul>
-<p>我出错的地方就是这里，我以为 MySQL 会串行化调度，<br>实际上为了并发性能，MySQL使用的是多版本并发控制。<br>我想在一个事务内加载数据，再根据加载出来的数据的情况对数据库做不同的操作。<br>虽然我在事务内虽然读取到的值和第一次是一样的，但这是因为读取的是快照的值，<br>数据库已经更新为新的值了。<br>这就造成了我的项目中重复计费……</p>
-<h1 id="Serializable-与-幻象读"><a href="#Serializable-与-幻象读" class="headerlink" title="Serializable 与 幻象读"></a>Serializable 与 幻象读</h1><p>隔离级别最高级的就是 Serializable，这一级除了解决之前所有的问题，还解决了幻象读的问题。</p>
-<p><img src="https://a.adcdn.cn/images/phantom_read.webp" alt="phantom_read"></p>
-<p>幻象读主要就是指另一个事务执行了 Insert 操作，导致当前事务两次查询出来的结果集不一致，<br>第二次的结果集会比第一次多出新插入的数据。</p>
-<p>Serializable 解决了脏读、不可重复读和幻象读这三个问题。</p>
-<h1 id="总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena"><a href="#总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena" class="headerlink" title="总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)"></a>总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)</h1><table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻影读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>未授权读</td>
-<td>可能发生</td>
-<td>可能发生</td>
-<td>可能发生</td>
-</tr>
-<tr>
-<td>授权读</td>
-<td>-</td>
-<td>可能发生</td>
-<td>可能发生</td>
-</tr>
-<tr>
-<td>可重复读</td>
-<td>-</td>
-<td>-</td>
-<td>可能发生</td>
-</tr>
-<tr>
-<td>可序列化</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-</tbody></table>
-<p>“可能发生”表示这个隔离级别会发生对应现象，”-“表示不会发生。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/database-isolation-review/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-ubuntu-compile-and-install-git"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/ubuntu-compile-and-install-git/">Ubuntu 编译安装最新版 git</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/ubuntu-compile-and-install-git/" class="archive-article-date">
-  <time datetime="2014-09-21T07:25:00.000Z" itemprop="datePublished">
-    Published on 2014 / 09 / 21
-  </time>
-  
-    <time datetime="2014-10-14T06:01:59.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 14
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Ubuntu仓库里面是提供<code>git</code>工具的，可是很遗憾，一般来说仓库提供的不会最新版本。需要使用最新版本的<code>git</code>，需要靠我们自己编译安装。</p>
-<h2 id="获取最新版git"><a href="#获取最新版git" class="headerlink" title="获取最新版git"></a>获取最新版<code>git</code></h2><p>可以在<a target="_blank" rel="noopener" href="https://github.com/git/git/releases">Github</a>上下载最新版的<code>git</code>源代码。<br><code>wget https://github.com/git/git/archive/v2.1.1.tar.gz</code> (以<code>2.1.1</code>版本为例)</p>
-<h2 id="编译安装git"><a href="#编译安装git" class="headerlink" title="编译安装git"></a>编译安装<code>git</code></h2><ol>
-<li>首先需要安装依赖的包：<br><code>sudo apt-get -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev</code></li>
-<li>解压压缩包：<br><code>tar -zxvf v2.1.1.tar.gz</code><br><code>cd git-2.1.1</code></li>
-<li>编译安装<br><code>make prefix=/usr/local all</code><br><code>sudo make prefix=/usr/local install</code></li>
-</ol>
-<h2 id="添加补全"><a href="#添加补全" class="headerlink" title="添加补全"></a>添加补全</h2><p>此时<code>git</code>已经可以使用了，但是这样安装的<code>git</code>在终端里面按下<code>Tab</code>是没有自动补全的，我们需要自己添加配置。<br>进入解压后的<code>git</code>目录，执行下面两条命令：<br><code>cp contrib/completion/git-completion.bash /etc/bash_completion.d/</code><br><code>sed -i &#39;$a source /etc/bash_completion.d/git-completion.bash&#39; ~/.bashrc</code><br>就添加了自动补全，注销或重启生效。想要立即生效可以手动运行一次<br><code>source /etc/bash_completion.d/git-completion.bash</code></p>
-<h2 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h2><p>在已经有<code>git</code>的情况下，更新版本是很简单的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:git&#x2F;git.git</span><br><span class="line">cd git</span><br><span class="line">git pull origin master</span><br><span class="line">make prefix&#x3D;&#x2F;usr&#x2F;local all</span><br><span class="line">sudo make prefix&#x3D;&#x2F;usr&#x2F;local install</span><br></pre></td></tr></table></figure>
-<p>每次只需要 pull 最新的代码再执行 make &amp;&amp; make install 就行了！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ubuntu-compile-and-install-git/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/">Next &amp;raquo;</a>
@@ -1228,7 +1161,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2021 Sink.
+        Copyrights &copy; 2009 - 2022 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">
