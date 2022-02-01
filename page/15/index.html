@@ -201,6 +201,108 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-p1093-sorrow"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/p1093-sorrow/">P1093 文科生的悲哀 解题报告</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/p1093-sorrow/" class="archive-article-date">
+  <time datetime="2009-05-05T12:41:00.000Z" itemprop="datePublished">
+    Published on 2009 / 05 / 05
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>题目地址：<a target="_blank" rel="noopener" href="http://www.vijos.cn/Problem_Show.asp?id=1093">http://www.vijos.cn/Problem_Show.asp?id=1093</a></p>
+<p>递归加记忆化搜索。</p>
+<blockquote>
+<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms</p>
+</blockquote>
+<h4 id="我的程序："><a href="#我的程序：" class="headerlink" title="我的程序："></a>我的程序：</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">long</span> times,save[<span class="number">4</span>][<span class="number">10000</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Cal</span><span class="params">(<span class="keyword">int</span> subject,<span class="keyword">int</span> num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(save[subject<span class="number">-1</span>][num]==<span class="number">0</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         <span class="keyword">if</span>(num==<span class="number">0</span>)</span><br><span class="line">             save[subject<span class="number">-1</span>][num]=<span class="number">1</span>;</span><br><span class="line">         <span class="keyword">else</span></span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">if</span>(subject==<span class="number">1</span>)</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]=Cal(<span class="number">2</span>,num<span class="number">-1</span>);</span><br><span class="line">             <span class="keyword">else</span> <span class="keyword">if</span>(subject==<span class="number">2</span>)</span><br><span class="line">                 &#123;</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]=Cal(<span class="number">1</span>,num<span class="number">-1</span>);</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]%=<span class="number">7654321</span>;</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]+=Cal(<span class="number">3</span>,num<span class="number">-1</span>);</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]%=<span class="number">7654321</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">             <span class="keyword">else</span> <span class="keyword">if</span>(subject==<span class="number">3</span>)</span><br><span class="line">                 &#123;</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]=Cal(<span class="number">2</span>,num<span class="number">-1</span>);</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]%=<span class="number">7654321</span>;</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]+=Cal(<span class="number">4</span>,num<span class="number">-1</span>);</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]%=<span class="number">7654321</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">             <span class="keyword">else</span></span><br><span class="line">                 &#123;</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]=Cal(<span class="number">3</span>,num<span class="number">-1</span>);</span><br><span class="line">                 save[subject<span class="number">-1</span>][num]%=<span class="number">7654321</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> save[subject<span class="number">-1</span>][num];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    times=Cal(<span class="number">1</span>,n<span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%ld&quot;</span>,times);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">vijos</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/p1093-sorrow/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-p1096-savings-plan"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">

@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2021-11-24T10:04:19.965Z</updated>
+  <updated>2022-02-01T08:31:06.809Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2022 新年快乐！</title>
+    <link href="https://ldsink.com/articles/2022-happy-new-year/"/>
+    <id>https://ldsink.com/articles/2022-happy-new-year/</id>
+    <published>2022-02-01T08:29:55.000Z</published>
+    <updated>2022-02-01T08:31:06.809Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/2022-InfoQ.png" alt="2022-InfoQ"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/2022-InfoQ.png&quot; alt=&quot;2022-InfoQ&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>效率工具推荐</title>
@@ -482,33 +505,6 @@
     <category term="vijos" scheme="https://ldsink.com/tags/vijos/"/>
     
     <category term="go" scheme="https://ldsink.com/tags/go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Django 迁移 Model 到另一个 App</title>
-    <link href="https://ldsink.com/articles/django-migrate-model-to-other-app/"/>
-    <id>https://ldsink.com/articles/django-migrate-model-to-other-app/</id>
-    <published>2019-04-11T08:42:52.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
-    
-    <content type="html"><![CDATA[<p>随着项目进度推进，业务的流程更加完善，我的理解也更加深入。逐渐发现早期一些数据库表和APP的关系，不是那么的合理和有序。相关联的一些业务逻辑的表，不同业务层面的表，应该合理的、有序的、科学的分属于不同的APP。为了实现这份合理，就需要对现有的表进行数据迁移。</p><p>Django的表关系，不能直接通过数据库一行命令修改表的名称来更新，本身Django内部的数据库表State同样也得跟着一起维护。加上现在涉及到的一些外键，变得更加的麻烦。全网资料不多，参考了<a href="https://code.djangoproject.com/ticket/24686">Django的相关Ticket</a>和<a href="https://fleschenberg.net/moving-a-django-model-to-another-app/">这份资料</a>，成功的在生产环境实现了Model在不同App之间的迁移。</p><p>迁移思路是先生成新的Model，然后在 Django State 层面将逻辑指向新的Model，不改动数据库表结构。再修改数据库结构，将旧表重命名成新表。最后Django State层面删除旧表，数据库表结构不改动。完成了Model迁移并且不损失数据。<strong>单个Model迁移的步骤如下。多个Model需要迁移，请按顺序逐个操作。数据库表变动是高风险操作，务必小心谨慎。</strong></p><p><strong>0. 创建数据库备份，这是翻车之后的救命稻草</strong></p><p><strong>1. 将旧的Model代码复制到新的App下的<code>models.py</code>，将全部的使用旧Model的外键更新成新的Model</strong></p><p><strong>2. 执行</strong></p><blockquote><p>python manage.py makemigrations</p></blockquote><p><strong>3. 编辑 migration 文件，将自动生成的 <code>operations</code> 部分按照如下修改：</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">operations=[</span><br><span class="line">    migrations.SeparateDatabaseAndState(</span><br><span class="line">        database_operations=<span class="literal">None</span>,</span><br><span class="line">        state_operations=[</span><br><span class="line">            <span class="comment"># 自动生成的 operations 复制到这里。</span></span><br><span class="line">        ]</span><br><span class="line">    ),</span><br><span class="line">]</span><br></pre></td></tr></table></figure><p><strong>4. 删除旧Model的代码，执行</strong></p><blockquote><p>python manage.py makemigrations</p></blockquote><p><strong>5. 编辑 migration 文件，两个操作：</strong></p><ul><li>将上一步全部的新生成的 migration 文件添加到 dependencies </li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies = [</span><br><span class="line">    <span class="comment"># 将上一步全部的新生成的 migration 文件添加到这里</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure><ul><li>将自动生成的 <code>operations</code> 部分按照如下修改</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">operations = [</span><br><span class="line">    migrations.SeparateDatabaseAndState(</span><br><span class="line">        database_operations=[</span><br><span class="line">            migrations.AlterModelTable(<span class="string">&#x27;mymodel&#x27;</span>, <span class="string">&#x27;new_app_mymodel&#x27;</span>),</span><br><span class="line">            <span class="comment"># 假设将 Account 这个 Model 从 hello 这个 App 移动到 world 下，应该修改成</span></span><br><span class="line">            <span class="comment"># migrations.AlterModelTable(&#x27;account&#x27;, &#x27;world_account&#x27;),</span></span><br><span class="line">        ],</span><br><span class="line">        state_operations=[</span><br><span class="line">            <span class="comment"># 自动生成的 operations 复制到这里。</span></span><br><span class="line">        ]</span><br><span class="line">    ),</span><br><span class="line">]</span><br></pre></td></tr></table></figure><p><strong>6. 检查上面的流程，知道自己每一步干的什么，没有问题的话，执行</strong></p><blockquote><p>python manage.py migrate</p></blockquote><p>检查 and 测试。没有问题，Model迁移成功。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;随着项目进度推进，业务的流程更加完善，我的理解也更加深入。逐渐发现早期一些数据库表和APP的关系，不是那么的合理和有序。相关联的一些业务逻辑的表，不同业务层面的表，应该合理的、有序的、科学的分属于不同的APP。为了实现这份合理，就需要对现有的表进行数据迁移。&lt;/p&gt;
-&lt;p&gt;</summary>
-      
-    
-    
-    
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
-    
-    <category term="django" scheme="https://ldsink.com/tags/django/"/>
-    
-    <category term="database" scheme="https://ldsink.com/tags/database/"/>
     
   </entry>
   

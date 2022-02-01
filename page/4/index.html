@@ -201,6 +201,163 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-toml"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/toml/">聊一聊TOML</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/toml/" class="archive-article-date">
+  <time datetime="2017-11-22T08:47:02.000Z" itemprop="datePublished">
+    Published on 2017 / 11 / 22
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近配置 Gitlab Runner，发现他的配置文件是<code>.toml</code>后缀。对<code>toml</code>类型一番了解之后，发现这是个非常值得使用的配置文件语言。</p>
+<h2 id="TOML的由来"><a href="#TOML的由来" class="headerlink" title="TOML的由来"></a>TOML的由来</h2><p>TOML是<code>Tom&#39;s Obvious, Minimal Language.</code>的首字母缩写，是Tom的浅显的、极简的语言。<br>那么问题来了，Tom是谁？搜索之后得到答案，<code>Tom</code>是<code>Tom Preston-Werner</code>，全球最大的同性交友网站<a target="_blank" rel="noopener" href="https://github.com/">Github</a>联合创始人。<br>还有小道消息，GitHub 新项目转用CoffeeScript 之后，CoffeeScript 比 JavaScript 要简洁优雅得多。同样地，GitHub 也觉得 YAML 不够简洁优雅，因此捣鼓出了一个 TOML。</p>
+<h2 id="TOML的目标"><a href="#TOML的目标" class="headerlink" title="TOML的目标"></a>TOML的目标</h2><p>成为一个极简的配置文件格式。<br>关键词：极简、配置文件<br>TOML的语法足够简单，同时保证一个标准的TOML文件的所有配置项目都能被无歧义的转换成一个哈希表。TOML可以被各种语言解析使用。</p>
+<p>TOML目前的版本还是<code>0.4.0</code>，官网还是提示在<code>1.0</code>以前，语言表现可能还是不稳定。这个只是个免责条款，在很多生产系统里面，TOML配置文件已经大规模使用了，比如友商<code>GibLab</code>。</p>
+<h2 id="简单样例"><a href="#简单样例" class="headerlink" title="简单样例"></a>简单样例</h2><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/toml-lang/toml# This is a TOML document.</span><br><span class="line"></span><br><span class="line"><span class="attr">title</span> = <span class="string">&quot;TOML Example&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[owner]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;Tom Preston-Werner&quot;</span></span><br><span class="line"><span class="attr">dob</span> = <span class="number">1979</span>-<span class="number">05</span>-<span class="number">27</span>T07:<span class="number">32</span>:<span class="number">00</span>-<span class="number">08</span>:<span class="number">00</span> https://github.com/toml-lang/toml<span class="comment"># First class dates</span></span><br><span class="line"></span><br><span class="line"><span class="section">[database]</span></span><br><span class="line"><span class="attr">server</span> = <span class="string">&quot;192.168.1.1&quot;</span></span><br><span class="line"><span class="attr">ports</span> = [ <span class="number">8001</span>, <span class="number">8001</span>, <span class="number">8002</span> ]</span><br><span class="line"><span class="attr">connection_max</span> = <span class="number">5000</span></span><br><span class="line"><span class="attr">enabled</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[servers]</span></span><br><span class="line"></span><br><span class="line">  https://github.com/toml-lang/toml# Indentation (tabs and/or spaces) is allowed but not required</span><br><span class="line">  <span class="section">[servers.alpha]</span></span><br><span class="line">  <span class="attr">ip</span> = <span class="string">&quot;10.0.0.1&quot;</span></span><br><span class="line">  <span class="attr">dc</span> = <span class="string">&quot;eqdc10&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[servers.beta]</span></span><br><span class="line">  <span class="attr">ip</span> = <span class="string">&quot;10.0.0.2&quot;</span></span><br><span class="line">  <span class="attr">dc</span> = <span class="string">&quot;eqdc10&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[clients]</span></span><br><span class="line"><span class="attr">data</span> = [ [<span class="string">&quot;gamma&quot;</span>, <span class="string">&quot;delta&quot;</span>], [<span class="number">1</span>, <span class="number">2</span>] ]</span><br><span class="line"></span><br><span class="line">https://github.com/toml-lang/toml# Line breaks are OK when inside arrays</span><br><span class="line"><span class="attr">hosts</span> = [</span><br><span class="line">  <span class="string">&quot;alpha&quot;</span>,</span><br><span class="line">  <span class="string">&quot;omega&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>上面的样例就展示了很多TOML的特点。</p>
+<ul>
+<li>主要通过键值对表达</li>
+<li>使用 <code>#</code> 作为注释</li>
+<li>支持数字、字符串、布尔量、日期等数据类型</li>
+<li>有块、列表等数据结构</li>
+</ul>
+<p>还有一些特性，也列出来</p>
+<ul>
+<li>TOML是大小写敏感的</li>
+<li>TOML文件必须是UTF8编码的</li>
+<li>空白符可以是制表符(0x09)或空格(0x20)</li>
+<li>换行符可以是 LF (0x0A) 或 CRLF (0x0D0A)</li>
+<li>可以使用空字符串作为key <strong>强烈不推荐这么用</strong></li>
+</ul>
+<p>看完样例，对TOML就能有基本的认识，参照文档就能快速写出合适的配置文件。</p>
+<h2 id="很棒的点"><a href="#很棒的点" class="headerlink" title="很棒的点"></a>很棒的点</h2><h4 id="Offset-Date-Time"><a href="#Offset-Date-Time" class="headerlink" title="Offset Date-Time"></a>Offset Date-Time</h4><p>TOML支持<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc3339">RFC 3339</a>格式的时间，可以精准的描述一个地区时间。</p>
+<h4 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h4><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">str1</span> = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Roses are red</span></span><br><span class="line"><span class="string">Violets are blue&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># On a Unix system, the above multi-line string will most likely be the same as:</span></span><br><span class="line"><span class="attr">str2</span> = <span class="string">&quot;Roses are red\nViolets are blue&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># On a Windows system, it will most likely be equivalent to:</span></span><br><span class="line"><span class="attr">str3</span> = <span class="string">&quot;Roses are red\r\nViolets are blue&quot;</span></span><br></pre></td></tr></table></figure>
+<p>直接换行编写配置文件，在各个系统都能准确表达。</p>
+<h4 id="分割z数字"><a href="#分割z数字" class="headerlink" title="_分割z数字"></a><code>_</code>分割z数字</h4><p>数字，可以加入<code>_</code>作为标记，不影响数值。每三位加一个，快速区分量级。玩EVE再也不用担心多付ISK了。</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">num1</span> = <span class="number">1_000</span>  <span class="comment"># 一千</span></span><br><span class="line"><span class="attr">num2</span> = <span class="number">2_000_000</span>  <span class="comment"># 两百万</span></span><br><span class="line"><span class="attr">num3</span> = <span class="number">3_000_000_000</span>  <span class="comment"># 三十亿</span></span><br></pre></td></tr></table></figure>
+<h4 id="表示层级"><a href="#表示层级" class="headerlink" title=".表示层级"></a><code>.</code>表示层级</h4><p>块可以用<code>.</code>表示层级。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml">Github TOML</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000000477752">TOML： GitHub 这是要革 YAML 的命呀！</a></li>
+</ul>
+<p>TOML Github 的目录</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-example">Example</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-spec">Spec</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-comment">Comment</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-keyvalue-pair">Key/Value Pair</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-string">String</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-integer">Integer</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-float">Float</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-boolean">Boolean</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-offset-date-time">Offset Date-Time</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-local-date-time">Local Date-Time</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-local-date">Local Date</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-local-time">Local Time</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-array">Array</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-table">Table</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-inline-table">Inline Table</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-array-of-tables">Array of Tables</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-filename-extension">Filename Extension</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-comparison-with-other-formats">Comparison with Other Formats</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-get-involved">Get Involved</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-projects-using-toml">Projects using TOML</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-implementations">Implementations</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-validators">Validators</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-language-agnostic-test-suite-for-toml-decoders-and-encoders">Language agnostic test suite for TOML decoders and encoders</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-editor-support">Editor support</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-encoder">Encoder</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-converters">Converters</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color5">toml</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/toml/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-nginx-with-certbot"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1141,92 +1298,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/setup-sentry-with-docker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-congratulations-wings"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/congratulations-wings/">Congratulations Wings!</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/congratulations-wings/" class="archive-article-date">
-  <time datetime="2016-08-14T11:48:00.000Z" itemprop="datePublished">
-    Published on 2016 / 08 / 14
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>天道勤酬，恭喜Wings获得TI6冠军！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一支曾因没有LOL分部而被DACE拒之门外的战队，</span><br><span class="line">一支队服上连赞助商Logo都没有的战队，</span><br><span class="line">一支全队没有一个人开直播的战队，</span><br><span class="line">一支为了梦想坚持到底的战队，</span><br><span class="line">一支创造了奇迹的战队，</span><br><span class="line">一支无敌的战队！</span><br><span class="line">Wings！</span><br><span class="line">来自微信公众号 天辉夜魇    </span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/congratulations-wings/">展开全文 >></a>
         </p>
       
 
