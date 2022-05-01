@@ -40,7 +40,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,240 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-let-s-encrypt"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/let-s-encrypt/">Let&#39;s Encrypt</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/let-s-encrypt/" class="archive-article-date">
+  <time datetime="2016-11-03T09:08:00.000Z" itemprop="datePublished">
+    Published on 2016 / 11 / 03
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Wosign-被封"><a href="#Wosign-被封" class="headerlink" title="Wosign 被封"></a>Wosign 被封</h2><p>以下是最近的三则新闻：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://linux.cn/article-7846-1.html">沃通 CEO 辞职，苹果在 iOS 中封杀沃通 CA 证书</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.cn/article-7814-1.html">Mozilla 将封杀沃通和 StartSSL 一年内新签发的所有证书</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.cn/article-7922-1.html">谷歌也不信任沃通的证书了，StartCom CA 一并受到同等处罚</a></li>
+</ul>
+<p>沃通作的死，自己得慢慢还。苹果、Chrome、Firefox都封杀之后，那些用了沃通证书的人（比如我），就得考虑更换了。<a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a>项目刚出来的时候我就有关注，但是当时这个项目还不稳定。<br>这次乘着这次机会，使用了一下。</p>
+<p><code>Let&#39;s Encrypt</code>官网还是很大气的，看着非常舒服。首页就直接有<code>Get Started</code>，利用<code>Certbot</code>工具很快就申请到了新的证书，再去Nginx更新配置就可以正常使用。</p>
+<p><code>DigitalOcean</code>上对于配置还有一篇很详细的介绍，可以点击<a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-14-04">这里</a>。</p>
+<h2 id="使用-Let’s-Encrypt"><a href="#使用-Let’s-Encrypt" class="headerlink" title="使用 Let’s Encrypt"></a>使用 Let’s Encrypt</h2><p>我有Shell权限，整个过程就三步：</p>
+<ol>
+<li>执行 <code>apt install letsencrypt</code> 安装 <code>Certbot</code>。</li>
+<li>执行 <code>letsencrypt certonly --webroot -w /var/www/path/to/your/website -d yourdomian.com</code>。执行完成之后会有以下输出：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - If you lose your account credentials, you can recover through</span><br><span class="line">   e-mails sent to youremail@domian.com.</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at</span><br><span class="line">   &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;domian.com&#x2F;fullchain.pem. Your cert will</span><br><span class="line">   expire on 2017-01-30. To obtain a new version of the certificate in</span><br><span class="line">   the future, simply run Let&#39;s Encrypt again.</span><br><span class="line"> - Your account credentials have been saved in your Let&#39;s Encrypt</span><br><span class="line">   configuration directory at &#x2F;etc&#x2F;letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Let&#39;s</span><br><span class="line">   Encrypt so making regular backups of this folder is ideal.</span><br><span class="line"> - If you like Let&#39;s Encrypt, please consider supporting our work by:</span><br><span class="line"></span><br><span class="line">   Donating to ISRG &#x2F; Let&#39;s Encrypt:   https:&#x2F;&#x2F;letsencrypt.org&#x2F;donate</span><br><span class="line">   Donating to EFF:                    https:&#x2F;&#x2F;eff.org&#x2F;donate-le</span><br></pre></td></tr></table></figure></li>
+<li>去 Nginx 配置文件更新证书。<code>ssl_certificate</code>是<code>fullchain.pem</code>，<code>ssl_certificate_key</code>是<code>privkey.pem</code>。更新好配置重启/重载生效。</li>
+</ol>
+<h2 id="自动更新"><a href="#自动更新" class="headerlink" title="自动更新"></a>自动更新</h2><p><code>Let&#39;s Encrypt</code>的证书有效期是三个月，可以在服务器上配置自动更新证书。这个我现在还没用，下次折腾了再记。</p>
+<p>另外，<code>Let&#39;s Encrypt</code>正在众筹资金，有意向的可以支持一下。** <a target="_blank" rel="noopener" href="https://linux.cn/article-7926-1.html">捐赠 Let’s Encrypt，共建安全的互联网</a> **</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/let-s-encrypt/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-setup-sentry-with-docker"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/setup-sentry-with-docker/">使用 Docker 搭建 Sentry</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/setup-sentry-with-docker/" class="archive-article-date">
+  <time datetime="2016-08-20T08:32:00.000Z" itemprop="datePublished">
+    Published on 2016 / 08 / 20
+  </time>
+  
+    <time datetime="2016-09-11T08:35:49.000Z" itemprop="dateUpdated">
+      , Updated on 2016 / 09 / 11
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目之前使用的是<a target="_blank" rel="noopener" href="https://sentry.io/welcome/">Sentry</a>官方提供的付费服务，但是因为我们在国内，访问比较慢，体验很糟糕。Sentry本身就是开源的，打算自己动手搭建一个，老板就把这个光荣的任务交给我，Fight～～～</p>
+<p>配置环境一直是一个比较繁琐的事情，还好现在容器盛行，我计划就是直接使用 Docker 来启动 Sentry 的服务。</p>
+<h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><p>不得不说现在 Docker 的生态链比2014年我刚了解这个工具的时候好太多了，现在安装 Docker 也很简单。</p>
+<p>系统源里面可能有 Docker，但是我喜欢使用最新版软件，于是打算从官网下载安装。但是现在已经有了<a target="_blank" rel="noopener" href="https://get.docker.com/">Get Docker</a>，打开这个网页，复制一行命令，再终端执行，OK，Docker 安装完成。</p>
+<blockquote>
+<p>如果服务器的用户权限不是 root 的话，每次调用 docker 的命令需要加 sudo，有些人可能觉得这个很烦。<br>可以添加一个 docker 组来解决这个问题。参见：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group">https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group</a></p>
+</blockquote>
+<h2 id="Sentry-安装"><a href="#Sentry-安装" class="headerlink" title="Sentry 安装"></a>Sentry 安装</h2><p>Sentry 在 <a target="_blank" rel="noopener" href="https://hub.docker.com/">DockerHub</a> 上有官方的镜像，这个就大大方便了我们。</p>
+<p>Sentry Official <a target="_blank" rel="noopener" href="https://hub.docker.com/_/sentry/">https://hub.docker.com/_/sentry/</a></p>
+<h4 id="核心的流程如下："><a href="#核心的流程如下：" class="headerlink" title="核心的流程如下："></a>核心的流程如下：</h4><p><strong>启动Sentry需要的Redis实例</strong></p>
+<p><code>docker run -d --name sentry-redis redis</code></p>
+<p><strong>启动Sentry需要的PostgreSQL实例</strong></p>
+<p> <code>docker run -d --name sentry-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=sentry postgres</code></p>
+<p><strong>生成 SENTRY_SECRET_KEY</strong></p>
+<p><code>docker run --rm sentry config generate-secret-key</code></p>
+<p>这个生成的 SENTRY_SECRET_KEY 需要记住，后面都要用到</p>
+<p><strong>初始化数据库</strong></p>
+<p><code> docker run -it --rm -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade</code></p>
+<p>这里需要使用刚才生成的 SENTRY_SECRET_KEY。这个操作会在PostgresQL里面初始化表信息。</p>
+<p><strong>启动Sentry的Web服务</strong></p>
+<p><code>docker run -d -p 80:9000 --name my-sentry -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-redis:redis --link sentry-postgres:postgres sentry</code></p>
+<p>-p 参数设置实例暴露的端口号，我这台机器只跑这个就直接占了80端口。</p>
+<p><strong>启动Sentry的Worker</strong></p>
+<p><code>docker run -d --name sentry-cron -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run cron</code></p>
+<p><code>docker run -d --name sentry-worker-1 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
+<p>worker 和 celery beat 根据实际情况添加，我这里就只加1个。</p>
+<h2 id="必要的配置"><a href="#必要的配置" class="headerlink" title="必要的配置"></a>必要的配置</h2><p><strong>邮件设置</strong></p>
+<p>上面的步骤跑完，Sentry 就已经搭建好并且可以使用了，还有问题，你会发现没有邮件提醒，我们需要配置邮件服务。</p>
+<p>官方的介绍了两种方法，一个是再 link 一个 SMTP 的 instance，一个是添加SMTP服务的配置。我两个都试了，前者发出的邮件很容易被当做垃圾邮件拦截，我现在采用的是后者。现在国内的免费邮件服务都提供了SMTP功能，一开始我直接使用了免费的QQ邮箱和163邮箱，一部分邮件可以发送成功，一部分会连接超时，这个让我很无语，这种不稳定不能用。Gmail估计不会有问题，但是可能被墙，就没试（其实是拿老板手机注册的时候没成功，没成功的原因的老板手机欠费停机，没收到验证短信。o(╯□╰)o）</p>
+<p>考虑邮件推送服务。服务器在AWS中国上，AWS有邮件推送服务，但是这个AWS中国貌似还没开发这个功能；搜狐家有<a target="_blank" rel="noopener" href="https://sendcloud.sohu.com/">SendCloud</a>,注册之后发现要获取免费的额度需要填太多东西，作罢；因为有阿里云的账号，阿里云家配置比较简单，暂时用的阿里云的邮件推送服务，地址：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/directmail">https://www.aliyun.com/product/directmail</a>。实际使用中还是有发送失败的情况，没有说的那么好。</p>
+<p>配好之后，我们需要将这些配置加到我们的Sentry实例中。我没有作为 instance 的启动参数，而是直接修改了 sentry.conf.py 文件，直接将配置文件 mount 到 instance 内。相关的部分如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># email = env(&#x27;SENTRY_EMAIL_HOST&#x27;) or (env(&#x27;SMTP_PORT_25_TCP_ADDR&#x27;) and &#x27;smtp&#x27;)</span></span><br><span class="line"><span class="comment"># if email:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;smtp&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.host&#x27;] = email</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.password&#x27;] = env(&#x27;SENTRY_EMAIL_PASSWORD&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.username&#x27;] = env(&#x27;SENTRY_EMAIL_USER&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.port&#x27;] = int(env(&#x27;SENTRY_EMAIL_PORT&#x27;) or 25)</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.use-tls&#x27;] = Bool(env(&#x27;SENTRY_EMAIL_USE_TLS&#x27;, False))</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;dummy&#x27;</span></span><br><span class="line"></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.backend&#x27;</span>] = <span class="string">&#x27;smtp&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.host&#x27;</span>] = <span class="string">&#x27;smtpdm.aliyun.com&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.password&#x27;</span>] = <span class="string">&#x27;your password&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.username&#x27;</span>] = <span class="string">&#x27;your email address&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.port&#x27;</span>] = <span class="number">25</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.use-tls&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p>启动命令如下:</p>
+<p><code>docker run -d -p 80:9000 -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry</code></p>
+<p><code>docker run -d -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
+<blockquote>
+<p>注意：如果只启动 Web，在 Sentry 内的测试发送邮件会成功，但是通知邮件依旧会失败。因为通知邮件是 Worker instance 发送的，不是 Web instance 发送的，邮件配置必须也传到 Worker instance 里面。</p>
+</blockquote>
+<p><strong>关闭注册功能</strong></p>
+<p>内部用的系统，不希望开放公开的注册。需要把这个功能 disable 掉。还是改<code>sentry.conf.py</code>文件，添加一行 <code>SENTRY_FEATURES[&#39;auth:register&#39;] = False</code></p>
+<p><strong>更多的参数写到 sentry.conf.py</strong></p>
+<p>很多参数都是可以直接写到 sentry.conf.py 内的。我把<code>system.secret-key</code>这个也写到文件内，这样 docker  run 需要带的参数就大大减少。</p>
+<h2 id="Sentry-使用"><a href="#Sentry-使用" class="headerlink" title="Sentry 使用"></a>Sentry 使用</h2><p>这个就不多说了。用管理员账号登录之后，自己添加 Project 和 Member，再把 Sentry 的 Track 加到需要监测的项目里面就好。我们项目用的 Django，里面的 raven 配置加上新的链接就可用，非常方便。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/setup-sentry-with-docker/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-congratulations-wings"
          class="article article-type-post  article-index" itemscope
@@ -437,7 +671,8 @@
 </ul>
 <h3 id="统一社会信用代码编码规则"><a href="#统一社会信用代码编码规则" class="headerlink" title="统一社会信用代码编码规则"></a>统一社会信用代码编码规则</h3><p>工商总局在官网上发布了标准文件：<a target="_blank" rel="noopener" href="http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html">法人和其他组织统一社会信用代码编码规则</a>。和身份证编号类似，根据编码规则可以进行一下判断并获取有用的一些信息。我们在审核的时候，可以通过检测编号来判断公司的真假。</p>
 <p>下面是我用PHP实现的简单检测函数，<code>管理部门</code>、<code>机构类别</code>、<code>登记地区</code>这些信息还没有充分利用起来，只根据校验码检测。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法人和其他组织统一社会信用代码</span></span><br><span class="line"><span class="comment">// 编码规则：http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unifiedSocialCreditIdentifier</span>(<span class="params"><span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">4<span class="comment">// 统一代码由十八位的阿拉伯数字或者大写英文字母（不使用I、O、Z、S、V）组成</span></span><br><span class="line">4<span class="keyword">if</span> (!is_string(<span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">4<span class="variable">$value</span> = strtoupper(<span class="variable">$value</span>);</span><br><span class="line">4<span class="keyword">if</span> (strlen(<span class="variable">$value</span>) !== <span class="number">18</span> || !preg_match(<span class="string">&#x27;/^[\dA-HJ-NP-RT-UW-Y]&#123;18&#125;$/&#x27;</span>, <span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">4<span class="comment">// todo 第1位：登记管理部门代码检查</span></span><br><span class="line">4<span class="comment">// todo 第2位：机构类别代码检查</span></span><br><span class="line">4<span class="comment">// todo 第3位～第8位：登记机关行政区划码检查</span></span><br><span class="line">4<span class="keyword">if</span> (!is_numeric(substr(<span class="variable">$value</span>, <span class="number">2</span>, <span class="number">6</span>))) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 简单检查，这部分一定是阿拉伯数字</span></span><br><span class="line">4<span class="comment">// todo 第9位～第17位：主体标识码检查</span></span><br><span class="line">4<span class="comment">// 第18位：检验码检查</span></span><br><span class="line">4$加权因子 = [</span><br><span class="line">44<span class="number">1</span> =&gt; <span class="number">1</span>, <span class="number">2</span> =&gt; <span class="number">3</span>, <span class="number">3</span> =&gt; <span class="number">9</span>, <span class="number">4</span> =&gt; <span class="number">27</span>, <span class="number">5</span> =&gt; <span class="number">19</span>, <span class="number">6</span> =&gt; <span class="number">26</span>, <span class="number">7</span> =&gt; <span class="number">16</span>, <span class="number">8</span> =&gt; <span class="number">17</span>, <span class="number">9</span> =&gt; <span class="number">20</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="number">29</span>, <span class="number">11</span> =&gt; <span class="number">25</span>, <span class="number">12</span> =&gt; <span class="number">13</span>, <span class="number">13</span> =&gt; <span class="number">8</span>, <span class="number">14</span> =&gt; <span class="number">24</span>, <span class="number">15</span> =&gt; <span class="number">10</span>, <span class="number">16</span> =&gt; <span class="number">30</span>, <span class="number">17</span> =&gt; <span class="number">28</span></span><br><span class="line">4];</span><br><span class="line">4$代码字符集 = [</span><br><span class="line">44<span class="number">0</span> =&gt; <span class="string">&#x27;0&#x27;</span>, <span class="number">1</span> =&gt; <span class="string">&#x27;1&#x27;</span>, <span class="number">2</span> =&gt; <span class="string">&#x27;2&#x27;</span>, <span class="number">3</span> =&gt; <span class="string">&#x27;3&#x27;</span>, <span class="number">4</span> =&gt; <span class="string">&#x27;4&#x27;</span>, <span class="number">5</span> =&gt; <span class="string">&#x27;5&#x27;</span>, <span class="number">6</span> =&gt; <span class="string">&#x27;6&#x27;</span>, <span class="number">7</span> =&gt; <span class="string">&#x27;7&#x27;</span>, <span class="number">8</span> =&gt; <span class="string">&#x27;8&#x27;</span>, <span class="number">9</span> =&gt; <span class="string">&#x27;9&#x27;</span>,</span><br><span class="line">44<span class="number">10</span> =&gt; <span class="string">&#x27;A&#x27;</span>, <span class="number">11</span> =&gt; <span class="string">&#x27;B&#x27;</span>, <span class="number">12</span> =&gt; <span class="string">&#x27;C&#x27;</span>, <span class="number">13</span> =&gt; <span class="string">&#x27;D&#x27;</span>, <span class="number">14</span> =&gt; <span class="string">&#x27;E&#x27;</span>, <span class="number">15</span> =&gt; <span class="string">&#x27;F&#x27;</span>, <span class="number">16</span> =&gt; <span class="string">&#x27;G&#x27;</span>, <span class="number">17</span> =&gt; <span class="string">&#x27;H&#x27;</span>, <span class="number">18</span> =&gt; <span class="string">&#x27;J&#x27;</span>, <span class="number">19</span> =&gt; <span class="string">&#x27;K&#x27;</span>,</span><br><span class="line">44<span class="number">20</span> =&gt; <span class="string">&#x27;L&#x27;</span>, <span class="number">21</span> =&gt; <span class="string">&#x27;M&#x27;</span>, <span class="number">22</span> =&gt; <span class="string">&#x27;N&#x27;</span>, <span class="number">23</span> =&gt; <span class="string">&#x27;P&#x27;</span>, <span class="number">24</span> =&gt; <span class="string">&#x27;Q&#x27;</span>, <span class="number">25</span> =&gt; <span class="string">&#x27;R&#x27;</span>, <span class="number">26</span> =&gt; <span class="string">&#x27;T&#x27;</span>, <span class="number">27</span> =&gt; <span class="string">&#x27;U&#x27;</span>, <span class="number">28</span> =&gt; <span class="string">&#x27;W&#x27;</span>, <span class="number">29</span> =&gt; <span class="string">&#x27;X&#x27;</span>, <span class="number">30</span> =&gt; <span class="string">&#x27;Y&#x27;</span></span><br><span class="line">4];</span><br><span class="line">4$校验值 = <span class="number">0</span>;</span><br><span class="line">4<span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">17</span>; <span class="variable">$i</span>++) &#123;</span><br><span class="line">44<span class="keyword">foreach</span> ($代码字符集 <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">444<span class="keyword">if</span> (<span class="variable">$value</span>[<span class="variable">$i</span>] === <span class="variable">$v</span>) <span class="keyword">break</span>;</span><br><span class="line">44&#125;</span><br><span class="line">44$校验值 += <span class="variable">$k</span> * $加权因子[<span class="variable">$i</span> + <span class="number">1</span>];</span><br><span class="line">4&#125;</span><br><span class="line">4$校验值 = <span class="number">31</span> - ($校验值 % <span class="number">31</span>);</span><br><span class="line">4$校验值 = ($校验值 === <span class="number">31</span>) ? <span class="number">0</span> : $校验值; <span class="comment">// 校验值为 31 的时候，校验码使用 0 表示</span></span><br><span class="line">4<span class="keyword">return</span> $代码字符集[$校验值] === <span class="variable">$value</span>[<span class="number">17</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法人和其他组织统一社会信用代码</span></span><br><span class="line"><span class="comment">// 编码规则：http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unifiedSocialCreditIdentifier</span>(<span class="params"><span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 统一代码由十八位的阿拉伯数字或者大写英文字母（不使用I、O、Z、S、V）组成</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="title function_ invoke__">is_string</span>(<span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="variable">$value</span> = <span class="title function_ invoke__">strtoupper</span>(<span class="variable">$value</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">strlen</span>(<span class="variable">$value</span>) !== <span class="number">18</span> || !<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^[\dA-HJ-NP-RT-UW-Y]&#123;18&#125;$/&#x27;</span>, <span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// todo 第1位：登记管理部门代码检查</span></span><br><span class="line">    <span class="comment">// todo 第2位：机构类别代码检查</span></span><br><span class="line">    <span class="comment">// todo 第3位～第8位：登记机关行政区划码检查</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="title function_ invoke__">is_numeric</span>(<span class="title function_ invoke__">substr</span>(<span class="variable">$value</span>, <span class="number">2</span>, <span class="number">6</span>))) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 简单检查，这部分一定是阿拉伯数字</span></span><br><span class="line">    <span class="comment">// todo 第9位～第17位：主体标识码检查</span></span><br><span class="line">    <span class="comment">// 第18位：检验码检查</span></span><br><span class="line">    $加权因子 = [</span><br><span class="line">        <span class="number">1</span> =&gt; <span class="number">1</span>, <span class="number">2</span> =&gt; <span class="number">3</span>, <span class="number">3</span> =&gt; <span class="number">9</span>, <span class="number">4</span> =&gt; <span class="number">27</span>, <span class="number">5</span> =&gt; <span class="number">19</span>, <span class="number">6</span> =&gt; <span class="number">26</span>, <span class="number">7</span> =&gt; <span class="number">16</span>, <span class="number">8</span> =&gt; <span class="number">17</span>, <span class="number">9</span> =&gt; <span class="number">20</span>,</span><br><span class="line">        <span class="number">10</span> =&gt; <span class="number">29</span>, <span class="number">11</span> =&gt; <span class="number">25</span>, <span class="number">12</span> =&gt; <span class="number">13</span>, <span class="number">13</span> =&gt; <span class="number">8</span>, <span class="number">14</span> =&gt; <span class="number">24</span>, <span class="number">15</span> =&gt; <span class="number">10</span>, <span class="number">16</span> =&gt; <span class="number">30</span>, <span class="number">17</span> =&gt; <span class="number">28</span></span><br><span class="line">    ];</span><br><span class="line">    $代码字符集 = [</span><br><span class="line">        <span class="number">0</span> =&gt; <span class="string">&#x27;0&#x27;</span>, <span class="number">1</span> =&gt; <span class="string">&#x27;1&#x27;</span>, <span class="number">2</span> =&gt; <span class="string">&#x27;2&#x27;</span>, <span class="number">3</span> =&gt; <span class="string">&#x27;3&#x27;</span>, <span class="number">4</span> =&gt; <span class="string">&#x27;4&#x27;</span>, <span class="number">5</span> =&gt; <span class="string">&#x27;5&#x27;</span>, <span class="number">6</span> =&gt; <span class="string">&#x27;6&#x27;</span>, <span class="number">7</span> =&gt; <span class="string">&#x27;7&#x27;</span>, <span class="number">8</span> =&gt; <span class="string">&#x27;8&#x27;</span>, <span class="number">9</span> =&gt; <span class="string">&#x27;9&#x27;</span>,</span><br><span class="line">        <span class="number">10</span> =&gt; <span class="string">&#x27;A&#x27;</span>, <span class="number">11</span> =&gt; <span class="string">&#x27;B&#x27;</span>, <span class="number">12</span> =&gt; <span class="string">&#x27;C&#x27;</span>, <span class="number">13</span> =&gt; <span class="string">&#x27;D&#x27;</span>, <span class="number">14</span> =&gt; <span class="string">&#x27;E&#x27;</span>, <span class="number">15</span> =&gt; <span class="string">&#x27;F&#x27;</span>, <span class="number">16</span> =&gt; <span class="string">&#x27;G&#x27;</span>, <span class="number">17</span> =&gt; <span class="string">&#x27;H&#x27;</span>, <span class="number">18</span> =&gt; <span class="string">&#x27;J&#x27;</span>, <span class="number">19</span> =&gt; <span class="string">&#x27;K&#x27;</span>,</span><br><span class="line">        <span class="number">20</span> =&gt; <span class="string">&#x27;L&#x27;</span>, <span class="number">21</span> =&gt; <span class="string">&#x27;M&#x27;</span>, <span class="number">22</span> =&gt; <span class="string">&#x27;N&#x27;</span>, <span class="number">23</span> =&gt; <span class="string">&#x27;P&#x27;</span>, <span class="number">24</span> =&gt; <span class="string">&#x27;Q&#x27;</span>, <span class="number">25</span> =&gt; <span class="string">&#x27;R&#x27;</span>, <span class="number">26</span> =&gt; <span class="string">&#x27;T&#x27;</span>, <span class="number">27</span> =&gt; <span class="string">&#x27;U&#x27;</span>, <span class="number">28</span> =&gt; <span class="string">&#x27;W&#x27;</span>, <span class="number">29</span> =&gt; <span class="string">&#x27;X&#x27;</span>, <span class="number">30</span> =&gt; <span class="string">&#x27;Y&#x27;</span></span><br><span class="line">    ];</span><br><span class="line">    $校验值 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">17</span>; <span class="variable">$i</span>++) &#123;</span><br><span class="line">        <span class="keyword">foreach</span> ($代码字符集 <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$value</span>[<span class="variable">$i</span>] === <span class="variable">$v</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $校验值 += <span class="variable">$k</span> * $加权因子[<span class="variable">$i</span> + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $校验值 = <span class="number">31</span> - ($校验值 % <span class="number">31</span>);</span><br><span class="line">    $校验值 = ($校验值 === <span class="number">31</span>) ? <span class="number">0</span> : $校验值; <span class="comment">// 校验值为 31 的时候，校验码使用 0 表示</span></span><br><span class="line">    <span class="keyword">return</span> $代码字符集[$校验值] === <span class="variable">$value</span>[<span class="number">17</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -1028,215 +1263,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/books/dragon-iv/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-javascript-in-24-hours-sams-teach-yourself-5th-edition"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/books/javascript-in-24-hours-sams-teach-yourself-5th-edition/">读书笔记：JavaScript入门经典（第5版）</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/books/javascript-in-24-hours-sams-teach-yourself-5th-edition/" class="archive-article-date">
-  <time datetime="2016-01-06T06:10:00.000Z" itemprop="datePublished">
-    Published on 2016 / 01 / 06
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Javascript的入门书籍，一句话评价是：<br>看之前我知道Java和JavaScript是不同的，看完之后我知道JavaScript和jQuery是不同的。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/books/javascript-in-24-hours-sams-teach-yourself-5th-edition/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-redis-getting-started-guide-2nd-edition"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/books/redis-getting-started-guide-2nd-edition/">读书笔记：Redis入门指南（第2版）</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/books/redis-getting-started-guide-2nd-edition/" class="archive-article-date">
-  <time datetime="2015-12-15T12:47:00.000Z" itemprop="datePublished">
-    Published on 2015 / 12 / 15
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/redis%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89.webp" alt="Redis入门指南（第2版）"></p>
-<p>很不错的Redis入门书。之前在<code>Kindle</code>上看了盗版的第1版，现在买的第2版，新版主要增加了Redis3.0相关的内容。</p>
-<p>速成类书籍，前面都是对本书将要介绍的对象进行简单的介绍。从这本书我知道了<code>Redis</code>是<code>REmote DIctionary Server</code>的缩写，这也是我看完第一版之后唯一记下来的东西。（这点在官网的<a target="_blank" rel="noopener" href="http://redis.io/topics/faq#what-redis-means-actually">F&amp;Q</a>有写，但很多人估计不知道。）</p>
-<p>介绍完Redis是什么，50页，1/4的内容过去了。再介绍一下常用的命令，到100页。然后介绍一下在 PHP、Python、Ruby和Node.js上用库连接Redis，我们来到了130页。这部分用过Redis的基本可以跳过，要用了再去官网看。<br>这些内容中我觉得只有<strong>事务</strong>有意思，可以归结为<a target="_blank" rel="noopener" href="http://redisdoc.com/topic/transaction.html">Redis 在事务失败时不进行回滚，而是继续执行余下的命令</a>，使用的时候要注意。</p>
-<p>130页之后，水分值降低。剩下四章，主要介绍了我感兴趣的三个点：</p>
-<ul>
-<li>脚本<ul>
-<li>因为<code>Redis</code>是单例，脚本会作为整体执行，所以是原子操作</li>
-<li><code>Redis</code>内部可以使用<code>Lua</code>脚本。（自己搜了解到:<code>一个完整的Lua解释器不过200k，在目前所有脚本引擎中，Lua的速度是最快的。这一切都决定了Lua是作为嵌入式脚本的最佳选择。</code>）</li>
-<li>通过几次强调<code>Lua</code>的数组是从1开始，成功的让我从和谐的玄学角度上不喜欢<code>Lua</code></li>
-</ul>
-</li>
-<li>持久化<ul>
-<li>RDB 和 AOF</li>
-<li><code>flushall</code>这条命令可能会触发<code>save</code></li>
-</ul>
-</li>
-<li>集群<ul>
-<li><code>Redis</code>3.0添加的可用的集群功能</li>
-<li>哨兵2.0</li>
-<li>集群的配置、搭建和要注意的点，<strong>插槽</strong>这个概念。</li>
-<li>以上两个很遗憾都没有任何配图，需要耐心阅读，有配图会好理解很多。但是文字解释很详细，一步一步说明哨兵、集群的行为。能让人理解各个节点之间怎么监控，怎么选举。</li>
-</ul>
-</li>
-</ul>
-<p>剩下的内容就是一些管理相关的了，包括</p>
-<ul>
-<li>安全</li>
-</ul>
-<blockquote>
-<p>Redis只适合Redis适合的场景。<a target="_blank" rel="noopener" href="http://antirez.com/news/96">Redis Crackit</a>这类应该需要注意。</p>
-</blockquote>
-<ul>
-<li>通讯协议</li>
-</ul>
-<blockquote>
-<p>介绍了Redis客户端之间使用的通讯协议，利用<code>telnet</code>连接一个客户端然后模拟通讯，这个挺好玩的。</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/books/redis-getting-started-guide-2nd-edition/">展开全文 >></a>
         </p>
       
 

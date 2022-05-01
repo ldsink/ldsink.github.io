@@ -40,7 +40,7 @@
 
   
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,199 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-cd-open-folder-with-spaces"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/cd-open-folder-with-spaces/">Linux 下用 cd 指令打开带空格的文件夹</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/cd-open-folder-with-spaces/" class="archive-article-date">
+  <time datetime="2014-08-10T05:36:00.000Z" itemprop="datePublished">
+    Published on 2014 / 08 / 10
+  </time>
+  
+    <time datetime="2014-10-12T04:14:13.000Z" itemprop="dateUpdated">
+      , Updated on 2014 / 10 / 12
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>方法一：在每个空格前加”&quot; 号，如”cd my\ files” 打开my files文件夹。</p>
+</li>
+<li><p>方法二：在文件夹名字上添加两个引号，如cd “te st”打开te st文件夹。</p>
+</li>
+<li><p>方法三：输入能代表需要打开的文件夹几个字符后按tab就可以自动补全，如打开<br>/home/admin/.wine/drive_c/Program Files 只需要输入 cd /home/admin/.wine/drive_c/Pro<br>再按tab就能自动补全打开Program Files文件夹。</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/cd-open-folder-with-spaces/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-homemade-kindle-paperwhite-cartoons"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/homemade-kindle-paperwhite-cartoons/">自制 Kindle Paperwhite 漫画</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/homemade-kindle-paperwhite-cartoons/" class="archive-article-date">
+  <time datetime="2014-08-10T04:59:00.000Z" itemprop="datePublished">
+    Published on 2014 / 08 / 10
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>想在KPW上安心的看漫画，可是下的图片包不做处理直接丢进去是看不了的。我们得自己动手做一下转换，生成Mobi文件。</p>
+<p>核心思路：<strong>下载漫画 -&gt; 处理图片 -&gt; 生成MOBI文件</strong></p>
+<h2 id="获取漫画"><a href="#获取漫画" class="headerlink" title="获取漫画"></a>获取漫画</h2><ul>
+<li>这个大家各有各的方法，各显神通吧。<h2 id="处理图片"><a href="#处理图片" class="headerlink" title="处理图片"></a>处理图片</h2></li>
+<li>这里需要一个工具，<a target="_blank" rel="noopener" href="http://www.hi-pda.com/forum/viewthread.php?tid=898291&extra=page=3">Komic</a>，最新版本是 1.3.3。<br>这是个很聪明的切割图片的工具，能将下载的漫画处理成Kindle上E-ink上画质最好的形式。用这个唯一需要注意的是：<strong>Komic程序自身所处路径不能含有中文字符（输入输出目录不受影响）</strong><br><img src="https://a.adcdn.cn/images/5_1.webp" alt="Komic"></li>
+</ul>
+<h2 id="生成MOBI文件"><a href="#生成MOBI文件" class="headerlink" title="生成MOBI文件"></a>生成MOBI文件</h2><ul>
+<li>这里使用 <a target="_blank" rel="noopener" href="https://github.com/ciromattia/kcc">Kindle Comic Converter</a> + Amazon的kindlegen。</li>
+<li>kindlegen 直接以大陆IP访问不能下载，要么挂个代理，要么去其他地方下载。获取之后直接把kindlegen主程序丢到<a target="_blank" rel="noopener" href="https://github.com/ciromattia/kcc">KCC</a>安装目录下，打开<a target="_blank" rel="noopener" href="https://github.com/ciromattia/kcc">KCC</a>就可以使用了。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ciromattia/kcc">KCC</a>中文件选择上一步<a target="_blank" rel="noopener" href="http://www.hi-pda.com/forum/viewthread.php?tid=898291&extra=page=3">Komic</a>输出的文件，点击“Convert”就开始自动生成漫画文件了~~~<br><img src="https://a.adcdn.cn/images/5_2.webp" alt="KCC"></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/homemade-kindle-paperwhite-cartoons/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-install-oracle-java-jdk-on-ubuntu-linux"
          class="article article-type-post  article-index" itemscope
@@ -1010,204 +1203,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/the-fifth-test-network-flow-problem/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-2010-summer-schedule-and-autumn-schedule"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/2010-summer-schedule-and-autumn-schedule/">夏季档 &amp; 秋季档</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/2010-summer-schedule-and-autumn-schedule/" class="archive-article-date">
-  <time datetime="2010-07-16T13:12:00.000Z" itemprop="datePublished">
-    Published on 2010 / 07 / 16
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="7月，夏季档，很黄很暴力。"><a href="#7月，夏季档，很黄很暴力。" class="headerlink" title="7月，夏季档，很黄很暴力。"></a>7月，夏季档，很黄很暴力。</h1><h2 id="稍微好看一点的："><a href="#稍微好看一点的：" class="headerlink" title="稍微好看一点的："></a>稍微好看一点的：</h2><ul>
-<li>No1、滑头鬼之孙</li>
-<li>No2、传说中勇者的传说</li>
-<li>No3、圣诞之吻/甜蜜吻痕</li>
-<li>No4、祝福之钟</li>
-<li>No5、学园默示录</li>
-</ul>
-<h2 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h2><ul>
-<li>大神与七位伙伴（不喜欢那个在《科学的超电磁炮》里给炮姐妹妹配音的大妈的声音的旁白，其他的感觉是各种东西杂合在一起，不好看。）</li>
-<li>妄想学生会（明明是学生，还是女校的学生会成员，最重要的还是女的，还那么 H ，看不下去……）</li>
-<li>玩伴猫耳娘（大后宫，同 祝福之钟）</li>
-<li>鹡鸰女神（同上，不解释）</li>
-</ul>
-<p>再其他太差，无视掉。</p>
-<h1 id="10月，秋季档，新番动画的强大！"><a href="#10月，秋季档，新番动画的强大！" class="headerlink" title="10月，秋季档，新番动画的强大！"></a>10月，秋季档，新番动画的强大！</h1><ol>
-<li>改编动画：如GALGAME的缘之空，FORTUNE ARTERIAL；轻小说的MM一族，我的妹妹不可能这么可爱；漫画的食梦者，只有神知道的世界（虽然只有神消息未定，不过从PV放出的时间来看10月番的可能性极大）。它们的原作都在各自的领域取得了极高的人气与口碑，可谓叫好又叫座。动画化之后必然受到瞩目。</li>
-<li>热门大作的续篇：如天降之物，魔法禁书目录，甚至还有不可思议的TO LOVE二度动画化。有前作的质量保证，自然可以放心观看。</li>
-<li>原创动画：闪亮的塔科特是亮点啊。骨头社钢炼FA之后的又一力作，萝卜控的福音。</li>
-<li>OVA OAD：各种捞钱，这是一贯的传统了。值得注意的是电磁炮的OVA，是在魔禁开播时为电磁炮2预热么，电磁炮第二季呼声高涨中~~御坂美琴人气长期居高不下（炮姐强大！）路人女主 INDEX 的压力依然很大，上条当麻始终都是人参淫家。</li>
-<li> 剧场版：由于出DVD和BD至少要上映的半年之后，观看它们将是很久以后的事了……（=火影忍者）</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/2010-summer-schedule-and-autumn-schedule/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-randomness-of-sorting-and-searching"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/randomness-of-sorting-and-searching/">无奈排序和搜索的随机性</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/randomness-of-sorting-and-searching/" class="archive-article-date">
-  <time datetime="2010-07-16T12:19:00.000Z" itemprop="datePublished">
-    Published on 2010 / 07 / 16
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>从下午4点写完开始程序，然后超时，一直优化到现在花了差不多4个小时才终于AC。</p>
-<p>AC的原因很简单，把快排由开始的排成升序改成排成降序……</p>
-<p>左边是升序的，右边是降序的。我电脑卡，但在 1s+0.5s 的时间测量范围内都能过，在好的测评机上会更快。</p>
-<p>要不是最后放弃了优化进制，直接砍代码看那段耗时间，鬼知道是升序的快速排序拖了这么久。</p>
-<p>还有搜索，去年的NOIP最后的那个靶形数独，貌似从左下角搜可以拿90+的分，我们菜鸟哪知道要怎么排序和从哪个方向搜起那，如果运气不好，那就只能挂……</p>
-<p><strong>好好打酱油，一天一道题。</strong></p>
-<p><img src="https://a.adcdn.cn/images/mushroom-result-1.webp" alt="result_1"><img src="https://a.adcdn.cn/images/mushroom-result-2.webp" alt="result_2"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/randomness-of-sorting-and-searching/">展开全文 >></a>
         </p>
       
 
