@@ -201,6 +201,127 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-how-to-install-python-3-on-deepin-15"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/how-to-install-python-3-on-deepin-15/">在 deepin 15.10+ 上安装 Python3</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/how-to-install-python-3-on-deepin-15/" class="archive-article-date">
+  <time datetime="2019-06-25T09:05:25.000Z" itemprop="datePublished">
+    Published on 2019 / 06 / 25
+  </time>
+  
+    <time datetime="2020-10-30T03:09:20.000Z" itemprop="dateUpdated">
+      , Updated on 2020 / 10 / 30
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近整理博客，发现很大一部人都是新手教程性质的“<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/How-to/">How to</a>”类，内容主要是记录怎么手把手解决事情。没什么难度，非常简单，都是查询官方文档或者Google搜索出的解决方案。考虑到国内很多人其实只会用百度，看CSDN来工作的现实，我这类“How to”类的小笔记是有意义和有价值的。比那些不知道经过多少手的“资料”，自己的一手小笔记更加准确。我是个喜欢整理的人，这类小笔记，以后打算做成一个系列，名称会以<code>how-to</code>开头，也都会带上<code>how-to</code>的标签。以前有一个<a href="https://ldsink.com/articles/how-to-change-the-bulb-scientifically/">换灯泡</a>作为“伪”第一篇，这个作为“真”第一篇。</p>
+<p>最近重装了 deepin 系统，版本号重装前和重装后系统版本都是<code>15.10</code>,但是系统依赖却有了很大的不同。之前的版本是滚动升级上来的，基于 Debian 的测试源，deepin 自己的代号<code>panda</code>，发行版名称<code>deepin unstable</code>。重新安装之后，变成了 Debian 的稳定版，deepin 代号 <code>lion</code>，发行版名称<code>deepin stable</code>。<code>panda</code>下可以直接从源安装<code>Python3.6</code>，升级之后因为基于 Debian 稳定版，源里移除了。好在编译安装也不麻烦，下面就是正常的从源代码编译安装的步骤。</p>
+<blockquote>
+<p>下面的方法在 deepin 上测试通过，应该同样适用于 Debian、Ubuntu。</p>
+</blockquote>
+<h2 id="0x0-升级系统-amp-安装依赖"><a href="#0x0-升级系统-amp-安装依赖" class="headerlink" title="0x0 升级系统 &amp; 安装依赖"></a>0x0 升级系统 &amp; 安装依赖</h2><p>打算编译安装以前，首先升级系统，安装必要的依赖。这样可以避免之后安装 Python 时缺少第三方库的问题。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y make build-essential libssl-dev zlib1g-dev</span><br><span class="line">sudo apt install -y libbz2-dev libreadline-dev libsqlite3-dev liblzma-dev wget curl llvm</span><br><span class="line">sudo apt install -y libncurses5-dev libncursesw5-dev xz-utils tk-dev</span><br></pre></td></tr></table></figure>
+<h2 id="0x1-下载-Python-包并编译安装"><a href="#0x1-下载-Python-包并编译安装" class="headerlink" title="0x1 下载 Python 包并编译安装"></a>0x1 下载 Python 包并编译安装</h2><p>这次计划安装 Python 3.6.8，相关页面：<a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-368/">https://www.python.org/downloads/release/python-368/</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tgz</span><br></pre></td></tr></table></figure>
+<p>从压缩包解压源代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf Python-3.6.8.tgz</span><br></pre></td></tr></table></figure>
+<p>进入目录，执行 <code>./configure</code> 配置构建文件:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd Python-3.6.8</span><br><span class="line">./configure --enable-optimizations</span><br></pre></td></tr></table></figure>
+<p>编译并安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j8 &amp;&amp; sudo make altinstall</span><br></pre></td></tr></table></figure>
+<h2 id="0x2-收尾工作"><a href="#0x2-收尾工作" class="headerlink" title="0x2 收尾工作"></a>0x2 收尾工作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make clean</span><br></pre></td></tr></table></figure>
+<p>至此 Python3.6 已经安装完成，可以在命令行执行<code>python3.6</code>查看效果，<code>pipenv</code>创建当前版本的环境也会自动调用。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.rosehosting.com/blog/how-to-install-python-3-6-4-on-debian-9/">How to Install Python 3.6.4 on Debian 9</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">how-to</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/how-to-install-python-3-on-deepin-15/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-p1005"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1302,159 +1423,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/django-collectstatic-retrofit/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-initialize-react-project"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/initialize-react-project/">初始化 React 项目</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/initialize-react-project/" class="archive-article-date">
-  <time datetime="2018-03-25T03:59:12.000Z" itemprop="datePublished">
-    Published on 2018 / 03 / 25
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个后端从零开始搭建一个 React 项目的笔记。</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p><a target="_blank" rel="noopener" href="https://nodejs.org/">node.js</a>，知名发行版可以从官网下载最新LTS安装包。小众Deepin用了源里面内置的<code>v6.3.1</code>。<br>安装完<code>node.js</code>之后应该会自动安装<code>npm</code></p>
-<h3 id="IDE设置"><a href="#IDE设置" class="headerlink" title="IDE设置"></a>IDE设置</h3><ul>
-<li><p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">Visual Studio Code</a><br>公司前端大佬使用，需要各种插件。但是我觉得这类小的编辑器，还是用来看各种单文件方便。</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/webstorm/">WebStorm</a><br>作为 JetBrains 全家桶用户，就是你啦！代码检查，格式化，自动补全，应有尽有。</p>
-</li>
-</ul>
-<h3 id="npm-相关"><a href="#npm-相关" class="headerlink" title="npm 相关"></a>npm 相关</h3><ul>
-<li>npm 版本</li>
-</ul>
-<blockquote>
-<p>npm –version</p>
-</blockquote>
-<p>据大佬介绍，<code>5.7.0</code>版本之后更改了很多东西，已经比<a target="_blank" rel="noopener" href="https://npm.taobao.org/">cnpm</a>快了，只需要设置国内源就好。</p>
-<ul>
-<li>设置国内源</li>
-</ul>
-<p>国内使用淘宝源足够了，修改<code>.npmrc</code>文件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; ~/.npmrc &lt;&lt; EOF</span><br><span class="line">registry=https://registry.npm.taobao.org</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
-<p>我也写了个一行的命令。</p>
-<blockquote>
-<p>curl -sSL <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ldsink/toolbox/master/set-npm-mirror.sh">https://raw.githubusercontent.com/ldsink/toolbox/master/set-npm-mirror.sh</a> | sh</p>
-</blockquote>
-<ul>
-<li>升级npm</li>
-</ul>
-<blockquote>
-<p>sudo npm i -g npm</p>
-</blockquote>
-<p><strong>注意，这个使用了<code>sudo</code>，所以用户是<code>root</code>。如果需要使用淘宝源，需要在<code>root</code>下添加上面的源。</strong></p>
-<ul>
-<li><p>npm大部分的安装失败</p>
-<ul>
-<li>项目下面的<code>node_modules</code>可以删除</li>
-<li>链接到的<code>node_modules</code>也可以删了再重装</li>
-</ul>
-</li>
-<li><p>npm 文档 <a target="_blank" rel="noopener" href="https://docs.npmjs.com/">npm Documentation</a></p>
-</li>
-<li><p>版本号规则<br>npm 包默认遵守 <a target="_blank" rel="noopener" href="https://semver.org/">Semver</a> 语义化版本 2.0 的规则。<br>组件的版本以 <code>major</code>.<code>minor</code>.<code>patch</code> 形式表示 <code>主版本号</code>.<code>次版本号</code>.<code>修订号</code> 比如： <code>0.1.0</code> <code>0.3.1</code>。<br><code>patch</code>位自动升级标识符<code>~</code>，<code>minor</code>位自动升级标识符<code>^</code>。</p>
-</li>
-<li><p>更新并保存当前版本</p>
-</li>
-</ul>
-<blockquote>
-<p>npm update –save</p>
-</blockquote>
-<h3 id="React-基本知识"><a href="#React-基本知识" class="headerlink" title="React 基本知识"></a>React 基本知识</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://reactjs.org/docs/introducing-jsx.html">Introducing JSX</a>。</li>
-<li>props 用来传递数据，state 用来存储组件内部的状态和数据。</li>
-<li>props 是只读的，state 当前组件 state 的值可以作为 props 传递给下层组件。</li>
-<li>React 组件按照生命周期运行，改变 state 就会重新执行 render 方法。</li>
-<li>render 方法返回的是一段 JSX 语法的结构用来渲染到页面上。</li>
-</ul>
-<h3 id="React-生命周期图"><a href="#React-生命周期图" class="headerlink" title="React 生命周期图"></a>React 生命周期图</h3><p><img src="https://a.adcdn.cn/images/react-life-cycle.webp" alt="React生命周期图"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color1">react</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/initialize-react-project/">展开全文 >></a>
         </p>
       
 

@@ -201,6 +201,102 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/">修复Ubuntu和Win10双系统时间差</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/" class="archive-article-date">
+  <time datetime="2016-12-25T09:24:32.000Z" itemprop="datePublished">
+    Published on 2016 / 12 / 25
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>启动了电脑上另一块SSD上的Ubuntu，又注意到了时间差问题。Windows默认会将BIOS上的时间认为是本地时间（我们这里表现就是CST，东八区时间），Ubuntu默认是UTC标准时间，会在此基础上增加8小时，作为显示的时间。如果在Win系统下将时间调整对，在Ubuntu下则会快了8个小时，反之也是。为了让两者都能正确的显示时间，得让两个系统使用相同的计算方式。</p>
+<p>调整时间一致，要么改Win设置，要么改Ubuntu。Windows要改注册表，还是Ubuntu改配置文件比较简单。现在网上搜出来的，很多都是那个以前的老方法：在<code>/etc/default/rcS</code>里面增加<code>UTC=no</code>，这个我在Ubuntu 16.04 LTS上尝试过，已经失效了。</p>
+<p>ArchWiki给出过现在的解决方法，现在需要设置如下命令：</p>
+<blockquote>
+<p>timedatectl set-local-rtc 1</p>
+</blockquote>
+<p>如果要改回来，将 1 改回 0 即可。</p>
+<blockquote>
+<p>timedatectl set-local-rtc 0</p>
+</blockquote>
+<p>设置成功之后，在Win和Ubuntu上都可以正确显示时间。使用<code>timedatectl</code>命令显示的结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ timedatectl</span><br><span class="line">      Local time: Sun 2016-12-25 17:14:19 CST</span><br><span class="line">  Universal time: Sun 2016-12-25 09:14:19 UTC</span><br><span class="line">        RTC time: Sun 2016-12-25 17:14:19</span><br><span class="line">       Time zone: Asia&#x2F;Shanghai (CST, +0800)</span><br><span class="line"> Network time on: yes</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: yes</span><br><span class="line"></span><br><span class="line">Warning: The system is configured to read the RTC time in the local time zone.</span><br><span class="line">         This mode can not be fully supported. It will create various problems</span><br><span class="line">         with time zone changes and daylight saving time adjustments. The RTC</span><br><span class="line">         time is never updated, it relies on external facilities to maintain it.</span><br><span class="line">         If at all possible, use RTC in UTC by calling</span><br><span class="line">         &#39;timedatectl set-local-rtc 0&#39;.</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-let-s-encrypt"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1155,114 +1251,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/github-offline-maintain/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-dragon-iv"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/books/dragon-iv/">读书笔记：《龙族IV：奥丁之渊》</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/books/dragon-iv/" class="archive-article-date">
-  <time datetime="2016-01-14T08:41:00.000Z" itemprop="datePublished">
-    Published on 2016 / 01 / 14
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这是该系列的第六本，但是内容读起来却像一本全新的书（贬义）。全文大部分都是师姐和师兄那无聊的吐槽，中间再穿插这一些动漫梗，大概是江南想以此引起动漫读者的共鸣，但实际上这种流水账凑字数的内容，很乏味，难以让人有更多的想象。龙族I铺垫剧情，介绍世界观，结尾三峡战斗感觉很好。龙族Ⅱ靠着夏弥的死和面瘫师兄的爱情也还不错。龙族Ⅲ厚厚的三本，虽说拖沓，但是小怪物绘梨衣的悲剧结局赚了一票眼泪。到系列第六本，应该更加成熟了才对，但是完全不是这样。</p>
-<p>这里用豆瓣的一份评论很贴切</p>
-<blockquote>
-<p>整本书你就只能看到江南像一个祥林嫂一样大段大段的描绘人物感情，不断给你煽情，拼命想戳中你的泪点，就好像瞎子射箭一样，抓了一堆的箭来，胡乱射出去，总有一只会中的。</p>
-</blockquote>
-<blockquote>
-<p>而我呢，书里那大段大段煽情的戏码就像一只小爪子在给我挠痒痒，偶尔挠中一次，我会心头一动，之后他继续挠，我还会起鸡皮疙瘩，再往后，我只会想说你丫烦不烦，我真的快要吐了。</p>
-</blockquote>
-<blockquote>
-<p>我一直都觉得，作为一个作者，保持感情的克制是很有必要的，虽然江南一直都不是一个克制的人，但这次，他完全就是打开了煽情水坝的大闸，恨不得把读者淹死。</p>
-</blockquote>
-<blockquote>
-<p>好好好，我知道路明非是个衰仔，诺诺在他最衰的时候把他拉了出来，于是她就是他的电，他的光，是他唯一的神话，但能不能别老叨逼叨逼这些段落，说一两次也就算了，每次都说是几个意思，能不能好好写剧情。</p>
-</blockquote>
-<blockquote>
-<p>还有那个唐僧和猴子的故事，江南你怎么了？一个小破故事居然在整本书的后半部分不断被拿出来讲，几个人物讲来讲去把它奉为圣经一般，搞得我一看到什么唐僧小猴子就忍不住跳过去，我都能感觉到那些情节煽情过度拧出来的苦水。</p>
-</blockquote>
-<blockquote>
-<p>另外苏晓樯和那个黑太子集团大公子在书里占据大量戏份是几个意思？强行扯上一些廉价又矫情的情节，不断重复他们那些煽情又幼稚的故事，很多桥段简直看得我尴尬症都要犯了好吗。</p>
-</blockquote>
-<p>龙族IV依然会大卖，但是看的人真的不会再有期待了。我看这本书的时候，满脑子冒出来的不是剧情的猜想，而是满满的回忆。我会看龙族，就是因为回忆，因为龙I出现的两句秘籍<code>show me the money</code>和<code>black sheep wall</code>。因为小学玩了两年的SC，眼睛才近视，所以SC作为目前唯一一款在我身上留下了痕迹的游戏，印象绝对的深刻。看见一个玩星际的主角，很自然的就看了龙族。</p>
-<p>时间是一个轮回，当时看龙族想的更多的是六年前，而现在看龙族，想的也是六年前。2010年，高中。每周稳定的看《知音漫客》和《龙漫少年星期天》；和同学讨论的火影还是佩恩六道在火影村这个最高潮的剧情；看完了整套《明朝那些事儿》，成王阳明这个妖孽人物的粉丝；从这年开始追轻小说传勇传（这本2002年开始连载的小说也是个坑）、夏娜和零使；推完了缘之空，现在还记得刚玩的时候只想妹线，谁都没选，最后进女仆线被醉酒女仆推倒的窘境；元旦是班上半数的男生去网吧通宵Dota，能够十人对黑。那种氛(fēn)围真的好玩~～～</p>
-<p>扯远了，再说回这本书。龙族在商业上是成功的，江南就是靠着这个拿了几年的作家富豪榜第一。但是剧情上已经有坑的趋势，看过的人会怀着微小的期望继续追下去，没看过的人可以畅快忽略之。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/books/dragon-iv/">展开全文 >></a>
         </p>
       
 

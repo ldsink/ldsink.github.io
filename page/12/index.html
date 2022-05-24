@@ -201,6 +201,131 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-usaco-ariprog"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/usaco-ariprog/">USACO —— ariprog</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/usaco-ariprog/" class="archive-article-date">
+  <time datetime="2010-03-28T03:54:00.000Z" itemprop="datePublished">
+    Published on 2010 / 03 / 28
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>事隔半个月之后，又来USACO 做题了。</p>
+<p>这道题我开始一看蛮简单，写了50来行，结果</p>
+<p>第一次：没写NONE，第3个点挂……</p>
+<p>第二次：第八个点time limit execeeded。</p>
+<p>知道了，b从 1 开始 ++ 搜第8个点要5秒多……</p>
+<p>第三次：想了一下剪枝，就是每次寻找的d 是由两个能取的数之差，再将a，b存起来，最后一个加权排序，再输出，最大的点也只要 1.804 secs。过了<strong>Congratulations!</strong></p>
+<h2 id="Arithmetic-Progressions"><a href="#Arithmetic-Progressions" class="headerlink" title="Arithmetic Progressions"></a>Arithmetic Progressions</h2><p>An arithmetic progression is a sequence of the form a, a+b, a+2b, …, a+nb where n=0,1,2,3,… . For this problem, a is a non-negative integer and b is a positive integer. </p>
+<p>Write a program that finds all arithmetic progressions of length n in the set S of bisquares. The set of bisquares is defined as the set of all integers of the form p2 + q2 (where p and q are non-negative integers). </p>
+<p><strong>TIME LIMIT: 5 secs</strong></p>
+<p><strong>PROGRAM NAME: ariprog</strong></p>
+<p><strong>INPUT FORMAT</strong></p>
+<p>Line 1:  N (3 &lt;= N &lt;= 25), the length of progressions for which to search  </p>
+<p>Line 2:  M (1 &lt;= M &lt;= 250), an upper bound to limit the search to the bisquares with 0 &lt;= p,q &lt;= M.  </p>
+<p>SAMPLE INPUT (file ariprog.in)</p>
+<blockquote>
+<p>5<br>7</p>
+</blockquote>
+<p><strong>OUTPUT FORMAT</strong></p>
+<p>If no sequence is found, a singe line reading `NONE’. Otherwise, output one or more lines, each with two integers: the first element in a found sequence and the difference between consecutive elements in the same sequence. The lines should be ordered with smallest-difference sequences first and smallest starting number within those sequences first. </p>
+<p>There will be no more than 10,000 sequences. </p>
+<p>SAMPLE OUTPUT (file ariprog.out)</p>
+<blockquote>
+<p>1 4<br>37 4<br>2 8<br>29 8<br>1 12<br>5 12<br>13 12<br>17 12<br>5 20<br>2 24</p>
+</blockquote>
+<h2 id="我的代码"><a href="#我的代码" class="headerlink" title="我的代码"></a>我的代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ID: 这个被我删了，你猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜猜……</span></span><br><span class="line"><span class="comment">PROG: ariprog</span></span><br><span class="line"><span class="comment">LANG: C</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N, M, T, Ans, Maxnum, Out[<span class="number">10000</span>][<span class="number">2</span>], Num[<span class="number">100000</span>];</span><br><span class="line"><span class="keyword">char</span> Hash[<span class="number">125001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Fun</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a + (N - <span class="number">1</span>) * b &gt; Maxnum) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> var, re;</span><br><span class="line">    <span class="keyword">for</span> (re = <span class="number">1</span>, var = <span class="number">1</span>; var &lt; N; var++)</span><br><span class="line">        <span class="keyword">if</span> (Hash[var * b + a] == <span class="number">0</span>) &#123;</span><br><span class="line">            re = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> re;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Qsort</span><span class="params">(<span class="keyword">int</span> st, <span class="keyword">int</span> en, <span class="keyword">int</span> *line)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b, c;</span><br><span class="line">    a = st;</span><br><span class="line">    b = en;</span><br><span class="line">    c = line[st];</span><br><span class="line">    <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (line[b] &lt; c) &#123;</span><br><span class="line">                line[a] = line[b];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            b--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (a &lt; b) &#123;</span><br><span class="line">            <span class="keyword">if</span> (line[a] &gt; c) &#123;</span><br><span class="line">                line[b] = line[a];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            a++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    line[a] = c;</span><br><span class="line">    <span class="keyword">if</span> (st &lt; a - <span class="number">1</span>) Qsort(st, a - <span class="number">1</span>, line);</span><br><span class="line">    <span class="keyword">if</span> (a + <span class="number">1</span> &lt; en) Qsort(a + <span class="number">1</span>, en, line);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Sort</span><span class="params">(<span class="keyword">int</span> st, <span class="keyword">int</span> en)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b, c, d;</span><br><span class="line">    c = st;</span><br><span class="line">    d = en;</span><br><span class="line">    a = Out[c][<span class="number">0</span>];</span><br><span class="line">    b = Out[c][<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">while</span> (c &lt; d) &#123;</span><br><span class="line">        <span class="keyword">while</span> (c &lt; d) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Out[d][<span class="number">1</span>] &lt; b) &#123;</span><br><span class="line">                Out[c][<span class="number">0</span>] = Out[d][<span class="number">0</span>];</span><br><span class="line">                Out[c][<span class="number">1</span>] = Out[d][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (Out[d][<span class="number">1</span>] == b &amp;&amp; Out[d][<span class="number">0</span>] &lt; a) &#123;</span><br><span class="line">                Out[c][<span class="number">0</span>] = Out[d][<span class="number">0</span>];</span><br><span class="line">                Out[c][<span class="number">1</span>] = Out[d][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            d--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (c &lt; d) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Out[c][<span class="number">1</span>] &gt; b) &#123;</span><br><span class="line">                Out[d][<span class="number">0</span>] = Out[c][<span class="number">0</span>];</span><br><span class="line">                Out[d][<span class="number">1</span>] = Out[c][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (Out[c][<span class="number">1</span>] == b &amp;&amp; Out[c][<span class="number">0</span>] &gt; a) &#123;</span><br><span class="line">                Out[d][<span class="number">0</span>] = Out[c][<span class="number">0</span>];</span><br><span class="line">                Out[d][<span class="number">1</span>] = Out[c][<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            c++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Out[d][<span class="number">0</span>] = a;</span><br><span class="line">    Out[d][<span class="number">1</span>] = b;</span><br><span class="line">    <span class="keyword">if</span> (st &lt; d - <span class="number">1</span>) Sort(st, d - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (d + <span class="number">1</span> &lt; en) Sort(d + <span class="number">1</span>, en);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FILE *fs, *fp;</span><br><span class="line">    fs = fopen(<span class="string">&quot;ariprog.in&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    fp = fopen(<span class="string">&quot;ariprog.out&quot;</span>, <span class="string">&quot;w&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fscanf</span>(fs, <span class="string">&quot;%d&quot;</span>, &amp;N);</span><br><span class="line">    <span class="built_in">fscanf</span>(fs, <span class="string">&quot;%d&quot;</span>, &amp;M);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> a, b, c, d;</span><br><span class="line"></span><br><span class="line">    Maxnum = M * M * <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">0</span>; a &lt;= M; a++)</span><br><span class="line">        <span class="keyword">for</span> (b = a; b &lt;= M; b++)</span><br><span class="line">            <span class="keyword">if</span> (Hash[a * a + b * b] == <span class="number">0</span>) &#123;</span><br><span class="line">                Num[T] = a * a + b * b;</span><br><span class="line">                Hash[a * a + b * b] = <span class="number">1</span>;</span><br><span class="line">                T++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    Qsort(<span class="number">0</span>, T - <span class="number">1</span>, Num);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (c = <span class="number">0</span>; c &lt; T; c++)</span><br><span class="line">        <span class="keyword">for</span> (a = Num[c], d = c + <span class="number">1</span>; d &lt; T; d++) &#123;</span><br><span class="line">            b = Num[d] - a;</span><br><span class="line">            <span class="keyword">if</span> (Fun(a, b) == <span class="number">1</span>) &#123;</span><br><span class="line">                Out[Ans][<span class="number">0</span>] = a;</span><br><span class="line">                Out[Ans][<span class="number">1</span>] = b;</span><br><span class="line">                Ans++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!Ans)</span><br><span class="line">        <span class="built_in">fprintf</span>(fp, <span class="string">&quot;NONE\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Sort(<span class="number">0</span>, Ans - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">0</span>; a &lt; Ans; a++)</span><br><span class="line">            <span class="built_in">fprintf</span>(fp, <span class="string">&quot;%d %d\n&quot;</span>, Out[a][<span class="number">0</span>], Out[a][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fclose(fs);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><blockquote>
+<p>TASK: ariprog<br>LANG: C<br>Compiling…<br>Compile: OK<br>Executing…<br>   Test 1: TEST OK [0.000 secs, 2500 KB]<br>   Test 2: TEST OK [0.000 secs, 2500 KB]<br>   Test 3: TEST OK [0.000 secs, 2500 KB]<br>   Test 4: TEST OK [0.000 secs, 2500 KB]<br>   Test 5: TEST OK [0.011 secs, 2500 KB]<br>   Test 6: TEST OK [0.065 secs, 2500 KB]<br>   Test 7: TEST OK [0.778 secs, 2500 KB]<br>   Test 8: TEST OK [1.804 secs, 2500 KB]<br>   Test 9: TEST OK [1.771 secs, 2500 KB]<br>All tests OK.<br>Your program (‘ariprog’) produced all correct answers!  This is your submission #3 for this problem.  <strong>Congratulations!</strong></p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">usaco</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/usaco-ariprog/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-2010-earth-hour"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1040,96 +1165,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/luyou-and-tangwan/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-noip-2009"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/noip-2009/">NOIP2009结束</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/noip-2009/" class="archive-article-date">
-  <time datetime="2009-11-21T04:21:00.000Z" itemprop="datePublished">
-    Published on 2009 / 11 / 21
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天终于考完了万恶的NOIP2009，明天就又要回到教室了，这一个月欠下了那么多的学业，都得补完，唉。</p>
-<p>考得好还算了，偏偏就砸了，估计就第一题可以全过，其他不是贪心就是骗分，强搜都没写几个，浪费了几乎一个月的时间，还是跑去当炮灰，排除人品的因素外，还是技术不到家，还得好好的学一年。</p>
-<p>今天还是我们年级的家长会，我还没告诉家里的，不知道学校给我家里发了短信通知没，不然下午家里都没人来开家长会，我上回月考没参加，下回估计要坐最后了，惨。</p>
-<p>总之，这就是一出活活生生的</p>
-<p><img src="https://a.adcdn.cn/images/yizhongtian-beiju.webp" alt="yizhongtian-beiju.webp"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/noip-2009/">展开全文 >></a>
         </p>
       
 

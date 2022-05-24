@@ -201,6 +201,107 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-p1098"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/p1098/">P1098 合唱队形 解题报告</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/p1098/" class="archive-article-date">
+  <time datetime="2009-05-16T05:32:00.000Z" itemprop="datePublished">
+    Published on 2009 / 05 / 16
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>类似最长不下降子序列。记录后DP一下就过了。</p>
+<blockquote>
+<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> N,people[<span class="number">100</span>][<span class="number">4</span>]; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Left</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Right</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Min</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">    <span class="built_in">memset</span>(people,<span class="number">0</span>,<span class="keyword">sizeof</span>(people));</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;N;i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;people[<span class="number">0</span>]);</span><br><span class="line">    N--;</span><br><span class="line">    people[<span class="number">0</span>][<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">    people[N][<span class="number">2</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=N;i++)</span><br><span class="line">        Left(i);</span><br><span class="line">    <span class="keyword">for</span>(i=N<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">        Right(i);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>,j=people[<span class="number">0</span>][<span class="number">1</span>]+people[<span class="number">0</span>][<span class="number">2</span>];i&lt;=N;i++)</span><br><span class="line">        &#123;</span><br><span class="line">        people[<span class="number">3</span>]=people[<span class="number">1</span>]+people[<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">if</span>(j&gt;people[<span class="number">3</span>])</span><br><span class="line">            j=people[<span class="number">3</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,j);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Min</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;b)</span><br><span class="line">        a=b;</span><br><span class="line">    <span class="keyword">return</span>(a); </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Left</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">int</span> i,j,k;</span><br><span class="line">     <span class="keyword">for</span>(i=<span class="number">0</span>,j=a;i&lt;a;i++)</span><br><span class="line">         <span class="keyword">if</span>(people[a][<span class="number">0</span>]&gt;people[<span class="number">0</span>])</span><br><span class="line">             &#123;j=a-i<span class="number">-1</span>+people[<span class="number">1</span>];<span class="keyword">break</span>;&#125;</span><br><span class="line">     <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;a;i++)</span><br><span class="line">         <span class="keyword">if</span>(people[a][<span class="number">0</span>]&gt;people[<span class="number">0</span>])</span><br><span class="line">         &#123;</span><br><span class="line">             k=a-i<span class="number">-1</span>+people[<span class="number">1</span>];</span><br><span class="line">             j=Min(j,k);</span><br><span class="line">         &#125;</span><br><span class="line">     people[a][<span class="number">1</span>]=j;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Right</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">int</span> i,j,k;</span><br><span class="line">     <span class="keyword">for</span>(i=a+<span class="number">1</span>,j=N-a;i&lt;=N;i++)</span><br><span class="line">         <span class="keyword">if</span>(people[a][<span class="number">0</span>]&gt;people[<span class="number">0</span>])</span><br><span class="line">             &#123;j=i-a<span class="number">-1</span>+people[<span class="number">2</span>];<span class="keyword">break</span>;&#125;</span><br><span class="line">     <span class="keyword">for</span>(i=a+<span class="number">1</span>;i&lt;=N;i++)</span><br><span class="line">         <span class="keyword">if</span>(people[a][<span class="number">0</span>]&gt;people[<span class="number">0</span>])</span><br><span class="line">         &#123;</span><br><span class="line">             k=i-a<span class="number">-1</span>+people[<span class="number">2</span>];</span><br><span class="line">             j=Min(j,k);</span><br><span class="line">         &#125;</span><br><span class="line">     people[a][<span class="number">2</span>]=j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">vijos</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/articles/"
+             class="article-tag-list-link color4">articles</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/p1098/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-vijos-33-accepted"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
