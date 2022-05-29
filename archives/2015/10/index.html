@@ -26,11 +26,11 @@
   
     <link rel="icon" href="/favicon.ico">
   
-  <link rel="stylesheet" href="/./main.337c515.css">
+  <link rel="stylesheet" href="/./main.77a913e.css">
   <style type="text/css">
     
     #container.show {
-      background: linear-gradient(200deg,#74ebd5,#acb6e5);
+      background: linear-gradient(200deg,#4e54c8,#8f94fb);
     }
   </style>
   
@@ -89,6 +89,10 @@
           <a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友情链接</a>
         
       
+        
+      
+        
+          <a q-on="click: openSlider(e, 'plusOne')" href="javascript:void(0)">+1s</a>
         
       
     </nav>
@@ -369,151 +373,182 @@
         
             
         
-        loadScript("/slider.25343e4.js")
+        loadScript("/slider.1febd97.js")
     })();</script>
 
 
 
   
 <div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
-  <div class="tools-nav header-menu">
-    
-    
-      
+    <div class="tools-nav header-menu">
         
-      
-    
-      
         
-      
-    
-      
-    
-    
+            
+                
+            
+        
+            
+                
+            
+        
+            
+        
+            
+                
+            
+        
+        
 
-    <ul style="width: 70%">
-      
-      
+        <ul style="width: 70%">
+            
+            
+                
+                    <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')">
+                        <a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a>
+                    </li>
+                
+            
+                
+                    <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')">
+                        <a href="javascript:void(0)" q-class="active:friends">友情链接</a>
+                    </li>
+                
+            
+                
+            
+                
+                    <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'plusOne')">
+                        <a href="javascript:void(0)" q-class="active:plusOne">+1s</a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+    <div class="tools-wrap">
         
-          <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')">
-            <a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a>
-          </li>
-        
-      
-        
-          <li style="width: 50%" q-on="click: openSlider(e, 'friends')">
-            <a href="javascript:void(0)" q-class="active:friends">友情链接</a>
-          </li>
-        
-      
-        
-      
-    </ul>
-  </div>
-  <div class="tools-wrap">
-    
-      <section class="tools-section tools-section-all" q-show="innerArchive">
-        <div class="search-wrap">
-          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
-          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
-          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
-        </div>
-        <div class="widget tagcloud search-tag">
-          <p class="search-tag-wording">tag:</p>
-          <label class="search-switch">
-            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
-          </label>
-          <ul class="article-tag-list" q-show="showTags">
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">dns</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">rfc</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">deepin</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">django</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">database</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">work</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">firefox</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">greenplum</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">postgres</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">how-to</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">react</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">vijos</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">go</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">toml</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">tools</a>
-              </li>
-            
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">usaco</a>
-              </li>
-            
-            <div class="clearfix"></div>
-          </ul>
-        </div>
-        <ul class="search-ul">
-          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content
-            --save<br/><br/>
-            3、在根目录_config.yml里添加配置：
-          <pre style="font-size: 12px;" q-show="jsonFail">
+            <section class="tools-section tools-section-all" q-show="innerArchive">
+                <div class="search-wrap">
+                    <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+                    <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+                    <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+                </div>
+                <div class="widget tagcloud search-tag">
+                    <p class="search-tag-wording">tag:</p>
+                    <label class="search-switch">
+                        <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+                    </label>
+                    <ul class="article-tag-list" q-show="showTags">
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color2">ubuntu</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color4">dns</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color4">rfc</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color2">deepin</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color2">django</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color4">database</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color5">work</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color2">python</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color3">firefox</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color5">greenplum</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color4">postgres</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color2">how-to</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color1">react</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color1">nginx</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color1">vijos</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color3">go</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color5">toml</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color1">tools</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color1">usaco</a>
+                            </li>
+                        
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+                <ul class="search-ul">
+                    <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+                        缺失模块。<br />1、请确保node版本大于6.2<br />2、在博客根目录（注意不是yilia根目录）执行以下命令：<br /> npm i
+                        hexo-generator-json-content
+                        --save<br /><br />
+                        3、在根目录_config.yml里添加配置：
+                    <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
     meta: false
     pages: false
@@ -533,61 +568,70 @@
       categories: false
       tags: true
 </pre>
-          </p>
-          <li class="search-li" q-repeat="items" q-show="isShow">
-            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span
-                q-text="title"></span></a>
-            <p class="search-time">
-              <i class="icon-calendar icon"></i>
-              <span q-text="date|dateformat"></span>
-            </p>
-            <p class="search-tag">
-              <i class="icon-price-tags icon"></i>
-              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
-            </p>
-          </li>
-        </ul>
-      </section>
-    
-
-    
-      <section class="tools-section tools-section-friends" q-show="friends">
+                    </p>
+                    <li class="search-li" q-repeat="items" q-show="isShow">
+                        <a q-attr="href:path|urlformat" class="search-title"><span q-text="title"></span></a>
+                        <p class="search-time">
+                            <i class="icon-calendar icon"></i>
+                            <span q-text="date|dateformat"></span>
+                        </p>
+                        <p class="search-tag">
+                            <i class="icon-price-tags icon"></i>
+                            <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+                        </p>
+                    </li>
+                </ul>
+            </section>
         
-          <ul class="search-ul">
-            
-              <li class="search-li">
-                <a href="http://www.liriansu.com/" target="_blank" class="search-title"><i
-                    class="icon-quo-left icon"></i>浮云计算</a>
-              </li>
-            
-              <li class="search-li">
-                <a href="https://lxkaka.wang/" target="_blank" class="search-title"><i
-                    class="icon-quo-left icon"></i>lxkaka</a>
-              </li>
-            
-              <li class="search-li">
-                <a href="http://jingkaizhao.com/" target="_blank" class="search-title"><i
-                    class="icon-quo-left icon"></i>jingkai</a>
-              </li>
-            
-              <li class="search-li">
-                <a href="https://coolshell.cn/" target="_blank" class="search-title"><i
-                    class="icon-quo-left icon"></i>酷壳CooShell</a>
-              </li>
-            
-              <li class="search-li">
-                <a href="https://www.yhspy.com/" target="_blank" class="search-title"><i
-                    class="icon-quo-left icon"></i>曜彤.手记</a>
-              </li>
-            
-          </ul>
+
         
-      </section>
-    
+            <section class="tools-section tools-section-friends" q-show="friends">
+                
+                    <ul class="search-ul">
+                        
+                            <li class="search-li">
+                                <a href="https://liriansu.com/" target="_blank"
+                                   class="search-title">浮云计算</a>
+                            </li>
+                        
+                            <li class="search-li">
+                                <a href="https://lxkaka.wang/" target="_blank"
+                                   class="search-title">lxkaka</a>
+                            </li>
+                        
+                            <li class="search-li">
+                                <a href="https://coolshell.cn/" target="_blank"
+                                   class="search-title">酷壳CooShell</a>
+                            </li>
+                        
+                            <li class="search-li">
+                                <a href="https://www.yhspy.com/" target="_blank"
+                                   class="search-title">曜彤.手记</a>
+                            </li>
+                        
+                    </ul>
+                
+            </section>
+        
 
-    
-  </div>
+        
 
+        
+            
+            <section class="tools-section tools-section-me" q-show="plusOne">
+                
+                    <div class="plus-one">
+                        
+                            <p>一个人的命运啊，当然要靠自我奋斗，但是也要考虑到历史的行程。</p>
+                        
+                            <p>很惭愧，就做了一点微小的工作，谢谢大家。</p>
+                        
+                    </div>
+                
+            </section>
+        
+
+    </div>
 </div>
 
   <!-- Root element of PhotoSwipe. Must have class pswp. -->
