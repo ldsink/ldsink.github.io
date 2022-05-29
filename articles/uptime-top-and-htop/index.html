@@ -20,7 +20,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://a.adcdn.cn/images/htop.webp">
 <meta property="article:published_time" content="2015-01-20T03:05:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.898Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="tools">
 <meta name="twitter:card" content="summary">
@@ -238,12 +238,14 @@
 <h2 id="uptime"><a href="#uptime" class="headerlink" title="uptime"></a>uptime</h2><blockquote>
 <p>uptime命令用于查看服务器运行时间、登录用户数及服务器的负荷情况。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ uptime</span><br><span class="line"> 10:07:57 up  1:37,  1 user,  load average: 0.20, 0.35, 0.44</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ uptime</span><br><span class="line"> 10:07:57 up  1:37,  1 user,  load average: 0.20, 0.35, 0.44</span><br></pre></td></tr></table></figure>
+
 <p>前面两项很容易理解，我只说一下<code>load average</code>。这是系统平均负载，是指在特定时间间隔内运行队列中的平均进程数。后面的三个值分别表示在5分钟，10分钟和15分钟内负载的平均值。<br>如果每个CPU内核的当前活动进程数不大于3的话，那么系统的性能是良好的。如果每个CPU内核的任务数大于5，那么这台机器的性能有严重问题。如果linux主机是1个双核CPU的话，当Load Average 为6的时候说明机器已经被充分使用了，超过6则说明CPU性能不足。<br>遇到性能问题,使用<code>uptime</code>查看发现CPU的负载不高,则瓶颈应该不在CPU上。</p>
 <h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><blockquote>
 <p>top命令显示处理器的活动状况。缺省情况下，显示占用CPU最多的任务，并且每隔5秒钟做一次刷新。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ top</span><br><span class="line"></span><br><span class="line">top - 10:22:53 up  1:52,  1 user,  load average: 0.63, 0.47, 0.45</span><br><span class="line">Tasks: 226 total,   3 running, 221 sleeping,   0 stopped,   2 zombie</span><br><span class="line">%Cpu(s): 17.0 us,  6.8 sy,  0.0 ni, 75.9 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem:   8079520 total,  6116660 used,  1962860 free,   174672 buffers</span><br><span class="line">KiB Swap:        0 total,        0 used,        0 free.  1779724 cached Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 2465 deepin    20   0 1618276 212948  75340 S  15.6  2.6   5:34.14 chrome</span><br><span class="line"> 2505 deepin    20   0 1333132 476716 152184 S  15.6  5.9   2:29.52 chrome</span><br><span class="line"> 1598 root      20   0  504688 163028 147820 S  12.9  2.0   4:30.98 Xorg</span><br><span class="line"> 5103 deepin    20   0  921172 140520  47388 S  11.6  1.7   0:35.74 chrome</span><br><span class="line"> 2111 deepin    20   0  501420  31856  12916 S   9.0  0.4   2:02.38 compiz</span><br><span class="line"> 4792 deepin    20   0  720732 112652  21112 S   4.0  1.4   0:28.15 deepin-terminal</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ top</span><br><span class="line"></span><br><span class="line">top - 10:22:53 up  1:52,  1 user,  load average: 0.63, 0.47, 0.45</span><br><span class="line">Tasks: 226 total,   3 running, 221 sleeping,   0 stopped,   2 zombie</span><br><span class="line">%Cpu(s): 17.0 us,  6.8 sy,  0.0 ni, 75.9 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem:   8079520 total,  6116660 used,  1962860 free,   174672 buffers</span><br><span class="line">KiB Swap:        0 total,        0 used,        0 free.  1779724 cached Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 2465 deepin    20   0 1618276 212948  75340 S  15.6  2.6   5:34.14 chrome</span><br><span class="line"> 2505 deepin    20   0 1333132 476716 152184 S  15.6  5.9   2:29.52 chrome</span><br><span class="line"> 1598 root      20   0  504688 163028 147820 S  12.9  2.0   4:30.98 Xorg</span><br><span class="line"> 5103 deepin    20   0  921172 140520  47388 S  11.6  1.7   0:35.74 chrome</span><br><span class="line"> 2111 deepin    20   0  501420  31856  12916 S   9.0  0.4   2:02.38 compiz</span><br><span class="line"> 4792 deepin    20   0  720732 112652  21112 S   4.0  1.4   0:28.15 deepin-terminal</span><br></pre></td></tr></table></figure>
+
 <p>第一行就是 uptime 的结果，第二行是进程运行情况，第三行是CPU信息。接下来是内存情况。最下面的一块是进程信息区，显示的是系统当前进程的情况，这里可以通过一些设置改变显示和统计的方式。<br>按我的理解，top命令相当于同时把 uptime，free，ps 等命令整合到一起显示，在有限的屏幕内以最小的操作显示了足够多的信息,基本上满足了性能监控的大部分需求。</p>
 <h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a>htop</h2><blockquote>
 <p>人是永远不会知足的，所以在 top 之后有了更好的 htop。</p>
@@ -318,18 +320,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

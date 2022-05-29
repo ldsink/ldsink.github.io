@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2022-05-24T09:14:37.995Z</updated>
+  <updated>2022-05-29T06:20:35.206Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MaxCompute 简单调研</title>
+    <link href="https://ldsink.com/articles/maxcompute/"/>
+    <id>https://ldsink.com/articles/maxcompute/</id>
+    <published>2022-05-29T06:18:25.000Z</published>
+    <updated>2022-05-29T06:20:35.206Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://help.aliyun.com/document_detail/27800.html">文档</a> | <a href="https://workbench.data.aliyun.com/console#/MCEngines">控制台</a></p><ul><li>产品定位定位：云数据仓库</li><li>支持内部表和外部表（MaxCompute 2.0版本开始支持外部表）</li><li>产品上，和阿里云内部的 DataWorks 和 Quick BI 打通</li><li>数据上，可以通过数据集成功能加载不同数据源（例如 MySQL）的数据，也可以通过数据集成把 MaxCompute 的数据导出到各种业务数据库。</li></ul><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4646012261/p277090.png" alt="MaxCompute产品架构"></p><h3 id="MaxCompute的项目发挥什么作用？"><a href="#MaxCompute的项目发挥什么作用？" class="headerlink" title="MaxCompute的项目发挥什么作用？"></a>MaxCompute的项目发挥什么作用？</h3><ul><li>项目（Project）是MaxCompute的基本组织单元，类似于传统数据库的Database或Schema的概念，是进行多用户隔离和访问控制的主要边界。</li><li>项目中包含多个对象，例如表（Table）、资源（Resource）、函数（Function）和实例（Instance）等。</li><li>一个用户可以同时拥有多个项目的权限。</li><li>通过安全授权，可以在一个项目访问另一个项目中的对象。</li></ul><h3 id="MaxCompute常见错误信息如何理解，怎么定位问题？"><a href="#MaxCompute常见错误信息如何理解，怎么定位问题？" class="headerlink" title="MaxCompute常见错误信息如何理解，怎么定位问题？"></a>MaxCompute常见错误信息如何理解，怎么定位问题？</h3><p>MaxCompute的常见报错信息编号有规范定义，格式为：<code>异常编号：通用描述 - 上下文相关说明</code>。其中SQL、MapReduce、Tunnel的错误信息是不一样的。更多错误信息，请参见<a href="https://help.aliyun.com/document_detail/34636.htm?spm=a2c4g.11186623.0.0.5a6d7e6ddQj4YT#concept-orf-tcw-tdb">错误码概述</a>。</p><h3 id="核心概念的层次结构"><a href="#核心概念的层次结构" class="headerlink" title="核心概念的层次结构"></a>核心概念的层次结构</h3><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/8564001361/p324382.png" alt="MaxCompute核心概念的层次结构"></p><h3 id="关键性里程碑"><a href="#关键性里程碑" class="headerlink" title="关键性里程碑"></a>关键性里程碑</h3><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4633419161/p1001.png" alt="MaxCompute关键性里程碑"></p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><ol><li><a href="https://help.aliyun.com/document_detail/185240.html">浏览器，MaxCompute 控制台-查询编辑器</a></li><li><a href="https://help.aliyun.com/document_detail/27971.html">PC，MaxCompute客户端（odpscmd）</a></li><li><a href="https://help.aliyun.com/document_detail/50889.html">集成开发环境工具，用于 IntelliJ IDEA</a></li></ol><h3 id="生态对接"><a href="#生态对接" class="headerlink" title="生态对接"></a>生态对接</h3><p><strong>基本都是 Java 生态，提供 Connector，使用 JDBC 连接。Python 提供了 <a href="https://help.aliyun.com/document_detail/155553.html">SDK</a>，需要开发。</strong></p><blockquote><p>连接页面，是否需要根据不同的数据源的形式，实现不同的标签说明？</p></blockquote><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4515317361/p301250.png" alt="MaxCompute的生态架构"></p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul><li><a href="https://help.aliyun.com/document_detail/114422.html">产品：构建与优化数据仓库</a></li><li><a href="https://help.aliyun.com/document_detail/27859.html">开发：SQL及函数</a></li><li><a href="https://help.aliyun.com/document_detail/104045.html">安全：权限管理</a></li><li><a href="https://help.aliyun.com/document_detail/117432.html">规范：数据模型架构规范</a></li><li><a href="https://help.aliyun.com/document_detail/66048.html">演示：公开数据集</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://help.aliyun.com/document_detail/27800.html&quot;&gt;文档&lt;/a&gt; | </summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>奈飞文化手册</title>
@@ -49,7 +69,7 @@
     <link href="https://ldsink.com/articles/observe-the-trend-of-urls-from-bookmarks/"/>
     <id>https://ldsink.com/articles/observe-the-trend-of-urls-from-bookmarks/</id>
     <published>2022-04-30T04:30:46.000Z</published>
-    <updated>2022-05-01T11:10:53.659Z</updated>
+    <updated>2022-05-29T06:23:31.830Z</updated>
     
     <content type="html"><![CDATA[<p>五一前夕，我花了点时间使用扩展 <a href="https://addons.mozilla.org/zh-CN/firefox/addon/bookmarks-organizer/">Bookmarks Organizer</a> 整理了十年间在浏览器内积累的近千个书签。根据网址的变化，记录一些个人对趋势的观察。</p><h2 id="HTTPS-全面普及"><a href="#HTTPS-全面普及" class="headerlink" title="HTTPS 全面普及"></a>HTTPS 全面普及</h2><p>最为明显的特征是 HTTPS 全面普及，几乎没有 HTTP 的网页。收藏夹一些政府部门，甚至包括银行官网（非个人网银页面），传统意义上比较顽固的页面都进行了更新，部署了 HTTPS。</p><h2 id="网址更短，更精简"><a href="#网址更短，更精简" class="headerlink" title="网址更短，更精简"></a>网址更短，更精简</h2><p>这块主要是四个变化方向：</p><ol><li>域名精简。现在有了更多的顶级域名，很多网站不再拘泥传统的 com 域名。可以会变成更短更合适的其他顶级域名（持有成本甚至可能更低）。技术类网站，io、ai、dev、pro 等都是非常好的选择，例如 <code>celeryproject.org</code> &#x3D;&gt; <code>celeryq.dev</code> 、<code>tylermcginnis.com</code> &#x3D;&gt; <code>ui.dev</code></li><li>移除 www 前缀。比如本站和 <code>Github.com</code>。这个有很多例子，就不举例了</li><li>和 2 有关，移除 www 后，一些功能会独立成二级域名，从而缩短网址长度。例如 <code>www.domain.com/(blog/bbs/doc)</code> 直接更换成二级域名的方式 <code>(blog/bbs/doc).domain.com</code></li><li>uri 精简。早期很多文章域名采用 WordPress 带日期的方式。<code>/articles/2022/04/30/three-passions</code> 会直接变成 <code>/three-passions</code></li></ol><h2 id="cn-域名增多"><a href="#cn-域名增多" class="headerlink" title="cn 域名增多"></a>cn 域名增多</h2><p>一部分国内网站，曾经的顶级域名优先使用 .com，现在切换成了 .cn。这部分也分为两类：</p><ol><li>就是喜欢 .cn 的，其他主域名都跳转 .cn。比如 <code>moegirl.org</code> &#x3D;&gt; <code>moegirl.org.cn</code></li><li>走出去，国际化。.com 作为国际化首页，.cn 服务本土。比如 <a href="https://www.infoq.cn/">InfoQ</a></li></ol><h2 id="政府站点质量上升"><a href="#政府站点质量上升" class="headerlink" title="政府站点质量上升"></a>政府站点质量上升</h2><p>以前政府网站质量一言难尽，现在感觉重视起来了。域名，内容和网站本身安全性等各个方面都有了很多提升。现在厅级以下应该不让独立建站，挂靠上级网站下对应的模块。以前长沙市长沙县泉塘街道的 <code>url.gov.cn</code> 这样有意思的域名以后应该难再见到了。</p><p>法院、工商、财政相关的信息获取难度比以前大大降低，而且看得出有些部门审美是在线的。</p><p>全国社会组织查询</p><ul><li>旧：<a href="https://www.chinanpo.gov.cn/search/orgcx.html">https://www.chinanpo.gov.cn/search/orgcx.html</a></li><li>新：<a href="https://chinanpo.mca.gov.cn/">https://chinanpo.mca.gov.cn/</a></li></ul><p>储蓄国债发行</p><ul><li>旧：2021年数据已经停止更新，就不放出来了</li><li>新：<a href="http://gks.mof.gov.cn/ztztz/guozaiguanli/gzfxdzs/">http://gks.mof.gov.cn/ztztz/guozaiguanli/gzfxdzs/</a></li></ul><h2 id="个人站点大量消失"><a href="#个人站点大量消失" class="headerlink" title="个人站点大量消失"></a>个人站点大量消失</h2><p>社会环境和商业模式变化，很多个人站点因为各种原因都消失了。</p><h2 id="产品发展进化"><a href="#产品发展进化" class="headerlink" title="产品发展进化"></a>产品发展进化</h2><p>很多好的产品随着时代落幕，也有更多好的产品变得更加成熟。一些产品或者服务被收购，网址更新成集团网址。这里提两个和我的主业没关系的网站，以前偏社区，现在正式商业化运作，希望他们未来更加美好。</p><ul><li>Tushare：<a href="http://www.tushare.org/">www.tushare.org</a> &#x3D;&gt; <a href="https://tushare.pro/">tushare.pro</a></li><li>vn.py：<a href="https://www.vnpy.com/">vnpy.com</a></li></ul>]]></content>
     
@@ -61,8 +81,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -71,7 +89,7 @@
     <link href="https://ldsink.com/articles/fuck-zhihu/"/>
     <id>https://ldsink.com/articles/fuck-zhihu/</id>
     <published>2022-02-12T03:06:06.000Z</published>
-    <updated>2022-02-18T03:16:07.392Z</updated>
+    <updated>2022-05-29T06:23:31.790Z</updated>
     
     <content type="html"><![CDATA[<p>知乎老用户，这些年来，见证各种骚操作。好端端的知识分享网站沦落成一个无良XX。</p><p>产品设计上：</p><ul><li>有教用户做人的无法按照用户关注来的Feed流</li><li>有时不时插入回答的小广告</li><li>有知音读者故事会风格的盐选小故事</li><li>有强制开屏小广告（切换APP都会强制弹出）</li><li>有一不小心就会滑到就自动下载并播放的低俗视频</li><li>有刻意设计让你容易误触的向下和点赞按钮</li><li>有不知道什么时候强制关注的一堆问题</li><li>有无法隐藏的个人动态</li></ul><p>除开产品，还有不知道 G 点在哪里的小管家。</p><p>稍微一盘点，老实说，如此不把用户当人看的产品，我还在使用，真佩服自己的忍耐力。可能知乎在早期确实给我留下了太好的印象，当时从上面很多专业大佬会分享知识，学习到了很多。但是现在，只能呵呵。</p><p>因为是老用户，还是和一些朋友互相关注，直接注销账号感觉有些可惜。账号留着，但是估计不会再使用，找了一些方法，尽可能的减少感到恶心的地方。</p><h3 id="关闭最近浏览"><a href="#关闭最近浏览" class="headerlink" title="关闭最近浏览"></a>关闭最近浏览</h3><p>进入 APP，<code>我的</code> -&gt; <code>最近浏览</code>，点击右上角三个点图标的设置，可以 <code>关闭最近浏览</code>。</p><h3 id="批量取消关注的问题"><a href="#批量取消关注的问题" class="headerlink" title="批量取消关注的问题"></a>批量取消关注的问题</h3><p>不知道是哪个版本引入的功能，可能有点赞或者评论就会自动关注问题，再配合 APP 刻意设计的误触式点赞，我发现自己多了千余个关注的问题。再次 bibibi……</p><p>参考知乎上<a href="https://www.zhihu.com/people/shi-xiao-jie-23">小荷才</a>在问题<a href="https://www.zhihu.com/question/27922502/answer/964383258">如何批量取消关注的问题？</a>的回答，可以使用如下方式：</p><ol><li>打开<strong>旧版</strong>我关注的问提的页面 <a href="https://www.zhihu.com/question/following">https://www.zhihu.com/question/following</a></li><li><code>F12</code> 打开浏览器控制台，切换到<code>控制台</code>部分</li><li>粘贴如下的代码并回车执行，会自动往下翻页并取消关注</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">unfollow_all</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> remaining = $(<span class="string">&quot;.zg-unfollow&quot;</span>).<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">if</span> (remaining &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        $(<span class="string">&quot;.zg-unfollow&quot;</span>).<span class="title function_">first</span>().<span class="title function_">trigger</span>(<span class="string">&#x27;click&#x27;</span>);</span><br><span class="line">        <span class="built_in">setTimeout</span>(unfollow_all, <span class="number">1000</span>);</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">unfollow_all</span>();</span><br></pre></td></tr></table></figure><h3 id="批量取消个人中心的点赞"><a href="#批量取消个人中心的点赞" class="headerlink" title="批量取消个人中心的点赞"></a>批量取消个人中心的点赞</h3><p>个人中心的点赞也无法隐藏。我不想去深究这么设计的原因是为了追求更多的用户数据，还是知乎产品经理的大脑发育有部分缺陷。批量取消关注的问题提供了一个思路，自己动手写了个JS函数，模拟点击取消投票。</p><p>步骤如下：</p><ol><li>打开<code>我的主页</code> <a href="https://www.zhihu.com/people/%E7%94%A8%E6%88%B7ID/">https://www.zhihu.com/people/用户ID/</a></li><li><code>F12</code> 打开浏览器控制台，切换到<code>控制台</code>部分</li><li>粘贴如下的代码并回车执行，会自动往下翻页并取消点赞。取消一定数量之后，会触发知乎的拦截，那就休息一下，过一阵再来，总能取消干净。</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> neutralCount = <span class="number">0</span> </span><br><span class="line"><span class="keyword">const</span> <span class="title function_">neutral</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> button = $(<span class="string">&quot;button.VoteButton.is-active&quot;</span>) <span class="comment">// 定位到一个已投票按钮</span></span><br><span class="line">    <span class="keyword">if</span> (!button) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>) <span class="comment">// 下划到底部，触发新数据的加载</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        button.<span class="title function_">click</span>() <span class="comment">// 触发点击，取消投票</span></span><br><span class="line">        neutralCount++ <span class="comment">// 计数器加 1</span></span><br><span class="line">        <span class="keyword">if</span> (neutralCount % <span class="number">10</span> == <span class="number">0</span>) <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`已取消 <span class="subst">$&#123;neutralCount&#125;</span> 次投票`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">setTimeout</span>(neutral, <span class="number">1000</span>) <span class="comment">// 休息一下，找下一个目标，继续取消</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">neutral</span>()</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -88,8 +106,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -98,7 +114,7 @@
     <link href="https://ldsink.com/articles/2022-happy-new-year/"/>
     <id>https://ldsink.com/articles/2022-happy-new-year/</id>
     <published>2022-02-01T08:29:55.000Z</published>
-    <updated>2022-02-01T08:31:06.809Z</updated>
+    <updated>2022-05-29T06:23:32.002Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/2022-InfoQ.png" alt="2022-InfoQ"></p>]]></content>
     
@@ -111,8 +127,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -121,9 +135,9 @@
     <link href="https://ldsink.com/articles/recommended-efficiency-tools/"/>
     <id>https://ldsink.com/articles/recommended-efficiency-tools/</id>
     <published>2021-10-31T04:23:19.000Z</published>
-    <updated>2021-11-24T10:04:19.965Z</updated>
+    <updated>2022-05-29T06:23:31.930Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="选取标准"><a href="#选取标准" class="headerlink" title="选取标准"></a>选取标准</h2><ul><li>“工欲善其事必先利其器”，确实能实际的提高效率。</li><li>跨平台支持，可以在 Linux、Windows 和 macOS 上使用（排名有先后）。</li><li>属于 活跃开源项目 或者 有商业公司支持。不推荐已经无人维护的软件。</li></ul><h2 id="工具目录"><a href="#工具目录" class="headerlink" title="工具目录"></a>工具目录</h2><h3 id="uTools"><a href="#uTools" class="headerlink" title="uTools"></a>uTools</h3><p>新一代效率工具平台， <a href="https://u.tools/">https://u.tools/</a>。</p><p>核心功能：</p><ol><li>快速启动</li><li>文件搜索（配合 Everything）</li><li>第三方插件</li></ol><h3 id="Zeal"><a href="#Zeal" class="headerlink" title="Zeal"></a>Zeal</h3><p>离线文档浏览，<a href="https://zealdocs.org/">https://zealdocs.org/</a>。</p><h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>国内最好的同步盘，<a href="https://www.jianguoyun.com/">https://www.jianguoyun.com/</a>。</p><p>同步盘和网盘的区别：</p><ul><li>同步盘：本机的一个文件夹和远端服务器的一个文件夹绑定，任意一端的变动双向同步。</li><li>网盘：远端服务器多了一块空间很大的文件夹，对这个文件夹操作只影响这个文件夹。</li></ul><h3 id="KeePassXC"><a href="#KeePassXC" class="headerlink" title="KeePassXC"></a>KeePassXC</h3><p>密码管理工具，<a href="https://keepassxc.org/">https://keepassxc.org/</a>。</p><p>一开始 KeePass，再 KeePassX，最终 KeePassXC。</p><h3 id="WPS-Office"><a href="#WPS-Office" class="headerlink" title="WPS Office"></a>WPS Office</h3><p>一站式办公服务平台，<a href="https://www.wps.cn/">https://www.wps.cn/</a>。</p><p>优点：</p><ul><li>政企用户基本使用 WPS</li><li>很好的支持 Linux</li><li>很好的支持 Android</li><li>很好的支持 macOS</li><li>自带海量模板库，支持海报等功能契合国内公众号生态</li><li>整合一堆第三方功能，付费之后功能完善 &amp; 性价比很高</li></ul><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="向日葵-amp-花生壳"><a href="#向日葵-amp-花生壳" class="headerlink" title="向日葵 &amp; 花生壳"></a>向日葵 &amp; 花生壳</h4><p>向日葵：远程控制软件，<a href="https://sunlogin.oray.com/">https://sunlogin.oray.com/</a>。</p><p>花生壳：内网穿透软件，<a href="https://hsk.oray.com/">https://hsk.oray.com/</a>。</p><h4 id="XMind-MindMaster-EdrawMax"><a href="#XMind-MindMaster-EdrawMax" class="headerlink" title="XMind / MindMaster / EdrawMax"></a>XMind / MindMaster / EdrawMax</h4><p>脑图、流程图类工具</p><h4 id="Cryptomator"><a href="#Cryptomator" class="headerlink" title="Cryptomator"></a>Cryptomator</h4><p>开源免费的云同步网盘加密工具，<a href="https://cryptomator.org/">https://cryptomator.org/</a>。</p><h4 id="Firefox-Browser"><a href="#Firefox-Browser" class="headerlink" title="Firefox Browser"></a>Firefox Browser</h4><p><strong>务必使用国际版</strong></p><p><a href="https://www.mozilla.org/zh-CN/firefox/browsers/">https://www.mozilla.org/zh-CN/firefox/browsers/</a></p><h4 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h4><p>Free. Built on open source. Runs everywhere.</p><p>使用历史：<code>Notepad++</code> -&gt; <code>Sublime Text</code> -&gt; <code>Atom</code> -&gt; <code>Visual Studio Code</code></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="选取标准"><a href="#选取标准" class="headerlink" title="选取标准"></a>选取标准</h2><ul><li>“工欲善其事必先利其器”，确实能实际的提高效率。</li><li>跨平台支持，可以在 Linux、Windows 和 macOS 上使用（排名有先后）。</li><li>属于 活跃开源项目 或者 有商业公司支持。不推荐已经无人维护的软件。</li></ul><h2 id="工具目录"><a href="#工具目录" class="headerlink" title="工具目录"></a>工具目录</h2><h3 id="uTools"><a href="#uTools" class="headerlink" title="uTools"></a>uTools</h3><p>新一代效率工具平台， <a href="https://u.tools/">https://u.tools/</a>。</p><p>核心功能：</p><ol><li>快速启动</li><li>文件搜索（配合 Everything）</li><li>第三方插件</li></ol><h3 id="Zeal"><a href="#Zeal" class="headerlink" title="Zeal"></a>Zeal</h3><p>离线文档浏览，<a href="https://zealdocs.org/">https://zealdocs.org/</a>。</p><h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>国内最好的同步盘，<a href="https://www.jianguoyun.com/">https://www.jianguoyun.com/</a>。</p><p>同步盘和网盘的区别：</p><ul><li>同步盘：本机的一个文件夹和远端服务器的一个文件夹绑定，任意一端的变动双向同步。</li><li>网盘：远端服务器多了一块空间很大的文件夹，对这个文件夹操作只影响这个文件夹。</li></ul><h3 id="KeePassXC"><a href="#KeePassXC" class="headerlink" title="KeePassXC"></a>KeePassXC</h3><p>密码管理工具，<a href="https://keepassxc.org/">https://keepassxc.org/</a>。</p><p>一开始 KeePass，再 KeePassX，最终 KeePassXC。</p><h3 id="WPS-Office"><a href="#WPS-Office" class="headerlink" title="WPS Office"></a>WPS Office</h3><p>一站式办公服务平台，<a href="https://www.wps.cn/">https://www.wps.cn/</a>。</p><p>优点：</p><ul><li>政企用户基本使用 WPS</li><li>很好的支持 Linux</li><li>很好的支持 Android</li><li>很好的支持 macOS</li><li>自带海量模板库，支持海报等功能契合国内公众号生态</li><li>整合一堆第三方功能，付费之后功能完善 &amp; 性价比很高</li></ul><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="向日葵-amp-花生壳"><a href="#向日葵-amp-花生壳" class="headerlink" title="向日葵 &amp; 花生壳"></a>向日葵 &amp; 花生壳</h4><p>向日葵：远程控制软件，<a href="https://sunlogin.oray.com/">https://sunlogin.oray.com/</a>。</p><p>花生壳：内网穿透软件，<a href="https://hsk.oray.com/">https://hsk.oray.com/</a>。</p><h4 id="XMind-x2F-MindMaster-x2F-EdrawMax"><a href="#XMind-x2F-MindMaster-x2F-EdrawMax" class="headerlink" title="XMind &#x2F; MindMaster &#x2F; EdrawMax"></a>XMind &#x2F; MindMaster &#x2F; EdrawMax</h4><p>脑图、流程图类工具</p><h4 id="Cryptomator"><a href="#Cryptomator" class="headerlink" title="Cryptomator"></a>Cryptomator</h4><p>开源免费的云同步网盘加密工具，<a href="https://cryptomator.org/">https://cryptomator.org/</a>。</p><h4 id="Firefox-Browser"><a href="#Firefox-Browser" class="headerlink" title="Firefox Browser"></a>Firefox Browser</h4><p><strong>务必使用国际版</strong></p><p><a href="https://www.mozilla.org/zh-CN/firefox/browsers/">https://www.mozilla.org/zh-CN/firefox/browsers/</a></p><h4 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h4><p>Free. Built on open source. Runs everywhere.</p><p>使用历史：<code>Notepad++</code> -&gt; <code>Sublime Text</code> -&gt; <code>Atom</code> -&gt; <code>Visual Studio Code</code></p>]]></content>
     
     
       
@@ -135,8 +149,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -145,7 +157,7 @@
     <link href="https://ldsink.com/articles/cpc-100th-anniversary/"/>
     <id>https://ldsink.com/articles/cpc-100th-anniversary/</id>
     <published>2021-07-01T15:45:01.000Z</published>
-    <updated>2021-11-24T10:04:19.965Z</updated>
+    <updated>2022-05-29T06:23:31.810Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/cpc-100th-anniversary.webp" alt="image"></p><p><strong>胸怀千秋伟业，恰是百年风华。</strong></p><p><strong>伟大、光荣、正确的中国共产党万岁！</strong></p><p><strong>伟大、光荣、英雄的中国人民万岁！</strong></p>]]></content>
     
@@ -159,8 +171,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -169,7 +179,7 @@
     <link href="https://ldsink.com/articles/how-to-run-a-shell-script-at-startup/"/>
     <id>https://ldsink.com/articles/how-to-run-a-shell-script-at-startup/</id>
     <published>2021-06-27T07:40:45.000Z</published>
-    <updated>2021-11-24T10:04:19.965Z</updated>
+    <updated>2022-05-29T06:23:31.738Z</updated>
     
     <content type="html"><![CDATA[<p>Linux 环境下，一般需要自启动执行任务，需要修改 <code>/etc/init.d</code> 或者 <code>/etc/rc.d/</code>。 这里介绍一个简单方式，通过 <code>crontab</code> 来实现这个目的。</p><p>执行</p><blockquote><p>crontab -e</p></blockquote><p>增加如下内容，其中 <code>/path/to/your/script.sh</code> 替换成需要执行的命令或者脚本。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@reboot  /path/to/your/script.sh</span><br></pre></td></tr></table></figure><p><code>crontab</code> 一般用于定时执行任务，但是它还提供了 <code>@reboot</code> 用于启动之后执行。 推荐一个非常好用的网站 <a href="https://crontab.guru/">crontab.guru</a> ，可以用来检测命令，预测下一次任务的启动时间。</p><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul><li><a href="https://stackoverflow.com/questions/12973777/how-to-run-a-shell-script-at-startup">How to run a shell script at startup</a></li></ul>]]></content>
     
@@ -181,8 +191,6 @@
       
     
     
-    
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
     
     
     <category term="how-to" scheme="https://ldsink.com/tags/how-to/"/>
@@ -196,9 +204,9 @@
     <link href="https://ldsink.com/articles/how-to-execute-sudo-without-password/"/>
     <id>https://ldsink.com/articles/how-to-execute-sudo-without-password/</id>
     <published>2021-06-27T07:00:45.000Z</published>
-    <updated>2021-11-24T10:04:19.965Z</updated>
+    <updated>2022-05-29T06:23:31.610Z</updated>
     
-    <content type="html"><![CDATA[<p>Linux 中，一些操作需要使用 <code>sudo</code> 命令进行提权到 <code>root</code> 后才可以顺利执行。默认这一步操作是需要输入密码的，可以通过设置免除密码。</p><h1 id="获取用户名"><a href="#获取用户名" class="headerlink" title="获取用户名"></a>获取用户名</h1><p>执行如下命令，获得当前用户的用户名。</p><blockquote><p>echo $USER</p></blockquote><h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>配置文件位于 <code>/etc/sudoers</code>，但是注意，<strong>千万不要直接修改这个文件！</strong> 我见过太多直接修改这个文件造成系统无法启动的例子了。 正确的方式是使用 <code>visudo</code> 命令修改。执行</p><blockquote><p>sudo visudo</p></blockquote><p>按下 <code>Shift+g</code> 切换到文件尾部，按下 <code>o</code> 新增一行， 将下面这一行添加到文件尾部（<code>$USER</code> 替换成之前获取到的用户名）。 <code>Shift+z+z</code> 保存并退出。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure><p>注销或者重启之后，再次使用 <code>sudo</code> 命令就不需要输入密码了。</p><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><code>sudo</code> 本身是个危险操作，执行之后会使用最高的 <code>root</code> 权限执行命令。很多发行版第一次执行都会给出提示，比如 <code>deepin</code> 会有如下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">我们信任您已经从系统管理员那里了解了日常注意事项。</span><br><span class="line">总结起来无外乎这三点：</span><br><span class="line"></span><br><span class="line">    #1) 尊重别人的隐私。</span><br><span class="line">    #2) 输入前要先考虑(后果和风险)。</span><br><span class="line">    #3) 权力越大，责任越大。</span><br></pre></td></tr></table></figure><p>同时用户目录会生成 <code>.sudo_as_admin_successful</code> 文件，表示已经给出过提示。</p><p>我非常喜欢这三点提示。</p><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul><li><a href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Execute sudo without Password?</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>Linux 中，一些操作需要使用 <code>sudo</code> 命令进行提权到 <code>root</code> 后才可以顺利执行。默认这一步操作是需要输入密码的，可以通过设置免除密码。</p><h1 id="获取用户名"><a href="#获取用户名" class="headerlink" title="获取用户名"></a>获取用户名</h1><p>执行如下命令，获得当前用户的用户名。</p><blockquote><p>echo $USER</p></blockquote><h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>配置文件位于 <code>/etc/sudoers</code>，但是注意，<strong>千万不要直接修改这个文件！</strong> 我见过太多直接修改这个文件造成系统无法启动的例子了。 正确的方式是使用 <code>visudo</code> 命令修改。执行</p><blockquote><p>sudo visudo</p></blockquote><p>按下 <code>Shift+g</code> 切换到文件尾部，按下 <code>o</code> 新增一行， 将下面这一行添加到文件尾部（<code>$USER</code> 替换成之前获取到的用户名）。 <code>Shift+z+z</code> 保存并退出。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="language-bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure><p>注销或者重启之后，再次使用 <code>sudo</code> 命令就不需要输入密码了。</p><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><code>sudo</code> 本身是个危险操作，执行之后会使用最高的 <code>root</code> 权限执行命令。很多发行版第一次执行都会给出提示，比如 <code>deepin</code> 会有如下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">我们信任您已经从系统管理员那里了解了日常注意事项。</span><br><span class="line">总结起来无外乎这三点：</span><br><span class="line"></span><br><span class="line">    #1) 尊重别人的隐私。</span><br><span class="line">    #2) 输入前要先考虑(后果和风险)。</span><br><span class="line">    #3) 权力越大，责任越大。</span><br></pre></td></tr></table></figure><p>同时用户目录会生成 <code>.sudo_as_admin_successful</code> 文件，表示已经给出过提示。</p><p>我非常喜欢这三点提示。</p><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul><li><a href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Execute sudo without Password?</a></li></ul>]]></content>
     
     
       
@@ -208,8 +216,6 @@
       
     
     
-    
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
     
     
     <category term="how-to" scheme="https://ldsink.com/tags/how-to/"/>
@@ -246,7 +252,7 @@
     <link href="https://ldsink.com/articles/organize-key-files/"/>
     <id>https://ldsink.com/articles/organize-key-files/</id>
     <published>2020-09-11T04:30:46.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.770Z</updated>
     
     <content type="html"><![CDATA[<h3 id="密钥的取舍"><a href="#密钥的取舍" class="headerlink" title="密钥的取舍"></a>密钥的取舍</h3><p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保留一种，安全性高优先”</strong> 的原则进行清理。已知：</p><ul><li><code>rsa</code> 和 <code>dsa</code> 基于大数因数分解。</li><li><code>ecdsa</code> 和 <code>ed25519</code> 基于椭圆曲线离散对数问题。</li><li><code>rsa</code> 长度 4096 位之后目前可以视为安全。</li><li><code>dsa</code> 已被认为不安全。</li><li><code>ecdsa</code> 政治上：算法选择由 <a href="https://www.nist.gov/">NIST</a> 设定；技术上：过于复杂以至于无法完善的检查。因此也视为不安全。</li><li><code>ed25519</code> 安全性最高，性能最好。<a href="https://www.openssh.com/txt/release-6.5">但是需要比较新的版本（OpenSSH 6.5+）才支持</a>。</li></ul><p>最后保留4096位的<code>rsa</code>密钥和<code>ed25519</code>密钥。在允许的情况下优先使用<code>ed25519</code>密钥。</p><h3 id="“秘”和“密”的区别"><a href="#“秘”和“密”的区别" class="headerlink" title="“秘”和“密”的区别"></a>“秘”和“密”的区别</h3><p>这是一个题外话。前几天同事注释把密钥写成了秘钥，我发现了这个错别字。改正之后，我们对这个字的含义产生了兴趣。因为“秘密”这个词表示隐秘，两个单字应该都有近似的含义，那为什么是“密钥”而不是“秘钥”。“秘”和“密”的区别是什么？</p><p>一番查证，归纳出了如下区别：</p><table><thead><tr><th>秘</th><th>密</th></tr></thead><tbody><tr><td>客观，被动</td><td>主观，主动</td></tr><tr><td>内容本身隐蔽，强调的是不易知</td><td>需要去隐蔽内容，强调的是不让知</td></tr><tr><td>神鬼之事、高深莫测、罕闻稀见</td><td>人为之事、故意遮掩、严加控制</td></tr><tr><td>例词：秘本、秘方、秘史、秘闻、秘笈</td><td>例词：密封、密谈、密约、保密、泄密、解密、绝密、机密</td></tr></tbody></table><p>汉语博大精深。</p><h3 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h3><ul><li><a href="https://medium.com/@honglong/%E9%81%B8%E6%93%87-ssh-key-%E7%9A%84%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95-70ca45c94d8e">選擇 SSH key 的加密演算法</a></li><li><a href="https://sohfrance.com/%E7%A7%98%E3%80%81%E5%AF%86%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/">秘、密如何区别</a></li></ul>]]></content>
     
@@ -258,8 +264,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -268,9 +272,9 @@
     <link href="https://ldsink.com/articles/uos-20/"/>
     <id>https://ldsink.com/articles/uos-20/</id>
     <published>2020-07-14T04:17:26.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.654Z</updated>
     
-    <content type="html"><![CDATA[<p>本来刚出就打算升级的，各种原因耽误了，最近终于动手升级了系统版本。下文为纯主观体验。</p><h2 id="系统变化"><a href="#系统变化" class="headerlink" title="系统变化"></a>系统变化</h2><ul><li>界面比 15 版本好看很多，整个系统风格统一成圆角风格。</li><li>默认壁纸多了一些漂亮的风景画。</li><li>UOS 20 个人版作为商业版本需要激活，并且需要登录账号进入开发者模式才能打开 root 权限。deepin 20 作为社区版本无此限制。</li><li>底层基于 debian 10.3，内核 5.3。安装第三方应用可以依次找对应的包。lsb_release 无法获取版本号，实际应该是 debian buster。</li><li>默认是个简单的套壳浏览器。按需换成 Firefox 或者 Chrome（期待巨硬未来的 Edge）。</li><li>应用商店软件版本比 15 新很多。deepin 人手也不多，目前看起来只能尽力维护 20 版本的，体谅。</li><li>因为有私有软件，更新源变成两个。系统一个，独立的应用商店一个。从这里可以得到 UOS20 的 codename 应该是 plum，应用商店是 eagle。</li></ul><h2 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h2><p>默认的终端变回了 bash，并且用的是 debian 默认的 gnome 终端，可以在应用商店安装老版本的 deepin-terminal。</p><h3 id="当前用户-sudo-免密码-Ref"><a href="#当前用户-sudo-免密码-Ref" class="headerlink" title="当前用户 sudo 免密码 Ref"></a>当前用户 sudo 免密码 <a href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Ref</a></h3><blockquote><p>sudo visudo<br>$USER ALL=(ALL) NOPASSWD: ALL</p></blockquote><p><code>$USER</code>替换成当前用户名</p><h3 id="默认编辑器使用-vim"><a href="#默认编辑器使用-vim" class="headerlink" title="默认编辑器使用 vim"></a>默认编辑器使用 vim</h3><blockquote><p>sudo update-alternatives –config editor</p></blockquote><h3 id="切换-zsh"><a href="#切换-zsh" class="headerlink" title="切换 zsh"></a>切换 zsh</h3><p>参考<a href="https://ldsink.com/articles/install-zsh-on-ubuntu/">Ubuntu 上安装 zsh</a></p><h2 id="权限和配置"><a href="#权限和配置" class="headerlink" title="权限和配置"></a>权限和配置</h2><p>一些配置文件从旧系统复制到新系统，包括</p><ul><li>.ssh</li><li>.gnupg</li><li>.profile</li><li>.zshrc</li><li>.vscode</li><li>.pip</li><li>.docker</li><li>.npm</li><li>.fonts</li><li>.gitconfig</li><li>.git-credentials</li><li>.gitignore</li><li>Jetbrains 全家桶各个配置</li></ul><h2 id="软件应用"><a href="#软件应用" class="headerlink" title="软件应用"></a>软件应用</h2><h3 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h3><ul><li>默认输入法不再是搜狗，搜狗官网的包有问题，需要命令行安装。<code>sudo apt install sogoupinyin -y</code></li><li>可以在应用商店内安装迅飞输入法。</li><li>百度输入法目前的体验很糟糕，正常用还需要等等。</li></ul><h3 id="安全中心"><a href="#安全中心" class="headerlink" title="安全中心"></a>安全中心</h3><p>这个东西看用途是一个可视化的防火墙，为普通用户提供网络管理功能。<br>但是，对于开发者来说，这东西极其糟糕，建议卸载。主要问题是<strong>这东西会限制一些服务的端口监听</strong>，调试需要使用的一些代理都会被限制。</p><p>命令行卸载：</p><blockquote><p>sudo apt remove -y deepin-defender</p></blockquote><p>删除配置文件：</p><blockquote><p>rm ~/.deepin-defender</p></blockquote><p>重启之后恢复正常</p><h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>目前应用商店没有上架，我使用源代码方式编译安装。安装完成之后还需要多装一个 Notify，之后重启电脑，可以正常使用。</p><blockquote><p>sudo apt install gir1.2-notify-0.7</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<p>本来刚出就打算升级的，各种原因耽误了，最近终于动手升级了系统版本。下文为纯主观体验。</p><h2 id="系统变化"><a href="#系统变化" class="headerlink" title="系统变化"></a>系统变化</h2><ul><li>界面比 15 版本好看很多，整个系统风格统一成圆角风格。</li><li>默认壁纸多了一些漂亮的风景画。</li><li>UOS 20 个人版作为商业版本需要激活，并且需要登录账号进入开发者模式才能打开 root 权限。deepin 20 作为社区版本无此限制。</li><li>底层基于 debian 10.3，内核 5.3。安装第三方应用可以依次找对应的包。lsb_release 无法获取版本号，实际应该是 debian buster。</li><li>默认是个简单的套壳浏览器。按需换成 Firefox 或者 Chrome（期待巨硬未来的 Edge）。</li><li>应用商店软件版本比 15 新很多。deepin 人手也不多，目前看起来只能尽力维护 20 版本的，体谅。</li><li>因为有私有软件，更新源变成两个。系统一个，独立的应用商店一个。从这里可以得到 UOS20 的 codename 应该是 plum，应用商店是 eagle。</li></ul><h2 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h2><p>默认的终端变回了 bash，并且用的是 debian 默认的 gnome 终端，可以在应用商店安装老版本的 deepin-terminal。</p><h3 id="当前用户-sudo-免密码-Ref"><a href="#当前用户-sudo-免密码-Ref" class="headerlink" title="当前用户 sudo 免密码 Ref"></a>当前用户 sudo 免密码 <a href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Ref</a></h3><blockquote><p>sudo visudo<br>$USER ALL&#x3D;(ALL) NOPASSWD: ALL</p></blockquote><p><code>$USER</code>替换成当前用户名</p><h3 id="默认编辑器使用-vim"><a href="#默认编辑器使用-vim" class="headerlink" title="默认编辑器使用 vim"></a>默认编辑器使用 vim</h3><blockquote><p>sudo update-alternatives –config editor</p></blockquote><h3 id="切换-zsh"><a href="#切换-zsh" class="headerlink" title="切换 zsh"></a>切换 zsh</h3><p>参考<a href="https://ldsink.com/articles/install-zsh-on-ubuntu/">Ubuntu 上安装 zsh</a></p><h2 id="权限和配置"><a href="#权限和配置" class="headerlink" title="权限和配置"></a>权限和配置</h2><p>一些配置文件从旧系统复制到新系统，包括</p><ul><li>.ssh</li><li>.gnupg</li><li>.profile</li><li>.zshrc</li><li>.vscode</li><li>.pip</li><li>.docker</li><li>.npm</li><li>.fonts</li><li>.gitconfig</li><li>.git-credentials</li><li>.gitignore</li><li>Jetbrains 全家桶各个配置</li></ul><h2 id="软件应用"><a href="#软件应用" class="headerlink" title="软件应用"></a>软件应用</h2><h3 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h3><ul><li>默认输入法不再是搜狗，搜狗官网的包有问题，需要命令行安装。<code>sudo apt install sogoupinyin -y</code></li><li>可以在应用商店内安装迅飞输入法。</li><li>百度输入法目前的体验很糟糕，正常用还需要等等。</li></ul><h3 id="安全中心"><a href="#安全中心" class="headerlink" title="安全中心"></a>安全中心</h3><p>这个东西看用途是一个可视化的防火墙，为普通用户提供网络管理功能。<br>但是，对于开发者来说，这东西极其糟糕，建议卸载。主要问题是<strong>这东西会限制一些服务的端口监听</strong>，调试需要使用的一些代理都会被限制。</p><p>命令行卸载：</p><blockquote><p>sudo apt remove -y deepin-defender</p></blockquote><p>删除配置文件：</p><blockquote><p>rm ~&#x2F;.deepin-defender</p></blockquote><p>重启之后恢复正常</p><h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>目前应用商店没有上架，我使用源代码方式编译安装。安装完成之后还需要多装一个 Notify，之后重启电脑，可以正常使用。</p><blockquote><p>sudo apt install gir1.2-notify-0.7</p></blockquote>]]></content>
     
     
       
@@ -282,8 +286,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
     <category term="deepin" scheme="https://ldsink.com/tags/deepin/"/>
     
@@ -294,9 +296,9 @@
     <link href="https://ldsink.com/articles/tuning-nginx/"/>
     <id>https://ldsink.com/articles/tuning-nginx/</id>
     <published>2020-04-10T08:27:49.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.654Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="调整-Linux-配置"><a href="#调整-Linux-配置" class="headerlink" title="调整 Linux 配置"></a>调整 Linux 配置</h1><h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><h3 id="系统层面"><a href="#系统层面" class="headerlink" title="系统层面"></a>系统层面</h3><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>fs.file-max</code> 参数值。</p><blockquote><p>fs.file-max = 200000</p></blockquote><p>验证方式：</p><blockquote><p>cat /proc/sys/fs/file-max</p></blockquote><h3 id="用户层面"><a href="#用户层面" class="headerlink" title="用户层面"></a>用户层面</h3><p>编辑 <code>/etc/security/limits.conf</code>，增加以下内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  soft nproc  65535</span><br><span class="line">*  hard nproc  65535</span><br><span class="line">*  soft nofile 65535</span><br><span class="line">*  hard nofile 65535</span><br></pre></td></tr></table></figure><p>验证方式：</p><blockquote><p>ulimit -n</p></blockquote><h2 id="临时端口"><a href="#临时端口" class="headerlink" title="临时端口"></a>临时端口</h2><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>net.ipv4.ip_local_port_range</code> 参数值。</p><blockquote><p>net.ipv4.ip_local_port_range = 1024 65000</p></blockquote><p>验证方式：</p><blockquote><p>cat /proc/sys/net/ipv4/ip_local_port_range</p></blockquote><h1 id="调整-Nginx-配置"><a href="#调整-Nginx-配置" class="headerlink" title="调整 Nginx 配置"></a>调整 Nginx 配置</h1><h2 id="Worker-Processes"><a href="#Worker-Processes" class="headerlink" title="Worker Processes"></a>Worker Processes</h2><ul><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_processes">worker_processes</a> - 和CPU核心数一致，建议直接使用<code>auto</code>。</li><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_connections">worker_connections</a> - <code>worker_processes</code>*<code>worker_connections</code> 即为总并发数，根据实际情况调整。</li><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_rlimit_nofile">worker_rlimit_nofile</a> - worker 进程打开的最大文件数，可设置为用户的文件打开限制 <code>ulimit -n</code>。</li></ul><h2 id="保持连接"><a href="#保持连接" class="headerlink" title="保持连接"></a>保持连接</h2><p>相关介绍： <a href="https://www.nginx.com/blog/http-keepalives-and-web-performance/">HTTP Keepalive Connections and Web Performance</a></p><ul><li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_requests">keepalive_requests</a> - 建议根据实际情况调高</li><li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout">keepalive_timeout</a> – 空闲连接关闭时间</li></ul><h2 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h2><p>记录日志会消耗 CPU 和 I/O 资源。</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="隐藏-Nginx-具体版本"><a href="#隐藏-Nginx-具体版本" class="headerlink" title="隐藏 Nginx 具体版本"></a>隐藏 Nginx 具体版本</h3><blockquote><p>server_tokens off;</p></blockquote><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul><li><a href="https://www.nginx.com/blog/tuning-nginx/">Tuning NGINX for Performance</a></li><li><a href="https://www.nginx.com/blog/http-keepalives-and-web-performance/">HTTP Keepalive Connections and Web Performance</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="调整-Linux-配置"><a href="#调整-Linux-配置" class="headerlink" title="调整 Linux 配置"></a>调整 Linux 配置</h1><h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><h3 id="系统层面"><a href="#系统层面" class="headerlink" title="系统层面"></a>系统层面</h3><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>fs.file-max</code> 参数值。</p><blockquote><p>fs.file-max &#x3D; 200000</p></blockquote><p>验证方式：</p><blockquote><p>cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max</p></blockquote><h3 id="用户层面"><a href="#用户层面" class="headerlink" title="用户层面"></a>用户层面</h3><p>编辑 <code>/etc/security/limits.conf</code>，增加以下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  soft nproc  65535</span><br><span class="line">*  hard nproc  65535</span><br><span class="line">*  soft nofile 65535</span><br><span class="line">*  hard nofile 65535</span><br></pre></td></tr></table></figure><p>验证方式：</p><blockquote><p>ulimit -n</p></blockquote><h2 id="临时端口"><a href="#临时端口" class="headerlink" title="临时端口"></a>临时端口</h2><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>net.ipv4.ip_local_port_range</code> 参数值。</p><blockquote><p>net.ipv4.ip_local_port_range &#x3D; 1024 65000</p></blockquote><p>验证方式：</p><blockquote><p>cat &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_local_port_range</p></blockquote><h1 id="调整-Nginx-配置"><a href="#调整-Nginx-配置" class="headerlink" title="调整 Nginx 配置"></a>调整 Nginx 配置</h1><h2 id="Worker-Processes"><a href="#Worker-Processes" class="headerlink" title="Worker Processes"></a>Worker Processes</h2><ul><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_processes">worker_processes</a> - 和CPU核心数一致，建议直接使用<code>auto</code>。</li><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_connections">worker_connections</a> - <code>worker_processes</code>*<code>worker_connections</code> 即为总并发数，根据实际情况调整。</li><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_rlimit_nofile">worker_rlimit_nofile</a> - worker 进程打开的最大文件数，可设置为用户的文件打开限制 <code>ulimit -n</code>。</li></ul><h2 id="保持连接"><a href="#保持连接" class="headerlink" title="保持连接"></a>保持连接</h2><p>相关介绍： <a href="https://www.nginx.com/blog/http-keepalives-and-web-performance/">HTTP Keepalive Connections and Web Performance</a></p><ul><li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_requests">keepalive_requests</a> - 建议根据实际情况调高</li><li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout">keepalive_timeout</a> – 空闲连接关闭时间</li></ul><h2 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h2><p>记录日志会消耗 CPU 和 I&#x2F;O 资源。</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="隐藏-Nginx-具体版本"><a href="#隐藏-Nginx-具体版本" class="headerlink" title="隐藏 Nginx 具体版本"></a>隐藏 Nginx 具体版本</h3><blockquote><p>server_tokens off;</p></blockquote><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul><li><a href="https://www.nginx.com/blog/tuning-nginx/">Tuning NGINX for Performance</a></li><li><a href="https://www.nginx.com/blog/http-keepalives-and-web-performance/">HTTP Keepalive Connections and Web Performance</a></li></ul>]]></content>
     
     
       
@@ -305,8 +307,6 @@
       
     
     
-    
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
     
     
     <category term="nginx" scheme="https://ldsink.com/tags/nginx/"/>
@@ -318,7 +318,7 @@
     <link href="https://ldsink.com/articles/toolbox-updates-2020-02/"/>
     <id>https://ldsink.com/articles/toolbox-updates-2020-02/</id>
     <published>2020-02-10T07:21:49.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:32.062Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/ldsink/toolbox/">toolbox</a> 是自己整理的一些脚本库，将平时用的多的常用操作固定成脚本，可追踪可维护，减少重复劳动。主要有脚本、Shell命令和<code>docker-compose</code>配置三块。</p><h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><ul><li>增加了 <a href="https://raw.githubusercontent.com/ldsink/toolbox/master/install-python.sh">install-python.sh</a> 脚本，方便编译安装对应的 Python 版本</li><li>统一了脚本文件名，依照动词+用途命名，例如 <code>install-XXX</code>、<code>set-XXX</code></li><li><code>Shebang</code> 均使用 <code>#!/usr/bin/env bash</code> <a href="https://en.wikipedia.org/w/index.php?title=Shebang_(Unix)#Portability">提高兼容性</a></li><li>更新、删除了一些失效脚本</li></ul><h3 id="docker-compose配置"><a href="#docker-compose配置" class="headerlink" title="docker-compose配置"></a><code>docker-compose</code>配置</h3><p>简单更新了一下镜像版本。</p><p>其他的遇到了一个有意思的问题，如何在 Jenkins 的容器内继续使用 Docker。参考 <a href="https://forums.docker.com/t/using-docker-in-a-dockerized-jenkins-container/322">Using docker in a dockerized Jenkins container</a> 更新编排文件。</p>]]></content>
     
@@ -330,8 +330,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -340,7 +338,7 @@
     <link href="https://ldsink.com/articles/2020-happy-new-year/"/>
     <id>https://ldsink.com/articles/2020-happy-new-year/</id>
     <published>2020-01-01T06:00:18.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.990Z</updated>
     
     <content type="html"><![CDATA[<p>21世纪的第三个十年，加油！</p><p><img src="https://a.adcdn.cn/images/2020-dream.webp" alt="2020-dream"></p><p><img src="https://a.adcdn.cn/images/python2.7-countdown.webp" alt="python2.7-countdown"></p>]]></content>
     
@@ -354,8 +352,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   
@@ -364,9 +360,9 @@
     <link href="https://ldsink.com/articles/linux-qq-come-back/"/>
     <id>https://ldsink.com/articles/linux-qq-come-back/</id>
     <published>2019-10-25T05:17:47.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.574Z</updated>
     
-    <content type="html"><![CDATA[<p>看到一则新闻，Linux QQ全新回归，号称“从心出发·趣无止境”。官网：<a href="https://im.qq.com/linuxqq/">https://im.qq.com/linuxqq/</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux QQ 2.0.0 Beta（New）2019&#x2F;10&#x2F;24</span><br><span class="line">    - Linux QQ全新回归</span><br><span class="line">    - 支持x64、ARM64、MIPS64三种架构</span><br><span class="line">    - 优化消息体验，完善消息收发能力</span><br><span class="line">    - 性能优化</span><br></pre></td></tr></table></figure><p>高中竞赛的时候 QQ 有 Linux 版本，可惜后面不维护，再后面就没了。现在重新发布，第一时间下载体验。很遗憾，这个复古的界面效果，和十年前的界面没太多的区别。deepin 深色主题下，聊天框背景还都是黑的，很难看清聊天窗口。</p><p>麻利的卸载，继续打开了 Tim，感谢 deepin 商店配置的 wine Tim。希望腾讯继续努力，以后 Linux 原生版本的体验能达到正常水平。</p>]]></content>
+    <content type="html"><![CDATA[<p>看到一则新闻，Linux QQ全新回归，号称“从心出发·趣无止境”。官网：<a href="https://im.qq.com/linuxqq/">https://im.qq.com/linuxqq/</a></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux QQ 2.0.0 Beta（New）2019/10/24</span><br><span class="line">    - Linux QQ全新回归</span><br><span class="line">    - 支持x64、ARM64、MIPS64三种架构</span><br><span class="line">    - 优化消息体验，完善消息收发能力</span><br><span class="line">    - 性能优化</span><br></pre></td></tr></table></figure><p>高中竞赛的时候 QQ 有 Linux 版本，可惜后面不维护，再后面就没了。现在重新发布，第一时间下载体验。很遗憾，这个复古的界面效果，和十年前的界面没太多的区别。deepin 深色主题下，聊天框背景还都是黑的，很难看清聊天窗口。</p><p>麻利的卸载，继续打开了 Tim，感谢 deepin 商店配置的 wine Tim。希望腾讯继续努力，以后 Linux 原生版本的体验能达到正常水平。</p>]]></content>
     
     
       
@@ -376,8 +372,6 @@
       
     
     
-    
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
     
     
     <category term="linux" scheme="https://ldsink.com/tags/linux/"/>
@@ -389,7 +383,7 @@
     <link href="https://ldsink.com/articles/python-style-guide/"/>
     <id>https://ldsink.com/articles/python-style-guide/</id>
     <published>2019-10-23T08:36:09.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.914Z</updated>
     
     <content type="html"><![CDATA[<h1 id="总则"><a href="#总则" class="headerlink" title="总则"></a>总则</h1><p>除非项目有自己的约定，默认应该遵循 <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> 和 <a href="https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/">Google Python 风格指南</a> 的要求。在开始编写代码前，请阅读并了解这两个文档。</p><h1 id="项目约定"><a href="#项目约定" class="headerlink" title="项目约定"></a>项目约定</h1><h2 id="代码布局"><a href="#代码布局" class="headerlink" title="代码布局"></a>代码布局</h2><h3 id="风格"><a href="#风格" class="headerlink" title="风格"></a>风格</h3><ul><li><code>list</code>，<code>tuple</code>，<code>dict</code> 多行定义的时候，每行结尾增加<code>,</code>，用于减少 <code>git diff</code> 时候的变动。</li></ul><h3 id="行长度"><a href="#行长度" class="headerlink" title="行长度"></a>行长度</h3><p>最大行长度180，推荐不超过120。</p><p>推荐在 PyCharm 内设置 <a href="https://www.jetbrains.com/help/pycharm/code-style-python.html#wrapping_and_braces">Wrapping and braces</a>，<code>Visual guides</code>设置为 <code>120, 180</code>。</p><h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h3><p><strong>使用 <code>format</code> 函数进行格式化</strong>，不使用 <code>%</code> 的方式。</p><h3 id="导入格式"><a href="#导入格式" class="headerlink" title="导入格式"></a>导入格式</h3><p>导入超过一行的情况下，使用括号包住引入模块。左括号后直接换行，右括号前不加内容。如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> package_name <span class="keyword">import</span> (</span><br><span class="line">    module_1, module_2, module_3, module_4, module_5</span><br><span class="line">)</span><br></pre></td></tr></table></figure><h3 id="嵌套函数（Nested-function）"><a href="#嵌套函数（Nested-function）" class="headerlink" title="嵌套函数（Nested function）"></a>嵌套函数（Nested function）</h3><ul><li>嵌套函数声明在使用的代码之前的地方</li><li>嵌套函数必须以<code>_</code>前缀开头</li></ul><h3 id="函数命名"><a href="#函数命名" class="headerlink" title="函数命名"></a>函数命名</h3><ul><li>判断检查类型逻辑的函数以 <code>is_</code> 或 <code>has_</code> 前缀开头，返回值应该是 <code>bool</code> 类型</li><li>验证校验类型逻辑的函数以 <code>check_</code> 或 <code>validate_</code> 前缀开头，返回值可以包括相关的对象</li><li>进行操作的函数应该以动词开头，如 <code>set_</code>、<code>get_</code>、<code>process_</code>、<code>enable_</code>、<code>disable_</code> 等</li></ul>]]></content>
     
@@ -401,8 +395,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
     <category term="python" scheme="https://ldsink.com/tags/python/"/>
     
@@ -413,7 +405,7 @@
     <link href="https://ldsink.com/articles/happy-15th-birthday-ubuntu/"/>
     <id>https://ldsink.com/articles/happy-15th-birthday-ubuntu/</id>
     <published>2019-10-23T05:47:26.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.862Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/happy-15th-birthday-ubuntu.webp" alt="happy-15th-birthday-ubuntu"></p>]]></content>
     
@@ -426,8 +418,6 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
     <category term="ubuntu" scheme="https://ldsink.com/tags/ubuntu/"/>
     
@@ -438,9 +428,9 @@
     <link href="https://ldsink.com/articles/greenplum-simple-experience/"/>
     <id>https://ldsink.com/articles/greenplum-simple-experience/</id>
     <published>2019-10-22T12:04:27.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.642Z</updated>
     
-    <content type="html"><![CDATA[<p>接入新客户的数据，处理的数据量比之前上了一个量级。以前的索引数据库用的 PostgreSQL ，客户端代码暂时没空修改，为了支持这批数据，打算迁移到 Greenplum。</p><p>Greenplum 是先进的基于 PostgreSQL 的开源分布式数据库之一。因为兼容 PostgreSQL 的接口，客户端无需做太多的修改就可以使用。本身是基于MPP架构设计的一套数据分析系统，方便扩展，系统稳定，很适合我们的场景。<a href="https://greenplum.org/">Greenplum</a>是<a href="https://pivotal.io/">Pivotal</a>旗下的产品，有商业公司开发和维护，会有更好的技术支持和服务。</p><h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="https://a.adcdn.cn/images/greenplum-highlevel-arch.webp" alt="greenplum-highlevel-arch"></p><p><a href="https://greenplum.org/">Greenplum</a>基于MPP架构，如上。 Master 节点作为系统的入口，处理SQL请求。 Segment 节点存储和处理数据。 Master 和 Segment 之间通过 Interconnect 这个网络层连接起来。</p><p>一个SQL查询到 Master 节点， Master 会分发到 Segment 节点进行计算，计算结果最后再汇总到 Master 节点，处理好之后返回数据。 Master 和 Segment 分别通过 StandBy Master 和 Mirror 节点提供高可用。 Segment 节点之间并没有太多的数据交互。这种架构好处是简单，好扩展，但是感觉 Master 节点容易成为系统的瓶颈。整个系统的入口和数据最后的汇总都在 Master 节点上，负载可不轻松。</p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a href="https://greenplum.org/">Greenplum</a>提供了详细的<a href="https://gpdb.docs.pivotal.io/6-0/install_guide/install_guide.html">安装文档</a>， 6.0 新版本刚发布，我直接使用的新版本。</p><p>主要安装步骤如下：</p><ol><li>检查系统、硬件是否满足条件</li><li>操作系统配置修改</li><li>Greenplum 用户创建</li><li>Greenplum 系统安装</li><li>Greenplum 系统初始化</li></ol><p>提供了 ansible 脚本：<a href="https://gpdb.docs.pivotal.io/6-0/install_guide/ansible-example.html">https://gpdb.docs.pivotal.io/6-0/install_guide/ansible-example.html</a></p><h2 id="软硬件要求"><a href="#软硬件要求" class="headerlink" title="软硬件要求"></a>软硬件要求</h2><ul><li>主流的操作系统都行</li><li>必须使用 XFS 文件系统 <del>实测其他的也行，不过最好按照官方文档用XFS，其他可能影响性能</del></li><li>内存 16G +，硬盘要求导入数据后可用空间大于30% <del>实测够用就行</del></li><li>10Gbps 内网宽带 <del>不满足也能用</del></li></ul><h2 id="操作系统配置修改"><a href="#操作系统配置修改" class="headerlink" title="操作系统配置修改"></a>操作系统配置修改</h2><p>主要三个：</p><ol><li>关闭 SELinux： 在 <code>/etc/selinux/config</code> 中设置 <code>SELINUX=disabled</code>，重启即可</li><li>关闭防火墙：CentOS firewalld / Ubuntu ufw</li><li>同步系统时间：系统NTP服务需要打开，时间必须一致</li></ol><h2 id="Greenplum-用户创建"><a href="#Greenplum-用户创建" class="headerlink" title="Greenplum 用户创建"></a>Greenplum 用户创建</h2><p>也是三个，首先创建  gpadmin  用户和用户组</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd gpadmin</span><br><span class="line">sudo useradd gpadmin -r -m -g gpadmin</span><br></pre></td></tr></table></figure><p>再生成密钥对</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su gpadmin</span><br><span class="line">chsh -s &#x2F;bin&#x2F;bash</span><br><span class="line">ssh-keygen -o -a 100 -t ed25519</span><br><span class="line">cp .ssh&#x2F;id_ed25519.pub .ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure><p>最后将管理用户设置为  sudo  免密，方便以后自己操作</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;pgadmin ALL&#x3D;(ALL) NOPASSWD: ALL&#39; | EDITOR&#x3D;&#39;tee -a&#39; visudo</span><br></pre></td></tr></table></figure><h2 id="Greenplum-系统安装"><a href="#Greenplum-系统安装" class="headerlink" title="Greenplum 系统安装"></a>Greenplum 系统安装</h2><p><a href="https://greenplum.org/install-greenplum-oss-on-ubuntu/">Ubuntu 系统有现成的PPA源</a>，Pivotal也提供编译好的二进制包。我选择的是最新版本的  greenplum-db。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:greenplum&#x2F;db</span><br><span class="line">sudo apt install greenplum-db</span><br></pre></td></tr></table></figure><h2 id="Greenplum-系统初始化"><a href="#Greenplum-系统初始化" class="headerlink" title="Greenplum 系统初始化"></a>Greenplum 系统初始化</h2><p><a href="https://gpdb.docs.pivotal.io/6-0/install_guide/init_gpdb.html">文档在此</a>，需要在  master  节点上操作。</p><h3 id="创建用于初始化的-host-文件"><a href="#创建用于初始化的-host-文件" class="headerlink" title="创建用于初始化的 host 文件"></a>创建用于初始化的 host 文件</h3><p>创建 <code>hostfile_gpinitsystem</code> 包括所有 segment 节点的地址，不包括 master 和 standby master。更改配置文件，确保 master 到各个 segment 节点的连接正确。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -f hostfile_gpinitsystem || sudo tee -a &#x2F;etc&#x2F;ssh&#x2F;ssh_known_hosts</span><br><span class="line">gpssh-exkeys -f hostfile_gpinitsystem</span><br></pre></td></tr></table></figure><h3 id="创建-Greenplum-数据库配置文件"><a href="#创建-Greenplum-数据库配置文件" class="headerlink" title="创建 Greenplum 数据库配置文件"></a>创建 Greenplum 数据库配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">cp &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;docs&#x2F;cli_help&#x2F;gpconfigs&#x2F;gpinitsystem_config &#x2F;home&#x2F;gpadmin&#x2F;gpinitsystem_config</span><br></pre></td></tr></table></figure><p>主要修改的几个参数按照文档要求的填对就行。</p><h3 id="创建数据存储区域"><a href="#创建数据存储区域" class="headerlink" title="创建数据存储区域"></a>创建数据存储区域</h3><p>需要在各个类型的节点上创建 Greenplum 用于存储数据的路径，并配置好权限。数据存储路径需要和配置文件的保持一致。可以利用 Greenplum 提供的工具在 master 节点操作整个网络。</p><p>Master</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;master</span><br><span class="line">chown gpadmin:gpadmin &#x2F;data&#x2F;master</span><br></pre></td></tr></table></figure><p>Standby master</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -h smdw -e &#39;mkdir -p &#x2F;data&#x2F;master&#39;</span><br><span class="line">gpssh -h smdw -e &#39;chown gpadmin:gpadmin &#x2F;data&#x2F;master&#39;</span><br></pre></td></tr></table></figure><p>Segment</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-1&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-2&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-3&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;chown -R gpadmin:gpadmin &#x2F;data&#x2F;data-*&#39;</span><br></pre></td></tr></table></figure><p>Mirror</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-1&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-2&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-3&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;chown -R gpadmin:gpadmin &#x2F;data&#x2F;mirror-*&#39;</span><br></pre></td></tr></table></figure><h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><p>上面都整好了，就可以执行命令初始化数据库了。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c gpinitsystem_config -h hostfile_gpinitsystem</span><br></pre></td></tr></table></figure><p>为了方便以后的操作，可以增加下面内容到 <code>.bashrc</code>，不用每次 <code>source</code> 引入环境变量。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY&#x3D;&#x2F;data&#x2F;master&#x2F;gpseg-1</span><br></pre></td></tr></table></figure><h1 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h1><p>生产环境使用的 PostgreSQL 11，使用了很多新特性，包括<a href="https://www.postgresql.org/docs/9.5/brin-intro.html">BRIN</a>等。Greenplum 6 还是基于 PG 9.4 版本，一些东西老版本的不支持，需要特别注意，处理一下。</p><p>迁移使用PG自带的工具  pg_dump  和  psql ，很快可以灌入数据。</p><h1 id="碰到的问题"><a href="#碰到的问题" class="headerlink" title="碰到的问题"></a>碰到的问题</h1><p>小问题就不提了，看 log 和文档定位到修改就好了，说一个奇葩的问题。</p><p>查询一个SQL语句，只要带  Group By  就无法返回结果，而  sum  却可以拿到结果。查看日志没有报错。查询就是等待返回数据，非常诡异。master 和 segment 节点是有超时设置的，如果是 segment 查询超时，应该会有错误日志，但是很诡异，就是没有详细的异常日志。根据Greenplum的架构图，猜测应该是 master 节点处理的问题，但是继续检查配置文件、检查Log，依旧找不到问题。</p><p>搜索结果中看到了<a href="https://ieevee.com/tech/2017/07/06/gp-ic.html">三罐可乐带你读懂Greenplum的interconnect</a>，可能是 Greenplum 的 interconnect 导致 master 对 segment 返回的结果处理有奇怪的逻辑。整个网络状态是正常的，端口监听也正常。反思整个部署过程，打开了 <code>/etc/hosts</code> 文件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1&#96;&#96;&#96;&#96;&#96;&#96;hostname1</span><br><span class="line"></span><br><span class="line">172.31.0.2&#96;&#96;&#96;&#96;&#96;&#96;hostname1</span><br><span class="line">172.31.0.3&#96;&#96;&#96;&#96;&#96;&#96;hostname2</span><br><span class="line">172.31.0.4&#96;&#96;&#96;&#96;&#96;&#96;hostname3</span><br></pre></td></tr></table></figure><p>云服务器的系统会在 hosts 文件将自己的 hostname 配置成 <code>127.0.0.1</code>，搭建  Greenplum  集群的时候设置的 hosts 添加在这一行下面。删除本机 <code>127.0.0.1</code> 的配置，重启系统，恢复正常。</p>]]></content>
+    <content type="html"><![CDATA[<p>接入新客户的数据，处理的数据量比之前上了一个量级。以前的索引数据库用的 PostgreSQL ，客户端代码暂时没空修改，为了支持这批数据，打算迁移到 Greenplum。</p><p>Greenplum 是先进的基于 PostgreSQL 的开源分布式数据库之一。因为兼容 PostgreSQL 的接口，客户端无需做太多的修改就可以使用。本身是基于MPP架构设计的一套数据分析系统，方便扩展，系统稳定，很适合我们的场景。<a href="https://greenplum.org/">Greenplum</a>是<a href="https://pivotal.io/">Pivotal</a>旗下的产品，有商业公司开发和维护，会有更好的技术支持和服务。</p><h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="https://a.adcdn.cn/images/greenplum-highlevel-arch.webp" alt="greenplum-highlevel-arch"></p><p><a href="https://greenplum.org/">Greenplum</a>基于MPP架构，如上。 Master 节点作为系统的入口，处理SQL请求。 Segment 节点存储和处理数据。 Master 和 Segment 之间通过 Interconnect 这个网络层连接起来。</p><p>一个SQL查询到 Master 节点， Master 会分发到 Segment 节点进行计算，计算结果最后再汇总到 Master 节点，处理好之后返回数据。 Master 和 Segment 分别通过 StandBy Master 和 Mirror 节点提供高可用。 Segment 节点之间并没有太多的数据交互。这种架构好处是简单，好扩展，但是感觉 Master 节点容易成为系统的瓶颈。整个系统的入口和数据最后的汇总都在 Master 节点上，负载可不轻松。</p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a href="https://greenplum.org/">Greenplum</a>提供了详细的<a href="https://gpdb.docs.pivotal.io/6-0/install_guide/install_guide.html">安装文档</a>， 6.0 新版本刚发布，我直接使用的新版本。</p><p>主要安装步骤如下：</p><ol><li>检查系统、硬件是否满足条件</li><li>操作系统配置修改</li><li>Greenplum 用户创建</li><li>Greenplum 系统安装</li><li>Greenplum 系统初始化</li></ol><p>提供了 ansible 脚本：<a href="https://gpdb.docs.pivotal.io/6-0/install_guide/ansible-example.html">https://gpdb.docs.pivotal.io/6-0/install_guide/ansible-example.html</a></p><h2 id="软硬件要求"><a href="#软硬件要求" class="headerlink" title="软硬件要求"></a>软硬件要求</h2><ul><li>主流的操作系统都行</li><li>必须使用 XFS 文件系统 <del>实测其他的也行，不过最好按照官方文档用XFS，其他可能影响性能</del></li><li>内存 16G +，硬盘要求导入数据后可用空间大于30% <del>实测够用就行</del></li><li>10Gbps 内网宽带 <del>不满足也能用</del></li></ul><h2 id="操作系统配置修改"><a href="#操作系统配置修改" class="headerlink" title="操作系统配置修改"></a>操作系统配置修改</h2><p>主要三个：</p><ol><li>关闭 SELinux： 在 <code>/etc/selinux/config</code> 中设置 <code>SELINUX=disabled</code>，重启即可</li><li>关闭防火墙：CentOS firewalld &#x2F; Ubuntu ufw</li><li>同步系统时间：系统NTP服务需要打开，时间必须一致</li></ol><h2 id="Greenplum-用户创建"><a href="#Greenplum-用户创建" class="headerlink" title="Greenplum 用户创建"></a>Greenplum 用户创建</h2><p>也是三个，首先创建  gpadmin  用户和用户组</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd gpadmin</span><br><span class="line">sudo useradd gpadmin -r -m -g gpadmin</span><br></pre></td></tr></table></figure><p>再生成密钥对</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su gpadmin</span><br><span class="line">chsh -s /bin/bash</span><br><span class="line">ssh-keygen -o -a 100 -t ed25519</span><br><span class="line">cp .ssh/id_ed25519.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure><p>最后将管理用户设置为  sudo  免密，方便以后自己操作</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;pgadmin ALL=(ALL) NOPASSWD: ALL&#x27; | EDITOR=&#x27;tee -a&#x27; visudo</span><br></pre></td></tr></table></figure><h2 id="Greenplum-系统安装"><a href="#Greenplum-系统安装" class="headerlink" title="Greenplum 系统安装"></a>Greenplum 系统安装</h2><p><a href="https://greenplum.org/install-greenplum-oss-on-ubuntu/">Ubuntu 系统有现成的PPA源</a>，Pivotal也提供编译好的二进制包。我选择的是最新版本的  greenplum-db。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:greenplum/db</span><br><span class="line">sudo apt install greenplum-db</span><br></pre></td></tr></table></figure><h2 id="Greenplum-系统初始化"><a href="#Greenplum-系统初始化" class="headerlink" title="Greenplum 系统初始化"></a>Greenplum 系统初始化</h2><p><a href="https://gpdb.docs.pivotal.io/6-0/install_guide/init_gpdb.html">文档在此</a>，需要在  master  节点上操作。</p><h3 id="创建用于初始化的-host-文件"><a href="#创建用于初始化的-host-文件" class="headerlink" title="创建用于初始化的 host 文件"></a>创建用于初始化的 host 文件</h3><p>创建 <code>hostfile_gpinitsystem</code> 包括所有 segment 节点的地址，不包括 master 和 standby master。更改配置文件，确保 master 到各个 segment 节点的连接正确。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -f hostfile_gpinitsystem || sudo tee -a /etc/ssh/ssh_known_hosts</span><br><span class="line">gpssh-exkeys -f hostfile_gpinitsystem</span><br></pre></td></tr></table></figure><h3 id="创建-Greenplum-数据库配置文件"><a href="#创建-Greenplum-数据库配置文件" class="headerlink" title="创建 Greenplum 数据库配置文件"></a>创建 Greenplum 数据库配置文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">cp /opt/greenplum-db-6.0.1/docs/cli_help/gpconfigs/gpinitsystem_config /home/gpadmin/gpinitsystem_config</span><br></pre></td></tr></table></figure><p>主要修改的几个参数按照文档要求的填对就行。</p><h3 id="创建数据存储区域"><a href="#创建数据存储区域" class="headerlink" title="创建数据存储区域"></a>创建数据存储区域</h3><p>需要在各个类型的节点上创建 Greenplum 用于存储数据的路径，并配置好权限。数据存储路径需要和配置文件的保持一致。可以利用 Greenplum 提供的工具在 master 节点操作整个网络。</p><p>Master</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/master</span><br><span class="line">chown gpadmin:gpadmin /data/master</span><br></pre></td></tr></table></figure><p>Standby master</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -h smdw -e &#x27;mkdir -p /data/master&#x27;</span><br><span class="line">gpssh -h smdw -e &#x27;chown gpadmin:gpadmin /data/master&#x27;</span><br></pre></td></tr></table></figure><p>Segment</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/data-*&#x27;</span><br></pre></td></tr></table></figure><p>Mirror</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/mirror-*&#x27;</span><br></pre></td></tr></table></figure><h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><p>上面都整好了，就可以执行命令初始化数据库了。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c gpinitsystem_config -h hostfile_gpinitsystem</span><br></pre></td></tr></table></figure><p>为了方便以后的操作，可以增加下面内容到 <code>.bashrc</code>，不用每次 <code>source</code> 引入环境变量。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY=/data/master/gpseg-1</span><br></pre></td></tr></table></figure><h1 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h1><p>生产环境使用的 PostgreSQL 11，使用了很多新特性，包括<a href="https://www.postgresql.org/docs/9.5/brin-intro.html">BRIN</a>等。Greenplum 6 还是基于 PG 9.4 版本，一些东西老版本的不支持，需要特别注意，处理一下。</p><p>迁移使用PG自带的工具  pg_dump  和  psql ，很快可以灌入数据。</p><h1 id="碰到的问题"><a href="#碰到的问题" class="headerlink" title="碰到的问题"></a>碰到的问题</h1><p>小问题就不提了，看 log 和文档定位到修改就好了，说一个奇葩的问题。</p><p>查询一个SQL语句，只要带  Group By  就无法返回结果，而  sum  却可以拿到结果。查看日志没有报错。查询就是等待返回数据，非常诡异。master 和 segment 节点是有超时设置的，如果是 segment 查询超时，应该会有错误日志，但是很诡异，就是没有详细的异常日志。根据Greenplum的架构图，猜测应该是 master 节点处理的问题，但是继续检查配置文件、检查Log，依旧找不到问题。</p><p>搜索结果中看到了<a href="https://ieevee.com/tech/2017/07/06/gp-ic.html">三罐可乐带你读懂Greenplum的interconnect</a>，可能是 Greenplum 的 interconnect 导致 master 对 segment 返回的结果处理有奇怪的逻辑。整个网络状态是正常的，端口监听也正常。反思整个部署过程，打开了 <code>/etc/hosts</code> 文件。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1``````hostname1</span><br><span class="line"></span><br><span class="line">172.31.0.2``````hostname1</span><br><span class="line">172.31.0.3``````hostname2</span><br><span class="line">172.31.0.4``````hostname3</span><br></pre></td></tr></table></figure><p>云服务器的系统会在 hosts 文件将自己的 hostname 配置成 <code>127.0.0.1</code>，搭建  Greenplum  集群的时候设置的 hosts 添加在这一行下面。删除本机 <code>127.0.0.1</code> 的配置，重启系统，恢复正常。</p>]]></content>
     
     
       
@@ -450,8 +440,6 @@
       
     
     
-    
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
     
     
     <category term="greenplum" scheme="https://ldsink.com/tags/greenplum/"/>
@@ -465,7 +453,7 @@
     <link href="https://ldsink.com/articles/deepin-15.11-released/"/>
     <id>https://ldsink.com/articles/deepin-15.11-released/</id>
     <published>2019-07-20T14:25:10.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
+    <updated>2022-05-29T06:23:31.766Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/deepin-15.11.webp" alt="deepin-15.11"></p><p>深度操作系统V15.11已经发布，发行标记见：<a href="https://www.deepin.org/2019/07/19/deepin15-11/">深度操作系统 V15.11——心随意动 畅享云端</a></p><p>这个版本一个大的变化是早先的 unstable 版本已正式停止技术支持，所有 unstable 用户需要重新下载安装 stable 版本。个人觉得这是个非常不友好的变动，无论如何，重新安装系统成本都是非常巨大的。早先 deepin 切换到基于 debian 时的一个目标就是学习 Arch 的滚动升级策略，复杂升级不再需要重装系统，现在看未实现这个功能。</p><p>桌面环境的一个变动是从之前的 dde-wm 升级到了 dde-kwin，目的主要是通过使用新的 kwin 来支持 Wayland。但是新开发一套桌面的窗口管理系统是很麻烦的，需要时间来完善。目前的 dde-kwin 很多功能还是缺失的，右键菜单刚支持极少的功能。Firefox 浏览器上因为 dde-kwin 带来的窗口条无法隐藏，严重影响美观。</p><p>其他主要是一些内置软件的功能更新和BUG修复。这类内置软件，我的态度是够用就行，美观最好。这里就不再赘述了。</p><p>deepin 是国内最用心的在做 Linux 操作系统的厂商，这一点指的表扬和尊敬。但是人是要恰饭的，公司是要盈利的。现在王勇离开，企业被360收购，前途多了一些不确定。希望未来 deepin 能在进一步商业化探索的同时，保持自己的初心。</p>]]></content>
     
@@ -478,33 +466,8 @@
     
     
     
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
     <category term="deepin" scheme="https://ldsink.com/tags/deepin/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>再见，readfree</title>
-    <link href="https://ldsink.com/articles/goodbye-readfree/"/>
-    <id>https://ldsink.com/articles/goodbye-readfree/</id>
-    <published>2019-07-05T12:03:59.000Z</published>
-    <updated>2021-06-22T05:43:59.820Z</updated>
-    
-    <content type="html"><![CDATA[<p>今晚打开 readfree 的网站，不再是熟悉的界面，而是一封告别辞。</p><p>随着国内版权意识或主动、或被动的提高，我迎来了 readfree 的告别。在以前 readfree 可以正常访问的时候，我就不止一次的想过这个问题：虽然我方便的找到了书籍，但是很这明显侵权了书籍的版权，这个网站真的可以这么正常的存活在中国的互联网上么？现实给予了答案。</p><p>但是无论如何，我从 readfree 获益良多，感谢网站管理员以前的辛苦付出。尊重知识产权是读书之人应有之意，我相信管理员顺应大势，做出了一个正确的选择。感谢 readfree 多年以来的陪伴，它实现了他最初的愿景，希望未来的某一天，会以一个更加合适的方式归来。</p><p>结尾附上 <a href="https://readfree.me/">readfree 告别辞</a>。</p><p><img src="https://a.adcdn.cn/images/goodbye-readfree.webp" alt="goodbye-readfree"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;今晚打开 readfree 的网站，不再是熟悉的界面，而是一封告别辞。&lt;/p&gt;
-&lt;p&gt;随着国内版权意识或主动、或被动的提高，我迎来了 readfree 的告别。在以前 readfree 可以正常访问的时候，我就不止一次的想过这个问题：虽然我方便的找到了书籍，但是很这明显侵权</summary>
-      
-    
-    
-    
-    <category term="articles" scheme="https://ldsink.com/categories/articles/"/>
-    
     
   </entry>
   

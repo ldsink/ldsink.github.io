@@ -19,7 +19,7 @@
 <meta property="og:description" content="一个爬虫项目，数据存储使用的 MongoDB 2.6，按网站和月份划分数据库。每次到月末，存储性能就大幅下降，mongostat查看是锁操作花费太多的时间。 MongoDB 2.6 默认的MMAP引擎只支持数据库锁，虽然做过一些优化，但是在我这实际用起来发现效果并不是很好。想要降低锁操作的时间，要么减少数据库体积，要么就换引擎。前者需要拆分出更多的数据库，不方便管理，就只能在引擎上下手。 Mong">
 <meta property="og:locale">
 <meta property="article:published_time" content="2015-05-04T13:49:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:32.030Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -289,18 +289,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

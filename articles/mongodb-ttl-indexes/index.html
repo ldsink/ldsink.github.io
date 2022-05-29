@@ -19,7 +19,7 @@
 <meta property="og:description" content="MongoDB提供了TTL索引自动从集合中删除过期文档，这个功能在存储日志等一些只需要在固定时间内存储数据的场景下使用起来非常方便。最近用了一下，发现这个功能没有想象中的那么好。 TTL索引的建立很简单，要求是只能在一个field上创建，并且这个field是一个Date类型数据或者是一个包含Date类型数据的Array。在创建索引的时候只需要多增加一个expireAfterSeconds参数，在f">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-02-24T08:21:07.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.986Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -295,18 +295,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

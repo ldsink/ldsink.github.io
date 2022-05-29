@@ -19,7 +19,7 @@
 <meta property="og:description" content="项目之前使用的是Sentry官方提供的付费服务，但是因为我们在国内，访问比较慢，体验很糟糕。Sentry本身就是开源的，打算自己动手搭建一个，老板就把这个光荣的任务交给我，Fight～～～ 配置环境一直是一个比较繁琐的事情，还好现在容器盛行，我计划就是直接使用 Docker 来启动 Sentry 的服务。 Docker 安装不得不说现在 Docker 的生态链比2014年我刚了解这个工具的时候好太">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-08-20T08:32:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.822Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -267,6 +267,7 @@
 <p>考虑邮件推送服务。服务器在AWS中国上，AWS有邮件推送服务，但是这个AWS中国貌似还没开发这个功能；搜狐家有<a target="_blank" rel="noopener" href="https://sendcloud.sohu.com/">SendCloud</a>,注册之后发现要获取免费的额度需要填太多东西，作罢；因为有阿里云的账号，阿里云家配置比较简单，暂时用的阿里云的邮件推送服务，地址：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/directmail">https://www.aliyun.com/product/directmail</a>。实际使用中还是有发送失败的情况，没有说的那么好。</p>
 <p>配好之后，我们需要将这些配置加到我们的Sentry实例中。我没有作为 instance 的启动参数，而是直接修改了 sentry.conf.py 文件，直接将配置文件 mount 到 instance 内。相关的部分如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># email = env(&#x27;SENTRY_EMAIL_HOST&#x27;) or (env(&#x27;SMTP_PORT_25_TCP_ADDR&#x27;) and &#x27;smtp&#x27;)</span></span><br><span class="line"><span class="comment"># if email:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;smtp&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.host&#x27;] = email</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.password&#x27;] = env(&#x27;SENTRY_EMAIL_PASSWORD&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.username&#x27;] = env(&#x27;SENTRY_EMAIL_USER&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.port&#x27;] = int(env(&#x27;SENTRY_EMAIL_PORT&#x27;) or 25)</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.use-tls&#x27;] = Bool(env(&#x27;SENTRY_EMAIL_USE_TLS&#x27;, False))</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;dummy&#x27;</span></span><br><span class="line"></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.backend&#x27;</span>] = <span class="string">&#x27;smtp&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.host&#x27;</span>] = <span class="string">&#x27;smtpdm.aliyun.com&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.password&#x27;</span>] = <span class="string">&#x27;your password&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.username&#x27;</span>] = <span class="string">&#x27;your email address&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.port&#x27;</span>] = <span class="number">25</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.use-tls&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
 <p>启动命令如下:</p>
 <p><code>docker run -d -p 80:9000 -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry</code></p>
 <p><code>docker run -d -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
@@ -323,18 +324,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

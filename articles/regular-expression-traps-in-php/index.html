@@ -19,7 +19,7 @@
 <meta property="og:description" content="最近弄关键词匹配，主要用的正则表达式。之前一直没写过PHP的正则表达式的代码，一番折腾之后表示这其中好多坑。 慎用 |任务场景是需要在一段字符串中匹配多个关键字。一开始想当然的使用了|拼接全部的关键字作为pattern，然后直接preg_match解决问题。但我这样想当然的做法在Code Review的时候被拒，理由是可能存在安全等问题。因为PHP内存限制，pattern过长会造成段异常，而且这样">
 <meta property="og:locale">
 <meta property="article:published_time" content="2015-07-27T01:06:00.000Z">
-<meta property="article:modified_time" content="2022-02-18T03:16:07.392Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:32.074Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -296,18 +296,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

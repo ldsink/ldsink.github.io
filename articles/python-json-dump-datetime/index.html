@@ -19,7 +19,7 @@
 <meta property="og:description" content="需要从 mongodb 导出数据，不使用 mongoexport，直接写 python 函数导出到文件。导出过程中发现了一个问题，mongodb 中的 Date 类型会转换成 python 中的 datetime，但在使用 json.dumps 的时候会抛出 TypeError: datetime.datetime is not JSON serializable，datetime 默认不支持 j">
 <meta property="og:locale">
 <meta property="article:published_time" content="2015-03-22T04:21:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.794Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -233,9 +233,11 @@
       
         <p>需要从 mongodb 导出数据，不使用 mongoexport，直接写 python 函数导出到文件。导出过程中发现了一个问题，mongodb 中的 Date 类型会转换成 python 中的 datetime，但在使用 json.dumps 的时候会抛出 <code>TypeError: datetime.datetime is not JSON serializable</code>，datetime 默认不支持 json 序列化。</p>
 <p>得手动扩展，我这里的需求是把 datetime 转换成时间戳：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DatetimeEncoder</span>(<span class="params">json.JSONEncoder</span>):</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">dict转json的时候将datetime类型转换成timestamp</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default</span>(<span class="params">self, obj</span>):</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(obj, datetime.datetime):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(time.mktime(obj.timetuple()))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> json.JSONEncoder.default(self, obj)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DatetimeEncoder</span>(json.JSONEncoder):</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">dict转json的时候将datetime类型转换成timestamp</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">default</span>(<span class="params">self, obj</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(obj, datetime.datetime):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(time.mktime(obj.timetuple()))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> json.JSONEncoder.default(self, obj)</span><br></pre></td></tr></table></figure>
+
 <p>使用的时候指定就可以了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json.dumps(data, ensure_ascii=<span class="literal">False</span>, cls=DatetimeEncoder)</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -280,18 +282,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

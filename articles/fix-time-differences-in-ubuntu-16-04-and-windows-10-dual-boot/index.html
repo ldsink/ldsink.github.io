@@ -19,7 +19,7 @@
 <meta property="og:description" content="启动了电脑上另一块SSD上的Ubuntu，又注意到了时间差问题。Windows默认会将BIOS上的时间认为是本地时间（我们这里表现就是CST，东八区时间），Ubuntu默认是UTC标准时间，会在此基础上增加8小时，作为显示的时间。如果在Win系统下将时间调整对，在Ubuntu下则会快了8个小时，反之也是。为了让两者都能正确的显示时间，得让两个系统使用相同的计算方式。 调整时间一致，要么改Win设置">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-12-25T09:24:32.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.990Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -242,7 +242,8 @@
 <p>timedatectl set-local-rtc 0</p>
 </blockquote>
 <p>设置成功之后，在Win和Ubuntu上都可以正确显示时间。使用<code>timedatectl</code>命令显示的结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ timedatectl</span><br><span class="line">      Local time: Sun 2016-12-25 17:14:19 CST</span><br><span class="line">  Universal time: Sun 2016-12-25 09:14:19 UTC</span><br><span class="line">        RTC time: Sun 2016-12-25 17:14:19</span><br><span class="line">       Time zone: Asia&#x2F;Shanghai (CST, +0800)</span><br><span class="line"> Network time on: yes</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: yes</span><br><span class="line"></span><br><span class="line">Warning: The system is configured to read the RTC time in the local time zone.</span><br><span class="line">         This mode can not be fully supported. It will create various problems</span><br><span class="line">         with time zone changes and daylight saving time adjustments. The RTC</span><br><span class="line">         time is never updated, it relies on external facilities to maintain it.</span><br><span class="line">         If at all possible, use RTC in UTC by calling</span><br><span class="line">         &#39;timedatectl set-local-rtc 0&#39;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ timedatectl</span><br><span class="line">      Local time: Sun 2016-12-25 17:14:19 CST</span><br><span class="line">  Universal time: Sun 2016-12-25 09:14:19 UTC</span><br><span class="line">        RTC time: Sun 2016-12-25 17:14:19</span><br><span class="line">       Time zone: Asia/Shanghai (CST, +0800)</span><br><span class="line"> Network time on: yes</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: yes</span><br><span class="line"></span><br><span class="line">Warning: The system is configured to read the RTC time in the local time zone.</span><br><span class="line">         This mode can not be fully supported. It will create various problems</span><br><span class="line">         with time zone changes and daylight saving time adjustments. The RTC</span><br><span class="line">         time is never updated, it relies on external facilities to maintain it.</span><br><span class="line">         If at all possible, use RTC in UTC by calling</span><br><span class="line">         &#x27;timedatectl set-local-rtc 0&#x27;.</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -287,18 +288,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

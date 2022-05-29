@@ -201,6 +201,95 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-deploy-https"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/deploy-https/">公司全站部署HTTPS</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/deploy-https/" class="archive-article-date">
+  <time datetime="2017-01-01T09:30:00.000Z" itemprop="datePublished">
+    Published on 2017 / 01 / 01
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>2017年来了，新年新气象，公司网站也迎来了全站HTTPS。HTTPS的好处有很多，安全是第一位的（远离运营商劫持）。各个大厂商推广HTTPS也是不遗余力，Google优先收录此类链接，苹果和微信小程序接口都走HTTPS。</p>
+<p>上一家公司因为前端CDN的问题，部署HTTPS一拖再拖。新公司网站还不大，现在部署成本低。感觉再拖延下去等以后复杂了，更加没人想干了，赶在新年前部署了。:-D</p>
+<p>简单的Checklist:</p>
+<ul>
+<li>申请SSL证书</li>
+<li>LB配置证书</li>
+<li>CDN配置证书</li>
+</ul>
+<p>按照以上的列表，一个一个来。</p>
+<h2 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请SSL证书</h2><p>公司有个业务需要使用<code>Apple Wallet</code>，当时在<code>RapidSSL</code>申请了公司二级域名的通配符证书。这个我向以前的同事咨询，获取到了相关的数据。</p>
+<h2 id="LB配置证书"><a href="#LB配置证书" class="headerlink" title="LB配置证书"></a>LB配置证书</h2><p>公司网站运行在AWS的云服务上，AWS的负载均衡器很方便的就可以部署证书，将证书上传到<code>IAM(Identity and Access Management)</code>之后，直接启用。配置好之后是HTTP和HTTPS都可以正常调用接口，过一阵子等移动端的客户端都更新之后，再强制全部跳转HTTPS。</p>
+<h2 id="CDN配置证书"><a href="#CDN配置证书" class="headerlink" title="CDN配置证书"></a>CDN配置证书</h2><p>公司CDN使用的网宿的，部署HTTPS需要上传私钥，我不太想把通配符证书上传到一个第三方的网站，好在现在腾讯云、<a target="_blank" rel="noopener" href="https://yundun.console.aliyun.com/?p=cas#/cas/home">阿里云</a>、七牛等都联合赛门铁克，免费提供了明细域名一年时间的DV证书。免费申请了<code>static</code>和<code>media</code>这两个静态资源二级域名的证书，专门用于CDN。这个问题也顺利解决。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="安卓上证书不受信任（微信、浏览器等打不开）"><a href="#安卓上证书不受信任（微信、浏览器等打不开）" class="headerlink" title="安卓上证书不受信任（微信、浏览器等打不开）"></a>安卓上证书不受信任（微信、浏览器等打不开）</h3><blockquote>
+<p>macOS和iPhone上都没有问题，但是安卓手机上会出现证书不受信任的错误。看到了<a target="_blank" rel="noopener" href="https://www.v2ex.com/t/183715">v2ex t183715</a>这个帖子，判断是一样的问题，<strong>证书链不完整</strong>。通过<a target="_blank" rel="noopener" href="https://www.ssllabs.com/ssltest/index.html">SSL LABS</a>检测网站，直接获得了网站带完整证书链的证书，重新部署完整证书链的证书，问题解决。</p>
+</blockquote>
+<p>总共试了两次，第一次因为遇到上面的问题，回滚了。第二天仔细了解了一下证书链，完善之后再部署，这次成功，浏览器、微信、Android端调用都没有问题。这让我想到了以前搭建的一个内部系统出现的问题：A是使用Docker搭建的Jenkins，用于自动测试和部署；B是Gitlab仓库，用于代码管理。A、B网址均开启<code>HSTS</code>，A通过OAuth插件使用B的权限管理。刚开始A访问B，证书不受信。我是手动进到A的Container里面，在JVM导入了B的证书，临时解决了问题。因为内部系统，没多想，能用了之后就没关注。现在想来应该是一样的问题。一开始的通配符证书不带完整的证书链，中级证书不会自动下载，所以不受信。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/deploy-https/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -241,7 +330,8 @@
 <p>timedatectl set-local-rtc 0</p>
 </blockquote>
 <p>设置成功之后，在Win和Ubuntu上都可以正确显示时间。使用<code>timedatectl</code>命令显示的结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ timedatectl</span><br><span class="line">      Local time: Sun 2016-12-25 17:14:19 CST</span><br><span class="line">  Universal time: Sun 2016-12-25 09:14:19 UTC</span><br><span class="line">        RTC time: Sun 2016-12-25 17:14:19</span><br><span class="line">       Time zone: Asia&#x2F;Shanghai (CST, +0800)</span><br><span class="line"> Network time on: yes</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: yes</span><br><span class="line"></span><br><span class="line">Warning: The system is configured to read the RTC time in the local time zone.</span><br><span class="line">         This mode can not be fully supported. It will create various problems</span><br><span class="line">         with time zone changes and daylight saving time adjustments. The RTC</span><br><span class="line">         time is never updated, it relies on external facilities to maintain it.</span><br><span class="line">         If at all possible, use RTC in UTC by calling</span><br><span class="line">         &#39;timedatectl set-local-rtc 0&#39;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  ✗ timedatectl</span><br><span class="line">      Local time: Sun 2016-12-25 17:14:19 CST</span><br><span class="line">  Universal time: Sun 2016-12-25 09:14:19 UTC</span><br><span class="line">        RTC time: Sun 2016-12-25 17:14:19</span><br><span class="line">       Time zone: Asia/Shanghai (CST, +0800)</span><br><span class="line"> Network time on: yes</span><br><span class="line">NTP synchronized: no</span><br><span class="line"> RTC in local TZ: yes</span><br><span class="line"></span><br><span class="line">Warning: The system is configured to read the RTC time in the local time zone.</span><br><span class="line">         This mode can not be fully supported. It will create various problems</span><br><span class="line">         with time zone changes and daylight saving time adjustments. The RTC</span><br><span class="line">         time is never updated, it relies on external facilities to maintain it.</span><br><span class="line">         If at all possible, use RTC in UTC by calling</span><br><span class="line">         &#x27;timedatectl set-local-rtc 0&#x27;.</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -251,18 +341,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -338,8 +416,8 @@
 <h2 id="使用-Let’s-Encrypt"><a href="#使用-Let’s-Encrypt" class="headerlink" title="使用 Let’s Encrypt"></a>使用 Let’s Encrypt</h2><p>我有Shell权限，整个过程就三步：</p>
 <ol>
 <li>执行 <code>apt install letsencrypt</code> 安装 <code>Certbot</code>。</li>
-<li>执行 <code>letsencrypt certonly --webroot -w /var/www/path/to/your/website -d yourdomian.com</code>。执行完成之后会有以下输出：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - If you lose your account credentials, you can recover through</span><br><span class="line">   e-mails sent to youremail@domian.com.</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at</span><br><span class="line">   &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;domian.com&#x2F;fullchain.pem. Your cert will</span><br><span class="line">   expire on 2017-01-30. To obtain a new version of the certificate in</span><br><span class="line">   the future, simply run Let&#39;s Encrypt again.</span><br><span class="line"> - Your account credentials have been saved in your Let&#39;s Encrypt</span><br><span class="line">   configuration directory at &#x2F;etc&#x2F;letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Let&#39;s</span><br><span class="line">   Encrypt so making regular backups of this folder is ideal.</span><br><span class="line"> - If you like Let&#39;s Encrypt, please consider supporting our work by:</span><br><span class="line"></span><br><span class="line">   Donating to ISRG &#x2F; Let&#39;s Encrypt:   https:&#x2F;&#x2F;letsencrypt.org&#x2F;donate</span><br><span class="line">   Donating to EFF:                    https:&#x2F;&#x2F;eff.org&#x2F;donate-le</span><br></pre></td></tr></table></figure></li>
-<li>去 Nginx 配置文件更新证书。<code>ssl_certificate</code>是<code>fullchain.pem</code>，<code>ssl_certificate_key</code>是<code>privkey.pem</code>。更新好配置重启/重载生效。</li>
+<li>执行 <code>letsencrypt certonly --webroot -w /var/www/path/to/your/website -d yourdomian.com</code>。执行完成之后会有以下输出：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - If you lose your account credentials, you can recover through</span><br><span class="line">   e-mails sent to youremail@domian.com.</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at</span><br><span class="line">   /etc/letsencrypt/live/domian.com/fullchain.pem. Your cert will</span><br><span class="line">   expire on 2017-01-30. To obtain a new version of the certificate in</span><br><span class="line">   the future, simply run Let&#x27;s Encrypt again.</span><br><span class="line"> - Your account credentials have been saved in your Let&#x27;s Encrypt</span><br><span class="line">   configuration directory at /etc/letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Let&#x27;s</span><br><span class="line">   Encrypt so making regular backups of this folder is ideal.</span><br><span class="line"> - If you like Let&#x27;s Encrypt, please consider supporting our work by:</span><br><span class="line"></span><br><span class="line">   Donating to ISRG / Let&#x27;s Encrypt:   https://letsencrypt.org/donate</span><br><span class="line">   Donating to EFF:                    https://eff.org/donate-le</span><br></pre></td></tr></table></figure></li>
+<li>去 Nginx 配置文件更新证书。<code>ssl_certificate</code>是<code>fullchain.pem</code>，<code>ssl_certificate_key</code>是<code>privkey.pem</code>。更新好配置重启&#x2F;重载生效。</li>
 </ol>
 <h2 id="自动更新"><a href="#自动更新" class="headerlink" title="自动更新"></a>自动更新</h2><p><code>Let&#39;s Encrypt</code>的证书有效期是三个月，可以在服务器上配置自动更新证书。这个我现在还没用，下次折腾了再记。</p>
 <p>另外，<code>Let&#39;s Encrypt</code>正在众筹资金，有意向的可以支持一下。** <a target="_blank" rel="noopener" href="https://linux.cn/article-7926-1.html">捐赠 Let’s Encrypt，共建安全的互联网</a> **</p>
@@ -353,18 +431,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -464,6 +530,7 @@
 <p>考虑邮件推送服务。服务器在AWS中国上，AWS有邮件推送服务，但是这个AWS中国貌似还没开发这个功能；搜狐家有<a target="_blank" rel="noopener" href="https://sendcloud.sohu.com/">SendCloud</a>,注册之后发现要获取免费的额度需要填太多东西，作罢；因为有阿里云的账号，阿里云家配置比较简单，暂时用的阿里云的邮件推送服务，地址：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/directmail">https://www.aliyun.com/product/directmail</a>。实际使用中还是有发送失败的情况，没有说的那么好。</p>
 <p>配好之后，我们需要将这些配置加到我们的Sentry实例中。我没有作为 instance 的启动参数，而是直接修改了 sentry.conf.py 文件，直接将配置文件 mount 到 instance 内。相关的部分如下</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># email = env(&#x27;SENTRY_EMAIL_HOST&#x27;) or (env(&#x27;SMTP_PORT_25_TCP_ADDR&#x27;) and &#x27;smtp&#x27;)</span></span><br><span class="line"><span class="comment"># if email:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;smtp&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.host&#x27;] = email</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.password&#x27;] = env(&#x27;SENTRY_EMAIL_PASSWORD&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.username&#x27;] = env(&#x27;SENTRY_EMAIL_USER&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.port&#x27;] = int(env(&#x27;SENTRY_EMAIL_PORT&#x27;) or 25)</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.use-tls&#x27;] = Bool(env(&#x27;SENTRY_EMAIL_USE_TLS&#x27;, False))</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;dummy&#x27;</span></span><br><span class="line"></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.backend&#x27;</span>] = <span class="string">&#x27;smtp&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.host&#x27;</span>] = <span class="string">&#x27;smtpdm.aliyun.com&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.password&#x27;</span>] = <span class="string">&#x27;your password&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.username&#x27;</span>] = <span class="string">&#x27;your email address&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.port&#x27;</span>] = <span class="number">25</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.use-tls&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
 <p>启动命令如下:</p>
 <p><code>docker run -d -p 80:9000 -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry</code></p>
 <p><code>docker run -d -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
@@ -485,18 +552,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -561,7 +616,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>天道勤酬，恭喜Wings获得TI6冠军！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一支曾因没有LOL分部而被DACE拒之门外的战队，</span><br><span class="line">一支队服上连赞助商Logo都没有的战队，</span><br><span class="line">一支全队没有一个人开直播的战队，</span><br><span class="line">一支为了梦想坚持到底的战队，</span><br><span class="line">一支创造了奇迹的战队，</span><br><span class="line">一支无敌的战队！</span><br><span class="line">Wings！</span><br><span class="line">来自微信公众号 天辉夜魇    </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一支曾因没有LOL分部而被DACE拒之门外的战队，</span><br><span class="line">一支队服上连赞助商Logo都没有的战队，</span><br><span class="line">一支全队没有一个人开直播的战队，</span><br><span class="line">一支为了梦想坚持到底的战队，</span><br><span class="line">一支创造了奇迹的战队，</span><br><span class="line">一支无敌的战队！</span><br><span class="line">Wings！</span><br><span class="line">来自微信公众号 天辉夜魇    </span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -571,18 +627,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -670,7 +714,7 @@
 <h1 id="电竞馆"><a href="#电竞馆" class="headerlink" title="电竞馆"></a>电竞馆</h1><p>G联赛Dota2的决赛，同福打IG，没其他好玩的东西，拍了张图就走了。今年Ti6中国队加油！</p>
 <p><img src="https://a.adcdn.cn/images/ccg2016_13.webp" alt="image"></p>
 <h1 id="归途"><a href="#归途" class="headerlink" title="归途"></a>归途</h1><p>临走拍了一张，发现这个位置过一条街就是上次看Dota2春季特锦标赛的梅赛德斯-奔驰文化中心。<br><img src="https://a.adcdn.cn/images/ccg2016_14.webp" alt="image"></p>
-<h1 id="小圆"><a href="#小圆" class="headerlink" title="小圆"></a>小圆</h1><p>小圆的浴衣做的很精致啊，为什么这么便宜。(/ □ \)</p>
+<h1 id="小圆"><a href="#小圆" class="headerlink" title="小圆"></a>小圆</h1><p>小圆的浴衣做的很精致啊，为什么这么便宜。(&#x2F; □ \)</p>
 <p><img src="https://a.adcdn.cn/images/ccg2016_15.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_16.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_17.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_18.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_19.webp" alt="image"></p>
 
       
@@ -682,18 +726,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -778,18 +810,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -894,18 +914,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1040,18 +1048,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1144,113 +1140,10 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/mongodb-ttl-indexes/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-github-offline-maintain"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/github-offline-maintain/">Github 离线维护</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/github-offline-maintain/" class="archive-article-date">
-  <time datetime="2016-01-28T02:32:34.000Z" itemprop="datePublished">
-    Published on 2016 / 01 / 28
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天Github出现故障，离线维护，认识了几个可爱的图标。</p>
-<p>一个是独角兽，不知道是不是彩虹小马神教里面的。</p>
-<p><img src="https://a.adcdn.cn/images/%E7%8B%AC%E8%A7%92%E5%85%BD.webp" alt="独角兽"></p>
-<p>过一阵子变水管工了。</p>
-<p><img src="https://a.adcdn.cn/images/%E6%B0%B4%E7%AE%A1%E5%B7%A5.webp" alt="水管工"></p>
-<p>这个是查看Github运行状态的地址：<a target="_blank" rel="noopener" href="https://status.github.com/">https://status.github.com/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/github-offline-maintain/">展开全文 >></a>
         </p>
       
 

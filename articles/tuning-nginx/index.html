@@ -11,15 +11,15 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="调整 Linux 配置文件描述符系统层面编辑 &#x2F;etc&#x2F;sysctl.conf 文件，调整 fs.file-max 参数值。  fs.file-max &#x3D; 200000  验证方式：  cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max  用户层面编辑 &#x2F;etc&#x2F;security&#x2F;limits.conf，增加以下内容 1234*  soft nproc  65535*  hard nproc  6">
+  <meta name="description" content="调整 Linux 配置文件描述符系统层面编辑 &#x2F;etc&#x2F;sysctl.conf 文件，调整 fs.file-max 参数值。  fs.file-max &#x3D; 200000  验证方式：  cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max  用户层面编辑 &#x2F;etc&#x2F;security&#x2F;limits.conf，增加以下内容 1234*  soft npr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx 调整笔记">
 <meta property="og:url" content="https://ldsink.com/articles/tuning-nginx/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="调整 Linux 配置文件描述符系统层面编辑 &#x2F;etc&#x2F;sysctl.conf 文件，调整 fs.file-max 参数值。  fs.file-max &#x3D; 200000  验证方式：  cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max  用户层面编辑 &#x2F;etc&#x2F;security&#x2F;limits.conf，增加以下内容 1234*  soft nproc  65535*  hard nproc  6">
+<meta property="og:description" content="调整 Linux 配置文件描述符系统层面编辑 &#x2F;etc&#x2F;sysctl.conf 文件，调整 fs.file-max 参数值。  fs.file-max &#x3D; 200000  验证方式：  cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max  用户层面编辑 &#x2F;etc&#x2F;security&#x2F;limits.conf，增加以下内容 1234*  soft npr">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-04-10T08:27:49.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.654Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary">
@@ -234,25 +234,26 @@
       
         <h1 id="调整-Linux-配置"><a href="#调整-Linux-配置" class="headerlink" title="调整 Linux 配置"></a>调整 Linux 配置</h1><h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><h3 id="系统层面"><a href="#系统层面" class="headerlink" title="系统层面"></a>系统层面</h3><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>fs.file-max</code> 参数值。</p>
 <blockquote>
-<p>fs.file-max = 200000</p>
+<p>fs.file-max &#x3D; 200000</p>
 </blockquote>
 <p>验证方式：</p>
 <blockquote>
-<p>cat /proc/sys/fs/file-max</p>
+<p>cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max</p>
 </blockquote>
 <h3 id="用户层面"><a href="#用户层面" class="headerlink" title="用户层面"></a>用户层面</h3><p>编辑 <code>/etc/security/limits.conf</code>，增加以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  soft nproc  65535</span><br><span class="line">*  hard nproc  65535</span><br><span class="line">*  soft nofile 65535</span><br><span class="line">*  hard nofile 65535</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  soft nproc  65535</span><br><span class="line">*  hard nproc  65535</span><br><span class="line">*  soft nofile 65535</span><br><span class="line">*  hard nofile 65535</span><br></pre></td></tr></table></figure>
+
 <p>验证方式：</p>
 <blockquote>
 <p>ulimit -n</p>
 </blockquote>
 <h2 id="临时端口"><a href="#临时端口" class="headerlink" title="临时端口"></a>临时端口</h2><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>net.ipv4.ip_local_port_range</code> 参数值。</p>
 <blockquote>
-<p>net.ipv4.ip_local_port_range = 1024 65000</p>
+<p>net.ipv4.ip_local_port_range &#x3D; 1024 65000</p>
 </blockquote>
 <p>验证方式：</p>
 <blockquote>
-<p>cat /proc/sys/net/ipv4/ip_local_port_range</p>
+<p>cat &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_local_port_range</p>
 </blockquote>
 <h1 id="调整-Nginx-配置"><a href="#调整-Nginx-配置" class="headerlink" title="调整 Nginx 配置"></a>调整 Nginx 配置</h1><h2 id="Worker-Processes"><a href="#Worker-Processes" class="headerlink" title="Worker Processes"></a>Worker Processes</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/ngx_core_module.html#worker_processes">worker_processes</a> - 和CPU核心数一致，建议直接使用<code>auto</code>。</li>
@@ -264,7 +265,7 @@
 <li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_requests">keepalive_requests</a> - 建议根据实际情况调高</li>
 <li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout">keepalive_timeout</a> – 空闲连接关闭时间</li>
 </ul>
-<h2 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h2><p>记录日志会消耗 CPU 和 I/O 资源。</p>
+<h2 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h2><p>记录日志会消耗 CPU 和 I&#x2F;O 资源。</p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="隐藏-Nginx-具体版本"><a href="#隐藏-Nginx-具体版本" class="headerlink" title="隐藏 Nginx 具体版本"></a>隐藏 Nginx 具体版本</h3><blockquote>
 <p>server_tokens off;</p>
 </blockquote>
@@ -329,18 +330,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

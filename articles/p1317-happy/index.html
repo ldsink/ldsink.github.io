@@ -11,15 +11,15 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我很郁闷，这样的0&#x2F;1背包变种问题我原来一起刷的时候怎么没做。又得重新写代码。懒惰的我啊。  编译通过…├ 测试数据 01：答案正确… 0ms├ 测试数据 02：答案正确… 0ms├ 测试数据 03：答案正确… 0ms├ 测试数据 04：答案正确… 0ms├ 测试数据 05：答案正确… 0ms├ 测试数据 06：答案正确… 0ms├ 测试数据 07：答案正确… 0ms├ 测试数据 08：答案正确…">
+  <meta name="description" content="我很郁闷，这样的0&#x2F;1背包变种问题我原来一起刷的时候怎么没做。又得重新写代码。懒惰的我啊。  编译通过…├ 测试数据 01：答案正确… 0ms├ 测试数据 02：答案正确… 0ms├ 测试数据 03：答案正确… 0ms├ 测试数据 04：答案正确… 0ms├ 测试数据 05：答案正确… 0ms├ 测试数据 06：答案正确… 0ms├ 测试数据 07：答案正确… 0ms├ 测试数据 08：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="P1317 开心的金明">
 <meta property="og:url" content="https://ldsink.com/articles/p1317-happy/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="我很郁闷，这样的0&#x2F;1背包变种问题我原来一起刷的时候怎么没做。又得重新写代码。懒惰的我啊。  编译通过…├ 测试数据 01：答案正确… 0ms├ 测试数据 02：答案正确… 0ms├ 测试数据 03：答案正确… 0ms├ 测试数据 04：答案正确… 0ms├ 测试数据 05：答案正确… 0ms├ 测试数据 06：答案正确… 0ms├ 测试数据 07：答案正确… 0ms├ 测试数据 08：答案正确…">
+<meta property="og:description" content="我很郁闷，这样的0&#x2F;1背包变种问题我原来一起刷的时候怎么没做。又得重新写代码。懒惰的我啊。  编译通过…├ 测试数据 01：答案正确… 0ms├ 测试数据 02：答案正确… 0ms├ 测试数据 03：答案正确… 0ms├ 测试数据 04：答案正确… 0ms├ 测试数据 05：答案正确… 0ms├ 测试数据 06：答案正确… 0ms├ 测试数据 07：答案正确… 0ms├ 测试数据 08：">
 <meta property="og:locale">
 <meta property="article:published_time" content="2009-10-21T11:02:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.898Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="vijos">
 <meta name="twitter:card" content="summary">
@@ -232,11 +232,12 @@
     <br />
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我很郁闷，这样的0/1背包变种问题我原来一起刷的时候怎么没做。又得重新写代码。懒惰的我啊。</p>
+        <p>我很郁闷，这样的0&#x2F;1背包变种问题我原来一起刷的时候怎么没做。又得重新写代码。懒惰的我啊。</p>
 <blockquote>
 <p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms </p>
 </blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> N,M,V[<span class="number">25</span>],P[<span class="number">25</span>],Re[<span class="number">26</span>][<span class="number">30001</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">Fun</span><span class="params">(<span class="keyword">long</span> thing,<span class="keyword">long</span> money)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(thing==M)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(Re[thing][money]==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">long</span> a,b;a=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(money&gt;=V[thing])</span><br><span class="line">            a=Fun(thing+<span class="number">1</span>,money-V[thing])+P[thing]*V[thing];</span><br><span class="line">        b=Fun(thing+<span class="number">1</span>,money);</span><br><span class="line">        Re[thing][money]=a&gt;b?a:b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Re[thing][money];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%ld %ld&quot;</span>,&amp;N,&amp;M);</span><br><span class="line">    <span class="keyword">long</span> a,b;</span><br><span class="line">    <span class="keyword">for</span>(a=<span class="number">0</span>;a&lt;M;a++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%ld %ld&quot;</span>,&amp;V[a],&amp;P[a]);</span><br><span class="line">    b=Fun(<span class="number">0</span>,N);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%ld\n&quot;</span>,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">long</span> N,M,V[<span class="number">25</span>],P[<span class="number">25</span>],Re[<span class="number">26</span>][<span class="number">30001</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="title function_">Fun</span><span class="params">(<span class="type">long</span> thing,<span class="type">long</span> money)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(thing==M)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(Re[thing][money]==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">long</span> a,b;a=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(money&gt;=V[thing])</span><br><span class="line">            a=Fun(thing+<span class="number">1</span>,money-V[thing])+P[thing]*V[thing];</span><br><span class="line">        b=Fun(thing+<span class="number">1</span>,money);</span><br><span class="line">        Re[thing][money]=a&gt;b?a:b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Re[thing][money];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%ld %ld&quot;</span>,&amp;N,&amp;M);</span><br><span class="line">    <span class="type">long</span> a,b;</span><br><span class="line">    <span class="keyword">for</span>(a=<span class="number">0</span>;a&lt;M;a++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%ld %ld&quot;</span>,&amp;V[a],&amp;P[a]);</span><br><span class="line">    b=Fun(<span class="number">0</span>,N);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%ld\n&quot;</span>,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -293,18 +294,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

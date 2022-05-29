@@ -11,15 +11,15 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="error.log 内容为：  2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream  这个是因为 nginx 和 php-fpm 分别使用了不同的用户权">
+  <meta name="description" content="error.log 内容为：  2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream  这个是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx 和 php-fpm 的 php7.0-fpm.sock Permission denied 错误">
 <meta property="og:url" content="https://ldsink.com/articles/nginx-php-fpm-permission-denied/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="error.log 内容为：  2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream  这个是因为 nginx 和 php-fpm 分别使用了不同的用户权">
+<meta property="og:description" content="error.log 内容为：  2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream  这个是">
 <meta property="og:locale">
 <meta property="article:published_time" content="2017-02-25T14:34:47.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.906Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -233,7 +233,7 @@
       
         <p>error.log 内容为：</p>
 <blockquote>
-<p>2017/02/25 20:20:58 [crit] 10745#10745: *1 connect() to unix:/var/run/php/php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream</p>
+<p>2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream</p>
 </blockquote>
 <p>这个是因为 nginx 和 php-fpm 分别使用了不同的用户权限。我的习惯是都统一成 www-data 用户。</p>
 <ul>
@@ -288,18 +288,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

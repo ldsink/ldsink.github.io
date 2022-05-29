@@ -20,7 +20,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://a.adcdn.cn/images/greenplum-highlevel-arch.webp">
 <meta property="article:published_time" content="2019-10-22T12:04:27.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.642Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="greenplum">
 <meta property="article:tag" content="postgres">
@@ -259,41 +259,54 @@
 <h2 id="操作系统配置修改"><a href="#操作系统配置修改" class="headerlink" title="操作系统配置修改"></a>操作系统配置修改</h2><p>主要三个：</p>
 <ol>
 <li>关闭 SELinux： 在 <code>/etc/selinux/config</code> 中设置 <code>SELINUX=disabled</code>，重启即可</li>
-<li>关闭防火墙：CentOS firewalld / Ubuntu ufw</li>
+<li>关闭防火墙：CentOS firewalld &#x2F; Ubuntu ufw</li>
 <li>同步系统时间：系统NTP服务需要打开，时间必须一致</li>
 </ol>
 <h2 id="Greenplum-用户创建"><a href="#Greenplum-用户创建" class="headerlink" title="Greenplum 用户创建"></a>Greenplum 用户创建</h2><p>也是三个，首先创建  gpadmin  用户和用户组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd gpadmin</span><br><span class="line">sudo useradd gpadmin -r -m -g gpadmin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd gpadmin</span><br><span class="line">sudo useradd gpadmin -r -m -g gpadmin</span><br></pre></td></tr></table></figure>
+
 <p>再生成密钥对</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su gpadmin</span><br><span class="line">chsh -s &#x2F;bin&#x2F;bash</span><br><span class="line">ssh-keygen -o -a 100 -t ed25519</span><br><span class="line">cp .ssh&#x2F;id_ed25519.pub .ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su gpadmin</span><br><span class="line">chsh -s /bin/bash</span><br><span class="line">ssh-keygen -o -a 100 -t ed25519</span><br><span class="line">cp .ssh/id_ed25519.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
 <p>最后将管理用户设置为  sudo  免密，方便以后自己操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;pgadmin ALL&#x3D;(ALL) NOPASSWD: ALL&#39; | EDITOR&#x3D;&#39;tee -a&#39; visudo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;pgadmin ALL=(ALL) NOPASSWD: ALL&#x27; | EDITOR=&#x27;tee -a&#x27; visudo</span><br></pre></td></tr></table></figure>
+
 <h2 id="Greenplum-系统安装"><a href="#Greenplum-系统安装" class="headerlink" title="Greenplum 系统安装"></a>Greenplum 系统安装</h2><p><a target="_blank" rel="noopener" href="https://greenplum.org/install-greenplum-oss-on-ubuntu/">Ubuntu 系统有现成的PPA源</a>，Pivotal也提供编译好的二进制包。我选择的是最新版本的  greenplum-db。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:greenplum&#x2F;db</span><br><span class="line">sudo apt install greenplum-db</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:greenplum/db</span><br><span class="line">sudo apt install greenplum-db</span><br></pre></td></tr></table></figure>
+
 <h2 id="Greenplum-系统初始化"><a href="#Greenplum-系统初始化" class="headerlink" title="Greenplum 系统初始化"></a>Greenplum 系统初始化</h2><p><a target="_blank" rel="noopener" href="https://gpdb.docs.pivotal.io/6-0/install_guide/init_gpdb.html">文档在此</a>，需要在  master  节点上操作。</p>
 <h3 id="创建用于初始化的-host-文件"><a href="#创建用于初始化的-host-文件" class="headerlink" title="创建用于初始化的 host 文件"></a>创建用于初始化的 host 文件</h3><p>创建 <code>hostfile_gpinitsystem</code> 包括所有 segment 节点的地址，不包括 master 和 standby master。更改配置文件，确保 master 到各个 segment 节点的连接正确。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -f hostfile_gpinitsystem || sudo tee -a &#x2F;etc&#x2F;ssh&#x2F;ssh_known_hosts</span><br><span class="line">gpssh-exkeys -f hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
-<h3 id="创建-Greenplum-数据库配置文件"><a href="#创建-Greenplum-数据库配置文件" class="headerlink" title="创建 Greenplum 数据库配置文件"></a>创建 Greenplum 数据库配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">cp &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;docs&#x2F;cli_help&#x2F;gpconfigs&#x2F;gpinitsystem_config &#x2F;home&#x2F;gpadmin&#x2F;gpinitsystem_config</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -f hostfile_gpinitsystem || sudo tee -a /etc/ssh/ssh_known_hosts</span><br><span class="line">gpssh-exkeys -f hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建-Greenplum-数据库配置文件"><a href="#创建-Greenplum-数据库配置文件" class="headerlink" title="创建 Greenplum 数据库配置文件"></a>创建 Greenplum 数据库配置文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">cp /opt/greenplum-db-6.0.1/docs/cli_help/gpconfigs/gpinitsystem_config /home/gpadmin/gpinitsystem_config</span><br></pre></td></tr></table></figure>
+
 <p>主要修改的几个参数按照文档要求的填对就行。</p>
 <h3 id="创建数据存储区域"><a href="#创建数据存储区域" class="headerlink" title="创建数据存储区域"></a>创建数据存储区域</h3><p>需要在各个类型的节点上创建 Greenplum 用于存储数据的路径，并配置好权限。数据存储路径需要和配置文件的保持一致。可以利用 Greenplum 提供的工具在 master 节点操作整个网络。</p>
 <p>Master</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;master</span><br><span class="line">chown gpadmin:gpadmin &#x2F;data&#x2F;master</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/master</span><br><span class="line">chown gpadmin:gpadmin /data/master</span><br></pre></td></tr></table></figure>
+
 <p>Standby master</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -h smdw -e &#39;mkdir -p &#x2F;data&#x2F;master&#39;</span><br><span class="line">gpssh -h smdw -e &#39;chown gpadmin:gpadmin &#x2F;data&#x2F;master&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -h smdw -e &#x27;mkdir -p /data/master&#x27;</span><br><span class="line">gpssh -h smdw -e &#x27;chown gpadmin:gpadmin /data/master&#x27;</span><br></pre></td></tr></table></figure>
+
 <p>Segment</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-1&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-2&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-3&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;chown -R gpadmin:gpadmin &#x2F;data&#x2F;data-*&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/data-*&#x27;</span><br></pre></td></tr></table></figure>
+
 <p>Mirror</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-1&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-2&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-3&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;chown -R gpadmin:gpadmin &#x2F;data&#x2F;mirror-*&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/mirror-*&#x27;</span><br></pre></td></tr></table></figure>
+
 <h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><p>上面都整好了，就可以执行命令初始化数据库了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c gpinitsystem_config -h hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c gpinitsystem_config -h hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
+
 <p>为了方便以后的操作，可以增加下面内容到 <code>.bashrc</code>，不用每次 <code>source</code> 引入环境变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY&#x3D;&#x2F;data&#x2F;master&#x2F;gpseg-1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY=/data/master/gpseg-1</span><br></pre></td></tr></table></figure>
+
 <h1 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h1><p>生产环境使用的 PostgreSQL 11，使用了很多新特性，包括<a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/9.5/brin-intro.html">BRIN</a>等。Greenplum 6 还是基于 PG 9.4 版本，一些东西老版本的不支持，需要特别注意，处理一下。</p>
 <p>迁移使用PG自带的工具  pg_dump  和  psql ，很快可以灌入数据。</p>
 <h1 id="碰到的问题"><a href="#碰到的问题" class="headerlink" title="碰到的问题"></a>碰到的问题</h1><p>小问题就不提了，看 log 和文档定位到修改就好了，说一个奇葩的问题。</p>
 <p>查询一个SQL语句，只要带  Group By  就无法返回结果，而  sum  却可以拿到结果。查看日志没有报错。查询就是等待返回数据，非常诡异。master 和 segment 节点是有超时设置的，如果是 segment 查询超时，应该会有错误日志，但是很诡异，就是没有详细的异常日志。根据Greenplum的架构图，猜测应该是 master 节点处理的问题，但是继续检查配置文件、检查Log，依旧找不到问题。</p>
 <p>搜索结果中看到了<a target="_blank" rel="noopener" href="https://ieevee.com/tech/2017/07/06/gp-ic.html">三罐可乐带你读懂Greenplum的interconnect</a>，可能是 Greenplum 的 interconnect 导致 master 对 segment 返回的结果处理有奇怪的逻辑。整个网络状态是正常的，端口监听也正常。反思整个部署过程，打开了 <code>/etc/hosts</code> 文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1&#96;&#96;&#96;&#96;&#96;&#96;hostname1</span><br><span class="line"></span><br><span class="line">172.31.0.2&#96;&#96;&#96;&#96;&#96;&#96;hostname1</span><br><span class="line">172.31.0.3&#96;&#96;&#96;&#96;&#96;&#96;hostname2</span><br><span class="line">172.31.0.4&#96;&#96;&#96;&#96;&#96;&#96;hostname3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1``````hostname1</span><br><span class="line"></span><br><span class="line">172.31.0.2``````hostname1</span><br><span class="line">172.31.0.3``````hostname2</span><br><span class="line">172.31.0.4``````hostname3</span><br></pre></td></tr></table></figure>
+
 <p>云服务器的系统会在 hosts 文件将自己的 hostname 配置成 <code>127.0.0.1</code>，搭建  Greenplum  集群的时候设置的 hosts 添加在这一行下面。删除本机 <code>127.0.0.1</code> 的配置，重启系统，恢复正常。</p>
 
       
@@ -357,18 +370,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

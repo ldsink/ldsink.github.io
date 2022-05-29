@@ -11,16 +11,16 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Typecho 支持开启伪静态的，开启之后网址链接更加美观。今天配置了一下，打开了这个功能，此处做记录。 相关的nginx配置如下： 1234567891011121314151617location ~ ^[^.]+\.php(&#x2F;|$) &amp;#123;    fastcgi_pass 127.0.0.1:9000;    fastcgi_index index.php;    fastc">
+  <meta name="description" content="Typecho 支持开启伪静态的，开启之后网址链接更加美观。今天配置了一下，打开了这个功能，此处做记录。 相关的nginx配置如下： 1234567891011121314151617location ~ ^[^.]+\.php(&#x2F;|$) &amp;#123;    fastcgi_pass 127.0.0.1:9000;    fastcgi_index index.php;    fastcgi_pa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nginx 下 Typecho 开启伪静态">
 <meta property="og:url" content="https://ldsink.com/articles/nginx-typecho-enable-pseudo-static/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="Typecho 支持开启伪静态的，开启之后网址链接更加美观。今天配置了一下，打开了这个功能，此处做记录。 相关的nginx配置如下： 1234567891011121314151617location ~ ^[^.]+\.php(&#x2F;|$) &amp;#123;    fastcgi_pass 127.0.0.1:9000;    fastcgi_index index.php;    fastc">
+<meta property="og:description" content="Typecho 支持开启伪静态的，开启之后网址链接更加美观。今天配置了一下，打开了这个功能，此处做记录。 相关的nginx配置如下： 1234567891011121314151617location ~ ^[^.]+\.php(&#x2F;|$) &amp;#123;    fastcgi_pass 127.0.0.1:9000;    fastcgi_index index.php;    fastcgi_pa">
 <meta property="og:locale">
 <meta property="og:image" content="https://a.adcdn.cn/images/typecho_rewrite.webp">
 <meta property="article:published_time" content="2015-02-28T09:38:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.586Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://a.adcdn.cn/images/typecho_rewrite.webp">
@@ -235,7 +235,8 @@
       
         <p>Typecho 支持开启伪静态的，开启之后网址链接更加美观。今天配置了一下，打开了这个功能，此处做记录。</p>
 <p>相关的nginx配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^[^.]+\.php(&#x2F;|$) &#123;</span><br><span class="line">    fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">    fastcgi_index index.php;</span><br><span class="line">    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">    include fastcgi_params;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 用于伪静态</span><br><span class="line">if (-f $request_filename&#x2F;index.html) &#123;</span><br><span class="line">  rewrite (.*) $1&#x2F;index.html break;</span><br><span class="line">&#125;</span><br><span class="line">if (-f $request_filename&#x2F;index.php) &#123;</span><br><span class="line">  rewrite (.*) $1&#x2F;index.php;</span><br><span class="line">&#125;</span><br><span class="line">if (!-f $request_filename) &#123;</span><br><span class="line">  rewrite (.*) &#x2F;index.php;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^[^.]+\.php(/|$) &#123;</span><br><span class="line">    fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">    fastcgi_index index.php;</span><br><span class="line">    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">    include fastcgi_params;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 用于伪静态</span><br><span class="line">if (-f $request_filename/index.html) &#123;</span><br><span class="line">  rewrite (.*) $1/index.html break;</span><br><span class="line">&#125;</span><br><span class="line">if (-f $request_filename/index.php) &#123;</span><br><span class="line">  rewrite (.*) $1/index.php;</span><br><span class="line">&#125;</span><br><span class="line">if (!-f $request_filename) &#123;</span><br><span class="line">  rewrite (.*) /index.php;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>Nginx修改好之后reload新的配置文件，再进入Typecho就可以直接在配置中开启伪静态选项了。</p>
 <p><img src="https://a.adcdn.cn/images/typecho_rewrite.webp" alt="typecho_rewrite"></p>
 
@@ -283,18 +284,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

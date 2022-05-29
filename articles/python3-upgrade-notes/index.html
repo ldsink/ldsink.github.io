@@ -11,15 +11,15 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="面向开发同事的分享。整个迁移过程可以看这里。 开发&#x2F;服务器环境服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本  新建 Python3 环境的 virtualenv，并且安装 requirements.txt   virtualenv -p &#x2F;usr&#x2F;bin&#x2F;python3 &amp;l">
+  <meta name="description" content="面向开发同事的分享。整个迁移过程可以看这里。 开发&#x2F;服务器环境服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本  新建 Python3 环境的 virtualenv，并且安装 requirements.txt   virtualenv -p &#x2F;usr&amp;#x2F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python3 升级注意事项">
 <meta property="og:url" content="https://ldsink.com/articles/python3-upgrade-notes/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="面向开发同事的分享。整个迁移过程可以看这里。 开发&#x2F;服务器环境服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本  新建 Python3 环境的 virtualenv，并且安装 requirements.txt   virtualenv -p &#x2F;usr&#x2F;bin&#x2F;python3 &amp;l">
+<meta property="og:description" content="面向开发同事的分享。整个迁移过程可以看这里。 开发&#x2F;服务器环境服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本  新建 Python3 环境的 virtualenv，并且安装 requirements.txt   virtualenv -p &#x2F;usr&amp;#x2F">
 <meta property="og:locale">
 <meta property="article:published_time" content="2017-08-02T07:28:20.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.822Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
@@ -233,12 +233,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><strong>面向开发同事的分享。</strong><br><strong>整个迁移过程可以看<a target="_blank" rel="noopener" href="http://www.liriansu.com/py2-to-py3">这里</a>。</strong></p>
-<h1 id="开发-服务器环境"><a href="#开发-服务器环境" class="headerlink" title="开发/服务器环境"></a>开发/服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
+<h1 id="开发-x2F-服务器环境"><a href="#开发-x2F-服务器环境" class="headerlink" title="开发&#x2F;服务器环境"></a>开发&#x2F;服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
 <ul>
 <li>新建 Python3 环境的 virtualenv，并且安装 requirements.txt</li>
 </ul>
 <blockquote>
-<p>virtualenv -p /usr/bin/python3 &lt;path/to/virtualenv&gt;</p>
+<p>virtualenv -p &#x2F;usr&#x2F;bin&#x2F;python3 &lt;path&#x2F;to&#x2F;virtualenv&gt;</p>
 </blockquote>
 <ul>
 <li><p>PyCharm 设置新的虚拟环境，设置 Python3.5 的检测</p>
@@ -247,10 +247,11 @@
 </li>
 </ul>
 <blockquote>
-<p>cd &lt;path/to/virtualenv&gt; &amp;&amp; source bin/activate &amp;&amp; cd - </p>
+<p>cd &lt;path&#x2F;to&#x2F;virtualenv&gt; &amp;&amp; source bin&#x2F;activate &amp;&amp; cd - </p>
 </blockquote>
 <h1 id="Python3-需要注意的点"><a href="#Python3-需要注意的点" class="headerlink" title="Python3 需要注意的点"></a>Python3 需要注意的点</h1><h2 id="基础的-print"><a href="#基础的-print" class="headerlink" title="基础的 print"></a>基础的 print</h2><p>现在是函数了，不再是关键词</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">&#x27;hello world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
 <h2 id="字符串与字节"><a href="#字符串与字节" class="headerlink" title="字符串与字节"></a>字符串与字节</h2><p>没有 unicode 类型。所有的 str 就是 unicode 类型。Python3 严格区分字节和字符串，以前字符串和字节混用的地方都会出问题，需要注意。</p>
 <p>常见的问题如下：</p>
 <ul>
@@ -277,12 +278,13 @@
 </ul>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
 <li>一些内置库、内置函数的变更，用到了，按照 Python3.5 文档更新。</li>
-<li>/ 默认是除法。3/2=1.5。整除严格使用 //。</li>
+<li>&#x2F; 默认是除法。3&#x2F;2&#x3D;1.5。整除严格使用 &#x2F;&#x2F;。</li>
 <li>统一 long 和 int。</li>
 <li>强制 absolute_import。</li>
 <li>可以使用 Type Hints 进行标记（只有标记作用，不影响实际运行）。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; str:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(name)</span><br></pre></td></tr></table></figure>
+
 <h1 id="后续的一些改动"><a href="#后续的一些改动" class="headerlink" title="后续的一些改动"></a>后续的一些改动</h1><ul>
 <li>全部切换到 Python3 之后，所有的 <code>__future__</code> 引入会删除。</li>
 <li>Python3 buildin 的库，会从 requirements.txt 移除，如 enum。</li>
@@ -345,18 +347,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

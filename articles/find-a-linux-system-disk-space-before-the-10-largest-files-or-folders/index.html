@@ -19,7 +19,7 @@
 <meta property="og:description" content="收到邮件警报，服务器硬盘使用率大于90%。需要快速找出占用硬盘空间大的文件或者文件夹。一番搜索之后学习到可以使用三个组合命令快速找出:  du : 计算出单个文件或者文件夹的磁盘空间占用。 sort : 对文件行或者标准输出行记录排序后输出。 head : 输出文件内容的前面部分。  用下面的命令组合就可以查找target_path中占用磁盘空间最大的前10个文件或文件夹：  du -hsx ta">
 <meta property="og:locale">
 <meta property="article:published_time" content="2014-12-01T00:10:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.578Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -243,7 +243,7 @@
 </ul>
 <p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
 <blockquote>
-<p>du -hsx <strong>target_path/*</strong> | sort -rh | head -10</p>
+<p>du -hsx <strong>target_path&#x2F;*</strong> | sort -rh | head -10</p>
 </blockquote>
 
       
@@ -290,18 +290,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

@@ -11,16 +11,16 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。 日期（Date）、时间（Time）和时间戳（Timestamp）互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一个统一的标">
+  <meta name="description" content="最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。 日期（Date）、时间（Time）和时间戳（Timestamp）互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="互联网上的日期和时间">
 <meta property="og:url" content="https://ldsink.com/articles/date-and-time-on-the-internet/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。 日期（Date）、时间（Time）和时间戳（Timestamp）互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一个统一的标">
+<meta property="og:description" content="最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。 日期（Date）、时间（Time）和时间戳（Timestamp）互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一">
 <meta property="og:locale">
 <meta property="og:image" content="https://a.adcdn.cn/images/time-zone-map.webp">
 <meta property="article:published_time" content="2017-12-08T07:02:52.000Z">
-<meta property="article:modified_time" content="2021-11-24T10:04:19.965Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.586Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="rfc">
 <meta name="twitter:card" content="summary">
@@ -235,9 +235,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><img src="https://a.adcdn.cn/images/time-zone-map.webp" alt="time-zone-map"></p>
-<p>最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间/时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。</p>
+<p>最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。</p>
 <h1 id="日期（Date）、时间（Time）和时间戳（Timestamp）"><a href="#日期（Date）、时间（Time）和时间戳（Timestamp）" class="headerlink" title="日期（Date）、时间（Time）和时间戳（Timestamp）"></a>日期（Date）、时间（Time）和时间戳（Timestamp）</h1><p>互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一个统一的标准，来规范统一不同语言、不同时区对同一个时刻的表示。</p>
-<p>国际标准组织（ISO）制定了<a target="_blank" rel="noopener" href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>,我们的<a target="_blank" rel="noopener" href="http://www.cmaph.org/attachment/2013530/1369881489484.pdf">中华人民共和国国家标准GB/T 7408-2005《数据元和交换格式 信息交换 日期和时间表示法》</a>与ISO 8601:2000等效采用。</p>
+<p>国际标准组织（ISO）制定了<a target="_blank" rel="noopener" href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>,我们的<a target="_blank" rel="noopener" href="http://www.cmaph.org/attachment/2013530/1369881489484.pdf">中华人民共和国国家标准GB&#x2F;T 7408-2005《数据元和交换格式 信息交换 日期和时间表示法》</a>与ISO 8601:2000等效采用。</p>
 <p>上面两个标准，对开发者而言，太过于严肃。其实有一份更加简单易读的文件 <a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc3339.txt">RFC3339 Date and Time on the Internet: Timestamps</a>。本文之后的讨论，都基于 RFC3339。</p>
 <p>RFC3339 比 ISO 8601 有一个很一个明显的限制，这里提一下：ISO允许24点，而 RFC3339 为了减少混淆，限制小时必须在0至23之间。23:59过1分钟，是第二天的0:00。</p>
 <p>阅读RFC3339，我主要明确下面三个定义：</p>
@@ -258,7 +258,7 @@
 <p>2017-12-08 11:50:03.537506</p>
 </blockquote>
 <h2 id="标准时间"><a href="#标准时间" class="headerlink" title="标准时间"></a>标准时间</h2><p>本地时间只包括当前的时间，不包含任何时区信息。同一时刻，东八区的本地时间比零时区的本地时间快了8个小时。在不同时区之间交换时间数据，除了用纯数字的时间戳，还有一种更方便人类阅读的表示方式：标准时间的偏移量表示方法。</p>
-<p>RFC3339详细定义了互联网上日期/时间的偏移量表示：</p>
+<p>RFC3339详细定义了互联网上日期&#x2F;时间的偏移量表示：</p>
 <blockquote>
 <p>2017-12-08T00:00:00.00Z</p>
 </blockquote>
@@ -273,7 +273,7 @@
 <p>很自然的，开发者编写代码处理用户输入的时间类型数据，处理的都是本地时间的格式。而计算机系统处理逻辑，依赖标准时间。从用户输入的本地时间，转化成系统能处理的标准时间，这个过程是系统隐式的自动转换。当系统的时区设置和用户所处的时区不一致的时候，时间经过一次输入，处理之后再输出，就有了差异。</p>
 <p>为了避免在时间处理上出现问题，核心就是统一输入输出时间的转化。因此解决的思路也是两个：</p>
 <ol>
-<li>强制用户输入的时间类型是标准的，使用时间戳/标准时间。如果你的系统是给全球用户使用的，应该采用这种功能方法。这是最准确，最不容易出错的。</li>
+<li>强制用户输入的时间类型是标准的，使用时间戳&#x2F;标准时间。如果你的系统是给全球用户使用的，应该采用这种功能方法。这是最准确，最不容易出错的。</li>
 <li>系统的时区和用户的时区严格一致。项目规模小，全部都是一个时区的用户。采用这种方案，一旦用户跨时区了，还是会存在问题。不是很推荐。</li>
 </ol>
 <p>时区的名称可以查维基百科，也可以查官方的数据库 <a target="_blank" rel="noopener" href="https://www.iana.org/time-zones">Time Zone Database</a>。</p>
@@ -284,7 +284,7 @@
 <li>在天朝，还是把系统时区设置成北京时间比较好。</li>
 </ul>
 <h2 id="下面是一些踩过的坑："><a href="#下面是一些踩过的坑：" class="headerlink" title="下面是一些踩过的坑："></a>下面是一些踩过的坑：</h2><h3 id="Docker-设置时区"><a href="#Docker-设置时区" class="headerlink" title="Docker 设置时区"></a>Docker 设置时区</h3><p>很多Docker镜像都是UTC时区，在上海使用镜像启用容器，容器里面获取的本地时间都会慢8个小时。可以在Dockerfile里面设置时区。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes">参考这个问题的回答</a></p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">ln</span> -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="Ubuntu-设置时区"><a href="#Ubuntu-设置时区" class="headerlink" title="Ubuntu 设置时区"></a>Ubuntu 设置时区</h3><p>Docker里面大部分镜像是基于Debian的，Docker这么解决，Ubuntu上思路类似，直接执行命令就好了。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TZ=Asia/Shanghai</span><br><span class="line">ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
@@ -355,18 +355,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

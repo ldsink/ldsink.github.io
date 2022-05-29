@@ -11,15 +11,15 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Monit是一款强大的系统监控软件。M&#x2F;Monit是Monit的扩展,可以作为中心节点监控多台Monit机器。以下是这息息相关的两者的调教笔记。 Monit 安装Monit官网有源代码，有二进制安装包，怎么喜欢怎么来。 M&#x2F;Monit 安装M&#x2F;Monit下载地址，下载好之后就按官方手册在30S内运行起来吧。  解压下载好的安装包，将解压出的文件夹放在合适的位置。推荐&#x2F;opt或者&#x2F;usr&#x2F;local">
+  <meta name="description" content="Monit是一款强大的系统监控软件。M&#x2F;Monit是Monit的扩展,可以作为中心节点监控多台Monit机器。以下是这息息相关的两者的调教笔记。 Monit 安装Monit官网有源代码，有二进制安装包，怎么喜欢怎么来。 M&#x2F;Monit 安装M&#x2F;Monit下载地址，下载好之后就按官方手册在30S内运行起来吧。  解压下载好的安装包，将解压出的文件夹放在合适的位置。推荐&#x2F;opt或者">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Monit 和 M&#x2F;Monit 的调教笔记">
 <meta property="og:url" content="https://ldsink.com/articles/monit-and-mmonit/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="Monit是一款强大的系统监控软件。M&#x2F;Monit是Monit的扩展,可以作为中心节点监控多台Monit机器。以下是这息息相关的两者的调教笔记。 Monit 安装Monit官网有源代码，有二进制安装包，怎么喜欢怎么来。 M&#x2F;Monit 安装M&#x2F;Monit下载地址，下载好之后就按官方手册在30S内运行起来吧。  解压下载好的安装包，将解压出的文件夹放在合适的位置。推荐&#x2F;opt或者&#x2F;usr&#x2F;local">
+<meta property="og:description" content="Monit是一款强大的系统监控软件。M&#x2F;Monit是Monit的扩展,可以作为中心节点监控多台Monit机器。以下是这息息相关的两者的调教笔记。 Monit 安装Monit官网有源代码，有二进制安装包，怎么喜欢怎么来。 M&#x2F;Monit 安装M&#x2F;Monit下载地址，下载好之后就按官方手册在30S内运行起来吧。  解压下载好的安装包，将解压出的文件夹放在合适的位置。推荐&#x2F;opt或者">
 <meta property="og:locale">
 <meta property="article:published_time" content="2015-07-07T07:42:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.722Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -237,31 +237,32 @@
       
         <p><a target="_blank" rel="noopener" href="https://mmonit.com/monit/">Monit</a>是一款强大的系统监控软件。<code>M/Monit</code>是<code>Monit</code>的扩展,可以作为中心节点监控多台<code>Monit</code>机器。<br>以下是这息息相关的两者的调教笔记。</p>
 <h2 id="Monit-安装"><a href="#Monit-安装" class="headerlink" title="Monit 安装"></a>Monit 安装</h2><p><a target="_blank" rel="noopener" href="https://mmonit.com/monit/">Monit官网</a>有源代码，有二进制安装包，怎么喜欢怎么来。</p>
-<h2 id="M-Monit-安装"><a href="#M-Monit-安装" class="headerlink" title="M/Monit 安装"></a>M/Monit 安装</h2><p><a target="_blank" rel="noopener" href="https://mmonit.com/download/">M/Monit下载地址</a>，下载好之后就按<a target="_blank" rel="noopener" href="https://mmonit.com/wiki/MMonit/Setup">官方手册</a>在30S内运行起来吧。</p>
+<h2 id="M-x2F-Monit-安装"><a href="#M-x2F-Monit-安装" class="headerlink" title="M&#x2F;Monit 安装"></a>M&#x2F;Monit 安装</h2><p><a target="_blank" rel="noopener" href="https://mmonit.com/download/">M&#x2F;Monit下载地址</a>，下载好之后就按<a target="_blank" rel="noopener" href="https://mmonit.com/wiki/MMonit/Setup">官方手册</a>在30S内运行起来吧。</p>
 <ol>
 <li>解压下载好的安装包，将解压出的文件夹放在合适的位置。推荐<code>/opt</code>或者<code>/usr/local</code>。</li>
 <li>进入目录，执行<code>./bin/mmonit</code>,<code>M/Monit</code>启动完成。</li>
 <li>打开浏览器，输入 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a> 。成功的话就可以看到登录界面。</li>
 <li>默认用户<code>admin</code>，默认密码<code>swordfish</code>。登录之后尽情玩耍。</li>
 </ol>
-<h2 id="M-Monit-自动启动"><a href="#M-Monit-自动启动" class="headerlink" title="M/Monit 自动启动"></a>M/Monit 自动启动</h2><p>推荐使用<code>Monit</code>来管理<code>M/Monit</code>。</p>
+<h2 id="M-x2F-Monit-自动启动"><a href="#M-x2F-Monit-自动启动" class="headerlink" title="M&#x2F;Monit 自动启动"></a>M&#x2F;Monit 自动启动</h2><p>推荐使用<code>Monit</code>来管理<code>M/Monit</code>。</p>
 <p>首先在<code>Monit</code>的配置文件里面加上监控<code>M/Monit</code>的设置。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 假设你存放 M&#x2F;Monit 的目录是 &#x2F;usr&#x2F;local。</span><br><span class="line">check process mmonit with pidfile &#x2F;usr&#x2F;local&#x2F;mmonit&#x2F;logs&#x2F;mmonit.pid</span><br><span class="line">    start program &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;mmonit&#x2F;bin&#x2F;mmonit&quot;</span><br><span class="line">    stop program &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;mmonit&#x2F;bin&#x2F;mmonit stop&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 假设你存放 M/Monit 的目录是 /usr/local。</span><br><span class="line">check process mmonit with pidfile /usr/local/mmonit/logs/mmonit.pid</span><br><span class="line">    start program = &quot;/usr/local/mmonit/bin/mmonit&quot;</span><br><span class="line">    stop program = &quot;/usr/local/mmonit/bin/mmonit stop&quot;</span><br></pre></td></tr></table></figure>
 <p>再载入新的配置就OK了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monit reload</span><br></pre></td></tr></table></figure>
-<h2 id="Monit-向-M-Monit-报告存在"><a href="#Monit-向-M-Monit-报告存在" class="headerlink" title="Monit 向 M/Monit 报告存在"></a>Monit 向 M/Monit 报告存在</h2><p>新建的每个<code>Monit</code>需要向<code>M/Monit</code>报告，这样<code>M/Monit</code>作为中心节点才能了解并管理新的<code>Monit</code>实例。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monit reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="Monit-向-M-x2F-Monit-报告存在"><a href="#Monit-向-M-x2F-Monit-报告存在" class="headerlink" title="Monit 向 M&#x2F;Monit 报告存在"></a>Monit 向 M&#x2F;Monit 报告存在</h2><p>新建的每个<code>Monit</code>需要向<code>M/Monit</code>报告，这样<code>M/Monit</code>作为中心节点才能了解并管理新的<code>Monit</code>实例。</p>
 <p><code>Monit</code>报告的具体设置方法可以查阅<a target="_blank" rel="noopener" href="http://mmonit.com/documentation/">官方手册</a>，下面是简化的步骤。</p>
 <ol>
 <li><p>首先需要在配置文件中声明<code>M/Monit</code>的位置。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set mmonit http:&#x2F;&#x2F;&lt;username&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;&#x2F;collector</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set mmonit http://&lt;username&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/collector</span><br></pre></td></tr></table></figure>
 <p>其中<code>username</code>和<code>password</code>是<code>M/Monit</code>中任何有效用户。可以使用管理员账户登录<code>M/Monit</code>对这些用户进行管理。<br><code>&lt;host&gt;:&lt;port&gt;</code>是<code>M/Monit</code>的位置，端口默认是8080。</p>
 </li>
-<li><p>然后再启用httpd服务，以便接收 M/Monit 的操作指令。新版本的默认配置文件是开启的，只需要确认一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set httpd port 2812 and</span><br><span class="line">    set httpd port 2812</span><br><span class="line">    allow localhost</span><br><span class="line">    allow &lt;host&gt;</span><br><span class="line">    allow admin:secret</span><br></pre></td></tr></table></figure>
-<p>需要注意<host>的值是前面设置的M/Monit的位置，否则不生效。</p>
+<li><p>然后再启用httpd服务，以便接收 M&#x2F;Monit 的操作指令。新版本的默认配置文件是开启的，只需要确认一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set httpd port 2812 and</span><br><span class="line">    set httpd port 2812</span><br><span class="line">    allow localhost</span><br><span class="line">    allow &lt;host&gt;</span><br><span class="line">    allow admin:secret</span><br></pre></td></tr></table></figure>
+<p>需要注意<host>的值是前面设置的M&#x2F;Monit的位置，否则不生效。</p>
 </li>
 </ol>
-<p><strong>Monit和M/Monit之间的联系是有版本要求的，如果已经正确设置，但是还不生效，请查看日志检查错误原因。</strong><br><strong>需要注意CentOS默认源的Monit版本是5.1，而最新版的M/Monit要求Monit版本不低于5.2，直接使用默认源安装会造成连接问题。</strong></p>
+<p><strong>Monit和M&#x2F;Monit之间的联系是有版本要求的，如果已经正确设置，但是还不生效，请查看日志检查错误原因。</strong><br><strong>需要注意CentOS默认源的Monit版本是5.1，而最新版的M&#x2F;Monit要求Monit版本不低于5.2，直接使用默认源安装会造成连接问题。</strong></p>
 
       
 
@@ -307,18 +308,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

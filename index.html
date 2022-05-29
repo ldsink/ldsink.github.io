@@ -201,6 +201,113 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-maxcompute"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/maxcompute/">MaxCompute 简单调研</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/maxcompute/" class="archive-article-date">
+  <time datetime="2022-05-29T06:18:25.000Z" itemprop="datePublished">
+    Published on 2022 / 05 / 29
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/27800.html">文档</a> | <a target="_blank" rel="noopener" href="https://workbench.data.aliyun.com/console#/MCEngines">控制台</a></p>
+<ul>
+<li>产品定位定位：云数据仓库</li>
+<li>支持内部表和外部表（MaxCompute 2.0版本开始支持外部表）</li>
+<li>产品上，和阿里云内部的 DataWorks 和 Quick BI 打通</li>
+<li>数据上，可以通过数据集成功能加载不同数据源（例如 MySQL）的数据，也可以通过数据集成把 MaxCompute 的数据导出到各种业务数据库。</li>
+</ul>
+<p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4646012261/p277090.png" alt="MaxCompute产品架构"></p>
+<h3 id="MaxCompute的项目发挥什么作用？"><a href="#MaxCompute的项目发挥什么作用？" class="headerlink" title="MaxCompute的项目发挥什么作用？"></a>MaxCompute的项目发挥什么作用？</h3><ul>
+<li>项目（Project）是MaxCompute的基本组织单元，类似于传统数据库的Database或Schema的概念，是进行多用户隔离和访问控制的主要边界。</li>
+<li>项目中包含多个对象，例如表（Table）、资源（Resource）、函数（Function）和实例（Instance）等。</li>
+<li>一个用户可以同时拥有多个项目的权限。</li>
+<li>通过安全授权，可以在一个项目访问另一个项目中的对象。</li>
+</ul>
+<h3 id="MaxCompute常见错误信息如何理解，怎么定位问题？"><a href="#MaxCompute常见错误信息如何理解，怎么定位问题？" class="headerlink" title="MaxCompute常见错误信息如何理解，怎么定位问题？"></a>MaxCompute常见错误信息如何理解，怎么定位问题？</h3><p>MaxCompute的常见报错信息编号有规范定义，格式为：<code>异常编号：通用描述 - 上下文相关说明</code>。其中SQL、MapReduce、Tunnel的错误信息是不一样的。更多错误信息，请参见<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/34636.htm?spm=a2c4g.11186623.0.0.5a6d7e6ddQj4YT#concept-orf-tcw-tdb">错误码概述</a>。</p>
+<h3 id="核心概念的层次结构"><a href="#核心概念的层次结构" class="headerlink" title="核心概念的层次结构"></a>核心概念的层次结构</h3><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/8564001361/p324382.png" alt="MaxCompute核心概念的层次结构"></p>
+<h3 id="关键性里程碑"><a href="#关键性里程碑" class="headerlink" title="关键性里程碑"></a>关键性里程碑</h3><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4633419161/p1001.png" alt="MaxCompute关键性里程碑"></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/185240.html">浏览器，MaxCompute 控制台-查询编辑器</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/27971.html">PC，MaxCompute客户端（odpscmd）</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/50889.html">集成开发环境工具，用于 IntelliJ IDEA</a></li>
+</ol>
+<h3 id="生态对接"><a href="#生态对接" class="headerlink" title="生态对接"></a>生态对接</h3><p><strong>基本都是 Java 生态，提供 Connector，使用 JDBC 连接。Python 提供了 <a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/155553.html">SDK</a>，需要开发。</strong></p>
+<blockquote>
+<p>连接页面，是否需要根据不同的数据源的形式，实现不同的标签说明？</p>
+</blockquote>
+<p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4515317361/p301250.png" alt="MaxCompute的生态架构"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/114422.html">产品：构建与优化数据仓库</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/27859.html">开发：SQL及函数</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/104045.html">安全：权限管理</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/117432.html">规范：数据模型架构规范</a></li>
+<li><a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/66048.html">演示：公开数据集</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/maxcompute/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-powerful-building-a-culture-of-freedom-and-responsibility"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -389,18 +496,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -508,18 +603,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -594,18 +677,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -702,7 +773,7 @@
 </ul>
 <h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="向日葵-amp-花生壳"><a href="#向日葵-amp-花生壳" class="headerlink" title="向日葵 &amp; 花生壳"></a>向日葵 &amp; 花生壳</h4><p>向日葵：远程控制软件，<a target="_blank" rel="noopener" href="https://sunlogin.oray.com/">https://sunlogin.oray.com/</a>。</p>
 <p>花生壳：内网穿透软件，<a target="_blank" rel="noopener" href="https://hsk.oray.com/">https://hsk.oray.com/</a>。</p>
-<h4 id="XMind-MindMaster-EdrawMax"><a href="#XMind-MindMaster-EdrawMax" class="headerlink" title="XMind / MindMaster / EdrawMax"></a>XMind / MindMaster / EdrawMax</h4><p>脑图、流程图类工具</p>
+<h4 id="XMind-x2F-MindMaster-x2F-EdrawMax"><a href="#XMind-x2F-MindMaster-x2F-EdrawMax" class="headerlink" title="XMind &#x2F; MindMaster &#x2F; EdrawMax"></a>XMind &#x2F; MindMaster &#x2F; EdrawMax</h4><p>脑图、流程图类工具</p>
 <h4 id="Cryptomator"><a href="#Cryptomator" class="headerlink" title="Cryptomator"></a>Cryptomator</h4><p>开源免费的云同步网盘加密工具，<a target="_blank" rel="noopener" href="https://cryptomator.org/">https://cryptomator.org/</a>。</p>
 <h4 id="Firefox-Browser"><a href="#Firefox-Browser" class="headerlink" title="Firefox Browser"></a>Firefox Browser</h4><p><strong>务必使用国际版</strong></p>
 <p><a target="_blank" rel="noopener" href="https://www.mozilla.org/zh-CN/firefox/browsers/">https://www.mozilla.org/zh-CN/firefox/browsers/</a></p>
@@ -718,18 +789,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -807,18 +866,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -921,18 +968,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1006,7 +1041,7 @@
 <p>sudo visudo</p>
 </blockquote>
 <p>按下 <code>Shift+g</code> 切换到文件尾部，按下 <code>o</code> 新增一行， 将下面这一行添加到文件尾部（<code>$USER</code> 替换成之前获取到的用户名）。 <code>Shift+z+z</code> 保存并退出。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="language-bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure>
 
 <p>注销或者重启之后，再次使用 <code>sudo</code> 命令就不需要输入密码了。</p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><code>sudo</code> 本身是个危险操作，执行之后会使用最高的 <code>root</code> 权限执行命令。很多发行版第一次执行都会给出提示，比如 <code>deepin</code> 会有如下内容</p>
@@ -1044,18 +1079,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1148,132 +1171,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/firefox-were-finally-getting-hw-acceleration-on-linux/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-organize-key-files"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/organize-key-files/">密钥文件取舍</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/organize-key-files/" class="archive-article-date">
-  <time datetime="2020-09-11T04:30:46.000Z" itemprop="datePublished">
-    Published on 2020 / 09 / 11
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="密钥的取舍"><a href="#密钥的取舍" class="headerlink" title="密钥的取舍"></a>密钥的取舍</h3><p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保留一种，安全性高优先”</strong> 的原则进行清理。已知：</p>
-<ul>
-<li><code>rsa</code> 和 <code>dsa</code> 基于大数因数分解。</li>
-<li><code>ecdsa</code> 和 <code>ed25519</code> 基于椭圆曲线离散对数问题。</li>
-<li><code>rsa</code> 长度 4096 位之后目前可以视为安全。</li>
-<li><code>dsa</code> 已被认为不安全。</li>
-<li><code>ecdsa</code> 政治上：算法选择由 <a target="_blank" rel="noopener" href="https://www.nist.gov/">NIST</a> 设定；技术上：过于复杂以至于无法完善的检查。因此也视为不安全。</li>
-<li><code>ed25519</code> 安全性最高，性能最好。<a target="_blank" rel="noopener" href="https://www.openssh.com/txt/release-6.5">但是需要比较新的版本（OpenSSH 6.5+）才支持</a>。</li>
-</ul>
-<p>最后保留4096位的<code>rsa</code>密钥和<code>ed25519</code>密钥。在允许的情况下优先使用<code>ed25519</code>密钥。</p>
-<h3 id="“秘”和“密”的区别"><a href="#“秘”和“密”的区别" class="headerlink" title="“秘”和“密”的区别"></a>“秘”和“密”的区别</h3><p>这是一个题外话。前几天同事注释把密钥写成了秘钥，我发现了这个错别字。改正之后，我们对这个字的含义产生了兴趣。因为“秘密”这个词表示隐秘，两个单字应该都有近似的含义，那为什么是“密钥”而不是“秘钥”。“秘”和“密”的区别是什么？</p>
-<p>一番查证，归纳出了如下区别：</p>
-<table>
-<thead>
-<tr>
-<th>秘</th>
-<th>密</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>客观，被动</td>
-<td>主观，主动</td>
-</tr>
-<tr>
-<td>内容本身隐蔽，强调的是不易知</td>
-<td>需要去隐蔽内容，强调的是不让知</td>
-</tr>
-<tr>
-<td>神鬼之事、高深莫测、罕闻稀见</td>
-<td>人为之事、故意遮掩、严加控制</td>
-</tr>
-<tr>
-<td>例词：秘本、秘方、秘史、秘闻、秘笈</td>
-<td>例词：密封、密谈、密约、保密、泄密、解密、绝密、机密</td>
-</tr>
-</tbody></table>
-<p>汉语博大精深。</p>
-<h3 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@honglong/%E9%81%B8%E6%93%87-ssh-key-%E7%9A%84%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95-70ca45c94d8e">選擇 SSH key 的加密演算法</a></li>
-<li><a target="_blank" rel="noopener" href="https://sohfrance.com/%E7%A7%98%E3%80%81%E5%AF%86%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/">秘、密如何区别</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/organize-key-files/">展开全文 >></a>
         </p>
       
 

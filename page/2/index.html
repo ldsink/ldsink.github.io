@@ -201,6 +201,120 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-organize-key-files"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/organize-key-files/">密钥文件取舍</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/organize-key-files/" class="archive-article-date">
+  <time datetime="2020-09-11T04:30:46.000Z" itemprop="datePublished">
+    Published on 2020 / 09 / 11
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="密钥的取舍"><a href="#密钥的取舍" class="headerlink" title="密钥的取舍"></a>密钥的取舍</h3><p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保留一种，安全性高优先”</strong> 的原则进行清理。已知：</p>
+<ul>
+<li><code>rsa</code> 和 <code>dsa</code> 基于大数因数分解。</li>
+<li><code>ecdsa</code> 和 <code>ed25519</code> 基于椭圆曲线离散对数问题。</li>
+<li><code>rsa</code> 长度 4096 位之后目前可以视为安全。</li>
+<li><code>dsa</code> 已被认为不安全。</li>
+<li><code>ecdsa</code> 政治上：算法选择由 <a target="_blank" rel="noopener" href="https://www.nist.gov/">NIST</a> 设定；技术上：过于复杂以至于无法完善的检查。因此也视为不安全。</li>
+<li><code>ed25519</code> 安全性最高，性能最好。<a target="_blank" rel="noopener" href="https://www.openssh.com/txt/release-6.5">但是需要比较新的版本（OpenSSH 6.5+）才支持</a>。</li>
+</ul>
+<p>最后保留4096位的<code>rsa</code>密钥和<code>ed25519</code>密钥。在允许的情况下优先使用<code>ed25519</code>密钥。</p>
+<h3 id="“秘”和“密”的区别"><a href="#“秘”和“密”的区别" class="headerlink" title="“秘”和“密”的区别"></a>“秘”和“密”的区别</h3><p>这是一个题外话。前几天同事注释把密钥写成了秘钥，我发现了这个错别字。改正之后，我们对这个字的含义产生了兴趣。因为“秘密”这个词表示隐秘，两个单字应该都有近似的含义，那为什么是“密钥”而不是“秘钥”。“秘”和“密”的区别是什么？</p>
+<p>一番查证，归纳出了如下区别：</p>
+<table>
+<thead>
+<tr>
+<th>秘</th>
+<th>密</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>客观，被动</td>
+<td>主观，主动</td>
+</tr>
+<tr>
+<td>内容本身隐蔽，强调的是不易知</td>
+<td>需要去隐蔽内容，强调的是不让知</td>
+</tr>
+<tr>
+<td>神鬼之事、高深莫测、罕闻稀见</td>
+<td>人为之事、故意遮掩、严加控制</td>
+</tr>
+<tr>
+<td>例词：秘本、秘方、秘史、秘闻、秘笈</td>
+<td>例词：密封、密谈、密约、保密、泄密、解密、绝密、机密</td>
+</tr>
+</tbody></table>
+<p>汉语博大精深。</p>
+<h3 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/@honglong/%E9%81%B8%E6%93%87-ssh-key-%E7%9A%84%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95-70ca45c94d8e">選擇 SSH key 的加密演算法</a></li>
+<li><a target="_blank" rel="noopener" href="https://sohfrance.com/%E7%A7%98%E3%80%81%E5%AF%86%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/">秘、密如何区别</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/organize-key-files/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-uos-20"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -242,7 +356,7 @@
 </ul>
 <h2 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h2><p>默认的终端变回了 bash，并且用的是 debian 默认的 gnome 终端，可以在应用商店安装老版本的 deepin-terminal。</p>
 <h3 id="当前用户-sudo-免密码-Ref"><a href="#当前用户-sudo-免密码-Ref" class="headerlink" title="当前用户 sudo 免密码 Ref"></a>当前用户 sudo 免密码 <a target="_blank" rel="noopener" href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Ref</a></h3><blockquote>
-<p>sudo visudo<br>$USER ALL=(ALL) NOPASSWD: ALL</p>
+<p>sudo visudo<br>$USER ALL&#x3D;(ALL) NOPASSWD: ALL</p>
 </blockquote>
 <p><code>$USER</code>替换成当前用户名</p>
 <h3 id="默认编辑器使用-vim"><a href="#默认编辑器使用-vim" class="headerlink" title="默认编辑器使用 vim"></a>默认编辑器使用 vim</h3><blockquote>
@@ -277,7 +391,7 @@
 </blockquote>
 <p>删除配置文件：</p>
 <blockquote>
-<p>rm ~/.deepin-defender</p>
+<p>rm ~&#x2F;.deepin-defender</p>
 </blockquote>
 <p>重启之后恢复正常</p>
 <h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>目前应用商店没有上架，我使用源代码方式编译安装。安装完成之后还需要多装一个 Notify，之后重启电脑，可以正常使用。</p>
@@ -306,18 +420,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -383,25 +485,26 @@
       
         <h1 id="调整-Linux-配置"><a href="#调整-Linux-配置" class="headerlink" title="调整 Linux 配置"></a>调整 Linux 配置</h1><h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><h3 id="系统层面"><a href="#系统层面" class="headerlink" title="系统层面"></a>系统层面</h3><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>fs.file-max</code> 参数值。</p>
 <blockquote>
-<p>fs.file-max = 200000</p>
+<p>fs.file-max &#x3D; 200000</p>
 </blockquote>
 <p>验证方式：</p>
 <blockquote>
-<p>cat /proc/sys/fs/file-max</p>
+<p>cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max</p>
 </blockquote>
 <h3 id="用户层面"><a href="#用户层面" class="headerlink" title="用户层面"></a>用户层面</h3><p>编辑 <code>/etc/security/limits.conf</code>，增加以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  soft nproc  65535</span><br><span class="line">*  hard nproc  65535</span><br><span class="line">*  soft nofile 65535</span><br><span class="line">*  hard nofile 65535</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  soft nproc  65535</span><br><span class="line">*  hard nproc  65535</span><br><span class="line">*  soft nofile 65535</span><br><span class="line">*  hard nofile 65535</span><br></pre></td></tr></table></figure>
+
 <p>验证方式：</p>
 <blockquote>
 <p>ulimit -n</p>
 </blockquote>
 <h2 id="临时端口"><a href="#临时端口" class="headerlink" title="临时端口"></a>临时端口</h2><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>net.ipv4.ip_local_port_range</code> 参数值。</p>
 <blockquote>
-<p>net.ipv4.ip_local_port_range = 1024 65000</p>
+<p>net.ipv4.ip_local_port_range &#x3D; 1024 65000</p>
 </blockquote>
 <p>验证方式：</p>
 <blockquote>
-<p>cat /proc/sys/net/ipv4/ip_local_port_range</p>
+<p>cat &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_local_port_range</p>
 </blockquote>
 <h1 id="调整-Nginx-配置"><a href="#调整-Nginx-配置" class="headerlink" title="调整 Nginx 配置"></a>调整 Nginx 配置</h1><h2 id="Worker-Processes"><a href="#Worker-Processes" class="headerlink" title="Worker Processes"></a>Worker Processes</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/ngx_core_module.html#worker_processes">worker_processes</a> - 和CPU核心数一致，建议直接使用<code>auto</code>。</li>
@@ -413,7 +516,7 @@
 <li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_requests">keepalive_requests</a> - 建议根据实际情况调高</li>
 <li><a target="_blank" rel="noopener" href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout">keepalive_timeout</a> – 空闲连接关闭时间</li>
 </ul>
-<h2 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h2><p>记录日志会消耗 CPU 和 I/O 资源。</p>
+<h2 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h2><p>记录日志会消耗 CPU 和 I&#x2F;O 资源。</p>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="隐藏-Nginx-具体版本"><a href="#隐藏-Nginx-具体版本" class="headerlink" title="隐藏 Nginx 具体版本"></a>隐藏 Nginx 具体版本</h3><blockquote>
 <p>server_tokens off;</p>
 </blockquote>
@@ -443,18 +546,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -537,18 +628,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -625,18 +704,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -701,7 +768,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>看到一则新闻，Linux QQ全新回归，号称“从心出发·趣无止境”。官网：<a target="_blank" rel="noopener" href="https://im.qq.com/linuxqq/">https://im.qq.com/linuxqq/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux QQ 2.0.0 Beta（New）2019&#x2F;10&#x2F;24</span><br><span class="line">    - Linux QQ全新回归</span><br><span class="line">    - 支持x64、ARM64、MIPS64三种架构</span><br><span class="line">    - 优化消息体验，完善消息收发能力</span><br><span class="line">    - 性能优化</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux QQ 2.0.0 Beta（New）2019/10/24</span><br><span class="line">    - Linux QQ全新回归</span><br><span class="line">    - 支持x64、ARM64、MIPS64三种架构</span><br><span class="line">    - 优化消息体验，完善消息收发能力</span><br><span class="line">    - 性能优化</span><br></pre></td></tr></table></figure>
+
 <p>高中竞赛的时候 QQ 有 Linux 版本，可惜后面不维护，再后面就没了。现在重新发布，第一时间下载体验。很遗憾，这个复古的界面效果，和十年前的界面没太多的区别。deepin 深色主题下，聊天框背景还都是黑的，很难看清聊天窗口。</p>
 <p>麻利的卸载，继续打开了 Tim，感谢 deepin 商店配置的 wine Tim。希望腾讯继续努力，以后 Linux 原生版本的体验能达到正常水平。</p>
 
@@ -726,18 +794,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -814,6 +870,7 @@
 <h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h3><p><strong>使用 <code>format</code> 函数进行格式化</strong>，不使用 <code>%</code> 的方式。</p>
 <h3 id="导入格式"><a href="#导入格式" class="headerlink" title="导入格式"></a>导入格式</h3><p>导入超过一行的情况下，使用括号包住引入模块。左括号后直接换行，右括号前不加内容。如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> package_name <span class="keyword">import</span> (</span><br><span class="line">    module_1, module_2, module_3, module_4, module_5</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 <h3 id="嵌套函数（Nested-function）"><a href="#嵌套函数（Nested-function）" class="headerlink" title="嵌套函数（Nested function）"></a>嵌套函数（Nested function）</h3><ul>
 <li>嵌套函数声明在使用的代码之前的地方</li>
 <li>嵌套函数必须以<code>_</code>前缀开头</li>
@@ -845,18 +902,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -943,18 +988,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1042,41 +1075,54 @@
 <h2 id="操作系统配置修改"><a href="#操作系统配置修改" class="headerlink" title="操作系统配置修改"></a>操作系统配置修改</h2><p>主要三个：</p>
 <ol>
 <li>关闭 SELinux： 在 <code>/etc/selinux/config</code> 中设置 <code>SELINUX=disabled</code>，重启即可</li>
-<li>关闭防火墙：CentOS firewalld / Ubuntu ufw</li>
+<li>关闭防火墙：CentOS firewalld &#x2F; Ubuntu ufw</li>
 <li>同步系统时间：系统NTP服务需要打开，时间必须一致</li>
 </ol>
 <h2 id="Greenplum-用户创建"><a href="#Greenplum-用户创建" class="headerlink" title="Greenplum 用户创建"></a>Greenplum 用户创建</h2><p>也是三个，首先创建  gpadmin  用户和用户组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd gpadmin</span><br><span class="line">sudo useradd gpadmin -r -m -g gpadmin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd gpadmin</span><br><span class="line">sudo useradd gpadmin -r -m -g gpadmin</span><br></pre></td></tr></table></figure>
+
 <p>再生成密钥对</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su gpadmin</span><br><span class="line">chsh -s &#x2F;bin&#x2F;bash</span><br><span class="line">ssh-keygen -o -a 100 -t ed25519</span><br><span class="line">cp .ssh&#x2F;id_ed25519.pub .ssh&#x2F;authorized_keys</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su gpadmin</span><br><span class="line">chsh -s /bin/bash</span><br><span class="line">ssh-keygen -o -a 100 -t ed25519</span><br><span class="line">cp .ssh/id_ed25519.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
 <p>最后将管理用户设置为  sudo  免密，方便以后自己操作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;pgadmin ALL&#x3D;(ALL) NOPASSWD: ALL&#39; | EDITOR&#x3D;&#39;tee -a&#39; visudo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;pgadmin ALL=(ALL) NOPASSWD: ALL&#x27; | EDITOR=&#x27;tee -a&#x27; visudo</span><br></pre></td></tr></table></figure>
+
 <h2 id="Greenplum-系统安装"><a href="#Greenplum-系统安装" class="headerlink" title="Greenplum 系统安装"></a>Greenplum 系统安装</h2><p><a target="_blank" rel="noopener" href="https://greenplum.org/install-greenplum-oss-on-ubuntu/">Ubuntu 系统有现成的PPA源</a>，Pivotal也提供编译好的二进制包。我选择的是最新版本的  greenplum-db。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:greenplum&#x2F;db</span><br><span class="line">sudo apt install greenplum-db</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:greenplum/db</span><br><span class="line">sudo apt install greenplum-db</span><br></pre></td></tr></table></figure>
+
 <h2 id="Greenplum-系统初始化"><a href="#Greenplum-系统初始化" class="headerlink" title="Greenplum 系统初始化"></a>Greenplum 系统初始化</h2><p><a target="_blank" rel="noopener" href="https://gpdb.docs.pivotal.io/6-0/install_guide/init_gpdb.html">文档在此</a>，需要在  master  节点上操作。</p>
 <h3 id="创建用于初始化的-host-文件"><a href="#创建用于初始化的-host-文件" class="headerlink" title="创建用于初始化的 host 文件"></a>创建用于初始化的 host 文件</h3><p>创建 <code>hostfile_gpinitsystem</code> 包括所有 segment 节点的地址，不包括 master 和 standby master。更改配置文件，确保 master 到各个 segment 节点的连接正确。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -f hostfile_gpinitsystem || sudo tee -a &#x2F;etc&#x2F;ssh&#x2F;ssh_known_hosts</span><br><span class="line">gpssh-exkeys -f hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
-<h3 id="创建-Greenplum-数据库配置文件"><a href="#创建-Greenplum-数据库配置文件" class="headerlink" title="创建 Greenplum 数据库配置文件"></a>创建 Greenplum 数据库配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">cp &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;docs&#x2F;cli_help&#x2F;gpconfigs&#x2F;gpinitsystem_config &#x2F;home&#x2F;gpadmin&#x2F;gpinitsystem_config</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -f hostfile_gpinitsystem || sudo tee -a /etc/ssh/ssh_known_hosts</span><br><span class="line">gpssh-exkeys -f hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建-Greenplum-数据库配置文件"><a href="#创建-Greenplum-数据库配置文件" class="headerlink" title="创建 Greenplum 数据库配置文件"></a>创建 Greenplum 数据库配置文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">cp /opt/greenplum-db-6.0.1/docs/cli_help/gpconfigs/gpinitsystem_config /home/gpadmin/gpinitsystem_config</span><br></pre></td></tr></table></figure>
+
 <p>主要修改的几个参数按照文档要求的填对就行。</p>
 <h3 id="创建数据存储区域"><a href="#创建数据存储区域" class="headerlink" title="创建数据存储区域"></a>创建数据存储区域</h3><p>需要在各个类型的节点上创建 Greenplum 用于存储数据的路径，并配置好权限。数据存储路径需要和配置文件的保持一致。可以利用 Greenplum 提供的工具在 master 节点操作整个网络。</p>
 <p>Master</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;master</span><br><span class="line">chown gpadmin:gpadmin &#x2F;data&#x2F;master</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/master</span><br><span class="line">chown gpadmin:gpadmin /data/master</span><br></pre></td></tr></table></figure>
+
 <p>Standby master</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -h smdw -e &#39;mkdir -p &#x2F;data&#x2F;master&#39;</span><br><span class="line">gpssh -h smdw -e &#39;chown gpadmin:gpadmin &#x2F;data&#x2F;master&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -h smdw -e &#x27;mkdir -p /data/master&#x27;</span><br><span class="line">gpssh -h smdw -e &#x27;chown gpadmin:gpadmin /data/master&#x27;</span><br></pre></td></tr></table></figure>
+
 <p>Segment</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-1&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-2&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;data-3&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;chown -R gpadmin:gpadmin &#x2F;data&#x2F;data-*&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/data-*&#x27;</span><br></pre></td></tr></table></figure>
+
 <p>Mirror</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-1&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-2&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;mkdir -p &#x2F;data&#x2F;mirror-3&#39;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#39;chown -R gpadmin:gpadmin &#x2F;data&#x2F;mirror-*&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/mirror-*&#x27;</span><br></pre></td></tr></table></figure>
+
 <h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><p>上面都整好了，就可以执行命令初始化数据库了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c gpinitsystem_config -h hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c gpinitsystem_config -h hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
+
 <p>为了方便以后的操作，可以增加下面内容到 <code>.bashrc</code>，不用每次 <code>source</code> 引入环境变量。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source &#x2F;opt&#x2F;greenplum-db-6.0.1&#x2F;greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY&#x3D;&#x2F;data&#x2F;master&#x2F;gpseg-1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY=/data/master/gpseg-1</span><br></pre></td></tr></table></figure>
+
 <h1 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h1><p>生产环境使用的 PostgreSQL 11，使用了很多新特性，包括<a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/9.5/brin-intro.html">BRIN</a>等。Greenplum 6 还是基于 PG 9.4 版本，一些东西老版本的不支持，需要特别注意，处理一下。</p>
 <p>迁移使用PG自带的工具  pg_dump  和  psql ，很快可以灌入数据。</p>
 <h1 id="碰到的问题"><a href="#碰到的问题" class="headerlink" title="碰到的问题"></a>碰到的问题</h1><p>小问题就不提了，看 log 和文档定位到修改就好了，说一个奇葩的问题。</p>
 <p>查询一个SQL语句，只要带  Group By  就无法返回结果，而  sum  却可以拿到结果。查看日志没有报错。查询就是等待返回数据，非常诡异。master 和 segment 节点是有超时设置的，如果是 segment 查询超时，应该会有错误日志，但是很诡异，就是没有详细的异常日志。根据Greenplum的架构图，猜测应该是 master 节点处理的问题，但是继续检查配置文件、检查Log，依旧找不到问题。</p>
 <p>搜索结果中看到了<a target="_blank" rel="noopener" href="https://ieevee.com/tech/2017/07/06/gp-ic.html">三罐可乐带你读懂Greenplum的interconnect</a>，可能是 Greenplum 的 interconnect 导致 master 对 segment 返回的结果处理有奇怪的逻辑。整个网络状态是正常的，端口监听也正常。反思整个部署过程，打开了 <code>/etc/hosts</code> 文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1&#96;&#96;&#96;&#96;&#96;&#96;hostname1</span><br><span class="line"></span><br><span class="line">172.31.0.2&#96;&#96;&#96;&#96;&#96;&#96;hostname1</span><br><span class="line">172.31.0.3&#96;&#96;&#96;&#96;&#96;&#96;hostname2</span><br><span class="line">172.31.0.4&#96;&#96;&#96;&#96;&#96;&#96;hostname3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1``````hostname1</span><br><span class="line"></span><br><span class="line">172.31.0.2``````hostname1</span><br><span class="line">172.31.0.3``````hostname2</span><br><span class="line">172.31.0.4``````hostname3</span><br></pre></td></tr></table></figure>
+
 <p>云服务器的系统会在 hosts 文件将自己的 hostname 配置成 <code>127.0.0.1</code>，搭建  Greenplum  集群的时候设置的 hosts 添加在这一行下面。删除本机 <code>127.0.0.1</code> 的配置，重启系统，恢复正常。</p>
 
       
@@ -1105,18 +1151,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1208,112 +1242,10 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/deepin-15.11-released/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-goodbye-readfree"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/goodbye-readfree/">再见，readfree</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/goodbye-readfree/" class="archive-article-date">
-  <time datetime="2019-07-05T12:03:59.000Z" itemprop="datePublished">
-    Published on 2019 / 07 / 05
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今晚打开 readfree 的网站，不再是熟悉的界面，而是一封告别辞。</p>
-<p>随着国内版权意识或主动、或被动的提高，我迎来了 readfree 的告别。在以前 readfree 可以正常访问的时候，我就不止一次的想过这个问题：虽然我方便的找到了书籍，但是很这明显侵权了书籍的版权，这个网站真的可以这么正常的存活在中国的互联网上么？现实给予了答案。</p>
-<p>但是无论如何，我从 readfree 获益良多，感谢网站管理员以前的辛苦付出。尊重知识产权是读书之人应有之意，我相信管理员顺应大势，做出了一个正确的选择。感谢 readfree 多年以来的陪伴，它实现了他最初的愿景，希望未来的某一天，会以一个更加合适的方式归来。</p>
-<p>结尾附上 <a target="_blank" rel="noopener" href="https://readfree.me/">readfree 告别辞</a>。</p>
-<p><img src="https://a.adcdn.cn/images/goodbye-readfree.webp" alt="goodbye-readfree"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/goodbye-readfree/">展开全文 >></a>
         </p>
       
 

@@ -19,7 +19,7 @@
 <meta property="og:description" content="Wosign 被封以下是最近的三则新闻：  沃通 CEO 辞职，苹果在 iOS 中封杀沃通 CA 证书 Mozilla 将封杀沃通和 StartSSL 一年内新签发的所有证书 谷歌也不信任沃通的证书了，StartCom CA 一并受到同等处罚  沃通作的死，自己得慢慢还。苹果、Chrome、Firefox都封杀之后，那些用了沃通证书的人（比如我），就得考虑更换了。Let’s Encrypt项目刚出">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-11-03T09:08:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.642Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -243,8 +243,8 @@
 <h2 id="使用-Let’s-Encrypt"><a href="#使用-Let’s-Encrypt" class="headerlink" title="使用 Let’s Encrypt"></a>使用 Let’s Encrypt</h2><p>我有Shell权限，整个过程就三步：</p>
 <ol>
 <li>执行 <code>apt install letsencrypt</code> 安装 <code>Certbot</code>。</li>
-<li>执行 <code>letsencrypt certonly --webroot -w /var/www/path/to/your/website -d yourdomian.com</code>。执行完成之后会有以下输出：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - If you lose your account credentials, you can recover through</span><br><span class="line">   e-mails sent to youremail@domian.com.</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at</span><br><span class="line">   &#x2F;etc&#x2F;letsencrypt&#x2F;live&#x2F;domian.com&#x2F;fullchain.pem. Your cert will</span><br><span class="line">   expire on 2017-01-30. To obtain a new version of the certificate in</span><br><span class="line">   the future, simply run Let&#39;s Encrypt again.</span><br><span class="line"> - Your account credentials have been saved in your Let&#39;s Encrypt</span><br><span class="line">   configuration directory at &#x2F;etc&#x2F;letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Let&#39;s</span><br><span class="line">   Encrypt so making regular backups of this folder is ideal.</span><br><span class="line"> - If you like Let&#39;s Encrypt, please consider supporting our work by:</span><br><span class="line"></span><br><span class="line">   Donating to ISRG &#x2F; Let&#39;s Encrypt:   https:&#x2F;&#x2F;letsencrypt.org&#x2F;donate</span><br><span class="line">   Donating to EFF:                    https:&#x2F;&#x2F;eff.org&#x2F;donate-le</span><br></pre></td></tr></table></figure></li>
-<li>去 Nginx 配置文件更新证书。<code>ssl_certificate</code>是<code>fullchain.pem</code>，<code>ssl_certificate_key</code>是<code>privkey.pem</code>。更新好配置重启/重载生效。</li>
+<li>执行 <code>letsencrypt certonly --webroot -w /var/www/path/to/your/website -d yourdomian.com</code>。执行完成之后会有以下输出：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - If you lose your account credentials, you can recover through</span><br><span class="line">   e-mails sent to youremail@domian.com.</span><br><span class="line"> - Congratulations! Your certificate and chain have been saved at</span><br><span class="line">   /etc/letsencrypt/live/domian.com/fullchain.pem. Your cert will</span><br><span class="line">   expire on 2017-01-30. To obtain a new version of the certificate in</span><br><span class="line">   the future, simply run Let&#x27;s Encrypt again.</span><br><span class="line"> - Your account credentials have been saved in your Let&#x27;s Encrypt</span><br><span class="line">   configuration directory at /etc/letsencrypt. You should make a</span><br><span class="line">   secure backup of this folder now. This configuration directory will</span><br><span class="line">   also contain certificates and private keys obtained by Let&#x27;s</span><br><span class="line">   Encrypt so making regular backups of this folder is ideal.</span><br><span class="line"> - If you like Let&#x27;s Encrypt, please consider supporting our work by:</span><br><span class="line"></span><br><span class="line">   Donating to ISRG / Let&#x27;s Encrypt:   https://letsencrypt.org/donate</span><br><span class="line">   Donating to EFF:                    https://eff.org/donate-le</span><br></pre></td></tr></table></figure></li>
+<li>去 Nginx 配置文件更新证书。<code>ssl_certificate</code>是<code>fullchain.pem</code>，<code>ssl_certificate_key</code>是<code>privkey.pem</code>。更新好配置重启&#x2F;重载生效。</li>
 </ol>
 <h2 id="自动更新"><a href="#自动更新" class="headerlink" title="自动更新"></a>自动更新</h2><p><code>Let&#39;s Encrypt</code>的证书有效期是三个月，可以在服务器上配置自动更新证书。这个我现在还没用，下次折腾了再记。</p>
 <p>另外，<code>Let&#39;s Encrypt</code>正在众筹资金，有意向的可以支持一下。** <a target="_blank" rel="noopener" href="https://linux.cn/article-7926-1.html">捐赠 Let’s Encrypt，共建安全的互联网</a> **</p>
@@ -293,18 +293,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

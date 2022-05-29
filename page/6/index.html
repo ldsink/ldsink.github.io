@@ -201,6 +201,85 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-github-offline-maintain"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/github-offline-maintain/">Github 离线维护</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/github-offline-maintain/" class="archive-article-date">
+  <time datetime="2016-01-28T02:32:34.000Z" itemprop="datePublished">
+    Published on 2016 / 01 / 28
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天Github出现故障，离线维护，认识了几个可爱的图标。</p>
+<p>一个是独角兽，不知道是不是彩虹小马神教里面的。</p>
+<p><img src="https://a.adcdn.cn/images/%E7%8B%AC%E8%A7%92%E5%85%BD.webp" alt="独角兽"></p>
+<p>过一阵子变水管工了。</p>
+<p><img src="https://a.adcdn.cn/images/%E6%B0%B4%E7%AE%A1%E5%B7%A5.webp" alt="水管工"></p>
+<p>这个是查看Github运行状态的地址：<a target="_blank" rel="noopener" href="https://status.github.com/">https://status.github.com/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/github-offline-maintain/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-dragon-iv"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -548,14 +627,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>经常作为普通用户权限在服务器上，改一个文件，弄完之后保存发现<code>Permission Deny</code>。以前我都是傻乎乎的强行退出，然后在用root登录修改。其实一条命令就可以解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w !sudo tee %</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w !sudo tee %</span><br></pre></td></tr></table></figure>
 <ul>
 <li>:w - Write a file.</li>
 <li>!sudo - Call shell sudo command.</li>
-<li>tee - The output of write (vim :w) command redirected using tee. The % is nothing but current file name i.e. /etc/apache2/conf.d/mediawiki.conf. In other words tee command is run as root and it takes standard input and write it to a file represented by %.</li>
+<li>tee - The output of write (vim :w) command redirected using tee. The % is nothing but current file name i.e. &#x2F;etc&#x2F;apache2&#x2F;conf.d&#x2F;mediawiki.conf. In other words tee command is run as root and it takes standard input and write it to a file represented by %.</li>
 </ul>
 <p>只要按<code>L</code>重载文件，就能看见之前的修改已经保存。比之前不保存退出再重进改方便很多，强烈推荐。</p>
-<p>Reference: <a target="_blank" rel="noopener" href="http://www.cyberciti.biz/faq/vim-vi-text-editor-save-file-without-root-permission/">HowTo: Save A File In Vim / Vi Without Root Permission</a></p>
+<p>Reference: <a target="_blank" rel="noopener" href="http://www.cyberciti.biz/faq/vim-vi-text-editor-save-file-without-root-permission/">HowTo: Save A File In Vim &#x2F; Vi Without Root Permission</a></p>
 
       
 
@@ -566,18 +645,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -650,10 +717,11 @@
 <p>服务器端搭好以后，在自己电脑上就可以作为客户端愉快的使用了。<br>我的情况是<code>Windows</code>下直接使用没有问题，<code>Linux</code>能连接，但是DNS存在问题。</p>
 <p>在<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/OpenVPN"><code>ArchWiki</code></a>上找到了原因，</p>
 <blockquote>
-<p>The DNS servers used by the system are defined in /etc/resolv.conf. Traditionally, this file is the responsibility of whichever program deals with connecting the system to the network (e.g. Wicd, NetworkManager, etc…) However, OpenVPN will need to modify this file if you want to be able to resolve names on the remote side. To achieve this in a sensible way, install openresolv, which makes it possible for more than one program to modify resolv.conf without stepping on each-other’s toes.<br>Before continuing, test openresolv by restarting your network connection and ensuring that resolv.conf states that it was generated by resolvconf, and that your DNS resolution still works as before. You should not need to configure openresolv; it should be automatically detected and used by your network system.<br>For Linux, OpenVPN can send DNS host information, but expects an external process to act on it. This can be done with a openvpn-update-resolv-conf script, which can be saved for example at /etc/openvpn/update-resolv-conf and make it executable with chmod. There is also an AUR package: openvpn-update-resolv-confAUR which will take care of the script installation for you.</p>
+<p>The DNS servers used by the system are defined in &#x2F;etc&#x2F;resolv.conf. Traditionally, this file is the responsibility of whichever program deals with connecting the system to the network (e.g. Wicd, NetworkManager, etc…) However, OpenVPN will need to modify this file if you want to be able to resolve names on the remote side. To achieve this in a sensible way, install openresolv, which makes it possible for more than one program to modify resolv.conf without stepping on each-other’s toes.<br>Before continuing, test openresolv by restarting your network connection and ensuring that resolv.conf states that it was generated by resolvconf, and that your DNS resolution still works as before. You should not need to configure openresolv; it should be automatically detected and used by your network system.<br>For Linux, OpenVPN can send DNS host information, but expects an external process to act on it. This can be done with a openvpn-update-resolv-conf script, which can be saved for example at &#x2F;etc&#x2F;openvpn&#x2F;update-resolv-conf and make it executable with chmod. There is also an AUR package: openvpn-update-resolv-confAUR which will take care of the script installation for you.</p>
 </blockquote>
 <p>解决方法实在<code>ovpn</code>配置文件后添加以下三行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">script-security 2</span><br><span class="line">up &#x2F;etc&#x2F;openvpn&#x2F;update-resolv-conf</span><br><span class="line">down &#x2F;etc&#x2F;openvpn&#x2F;update-resolv-conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">script-security 2</span><br><span class="line">up /etc/openvpn/update-resolv-conf</span><br><span class="line">down /etc/openvpn/update-resolv-conf</span><br></pre></td></tr></table></figure>
+
 <p><strong>现在一切是如此美好，Enjoy！</strong></p>
 <p>Reference:</p>
 <ul>
@@ -670,18 +738,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -751,7 +807,8 @@
       
         <p>新装的<code>Ubuntu</code>发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o</p>
 <p>编辑<code>/etc/lightdm/lightdm.conf</code>文件，增加<code>allow-guest=false</code>即可。这个配置文件完整的内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-session&#x3D;unity-greeter</span><br><span class="line">user-session&#x3D;ubuntu</span><br><span class="line">allow-guest&#x3D;false</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-session=unity-greeter</span><br><span class="line">user-session=ubuntu</span><br><span class="line">allow-guest=false</span><br></pre></td></tr></table></figure>
+
 <p>Ubuntu 13.10 至 14.10, 这个配置文件移动到了<code>/etc/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
 <p>Ubuntu 14.10 或更高版本, 这个配置文件移动到了<code>/usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
 <p>更多的细节可以参考<code>AskUbuntu</code>上的相关问题：<br><a target="_blank" rel="noopener" href="http://askubuntu.com/questions/62564/how-do-i-disable-the-guest-session">How do I disable the guest session?</a></p>
@@ -765,18 +822,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -893,18 +938,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1014,18 +1047,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1131,286 +1152,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/books/warren-buffett-invests-like-a-girl/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-skill-tree"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/pages/skill-tree/">技能树</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/pages/skill-tree/" class="archive-article-date">
-  <time datetime="2015-09-03T13:28:00.000Z" itemprop="datePublished">
-    Published on 2015 / 09 / 03
-  </time>
-  
-    <time datetime="2019-06-23T06:42:00.000Z" itemprop="dateUpdated">
-      , Updated on 2019 / 06 / 23
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>通用技能<ul>
-<li>价值观<ul>
-<li>科学技术是第一生产力</li>
-<li>未来会更加美好</li>
-<li>创造价值和服务他人可以带来个人幸福感</li>
-<li>重视规则，做正确的事</li>
-<li>能力越大，责任越大，要为自己的事情和决定负责</li>
-</ul>
-</li>
-<li>公司观念<ul>
-<li>认同公司以盈利为目的</li>
-<li>抵制公司以盈利为唯一目的</li>
-</ul>
-</li>
-<li>团队意识<ul>
-<li>团队之间沟通最为重要，团队是最小的战斗单位</li>
-<li>可以和同事和谐相处，共同进步</li>
-<li>团队交流<ul>
-<li>沟通、周会和分享</li>
-<li>Team building 和 Outing</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>方法论<ul>
-<li>动手前先想清楚要做什么，为什么</li>
-<li>实验阶段：最快的做出最小有价值产品（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Minimum_viable_product/">MVP</a> first）</li>
-<li>开发阶段：最快的做出最小可售卖产品（<a target="_blank" rel="noopener" href="https://pipetop.com/saas+glossary/general+terms/msp+minimum+sellable+product/">MSP</a> first）</li>
-<li>做事有目标和优先级，会根据实际情况调节<ul>
-<li>能够区分重要紧急、重要不紧急、紧急不重要和不紧急不重要</li>
-<li>有计划，做事有条不紊，但会根据情况灵活调节，不死板</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>自我成长<ul>
-<li>永远保持好奇心和求知欲</li>
-<li>对知识保持敬畏之心，尊重专业人士</li>
-<li>面对问题批判性思考，先想是不是，再想为什么</li>
-<li>“天行健，君子以自强不息。地势坤，君子以厚德载物”</li>
-</ul>
-</li>
-<li>社会责任<ul>
-<li>“心忧天下，敢为人先”</li>
-<li>“饮水思源，爱国荣校”</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>专业技能<ul>
-<li>官方资源往往是最齐全和最准确的，学习技术一定要看官方文档/手册</li>
-<li>英语读写能力，善用 <a target="_blank" rel="noopener" href="https://www.google.com/">Google</a>、<a target="_blank" rel="noopener" href="https://github.com/">Github</a> 和 <a target="_blank" rel="noopener" href="https://stackoverflow.com/">Stack Overflow</a></li>
-<li>基础知识<ul>
-<li>编程语言<ul>
-<li>Python3<ul>
-<li><a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep+0008/">PEP8</a></li>
-<li>方向：脚本、爬虫、Web开发</li>
-<li><a target="_blank" rel="noopener" href="https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B010MG1S84/">Python 3面向对象编程</a></li>
-</ul>
-</li>
-<li>PHP</li>
-<li>Go<ul>
-<li><a target="_blank" rel="noopener" href="https://tour.golang.org/">Go Tour</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/golang+china/gopl+zh/">The Go Programming Language</a></li>
-</ul>
-</li>
-<li>JavaScript<ul>
-<li><a target="_blank" rel="noopener" href="http://es6+features.org/">ES6</a></li>
-</ul>
-</li>
-<li>hello world 及简单项目水平<ul>
-<li>Java</li>
-<li>C/C++</li>
-<li>C#</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>数据库<ul>
-<li>可以写出正确的 SQL 语句，了解 SQL 和 NoSQL 解决方案</li>
-<li>了解数据库索引、范式、事务、缓存等概念，并在项目中可以正确使用</li>
-<li>了解数据库数据导入、导出方法，常见搭建方式（单机、分布式集群），性能检测和调优</li>
-<li>了解使用的存储引擎的特性（并发锁、数据存储、事务支持、索引等特点）</li>
-<li>了解 SQL 注入，内外网权限，账户权限等问题，关注使用的数据库软件的安全漏洞，安全的使用数据库</li>
-<li>MySQL<ul>
-<li><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/">MySQL Doc</a></li>
-<li>知道老的 MyISAM 引擎和新的 InnoDB 引擎的差别，默认使用 InnoDB</li>
-<li>关注MySQL的发展方向，使用合适的版本来解决问题</li>
-</ul>
-</li>
-<li><a target="_blank" rel="noopener" href="https://www.postgresql.org/about/">PostgreSQL</a></li>
-<li>MongoDB<ul>
-<li><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/">MongoDB Manual</a></li>
-<li>使用过单机、副本集、分片搭建方式，基本覆盖全部的使用场景</li>
-<li>知道 MMAP 引擎和 WiredTiger 引擎加锁级别的差异</li>
-<li>删除 Collection 不释放硬盘空间</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>缓存/消息队列<ul>
-<li>通过缓存热数据来提高性能</li>
-<li>通过消息队列解耦，提高系统稳定性</li>
-<li>Redis<ul>
-<li><a target="_blank" rel="noopener" href="http://redis.io/documentation/">Redis Documentation</a></li>
-<li>正确的使用 Redis 提供的数据结构</li>
-<li>Redis单实例，阻塞，Pipiline，事务</li>
-<li>Redis 集群、哨兵</li>
-<li>持久化 AOF / RDB</li>
-<li>For anything new, use Redis. <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10558465/memcached+vs+redis">Memcached vs. Redis?</a></li>
-</ul>
-</li>
-<li>RabbitMQ<ul>
-<li>标准 AMQP 实现</li>
-</ul>
-</li>
-<li>AWS SQS</li>
-<li>Kafka/Zookeeper<ul>
-<li>高吞吐消息队列</li>
-<li>知道 Topic、Consumer Group、Partition、Broker、Offset 在 Kafka 中的作用</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>容器<ul>
-<li>熟练使用 Docker </li>
-<li>熟悉 Docker Compose</li>
-</ul>
-</li>
-<li>正则表达式<ul>
-<li><a target="_blank" rel="noopener" href="https://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></li>
-</ul>
-</li>
-<li>项目管理<ul>
-<li>Trello、Teambition、Jira、Tower</li>
-</ul>
-</li>
-<li>版本控制<ul>
-<li>git / svn</li>
-</ul>
-</li>
-<li>Web<ul>
-<li>熟悉 HTML、CSS、JavaScript</li>
-<li><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2616">HTTP/1.1</a></li>
-</ul>
-</li>
-<li>文档、展示<ul>
-<li>Word 文档、PowerPoint 展示、Excel 统计</li>
-<li>XMind 思维脑图</li>
-<li>Markdown 写邮件、写文档</li>
-</ul>
-</li>
-<li>Linux<ul>
-<li>主系统 deepin，熟悉终端操作</li>
-<li>服务器 Ubuntu 18.04 LTS x64</li>
-<li><a target="_blank" rel="noopener" href="https://coolshell.cn/articles/5426.html">简明 Vim 练级攻略</a></li>
-</ul>
-</li>
-<li>算法和数据结构<ul>
-<li><a target="_blank" rel="noopener" href="https://vijos.org/">vijos</a></li>
-</ul>
-</li>
-<li>科学上网</li>
-</ul>
-</li>
-<li>相关实践<ul>
-<li>Web后端开发<ul>
-<li>Django 技术栈</li>
-<li>Tornado 技术栈</li>
-</ul>
-</li>
-<li>前端开发<ul>
-<li>React 技术栈</li>
-</ul>
-</li>
-<li>打包部署 <ul>
-<li>Webpack</li>
-<li>Ansible</li>
-</ul>
-</li>
-<li>DevOps<ul>
-<li>熟悉国内云服务厂商产品</li>
-<li>青云QingCloud、AWS、腾讯云、阿里云</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/pages/"
-             class="article-tag-list-link color1">pages</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/pages/skill-tree/">展开全文 >></a>
         </p>
       
 

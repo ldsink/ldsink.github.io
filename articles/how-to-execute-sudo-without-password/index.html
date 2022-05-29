@@ -19,7 +19,7 @@
 <meta property="og:description" content="Linux 中，一些操作需要使用 sudo 命令进行提权到 root 后才可以顺利执行。默认这一步操作是需要输入密码的，可以通过设置免除密码。 获取用户名执行如下命令，获得当前用户的用户名。  echo $USER  修改配置文件配置文件位于 &#x2F;etc&#x2F;sudoers，但是注意，千万不要直接修改这个文件！ 我见过太多直接修改这个文件造成系统无法启动的例子了。 正确的方式是使用 visudo 命令修">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-06-27T07:00:45.000Z">
-<meta property="article:modified_time" content="2021-11-24T10:04:19.965Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.610Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="how-to">
 <meta property="article:tag" content="linux">
@@ -243,7 +243,7 @@
 <p>sudo visudo</p>
 </blockquote>
 <p>按下 <code>Shift+g</code> 切换到文件尾部，按下 <code>o</code> 新增一行， 将下面这一行添加到文件尾部（<code>$USER</code> 替换成之前获取到的用户名）。 <code>Shift+z+z</code> 保存并退出。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="language-bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure>
 
 <p>注销或者重启之后，再次使用 <code>sudo</code> 命令就不需要输入密码了。</p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><code>sudo</code> 本身是个危险操作，执行之后会使用最高的 <code>root</code> 权限执行命令。很多发行版第一次执行都会给出提示，比如 <code>deepin</code> 会有如下内容</p>
@@ -316,18 +316,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

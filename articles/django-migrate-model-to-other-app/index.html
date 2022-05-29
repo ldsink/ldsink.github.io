@@ -19,7 +19,7 @@
 <meta property="og:description" content="随着项目进度推进，业务的流程更加完善，我的理解也更加深入。逐渐发现早期一些数据库表和APP的关系，不是那么的合理和有序。相关联的一些业务逻辑的表，不同业务层面的表，应该合理的、有序的、科学的分属于不同的APP。为了实现这份合理，就需要对现有的表进行数据迁移。 Django的表关系，不能直接通过数据库一行命令修改表的名称来更新，本身Django内部的数据库表State同样也得跟着一起维护。加上现在涉">
 <meta property="og:locale">
 <meta property="article:published_time" content="2019-04-11T08:42:52.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.566Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="django">
 <meta property="article:tag" content="database">
@@ -244,19 +244,22 @@
 </blockquote>
 <p><strong>3. 编辑 migration 文件，将自动生成的 <code>operations</code> 部分按照如下修改：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">operations=[</span><br><span class="line">    migrations.SeparateDatabaseAndState(</span><br><span class="line">        database_operations=<span class="literal">None</span>,</span><br><span class="line">        state_operations=[</span><br><span class="line">            <span class="comment"># 自动生成的 operations 复制到这里。</span></span><br><span class="line">        ]</span><br><span class="line">    ),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
 <p><strong>4. 删除旧Model的代码，执行</strong></p>
 <blockquote>
 <p>python manage.py makemigrations</p>
 </blockquote>
 <p><strong>5. 编辑 migration 文件，两个操作：</strong></p>
 <ul>
-<li>将上一步全部的新生成的 migration 文件添加到 dependencies </li>
+<li>将上一步全部的新生成的 migration 文件添加到 dependencies</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies = [</span><br><span class="line">    <span class="comment"># 将上一步全部的新生成的 migration 文件添加到这里</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>将自动生成的 <code>operations</code> 部分按照如下修改</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">operations = [</span><br><span class="line">    migrations.SeparateDatabaseAndState(</span><br><span class="line">        database_operations=[</span><br><span class="line">            migrations.AlterModelTable(<span class="string">&#x27;mymodel&#x27;</span>, <span class="string">&#x27;new_app_mymodel&#x27;</span>),</span><br><span class="line">            <span class="comment"># 假设将 Account 这个 Model 从 hello 这个 App 移动到 world 下，应该修改成</span></span><br><span class="line">            <span class="comment"># migrations.AlterModelTable(&#x27;account&#x27;, &#x27;world_account&#x27;),</span></span><br><span class="line">        ],</span><br><span class="line">        state_operations=[</span><br><span class="line">            <span class="comment"># 自动生成的 operations 复制到这里。</span></span><br><span class="line">        ]</span><br><span class="line">    ),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
 <p><strong>6. 检查上面的流程，知道自己每一步干的什么，没有问题的话，执行</strong></p>
 <blockquote>
 <p>python manage.py migrate</p>
@@ -324,18 +327,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

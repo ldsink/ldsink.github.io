@@ -201,6 +201,85 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-nginx-typecho-enable-pseudo-static"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/nginx-typecho-enable-pseudo-static/">Nginx 下 Typecho 开启伪静态</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/nginx-typecho-enable-pseudo-static/" class="archive-article-date">
+  <time datetime="2015-02-28T09:38:00.000Z" itemprop="datePublished">
+    Published on 2015 / 02 / 28
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Typecho 支持开启伪静态的，开启之后网址链接更加美观。今天配置了一下，打开了这个功能，此处做记录。</p>
+<p>相关的nginx配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^[^.]+\.php(/|$) &#123;</span><br><span class="line">    fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">    fastcgi_index index.php;</span><br><span class="line">    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">    include fastcgi_params;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 用于伪静态</span><br><span class="line">if (-f $request_filename/index.html) &#123;</span><br><span class="line">  rewrite (.*) $1/index.html break;</span><br><span class="line">&#125;</span><br><span class="line">if (-f $request_filename/index.php) &#123;</span><br><span class="line">  rewrite (.*) $1/index.php;</span><br><span class="line">&#125;</span><br><span class="line">if (!-f $request_filename) &#123;</span><br><span class="line">  rewrite (.*) /index.php;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Nginx修改好之后reload新的配置文件，再进入Typecho就可以直接在配置中开启伪静态选项了。</p>
+<p><img src="https://a.adcdn.cn/images/typecho_rewrite.webp" alt="typecho_rewrite"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/nginx-typecho-enable-pseudo-static/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-wosign-free-certificate"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -242,18 +321,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -321,12 +388,14 @@
 <h2 id="uptime"><a href="#uptime" class="headerlink" title="uptime"></a>uptime</h2><blockquote>
 <p>uptime命令用于查看服务器运行时间、登录用户数及服务器的负荷情况。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ uptime</span><br><span class="line"> 10:07:57 up  1:37,  1 user,  load average: 0.20, 0.35, 0.44</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ uptime</span><br><span class="line"> 10:07:57 up  1:37,  1 user,  load average: 0.20, 0.35, 0.44</span><br></pre></td></tr></table></figure>
+
 <p>前面两项很容易理解，我只说一下<code>load average</code>。这是系统平均负载，是指在特定时间间隔内运行队列中的平均进程数。后面的三个值分别表示在5分钟，10分钟和15分钟内负载的平均值。<br>如果每个CPU内核的当前活动进程数不大于3的话，那么系统的性能是良好的。如果每个CPU内核的任务数大于5，那么这台机器的性能有严重问题。如果linux主机是1个双核CPU的话，当Load Average 为6的时候说明机器已经被充分使用了，超过6则说明CPU性能不足。<br>遇到性能问题,使用<code>uptime</code>查看发现CPU的负载不高,则瓶颈应该不在CPU上。</p>
 <h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><blockquote>
 <p>top命令显示处理器的活动状况。缺省情况下，显示占用CPU最多的任务，并且每隔5秒钟做一次刷新。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ top</span><br><span class="line"></span><br><span class="line">top - 10:22:53 up  1:52,  1 user,  load average: 0.63, 0.47, 0.45</span><br><span class="line">Tasks: 226 total,   3 running, 221 sleeping,   0 stopped,   2 zombie</span><br><span class="line">%Cpu(s): 17.0 us,  6.8 sy,  0.0 ni, 75.9 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem:   8079520 total,  6116660 used,  1962860 free,   174672 buffers</span><br><span class="line">KiB Swap:        0 total,        0 used,        0 free.  1779724 cached Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 2465 deepin    20   0 1618276 212948  75340 S  15.6  2.6   5:34.14 chrome</span><br><span class="line"> 2505 deepin    20   0 1333132 476716 152184 S  15.6  5.9   2:29.52 chrome</span><br><span class="line"> 1598 root      20   0  504688 163028 147820 S  12.9  2.0   4:30.98 Xorg</span><br><span class="line"> 5103 deepin    20   0  921172 140520  47388 S  11.6  1.7   0:35.74 chrome</span><br><span class="line"> 2111 deepin    20   0  501420  31856  12916 S   9.0  0.4   2:02.38 compiz</span><br><span class="line"> 4792 deepin    20   0  720732 112652  21112 S   4.0  1.4   0:28.15 deepin-terminal</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  blog git:(master) ✗ top</span><br><span class="line"></span><br><span class="line">top - 10:22:53 up  1:52,  1 user,  load average: 0.63, 0.47, 0.45</span><br><span class="line">Tasks: 226 total,   3 running, 221 sleeping,   0 stopped,   2 zombie</span><br><span class="line">%Cpu(s): 17.0 us,  6.8 sy,  0.0 ni, 75.9 id,  0.2 wa,  0.0 hi,  0.0 si,  0.0 st</span><br><span class="line">KiB Mem:   8079520 total,  6116660 used,  1962860 free,   174672 buffers</span><br><span class="line">KiB Swap:        0 total,        0 used,        0 free.  1779724 cached Mem</span><br><span class="line"></span><br><span class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</span><br><span class="line"> 2465 deepin    20   0 1618276 212948  75340 S  15.6  2.6   5:34.14 chrome</span><br><span class="line"> 2505 deepin    20   0 1333132 476716 152184 S  15.6  5.9   2:29.52 chrome</span><br><span class="line"> 1598 root      20   0  504688 163028 147820 S  12.9  2.0   4:30.98 Xorg</span><br><span class="line"> 5103 deepin    20   0  921172 140520  47388 S  11.6  1.7   0:35.74 chrome</span><br><span class="line"> 2111 deepin    20   0  501420  31856  12916 S   9.0  0.4   2:02.38 compiz</span><br><span class="line"> 4792 deepin    20   0  720732 112652  21112 S   4.0  1.4   0:28.15 deepin-terminal</span><br></pre></td></tr></table></figure>
+
 <p>第一行就是 uptime 的结果，第二行是进程运行情况，第三行是CPU信息。接下来是内存情况。最下面的一块是进程信息区，显示的是系统当前进程的情况，这里可以通过一些设置改变显示和统计的方式。<br>按我的理解，top命令相当于同时把 uptime，free，ps 等命令整合到一起显示，在有限的屏幕内以最小的操作显示了足够多的信息,基本上满足了性能监控的大部分需求。</p>
 <h2 id="htop"><a href="#htop" class="headerlink" title="htop"></a>htop</h2><blockquote>
 <p>人是永远不会知足的，所以在 top 之后有了更好的 htop。</p>
@@ -366,18 +435,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -448,7 +505,7 @@
 <p>➜  ~  python3<br>&gt;&gt;&gt; import this<br>The Zen of Python, by Tim Peters</p>
 <p>Beautiful is better than ugly.<br>Explicit is better than implicit.<br>Simple is better than complex.<br>Complex is better than complicated.<br>Flat is better than nested.<br>Sparse is better than dense.<br>Readability counts.<br>Special cases aren’t special enough to break the rules.<br>Although practicality beats purity.<br>Errors should never pass silently.<br>Unless explicitly silenced.<br>In the face of ambiguity, refuse the temptation to guess.<br>There should be one– and preferably only one –obvious way to do it.<br>Although that way may not be obvious at first unless you’re Dutch.<br>Now is better than never.<br>Although never is often better than <em>right</em> now.<br>If the implementation is hard to explain, it’s a bad idea.<br>If the implementation is easy to explain, it may be a good idea.<br>Namespaces are one honking great idea – let’s do more of those!</p>
 <p><strong>这里有个小小的彩蛋，查看 this 的源代码，如下所示：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;&quot;&quot;Gur Mra bs Clguba, ol Gvz Crgref</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Ornhgvshy vf orggre guna htyl.</span></span><br><span class="line"><span class="string">Rkcyvpvg vf orggre guna vzcyvpvg.</span></span><br><span class="line"><span class="string">Fvzcyr vf orggre guna pbzcyrk.</span></span><br><span class="line"><span class="string">Pbzcyrk vf orggre guna pbzcyvpngrq.</span></span><br><span class="line"><span class="string">Syng vf orggre guna arfgrq.</span></span><br><span class="line"><span class="string">Fcnefr vf orggre guna qrafr.</span></span><br><span class="line"><span class="string">Ernqnovyvgl pbhagf.</span></span><br><span class="line"><span class="string">Fcrpvny pnfrf nera&#x27;g fcrpvny rabhtu gb oernx gur ehyrf.</span></span><br><span class="line"><span class="string">Nygubhtu cenpgvpnyvgl orngf chevgl.</span></span><br><span class="line"><span class="string">Reebef fubhyq arire cnff fvyragyl.</span></span><br><span class="line"><span class="string">Hayrff rkcyvpvgyl fvyraprq.</span></span><br><span class="line"><span class="string">Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba gb thrff.</span></span><br><span class="line"><span class="string">Gurer fubhyq or bar-- naq cersrenoyl bayl bar --boivbhf jnl gb qb vg.</span></span><br><span class="line"><span class="string">Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh&#x27;er Qhgpu.</span></span><br><span class="line"><span class="string">Abj vf orggre guna arire.</span></span><br><span class="line"><span class="string">Nygubhtu arire vf bsgra orggre guna *evtug* abj.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg&#x27;f n onq vqrn.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.</span></span><br><span class="line"><span class="string">Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg&#x27;f qb zber bs gubfr!&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">d = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> (<span class="number">65</span>, <span class="number">97</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">        d[<span class="built_in">chr</span>(i+c)] = <span class="built_in">chr</span>((i+<span class="number">13</span>) % <span class="number">26</span> + c)</span><br><span class="line"></span><br><span class="line">print(<span class="string">&quot;&quot;</span>.join([d.get(c, c) <span class="keyword">for</span> c <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;&quot;&quot;Gur Mra bs Clguba, ol Gvz Crgref</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Ornhgvshy vf orggre guna htyl.</span></span><br><span class="line"><span class="string">Rkcyvpvg vf orggre guna vzcyvpvg.</span></span><br><span class="line"><span class="string">Fvzcyr vf orggre guna pbzcyrk.</span></span><br><span class="line"><span class="string">Pbzcyrk vf orggre guna pbzcyvpngrq.</span></span><br><span class="line"><span class="string">Syng vf orggre guna arfgrq.</span></span><br><span class="line"><span class="string">Fcnefr vf orggre guna qrafr.</span></span><br><span class="line"><span class="string">Ernqnovyvgl pbhagf.</span></span><br><span class="line"><span class="string">Fcrpvny pnfrf nera&#x27;g fcrpvny rabhtu gb oernx gur ehyrf.</span></span><br><span class="line"><span class="string">Nygubhtu cenpgvpnyvgl orngf chevgl.</span></span><br><span class="line"><span class="string">Reebef fubhyq arire cnff fvyragyl.</span></span><br><span class="line"><span class="string">Hayrff rkcyvpvgyl fvyraprq.</span></span><br><span class="line"><span class="string">Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba gb thrff.</span></span><br><span class="line"><span class="string">Gurer fubhyq or bar-- naq cersrenoyl bayl bar --boivbhf jnl gb qb vg.</span></span><br><span class="line"><span class="string">Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh&#x27;er Qhgpu.</span></span><br><span class="line"><span class="string">Abj vf orggre guna arire.</span></span><br><span class="line"><span class="string">Nygubhtu arire vf bsgra orggre guna *evtug* abj.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg&#x27;f n onq vqrn.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.</span></span><br><span class="line"><span class="string">Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg&#x27;f qb zber bs gubfr!&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">d = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> (<span class="number">65</span>, <span class="number">97</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">        d[<span class="built_in">chr</span>(i+c)] = <span class="built_in">chr</span>((i+<span class="number">13</span>) % <span class="number">26</span> + c)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>.join([d.get(c, c) <span class="keyword">for</span> c <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
 <p>这里用了最简单的凯撒加密，s里面每个字符的值往后移13位就是 Zen of Python，很好奇为什么不直接打印文章，而是要这样再算一次，不是<code>Simple is better than complex</code>么？O(∩_∩)O~</p>
 
       
@@ -460,18 +517,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -536,9 +581,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>直接复制个人的私钥到新的系统，结果远程的主机和git仓库都无法访问，提示</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0755 for &#39;&#x2F;home&#x2F;deepin&#x2F;.ssh&#x2F;id_rsa&#39; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">bad permissions: ignore key: &#x2F;home&#x2F;deepin&#x2F;.ssh&#x2F;id_rsa</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0755 for &#x27;/home/deepin/.ssh/id_rsa&#x27; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">bad permissions: ignore key: /home/deepin/.ssh/id_rsa</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
 <p>私钥是正确的，看提示信息应该是权限设置的问题。<br>私钥的权限只能是700，执行下面命令修改之后就可以了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 700 ~&#x2F;.ssh&#x2F;*</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 700 ~/.ssh/*</span><br></pre></td></tr></table></figure>
 <p>.ssh 是我的私钥目录，<code>-R</code>递归改完全部的秘钥的权限。</p>
 
       
@@ -550,18 +595,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -639,18 +672,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -726,7 +747,7 @@
 </ul>
 <p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
 <blockquote>
-<p>du -hsx <strong>target_path/*</strong> | sort -rh | head -10</p>
+<p>du -hsx <strong>target_path&#x2F;*</strong> | sort -rh | head -10</p>
 </blockquote>
 
       
@@ -738,18 +759,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -824,6 +833,7 @@
 <p>这四个隔离级别对应是要解决脏读（Dirty read）、不可重复读（Non-repeatable read）、幻象读（Phantom read）的问题。</p>
 <p>MySQL 可以通过</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@global</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@session</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@tx</span>_isolation;</span><br></pre></td></tr></table></figure>
+
 <p>查看当前数据库设置的隔离级别。</p>
 <h1 id="Read-uncommitted"><a href="#Read-uncommitted" class="headerlink" title="Read uncommitted"></a>Read uncommitted</h1><p>最低级的隔离级别就是 Read uncommitted，这是最低级的，拥有最高的并发性能，但是也有一列的并发问题。<br>除非数据并发安全性要求不是特别高，否则一般都不怎么使用。</p>
 <h1 id="Read-committed-与-脏读"><a href="#Read-committed-与-脏读" class="headerlink" title="Read committed 与 脏读"></a>Read committed 与 脏读</h1><p>Read uncommitted 之上就是 Read committed，这一级解决了脏读问题。<br>所谓脏读，就是一个事务可以读到另一个事务没有提交的数据。带来的问题是当另一个事务最终回滚，<br>脏读读到的数据实际上是不在数据库里面的。</p>
@@ -888,18 +898,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -976,7 +974,7 @@
 </ol>
 <h2 id="添加补全"><a href="#添加补全" class="headerlink" title="添加补全"></a>添加补全</h2><p>此时<code>git</code>已经可以使用了，但是这样安装的<code>git</code>在终端里面按下<code>Tab</code>是没有自动补全的，我们需要自己添加配置。<br>进入解压后的<code>git</code>目录，执行下面两条命令：<br><code>cp contrib/completion/git-completion.bash /etc/bash_completion.d/</code><br><code>sed -i &#39;$a source /etc/bash_completion.d/git-completion.bash&#39; ~/.bashrc</code><br>就添加了自动补全，注销或重启生效。想要立即生效可以手动运行一次<br><code>source /etc/bash_completion.d/git-completion.bash</code></p>
 <h2 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h2><p>在已经有<code>git</code>的情况下，更新版本是很简单的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:git&#x2F;git.git</span><br><span class="line">cd git</span><br><span class="line">git pull origin master</span><br><span class="line">make prefix&#x3D;&#x2F;usr&#x2F;local all</span><br><span class="line">sudo make prefix&#x3D;&#x2F;usr&#x2F;local install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:git/git.git</span><br><span class="line">cd git</span><br><span class="line">git pull origin master</span><br><span class="line">make prefix=/usr/local all</span><br><span class="line">sudo make prefix=/usr/local install</span><br></pre></td></tr></table></figure>
 <p>每次只需要 pull 最新的代码再执行 make &amp;&amp; make install 就行了！</p>
 
       
@@ -988,18 +986,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1065,6 +1051,7 @@
       
         <p>Ubuntu官方没配置好，多装了包。卸载掉之后恢复正常。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove fonts-arphic-ukai fonts-arphic-uming</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -1074,139 +1061,10 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/ubuntu-fonts-arphic-uming/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-git-command"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/git-command/">git 常用命令</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/git-command/" class="archive-article-date">
-  <time datetime="2014-08-21T08:12:00.000Z" itemprop="datePublished">
-    Published on 2014 / 08 / 21
-  </time>
-  
-    <time datetime="2014-10-15T02:01:12.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 15
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>新建分支</p>
-<blockquote>
-<p>git branch branch_name</p>
-</blockquote>
-<p>删除分支</p>
-<blockquote>
-<p>git branch -d branch_name （在未合并分支的情况下该命令会有提示）<br>git branch -D branch_name （直接删除分支）<br>git push remote_name branch_name –delete （删除远程分支）</p>
-</blockquote>
-<p>切换分支</p>
-<blockquote>
-<p>git checkout branch_name</p>
-</blockquote>
-<p>重置到上次提交</p>
-<blockquote>
-<p>git reset –hard</p>
-</blockquote>
-<p>合并本地分支</p>
-<blockquote>
-<p>git merge branch_name</p>
-</blockquote>
-<p>合并远程分支</p>
-<blockquote>
-<p>git merge remote_name/branch_name</p>
-</blockquote>
-<p>强制提交到远程版本库，从而删除之前的提交数据</p>
-<blockquote>
-<p>git push origin HEAD –force</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/git-command/">展开全文 >></a>
         </p>
       
 

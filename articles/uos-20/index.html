@@ -19,7 +19,7 @@
 <meta property="og:description" content="本来刚出就打算升级的，各种原因耽误了，最近终于动手升级了系统版本。下文为纯主观体验。 系统变化 界面比 15 版本好看很多，整个系统风格统一成圆角风格。 默认壁纸多了一些漂亮的风景画。 UOS 20 个人版作为商业版本需要激活，并且需要登录账号进入开发者模式才能打开 root 权限。deepin 20 作为社区版本无此限制。 底层基于 debian 10.3，内核 5.3。安装第三方应用可以依次找">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-07-14T04:17:26.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.654Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="deepin">
 <meta name="twitter:card" content="summary">
@@ -244,7 +244,7 @@
 </ul>
 <h2 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h2><p>默认的终端变回了 bash，并且用的是 debian 默认的 gnome 终端，可以在应用商店安装老版本的 deepin-terminal。</p>
 <h3 id="当前用户-sudo-免密码-Ref"><a href="#当前用户-sudo-免密码-Ref" class="headerlink" title="当前用户 sudo 免密码 Ref"></a>当前用户 sudo 免密码 <a target="_blank" rel="noopener" href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Ref</a></h3><blockquote>
-<p>sudo visudo<br>$USER ALL=(ALL) NOPASSWD: ALL</p>
+<p>sudo visudo<br>$USER ALL&#x3D;(ALL) NOPASSWD: ALL</p>
 </blockquote>
 <p><code>$USER</code>替换成当前用户名</p>
 <h3 id="默认编辑器使用-vim"><a href="#默认编辑器使用-vim" class="headerlink" title="默认编辑器使用 vim"></a>默认编辑器使用 vim</h3><blockquote>
@@ -279,7 +279,7 @@
 </blockquote>
 <p>删除配置文件：</p>
 <blockquote>
-<p>rm ~/.deepin-defender</p>
+<p>rm ~&#x2F;.deepin-defender</p>
 </blockquote>
 <p>重启之后恢复正常</p>
 <h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>目前应用商店没有上架，我使用源代码方式编译安装。安装完成之后还需要多装一个 Notify，之后重启电脑，可以正常使用。</p>
@@ -343,18 +343,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 

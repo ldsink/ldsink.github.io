@@ -201,6 +201,124 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-django-collectstatic-retrofit"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/django-collectstatic-retrofit/">Django collectstatic 改造</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/django-collectstatic-retrofit/" class="archive-article-date">
+  <time datetime="2018-04-14T03:23:19.000Z" itemprop="datePublished">
+    Published on 2018 / 04 / 14
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Collect-Static-执行的原理"><a href="#Collect-Static-执行的原理" class="headerlink" title="Collect Static 执行的原理"></a>Collect Static 执行的原理</h2><p><code>Django</code>默认使用<code>staticfiles</code>这个app来将整个项目下的静态文件收集到一个目录。主要用到了两个参数：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.0/ref/settings/#static-root">STATIC_ROOT</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.0/ref/settings/#static-url">STATIC_URL</a></li>
+</ul>
+<p>项目相关的静态文件，按照默认的配置会收集到<code>STATIC_ROOT</code>目录。<br>模板文件中，使用<code>{% static "path/to/static/file "%}</code>方式引入的项目静态资源，会根据<code>STATIC_URL</code>替换成目标值。</p>
+<p>这一层需要注意的一个点是，全部独立APP下面的<code>static</code>都对应到<code>STATIC_ROOT</code>这一层。所以按照文档的建议，每个单独的APP下面的static目录最好也带上app名称。<br>直观的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py</span><br><span class="line">    mysite/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        wsgi.py</span><br><span class="line">    appa/</span><br><span class="line">        static/</span><br><span class="line">            a.jpg</span><br><span class="line">    appb/</span><br><span class="line">        static/</span><br><span class="line">            a.jpg</span><br></pre></td></tr></table></figure>
+<p><code>appa</code>和<code>appb</code>下面有共同的<code>a.jpg</code>，都会收集到<code>STATIC_ROOT</code>下面。某一个项目的<code>a.jpg</code>会覆盖掉另一个项目的，造成问题。<br>正确的做法是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysite/</span><br><span class="line">    manage.py</span><br><span class="line">    mysite/</span><br><span class="line">        __init__.py</span><br><span class="line">        settings.py</span><br><span class="line">        urls.py</span><br><span class="line">        wsgi.py</span><br><span class="line">    appa/</span><br><span class="line">        static/</span><br><span class="line">            appa/</span><br><span class="line">                a.jpg</span><br><span class="line">    appb/</span><br><span class="line">        static/</span><br><span class="line">            appb/</span><br><span class="line">                a.jpg</span><br></pre></td></tr></table></figure>
+<p>在每个app下的static目录下，相关资源放到以当前app命名的文件夹，能避免碰到同名文件覆盖的问题。</p>
+<h2 id="Hash-和自动上传云存储兼得"><a href="#Hash-和自动上传云存储兼得" class="headerlink" title="Hash 和自动上传云存储兼得"></a>Hash 和自动上传云存储兼得</h2><p>默认的方式存在两个问题</p>
+<ul>
+<li>修改文件内容，链接不会变更，CDN&#x2F;浏览器等各层会有文件缓存，新内容不会生效。</li>
+<li>需要手动&#x2F;写脚本把<code>STATIC_ROOT</code>目录的资源上传到CDN。</li>
+</ul>
+<p>这两个问题，都有单独的解决方案。使用<a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-STATICFILES_STORAGE">STATICFILES_STORAGE</a>。<br>默认的<code>STATICFILES_STORAGE</code>使用的系统的文件存储，会将文件放置到<code>STATIC_ROOT</code>目录，使用不同的<code>STATICFILES_STORAGE</code>可以实现更多丰富的功能。</p>
+<h4 id="Hash-静态文件"><a href="#Hash-静态文件" class="headerlink" title="Hash 静态文件"></a>Hash 静态文件</h4><p><a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#django.contrib.staticfiles.storage.ManifestStaticFilesStorage">ManifestStaticFilesStorage</a>是Django自带的hash静态资源的工具。<br>一个关联的静态资源，会由</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import url(&quot;../admin/css/base.css&quot;);</span><br></pre></td></tr></table></figure>
+<p>会变成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import url(&quot;../admin/css/base.27e20196a850.css&quot;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="自动上传到CDN"><a href="#自动上传到CDN" class="headerlink" title="自动上传到CDN"></a>自动上传到CDN</h4><p>自动上传到各种CDN的本质，就是将对象存储的Bucket作为静态文件的FileStorage。<br>Django框架下有<a target="_blank" rel="noopener" href="https://github.com/jschneier/django-storages">django-storages</a>和<a target="_blank" rel="noopener" href="https://github.com/etianen/django-s3-storage">django-s3-storage</a>。<br>这两个库做的事情都是将静态资源文件上传到对象存储的Bucket。现在国内的提供对象存储的云服务商的接口，大部分都兼容事实上的行业标准AWS S3的接口，修改<code>endpoint_url</code>之后都能使用。</p>
+<h4 id="Hash-和自动上传兼得"><a href="#Hash-和自动上传兼得" class="headerlink" title="Hash 和自动上传兼得"></a>Hash 和自动上传兼得</h4><p>两种<code>FileStorage</code>各自只实现了一种功能，怎么同时实现两个需求呢。Hash这个功能比较麻烦，尽量复用现有的。那就需要将上传整合进现有的模块。<br>落到处理静态资源的命令<a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#collectstatic">collectstatic</a>上。<br>处理完静态资源文件之后，会调用<code>post_process</code>。<br>查看<a target="_blank" rel="noopener" href="https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#django.contrib.staticfiles.storage.ManifestStaticFilesStorage">ManifestStaticFilesStorage</a>对应的函数，涉及到两个函数<code>read_manifest</code>和<code>save_manifest</code>。<br>问题就简单了，利用Django自带的<code>ManifestStaticFilesStorage</code>生成好带Hash的静态文件，再修改这个方法，自动根据文件列表上传到CDN。<br>Django 启动的时候会根据<code>read_manifest</code>读取<code>manifest.json</code>，根据他的结果渲染页面。这个函数使用到正确的<code>manifest.json</code>文件就能保证链接的是正确的静态文件。</p>
+<p>自定义的FileStorage代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> mimetypes</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> boto3</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> django.conf <span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">from</span> django.contrib.staticfiles.storage <span class="keyword">import</span> ManifestStaticFilesStorage</span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(__name__)</span><br><span class="line">logger.setLevel(logging.INFO)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyManifestStaticFilesStorage</span>(<span class="title class_ inherited__">ManifestStaticFilesStorage</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">read_manifest</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            url = <span class="string">&#x27;https://cdn.domain/staticfiles/staticfiles.&#123;&#125;.json&#x27;</span></span><br><span class="line">            url = url.<span class="built_in">format</span>(settings.STATICFILES_VERSION)</span><br><span class="line">            response = requests.get(url)</span><br><span class="line">            <span class="keyword">return</span> response.text</span><br><span class="line">        <span class="keyword">except</span> Exception:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save_manifest</span>(<span class="params">self</span>):</span><br><span class="line">        r = <span class="built_in">super</span>(MyManifestStaticFilesStorage, self).save_manifest()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upload static file to S3</span></span><br><span class="line">        s3 = boto3.client(</span><br><span class="line">            <span class="string">&#x27;s3&#x27;</span>,</span><br><span class="line">            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,</span><br><span class="line">            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,</span><br><span class="line">            endpoint_url=settings.AWS_S3_ENDPOINT_URL,</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">for</span> hashed_file <span class="keyword">in</span> self.hashed_files.values():</span><br><span class="line">            <span class="keyword">with</span> self._<span class="built_in">open</span>(hashed_file) <span class="keyword">as</span> file:</span><br><span class="line">                mime_type, _ = mimetypes.guess_type(hashed_file)</span><br><span class="line">                <span class="keyword">try</span>:</span><br><span class="line">                    s3.head_object(Bucket=settings.STATICFILES_BUCKET, Key=hashed_file)</span><br><span class="line">                    logger.info(<span class="string">&#x27;Skipped uploading \&#x27;&#123;&#125;\&#x27;&#x27;</span>.<span class="built_in">format</span>(hashed_file))</span><br><span class="line">                <span class="keyword">except</span> Exception:</span><br><span class="line">                    logger.info(<span class="string">&#x27;Uploading \&#x27;&#123;&#125;\&#x27; to S3&#x27;</span>.<span class="built_in">format</span>(hashed_file))</span><br><span class="line">                    extra_args = &#123;</span><br><span class="line">                        <span class="string">&#x27;ACL&#x27;</span>: <span class="string">&#x27;public-read&#x27;</span>,</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> mime_type:</span><br><span class="line">                        extra_args[<span class="string">&#x27;ContentType&#x27;</span>] = mime_type</span><br><span class="line">                    s3.upload_fileobj(file, settings.STATICFILES_BUCKET, hashed_file, ExtraArgs=extra_args)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># upload manifest file to S3</span></span><br><span class="line">        manifest_file_name = <span class="string">&#x27;staticfiles.json&#x27;</span></span><br><span class="line">        manifest_hashed_file_name = self.hashed_name(manifest_file_name)</span><br><span class="line">        <span class="keyword">with</span> self._<span class="built_in">open</span>(manifest_file_name) <span class="keyword">as</span> file:</span><br><span class="line">            target = <span class="string">&#x27;staticfiles/&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(manifest_hashed_file_name)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                s3.head_object(Bucket=settings.STATICFILES_BUCKET, Key=target)</span><br><span class="line">                logger.info(<span class="string">&#x27;Skipped uploading \&#x27;&#123;&#125;\&#x27;&#x27;</span>.<span class="built_in">format</span>(manifest_hashed_file_name))</span><br><span class="line">            <span class="keyword">except</span> Exception:</span><br><span class="line">                s3.upload_fileobj(file, settings.STATICFILES_BUCKET, target, ExtraArgs=&#123;</span><br><span class="line">                    <span class="string">&#x27;ACL&#x27;</span>: <span class="string">&#x27;public-read&#x27;</span>, <span class="string">&#x27;ContentType&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">                &#125;)</span><br><span class="line">                logger.info(<span class="string">&#x27;Uploading manifest hashed file \&#x27;&#123;&#125;\&#x27; to S3&#x27;</span>.<span class="built_in">format</span>(manifest_hashed_file_name))</span><br><span class="line">            logger.info(<span class="string">&#x27;&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(manifest_hashed_file_name.split(<span class="string">&#x27;.&#x27;</span>)[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
+
+<p>我还是通过配置文件的<code>STATICFILES_VERSION</code>来决定使用的静态资源的版本。但是其他的一系列操作（Hash、Upload）都自动完成。</p>
+<h2 id="以后的改造计划"><a href="#以后的改造计划" class="headerlink" title="以后的改造计划"></a>以后的改造计划</h2><ul>
+<li>压缩 js、css 文件</li>
+<li>压缩图片</li>
+<li>自动使用最新版本的<code>STATICFILES_VERSION</code>（比如通过一个接口获取、使用当前 git head 之类)</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">django</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/django-collectstatic-retrofit/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-initialize-react-project"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -250,6 +368,7 @@
 </ul>
 <p>国内使用淘宝源足够了，修改<code>.npmrc</code>文件。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; ~/.npmrc &lt;&lt; EOF</span><br><span class="line">registry=https://registry.npm.taobao.org</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
 <p>我也写了个一行的命令。</p>
 <blockquote>
 <p>curl -sSL <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ldsink/toolbox/master/set-npm-mirror.sh">https://raw.githubusercontent.com/ldsink/toolbox/master/set-npm-mirror.sh</a> | sh</p>
@@ -308,18 +427,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -481,9 +588,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><img src="https://a.adcdn.cn/images/time-zone-map.webp" alt="time-zone-map"></p>
-<p>最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间/时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。</p>
+<p>最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。</p>
 <h1 id="日期（Date）、时间（Time）和时间戳（Timestamp）"><a href="#日期（Date）、时间（Time）和时间戳（Timestamp）" class="headerlink" title="日期（Date）、时间（Time）和时间戳（Timestamp）"></a>日期（Date）、时间（Time）和时间戳（Timestamp）</h1><p>互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一个统一的标准，来规范统一不同语言、不同时区对同一个时刻的表示。</p>
-<p>国际标准组织（ISO）制定了<a target="_blank" rel="noopener" href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>,我们的<a target="_blank" rel="noopener" href="http://www.cmaph.org/attachment/2013530/1369881489484.pdf">中华人民共和国国家标准GB/T 7408-2005《数据元和交换格式 信息交换 日期和时间表示法》</a>与ISO 8601:2000等效采用。</p>
+<p>国际标准组织（ISO）制定了<a target="_blank" rel="noopener" href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>,我们的<a target="_blank" rel="noopener" href="http://www.cmaph.org/attachment/2013530/1369881489484.pdf">中华人民共和国国家标准GB&#x2F;T 7408-2005《数据元和交换格式 信息交换 日期和时间表示法》</a>与ISO 8601:2000等效采用。</p>
 <p>上面两个标准，对开发者而言，太过于严肃。其实有一份更加简单易读的文件 <a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc3339.txt">RFC3339 Date and Time on the Internet: Timestamps</a>。本文之后的讨论，都基于 RFC3339。</p>
 <p>RFC3339 比 ISO 8601 有一个很一个明显的限制，这里提一下：ISO允许24点，而 RFC3339 为了减少混淆，限制小时必须在0至23之间。23:59过1分钟，是第二天的0:00。</p>
 <p>阅读RFC3339，我主要明确下面三个定义：</p>
@@ -504,7 +611,7 @@
 <p>2017-12-08 11:50:03.537506</p>
 </blockquote>
 <h2 id="标准时间"><a href="#标准时间" class="headerlink" title="标准时间"></a>标准时间</h2><p>本地时间只包括当前的时间，不包含任何时区信息。同一时刻，东八区的本地时间比零时区的本地时间快了8个小时。在不同时区之间交换时间数据，除了用纯数字的时间戳，还有一种更方便人类阅读的表示方式：标准时间的偏移量表示方法。</p>
-<p>RFC3339详细定义了互联网上日期/时间的偏移量表示：</p>
+<p>RFC3339详细定义了互联网上日期&#x2F;时间的偏移量表示：</p>
 <blockquote>
 <p>2017-12-08T00:00:00.00Z</p>
 </blockquote>
@@ -519,7 +626,7 @@
 <p>很自然的，开发者编写代码处理用户输入的时间类型数据，处理的都是本地时间的格式。而计算机系统处理逻辑，依赖标准时间。从用户输入的本地时间，转化成系统能处理的标准时间，这个过程是系统隐式的自动转换。当系统的时区设置和用户所处的时区不一致的时候，时间经过一次输入，处理之后再输出，就有了差异。</p>
 <p>为了避免在时间处理上出现问题，核心就是统一输入输出时间的转化。因此解决的思路也是两个：</p>
 <ol>
-<li>强制用户输入的时间类型是标准的，使用时间戳/标准时间。如果你的系统是给全球用户使用的，应该采用这种功能方法。这是最准确，最不容易出错的。</li>
+<li>强制用户输入的时间类型是标准的，使用时间戳&#x2F;标准时间。如果你的系统是给全球用户使用的，应该采用这种功能方法。这是最准确，最不容易出错的。</li>
 <li>系统的时区和用户的时区严格一致。项目规模小，全部都是一个时区的用户。采用这种方案，一旦用户跨时区了，还是会存在问题。不是很推荐。</li>
 </ol>
 <p>时区的名称可以查维基百科，也可以查官方的数据库 <a target="_blank" rel="noopener" href="https://www.iana.org/time-zones">Time Zone Database</a>。</p>
@@ -530,7 +637,7 @@
 <li>在天朝，还是把系统时区设置成北京时间比较好。</li>
 </ul>
 <h2 id="下面是一些踩过的坑："><a href="#下面是一些踩过的坑：" class="headerlink" title="下面是一些踩过的坑："></a>下面是一些踩过的坑：</h2><h3 id="Docker-设置时区"><a href="#Docker-设置时区" class="headerlink" title="Docker 设置时区"></a>Docker 设置时区</h3><p>很多Docker镜像都是UTC时区，在上海使用镜像启用容器，容器里面获取的本地时间都会慢8个小时。可以在Dockerfile里面设置时区。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes">参考这个问题的回答</a></p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">ln</span> -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="Ubuntu-设置时区"><a href="#Ubuntu-设置时区" class="headerlink" title="Ubuntu 设置时区"></a>Ubuntu 设置时区</h3><p>Docker里面大部分镜像是基于Debian的，Docker这么解决，Ubuntu上思路类似，直接执行命令就好了。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TZ=Asia/Shanghai</span><br><span class="line">ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
@@ -566,18 +673,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -645,7 +740,8 @@
 <h2 id="TOML的由来"><a href="#TOML的由来" class="headerlink" title="TOML的由来"></a>TOML的由来</h2><p>TOML是<code>Tom&#39;s Obvious, Minimal Language.</code>的首字母缩写，是Tom的浅显的、极简的语言。<br>那么问题来了，Tom是谁？搜索之后得到答案，<code>Tom</code>是<code>Tom Preston-Werner</code>，全球最大的同性交友网站<a target="_blank" rel="noopener" href="https://github.com/">Github</a>联合创始人。<br>还有小道消息，GitHub 新项目转用CoffeeScript 之后，CoffeeScript 比 JavaScript 要简洁优雅得多。同样地，GitHub 也觉得 YAML 不够简洁优雅，因此捣鼓出了一个 TOML。</p>
 <h2 id="TOML的目标"><a href="#TOML的目标" class="headerlink" title="TOML的目标"></a>TOML的目标</h2><p>成为一个极简的配置文件格式。<br>关键词：极简、配置文件<br>TOML的语法足够简单，同时保证一个标准的TOML文件的所有配置项目都能被无歧义的转换成一个哈希表。TOML可以被各种语言解析使用。</p>
 <p>TOML目前的版本还是<code>0.4.0</code>，官网还是提示在<code>1.0</code>以前，语言表现可能还是不稳定。这个只是个免责条款，在很多生产系统里面，TOML配置文件已经大规模使用了，比如友商<code>GibLab</code>。</p>
-<h2 id="简单样例"><a href="#简单样例" class="headerlink" title="简单样例"></a>简单样例</h2><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/toml-lang/toml# This is a TOML document.</span><br><span class="line"></span><br><span class="line"><span class="attr">title</span> = <span class="string">&quot;TOML Example&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[owner]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;Tom Preston-Werner&quot;</span></span><br><span class="line"><span class="attr">dob</span> = <span class="number">1979</span>-<span class="number">05</span>-<span class="number">27</span>T07:<span class="number">32</span>:<span class="number">00</span>-<span class="number">08</span>:<span class="number">00</span> https://github.com/toml-lang/toml<span class="comment"># First class dates</span></span><br><span class="line"></span><br><span class="line"><span class="section">[database]</span></span><br><span class="line"><span class="attr">server</span> = <span class="string">&quot;192.168.1.1&quot;</span></span><br><span class="line"><span class="attr">ports</span> = [ <span class="number">8001</span>, <span class="number">8001</span>, <span class="number">8002</span> ]</span><br><span class="line"><span class="attr">connection_max</span> = <span class="number">5000</span></span><br><span class="line"><span class="attr">enabled</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[servers]</span></span><br><span class="line"></span><br><span class="line">  https://github.com/toml-lang/toml# Indentation (tabs and/or spaces) is allowed but not required</span><br><span class="line">  <span class="section">[servers.alpha]</span></span><br><span class="line">  <span class="attr">ip</span> = <span class="string">&quot;10.0.0.1&quot;</span></span><br><span class="line">  <span class="attr">dc</span> = <span class="string">&quot;eqdc10&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[servers.beta]</span></span><br><span class="line">  <span class="attr">ip</span> = <span class="string">&quot;10.0.0.2&quot;</span></span><br><span class="line">  <span class="attr">dc</span> = <span class="string">&quot;eqdc10&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[clients]</span></span><br><span class="line"><span class="attr">data</span> = [ [<span class="string">&quot;gamma&quot;</span>, <span class="string">&quot;delta&quot;</span>], [<span class="number">1</span>, <span class="number">2</span>] ]</span><br><span class="line"></span><br><span class="line">https://github.com/toml-lang/toml# Line breaks are OK when inside arrays</span><br><span class="line"><span class="attr">hosts</span> = [</span><br><span class="line">  <span class="string">&quot;alpha&quot;</span>,</span><br><span class="line">  <span class="string">&quot;omega&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="简单样例"><a href="#简单样例" class="headerlink" title="简单样例"></a>简单样例</h2><figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/toml-lang/toml<span class="comment"># This is a TOML document.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">title</span> = <span class="string">&quot;TOML Example&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[owner]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;Tom Preston-Werner&quot;</span></span><br><span class="line"><span class="attr">dob</span> = <span class="number">1979</span>-<span class="number">05</span>-<span class="number">27</span>T07:<span class="number">32</span>:<span class="number">00</span>-<span class="number">08</span>:<span class="number">00</span> https://github.com/toml-lang/toml<span class="comment"># First class dates</span></span><br><span class="line"></span><br><span class="line"><span class="section">[database]</span></span><br><span class="line"><span class="attr">server</span> = <span class="string">&quot;192.168.1.1&quot;</span></span><br><span class="line"><span class="attr">ports</span> = [ <span class="number">8001</span>, <span class="number">8001</span>, <span class="number">8002</span> ]</span><br><span class="line"><span class="attr">connection_max</span> = <span class="number">5000</span></span><br><span class="line"><span class="attr">enabled</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[servers]</span></span><br><span class="line"></span><br><span class="line">  https://github.com/toml-lang/toml<span class="comment"># Indentation (tabs and/or spaces) is allowed but not required</span></span><br><span class="line">  <span class="section">[servers.alpha]</span></span><br><span class="line">  <span class="attr">ip</span> = <span class="string">&quot;10.0.0.1&quot;</span></span><br><span class="line">  <span class="attr">dc</span> = <span class="string">&quot;eqdc10&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="section">[servers.beta]</span></span><br><span class="line">  <span class="attr">ip</span> = <span class="string">&quot;10.0.0.2&quot;</span></span><br><span class="line">  <span class="attr">dc</span> = <span class="string">&quot;eqdc10&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[clients]</span></span><br><span class="line"><span class="attr">data</span> = [ [<span class="string">&quot;gamma&quot;</span>, <span class="string">&quot;delta&quot;</span>], [<span class="number">1</span>, <span class="number">2</span>] ]</span><br><span class="line"></span><br><span class="line">https://github.com/toml-lang/toml<span class="comment"># Line breaks are OK when inside arrays</span></span><br><span class="line"><span class="attr">hosts</span> = [</span><br><span class="line">  <span class="string">&quot;alpha&quot;</span>,</span><br><span class="line">  <span class="string">&quot;omega&quot;</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
 <p>上面的样例就展示了很多TOML的特点。</p>
 <ul>
 <li>主要通过键值对表达</li>
@@ -677,7 +773,7 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-example">Example</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-spec">Spec</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-comment">Comment</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-keyvalue-pair">Key/Value Pair</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-keyvalue-pair">Key&#x2F;Value Pair</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-string">String</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-integer">Integer</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/toml-lang/toml#user-content-float">Float</a></li>
@@ -723,18 +819,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -837,18 +921,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -913,12 +985,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><strong>面向开发同事的分享。</strong><br><strong>整个迁移过程可以看<a target="_blank" rel="noopener" href="http://www.liriansu.com/py2-to-py3">这里</a>。</strong></p>
-<h1 id="开发-服务器环境"><a href="#开发-服务器环境" class="headerlink" title="开发/服务器环境"></a>开发/服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
+<h1 id="开发-x2F-服务器环境"><a href="#开发-x2F-服务器环境" class="headerlink" title="开发&#x2F;服务器环境"></a>开发&#x2F;服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
 <ul>
 <li>新建 Python3 环境的 virtualenv，并且安装 requirements.txt</li>
 </ul>
 <blockquote>
-<p>virtualenv -p /usr/bin/python3 &lt;path/to/virtualenv&gt;</p>
+<p>virtualenv -p &#x2F;usr&#x2F;bin&#x2F;python3 &lt;path&#x2F;to&#x2F;virtualenv&gt;</p>
 </blockquote>
 <ul>
 <li><p>PyCharm 设置新的虚拟环境，设置 Python3.5 的检测</p>
@@ -927,10 +999,11 @@
 </li>
 </ul>
 <blockquote>
-<p>cd &lt;path/to/virtualenv&gt; &amp;&amp; source bin/activate &amp;&amp; cd - </p>
+<p>cd &lt;path&#x2F;to&#x2F;virtualenv&gt; &amp;&amp; source bin&#x2F;activate &amp;&amp; cd - </p>
 </blockquote>
 <h1 id="Python3-需要注意的点"><a href="#Python3-需要注意的点" class="headerlink" title="Python3 需要注意的点"></a>Python3 需要注意的点</h1><h2 id="基础的-print"><a href="#基础的-print" class="headerlink" title="基础的 print"></a>基础的 print</h2><p>现在是函数了，不再是关键词</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">&#x27;hello world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
 <h2 id="字符串与字节"><a href="#字符串与字节" class="headerlink" title="字符串与字节"></a>字符串与字节</h2><p>没有 unicode 类型。所有的 str 就是 unicode 类型。Python3 严格区分字节和字符串，以前字符串和字节混用的地方都会出问题，需要注意。</p>
 <p>常见的问题如下：</p>
 <ul>
@@ -957,12 +1030,13 @@
 </ul>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
 <li>一些内置库、内置函数的变更，用到了，按照 Python3.5 文档更新。</li>
-<li>/ 默认是除法。3/2=1.5。整除严格使用 //。</li>
+<li>&#x2F; 默认是除法。3&#x2F;2&#x3D;1.5。整除严格使用 &#x2F;&#x2F;。</li>
 <li>统一 long 和 int。</li>
 <li>强制 absolute_import。</li>
 <li>可以使用 Type Hints 进行标记（只有标记作用，不影响实际运行）。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; str:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(name)</span><br></pre></td></tr></table></figure>
+
 <h1 id="后续的一些改动"><a href="#后续的一些改动" class="headerlink" title="后续的一些改动"></a>后续的一些改动</h1><ul>
 <li>全部切换到 Python3 之后，所有的 <code>__future__</code> 引入会删除。</li>
 <li>Python3 buildin 的库，会从 requirements.txt 移除，如 enum。</li>
@@ -990,18 +1064,6 @@
 
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1066,7 +1128,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>最近搜狗输入法老是卡死，o(╯□╰)o。整了个脚本，丢到<code>/usr/local/bin</code>下面，一卡重启，干净利落。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">pidof fcitx | xargs kill</span><br><span class="line">pidof sogou-qimpanel | xargs kill</span><br><span class="line">nohup fcitx  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">nohup sogou-qimpanel  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">pidof fcitx | xargs kill</span><br><span class="line">pidof sogou-qimpanel | xargs kill</span><br><span class="line">nohup fcitx  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">nohup sogou-qimpanel  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -1076,18 +1139,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1165,18 +1216,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
@@ -1242,7 +1281,7 @@
       
         <p>error.log 内容为：</p>
 <blockquote>
-<p>2017/02/25 20:20:58 [crit] 10745#10745: *1 connect() to unix:/var/run/php/php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream</p>
+<p>2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream</p>
 </blockquote>
 <p>这个是因为 nginx 和 php-fpm 分别使用了不同的用户权限。我的习惯是都统一成 www-data 用户。</p>
 <ul>
@@ -1262,123 +1301,10 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/nginx-php-fpm-permission-denied/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-deploy-https"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/deploy-https/">公司全站部署HTTPS</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/deploy-https/" class="archive-article-date">
-  <time datetime="2017-01-01T09:30:00.000Z" itemprop="datePublished">
-    Published on 2017 / 01 / 01
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>2017年来了，新年新气象，公司网站也迎来了全站HTTPS。HTTPS的好处有很多，安全是第一位的（远离运营商劫持）。各个大厂商推广HTTPS也是不遗余力，Google优先收录此类链接，苹果和微信小程序接口都走HTTPS。</p>
-<p>上一家公司因为前端CDN的问题，部署HTTPS一拖再拖。新公司网站还不大，现在部署成本低。感觉再拖延下去等以后复杂了，更加没人想干了，赶在新年前部署了。:-D</p>
-<p>简单的Checklist:</p>
-<ul>
-<li>申请SSL证书</li>
-<li>LB配置证书</li>
-<li>CDN配置证书</li>
-</ul>
-<p>按照以上的列表，一个一个来。</p>
-<h2 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请SSL证书</h2><p>公司有个业务需要使用<code>Apple Wallet</code>，当时在<code>RapidSSL</code>申请了公司二级域名的通配符证书。这个我向以前的同事咨询，获取到了相关的数据。</p>
-<h2 id="LB配置证书"><a href="#LB配置证书" class="headerlink" title="LB配置证书"></a>LB配置证书</h2><p>公司网站运行在AWS的云服务上，AWS的负载均衡器很方便的就可以部署证书，将证书上传到<code>IAM(Identity and Access Management)</code>之后，直接启用。配置好之后是HTTP和HTTPS都可以正常调用接口，过一阵子等移动端的客户端都更新之后，再强制全部跳转HTTPS。</p>
-<h2 id="CDN配置证书"><a href="#CDN配置证书" class="headerlink" title="CDN配置证书"></a>CDN配置证书</h2><p>公司CDN使用的网宿的，部署HTTPS需要上传私钥，我不太想把通配符证书上传到一个第三方的网站，好在现在腾讯云、<a target="_blank" rel="noopener" href="https://yundun.console.aliyun.com/?p=cas#/cas/home">阿里云</a>、七牛等都联合赛门铁克，免费提供了明细域名一年时间的DV证书。免费申请了<code>static</code>和<code>media</code>这两个静态资源二级域名的证书，专门用于CDN。这个问题也顺利解决。</p>
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><h3 id="安卓上证书不受信任（微信、浏览器等打不开）"><a href="#安卓上证书不受信任（微信、浏览器等打不开）" class="headerlink" title="安卓上证书不受信任（微信、浏览器等打不开）"></a>安卓上证书不受信任（微信、浏览器等打不开）</h3><blockquote>
-<p>macOS和iPhone上都没有问题，但是安卓手机上会出现证书不受信任的错误。看到了<a target="_blank" rel="noopener" href="https://www.v2ex.com/t/183715">v2ex t183715</a>这个帖子，判断是一样的问题，<strong>证书链不完整</strong>。通过<a target="_blank" rel="noopener" href="https://www.ssllabs.com/ssltest/index.html">SSL LABS</a>检测网站，直接获得了网站带完整证书链的证书，重新部署完整证书链的证书，问题解决。</p>
-</blockquote>
-<p>总共试了两次，第一次因为遇到上面的问题，回滚了。第二天仔细了解了一下证书链，完善之后再部署，这次成功，浏览器、微信、Android端调用都没有问题。这让我想到了以前搭建的一个内部系统出现的问题：A是使用Docker搭建的Jenkins，用于自动测试和部署；B是Gitlab仓库，用于代码管理。A、B网址均开启<code>HSTS</code>，A通过OAuth插件使用B的权限管理。刚开始A访问B，证书不受信。我是手动进到A的Container里面，在JVM导入了B的证书，临时解决了问题。因为内部系统，没多想，能用了之后就没关注。现在想来应该是一样的问题。一开始的通配符证书不带完整的证书链，中级证书不会自动下载，所以不受信。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/deploy-https/">展开全文 >></a>
         </p>
       
 

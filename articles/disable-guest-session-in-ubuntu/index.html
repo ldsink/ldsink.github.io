@@ -11,15 +11,15 @@
     
     Sink 的笔记本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="新装的Ubuntu发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o 编辑&#x2F;etc&#x2F;lightdm&#x2F;lightdm.conf文件，增加allow-guest&#x3D;false即可。这个配置文件完整的内容如下： 1234[SeatDefaults]greeter-session&#x3D;unity-greeteruser-session&#x3D;">
+  <meta name="description" content="新装的Ubuntu发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o 编辑&#x2F;etc&#x2F;lightdm&#x2F;lightdm.conf文件，增加allow-guest&#x3D;false即可。这个配置文件完整的内容如下： 1234[SeatDefaults]greeter-session&#x3D;unity-greeteruser-session&#x3D;ubuntuallo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关闭Ubuntu系统中的访客账户">
 <meta property="og:url" content="https://ldsink.com/articles/disable-guest-session-in-ubuntu/index.html">
 <meta property="og:site_name" content="Sink 的笔记本">
-<meta property="og:description" content="新装的Ubuntu发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o 编辑&#x2F;etc&#x2F;lightdm&#x2F;lightdm.conf文件，增加allow-guest&#x3D;false即可。这个配置文件完整的内容如下： 1234[SeatDefaults]greeter-session&#x3D;unity-greeteruser-session&#x3D;">
+<meta property="og:description" content="新装的Ubuntu发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o 编辑&#x2F;etc&#x2F;lightdm&#x2F;lightdm.conf文件，增加allow-guest&#x3D;false即可。这个配置文件完整的内容如下： 1234[SeatDefaults]greeter-session&#x3D;unity-greeteruser-session&#x3D;ubuntuallo">
 <meta property="og:locale">
 <meta property="article:published_time" content="2015-11-04T06:34:00.000Z">
-<meta property="article:modified_time" content="2021-06-22T05:43:59.820Z">
+<meta property="article:modified_time" content="2022-05-29T06:23:31.778Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
   
@@ -237,7 +237,8 @@
       
         <p>新装的<code>Ubuntu</code>发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o</p>
 <p>编辑<code>/etc/lightdm/lightdm.conf</code>文件，增加<code>allow-guest=false</code>即可。这个配置文件完整的内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-session&#x3D;unity-greeter</span><br><span class="line">user-session&#x3D;ubuntu</span><br><span class="line">allow-guest&#x3D;false</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-session=unity-greeter</span><br><span class="line">user-session=ubuntu</span><br><span class="line">allow-guest=false</span><br></pre></td></tr></table></figure>
+
 <p>Ubuntu 13.10 至 14.10, 这个配置文件移动到了<code>/etc/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
 <p>Ubuntu 14.10 或更高版本, 这个配置文件移动到了<code>/usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
 <p>更多的细节可以参考<code>AskUbuntu</code>上的相关问题：<br><a target="_blank" rel="noopener" href="http://askubuntu.com/questions/62564/how-do-i-disable-the-guest-session">How do I disable the guest session?</a></p>
@@ -286,18 +287,6 @@
       
 
       
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/articles/"
-             class="article-tag-list-link color4">articles</a>
-        </li>
-      
-    </ul>
-  </div>
-
 
       
 
