@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,205 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-how-to-execute-sudo-without-password"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/how-to-execute-sudo-without-password/">设置执行 sudo 免密码</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/how-to-execute-sudo-without-password/" class="archive-article-date">
+  <time datetime="2021-06-27T07:00:45.000Z" itemprop="datePublished">
+    Published on 2021 / 06 / 27
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux 中，一些操作需要使用 <code>sudo</code> 命令进行提权到 <code>root</code> 后才可以顺利执行。默认这一步操作是需要输入密码的，可以通过设置免除密码。</p>
+<h1 id="获取用户名"><a href="#获取用户名" class="headerlink" title="获取用户名"></a>获取用户名</h1><p>执行如下命令，获得当前用户的用户名。</p>
+<blockquote>
+<p>echo $USER</p>
+</blockquote>
+<h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>配置文件位于 <code>/etc/sudoers</code>，但是注意，<strong>千万不要直接修改这个文件！</strong> 我见过太多直接修改这个文件造成系统无法启动的例子了。 正确的方式是使用 <code>visudo</code> 命令修改。执行</p>
+<blockquote>
+<p>sudo visudo</p>
+</blockquote>
+<p>按下 <code>Shift+g</code> 切换到文件尾部，按下 <code>o</code> 新增一行， 将下面这一行添加到文件尾部（<code>$USER</code> 替换成之前获取到的用户名）。 <code>Shift+z+z</code> 保存并退出。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure>
+
+<p>注销或者重启之后，再次使用 <code>sudo</code> 命令就不需要输入密码了。</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><code>sudo</code> 本身是个危险操作，执行之后会使用最高的 <code>root</code> 权限执行命令。很多发行版第一次执行都会给出提示，比如 <code>deepin</code> 会有如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">我们信任您已经从系统管理员那里了解了日常注意事项。</span><br><span class="line">总结起来无外乎这三点：</span><br><span class="line"></span><br><span class="line">    #1) 尊重别人的隐私。</span><br><span class="line">    #2) 输入前要先考虑(后果和风险)。</span><br><span class="line">    #3) 权力越大，责任越大。</span><br></pre></td></tr></table></figure>
+
+<p>同时用户目录会生成 <code>.sudo_as_admin_successful</code> 文件，表示已经给出过提示。</p>
+<p>我非常喜欢这三点提示。</p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Execute sudo without Password?</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">how-to</a>
+        </li>
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">linux</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/how-to-execute-sudo-without-password/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-firefox-were-finally-getting-hw-acceleration-on-linux"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox 首次支持 Linux 上的硬件加速功能</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/firefox-were-finally-getting-hw-acceleration-on-linux/" class="archive-article-date">
+  <time datetime="2021-01-12T03:20:14.000Z" itemprop="datePublished">
+    Published on 2021 / 01 / 12
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://a.adcdn.cn/images/firefox-quantum-engine.webp" alt="firefox-quantum-engine"></p>
+<p>看到一则令人开心的消息<a target="_blank" rel="noopener" href="https://mastransky.wordpress.com/2021/01/10/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox – we’re finally getting HW acceleration on Linux</a>。目前 Firefox 在 Linux 下并不支持硬件加速，导致其在B站播放视频非常容易卡顿。我目前安装了一个 Chrome 专门用于看B站视频。期待 Firefox 早日实现全部功能，在 Linux 下也拥有流畅的效果。</p>
+<p>可以在 <code>about:support</code> 内查看目前使用的图像合成引擎，我这里 Firefox Developer Edition 85.0b7 还是 <code>OpenGL</code>，希望早日用上 <code>WebRender</code>。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color3">firefox</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/firefox-were-finally-getting-hw-acceleration-on-linux/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-organize-key-files"
          class="article article-type-post  article-index" itemscope
@@ -1022,263 +1221,9 @@
 
 
   
-    <article id="post-greenplum-simple-experience"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/greenplum-simple-experience/">Greenplum 简单体验</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/greenplum-simple-experience/" class="archive-article-date">
-  <time datetime="2019-10-22T12:04:27.000Z" itemprop="datePublished">
-    Published on 2019 / 10 / 22
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>接入新客户的数据，处理的数据量比之前上了一个量级。以前的索引数据库用的 PostgreSQL ，客户端代码暂时没空修改，为了支持这批数据，打算迁移到 Greenplum。</p>
-<p>Greenplum 是先进的基于 PostgreSQL 的开源分布式数据库之一。因为兼容 PostgreSQL 的接口，客户端无需做太多的修改就可以使用。本身是基于MPP架构设计的一套数据分析系统，方便扩展，系统稳定，很适合我们的场景。<a target="_blank" rel="noopener" href="https://greenplum.org/">Greenplum</a>是<a target="_blank" rel="noopener" href="https://pivotal.io/">Pivotal</a>旗下的产品，有商业公司开发和维护，会有更好的技术支持和服务。</p>
-<h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="https://a.adcdn.cn/images/greenplum-highlevel-arch.webp" alt="greenplum-highlevel-arch"></p>
-<p><a target="_blank" rel="noopener" href="https://greenplum.org/">Greenplum</a>基于MPP架构，如上。 Master 节点作为系统的入口，处理SQL请求。 Segment 节点存储和处理数据。 Master 和 Segment 之间通过 Interconnect 这个网络层连接起来。</p>
-<p>一个SQL查询到 Master 节点， Master 会分发到 Segment 节点进行计算，计算结果最后再汇总到 Master 节点，处理好之后返回数据。 Master 和 Segment 分别通过 StandBy Master 和 Mirror 节点提供高可用。 Segment 节点之间并没有太多的数据交互。这种架构好处是简单，好扩展，但是感觉 Master 节点容易成为系统的瓶颈。整个系统的入口和数据最后的汇总都在 Master 节点上，负载可不轻松。</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><a target="_blank" rel="noopener" href="https://greenplum.org/">Greenplum</a>提供了详细的<a target="_blank" rel="noopener" href="https://gpdb.docs.pivotal.io/6-0/install_guide/install_guide.html">安装文档</a>， 6.0 新版本刚发布，我直接使用的新版本。</p>
-<p>主要安装步骤如下：</p>
-<ol>
-<li>检查系统、硬件是否满足条件</li>
-<li>操作系统配置修改</li>
-<li>Greenplum 用户创建</li>
-<li>Greenplum 系统安装</li>
-<li>Greenplum 系统初始化</li>
-</ol>
-<p>提供了 ansible 脚本：<a target="_blank" rel="noopener" href="https://gpdb.docs.pivotal.io/6-0/install_guide/ansible-example.html">https://gpdb.docs.pivotal.io/6-0/install_guide/ansible-example.html</a></p>
-<h2 id="软硬件要求"><a href="#软硬件要求" class="headerlink" title="软硬件要求"></a>软硬件要求</h2><ul>
-<li>主流的操作系统都行</li>
-<li>必须使用 XFS 文件系统 <del>实测其他的也行，不过最好按照官方文档用XFS，其他可能影响性能</del></li>
-<li>内存 16G +，硬盘要求导入数据后可用空间大于30% <del>实测够用就行</del></li>
-<li>10Gbps 内网宽带 <del>不满足也能用</del></li>
-</ul>
-<h2 id="操作系统配置修改"><a href="#操作系统配置修改" class="headerlink" title="操作系统配置修改"></a>操作系统配置修改</h2><p>主要三个：</p>
-<ol>
-<li>关闭 SELinux： 在 <code>/etc/selinux/config</code> 中设置 <code>SELINUX=disabled</code>，重启即可</li>
-<li>关闭防火墙：CentOS firewalld &#x2F; Ubuntu ufw</li>
-<li>同步系统时间：系统NTP服务需要打开，时间必须一致</li>
-</ol>
-<h2 id="Greenplum-用户创建"><a href="#Greenplum-用户创建" class="headerlink" title="Greenplum 用户创建"></a>Greenplum 用户创建</h2><p>也是三个，首先创建  gpadmin  用户和用户组</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd gpadmin</span><br><span class="line">sudo useradd gpadmin -r -m -g gpadmin</span><br></pre></td></tr></table></figure>
-
-<p>再生成密钥对</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo su gpadmin</span><br><span class="line">chsh -s /bin/bash</span><br><span class="line">ssh-keygen -o -a 100 -t ed25519</span><br><span class="line">cp .ssh/id_ed25519.pub .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-
-<p>最后将管理用户设置为  sudo  免密，方便以后自己操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;pgadmin ALL=(ALL) NOPASSWD: ALL&#x27; | EDITOR=&#x27;tee -a&#x27; visudo</span><br></pre></td></tr></table></figure>
-
-<h2 id="Greenplum-系统安装"><a href="#Greenplum-系统安装" class="headerlink" title="Greenplum 系统安装"></a>Greenplum 系统安装</h2><p><a target="_blank" rel="noopener" href="https://greenplum.org/install-greenplum-oss-on-ubuntu/">Ubuntu 系统有现成的PPA源</a>，Pivotal也提供编译好的二进制包。我选择的是最新版本的  greenplum-db。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:greenplum/db</span><br><span class="line">sudo apt install greenplum-db</span><br></pre></td></tr></table></figure>
-
-<h2 id="Greenplum-系统初始化"><a href="#Greenplum-系统初始化" class="headerlink" title="Greenplum 系统初始化"></a>Greenplum 系统初始化</h2><p><a target="_blank" rel="noopener" href="https://gpdb.docs.pivotal.io/6-0/install_guide/init_gpdb.html">文档在此</a>，需要在  master  节点上操作。</p>
-<h3 id="创建用于初始化的-host-文件"><a href="#创建用于初始化的-host-文件" class="headerlink" title="创建用于初始化的 host 文件"></a>创建用于初始化的 host 文件</h3><p>创建 <code>hostfile_gpinitsystem</code> 包括所有 segment 节点的地址，不包括 master 和 standby master。更改配置文件，确保 master 到各个 segment 节点的连接正确。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keyscan -f hostfile_gpinitsystem || sudo tee -a /etc/ssh/ssh_known_hosts</span><br><span class="line">gpssh-exkeys -f hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
-
-<h3 id="创建-Greenplum-数据库配置文件"><a href="#创建-Greenplum-数据库配置文件" class="headerlink" title="创建 Greenplum 数据库配置文件"></a>创建 Greenplum 数据库配置文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">cp /opt/greenplum-db-6.0.1/docs/cli_help/gpconfigs/gpinitsystem_config /home/gpadmin/gpinitsystem_config</span><br></pre></td></tr></table></figure>
-
-<p>主要修改的几个参数按照文档要求的填对就行。</p>
-<h3 id="创建数据存储区域"><a href="#创建数据存储区域" class="headerlink" title="创建数据存储区域"></a>创建数据存储区域</h3><p>需要在各个类型的节点上创建 Greenplum 用于存储数据的路径，并配置好权限。数据存储路径需要和配置文件的保持一致。可以利用 Greenplum 提供的工具在 master 节点操作整个网络。</p>
-<p>Master</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/master</span><br><span class="line">chown gpadmin:gpadmin /data/master</span><br></pre></td></tr></table></figure>
-
-<p>Standby master</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -h smdw -e &#x27;mkdir -p /data/master&#x27;</span><br><span class="line">gpssh -h smdw -e &#x27;chown gpadmin:gpadmin /data/master&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>Segment</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/data-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/data-*&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>Mirror</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-1&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-2&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;mkdir -p /data/mirror-3&#x27;</span><br><span class="line">gpssh -f hostfile_gpinitsystem -e &#x27;chown -R gpadmin:gpadmin /data/mirror-*&#x27;</span><br></pre></td></tr></table></figure>
-
-<h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><p>上面都整好了，就可以执行命令初始化数据库了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpinitsystem -c gpinitsystem_config -h hostfile_gpinitsystem</span><br></pre></td></tr></table></figure>
-
-<p>为了方便以后的操作，可以增加下面内容到 <code>.bashrc</code>，不用每次 <code>source</code> 引入环境变量。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /opt/greenplum-db-6.0.1/greenplum_path.sh</span><br><span class="line">export MASTER_DATA_DIRECTORY=/data/master/gpseg-1</span><br></pre></td></tr></table></figure>
-
-<h1 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h1><p>生产环境使用的 PostgreSQL 11，使用了很多新特性，包括<a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/9.5/brin-intro.html">BRIN</a>等。Greenplum 6 还是基于 PG 9.4 版本，一些东西老版本的不支持，需要特别注意，处理一下。</p>
-<p>迁移使用PG自带的工具  pg_dump  和  psql ，很快可以灌入数据。</p>
-<h1 id="碰到的问题"><a href="#碰到的问题" class="headerlink" title="碰到的问题"></a>碰到的问题</h1><p>小问题就不提了，看 log 和文档定位到修改就好了，说一个奇葩的问题。</p>
-<p>查询一个SQL语句，只要带  Group By  就无法返回结果，而  sum  却可以拿到结果。查看日志没有报错。查询就是等待返回数据，非常诡异。master 和 segment 节点是有超时设置的，如果是 segment 查询超时，应该会有错误日志，但是很诡异，就是没有详细的异常日志。根据Greenplum的架构图，猜测应该是 master 节点处理的问题，但是继续检查配置文件、检查Log，依旧找不到问题。</p>
-<p>搜索结果中看到了<a target="_blank" rel="noopener" href="https://ieevee.com/tech/2017/07/06/gp-ic.html">三罐可乐带你读懂Greenplum的interconnect</a>，可能是 Greenplum 的 interconnect 导致 master 对 segment 返回的结果处理有奇怪的逻辑。整个网络状态是正常的，端口监听也正常。反思整个部署过程，打开了 <code>/etc/hosts</code> 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1``````hostname1</span><br><span class="line"></span><br><span class="line">172.31.0.2``````hostname1</span><br><span class="line">172.31.0.3``````hostname2</span><br><span class="line">172.31.0.4``````hostname3</span><br></pre></td></tr></table></figure>
-
-<p>云服务器的系统会在 hosts 文件将自己的 hostname 配置成 <code>127.0.0.1</code>，搭建  Greenplum  集群的时候设置的 hosts 添加在这一行下面。删除本机 <code>127.0.0.1</code> 的配置，重启系统，恢复正常。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color5">greenplum</a>
-        </li>
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color4">postgres</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/greenplum-simple-experience/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-deepin-15.11-released"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/deepin-15.11-released/">deepin V15.11 发布</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/deepin-15.11-released/" class="archive-article-date">
-  <time datetime="2019-07-20T14:25:10.000Z" itemprop="datePublished">
-    Published on 2019 / 07 / 20
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/deepin-15.11.webp" alt="deepin-15.11"></p>
-<p>深度操作系统V15.11已经发布，发行标记见：<a target="_blank" rel="noopener" href="https://www.deepin.org/2019/07/19/deepin15-11/">深度操作系统 V15.11——心随意动 畅享云端</a></p>
-<p>这个版本一个大的变化是早先的 unstable 版本已正式停止技术支持，所有 unstable 用户需要重新下载安装 stable 版本。个人觉得这是个非常不友好的变动，无论如何，重新安装系统成本都是非常巨大的。早先 deepin 切换到基于 debian 时的一个目标就是学习 Arch 的滚动升级策略，复杂升级不再需要重装系统，现在看未实现这个功能。</p>
-<p>桌面环境的一个变动是从之前的 dde-wm 升级到了 dde-kwin，目的主要是通过使用新的 kwin 来支持 Wayland。但是新开发一套桌面的窗口管理系统是很麻烦的，需要时间来完善。目前的 dde-kwin 很多功能还是缺失的，右键菜单刚支持极少的功能。Firefox 浏览器上因为 dde-kwin 带来的窗口条无法隐藏，严重影响美观。</p>
-<p>其他主要是一些内置软件的功能更新和BUG修复。这类内置软件，我的态度是够用就行，美观最好。这里就不再赘述了。</p>
-<p>deepin 是国内最用心的在做 Linux 操作系统的厂商，这一点指的表扬和尊敬。但是人是要恰饭的，公司是要盈利的。现在王勇离开，企业被360收购，前途多了一些不确定。希望未来 deepin 能在进一步商业化探索的同时，保持自己的初心。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">deepin</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/deepin-15.11-released/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">« Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/">Next »</a>
+      <a class="extend prev" rel="prev" href="/">« Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/">Next »</a>
     </nav>
   
 
@@ -1434,12 +1379,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1464,11 +1409,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1484,12 +1424,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

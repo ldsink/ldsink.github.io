@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,264 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-zhangzhe"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/zhangzhe/">🕯</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/zhangzhe/" class="archive-article-date">
+  <time datetime="2022-11-30T12:50:52.000Z" itemprop="datePublished">
+    Published on 2022 / 11 / 30
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://a.adcdn.cn/images/20221130.webp" alt="赴戍登程口占示家人"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/zhangzhe/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-fantasy-caddy"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/fantasy-caddy/">比 Nginx 更加有趣的 Caddy！</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/fantasy-caddy/" class="archive-article-date">
+  <time datetime="2022-10-06T09:16:52.000Z" itemprop="datePublished">
+    Published on 2022 / 10 / 06
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近把自己和公司的 Web 服务器都从 Nginx 切换成了 <a target="_blank" rel="noopener" href="https://caddyserver.com/">Caddy</a>，主要原因是 HTTPS 证书申请太麻烦。之前的 Nginx 如果使用 <a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a> 的证书，代理程序会自动修改网站的配置文件，不太方便通过 git 来管理这些配置。刚好更换 Caddy 一起解决了这些问题。几年前就看过 Caddy 的相关介绍，但是没有真正使用。现在最新的 Caddy 已经到 2.0 版本，这次实际使用体验下来，Caddy 吸引我的几个功能点如下：</p>
+<ul>
+<li>Caddyfile，比 JSON 和 Nginx 的默认配置方式有好玩</li>
+<li>自动 HTTPS，默认 DV 证书，可以支持到通配符证书</li>
+<li>Go 开发，写自己的模块比 Nginx 的 Lua 模块方便</li>
+<li>不停机热更新</li>
+</ul>
+<h2 id="Caddyfile"><a href="#Caddyfile" class="headerlink" title="Caddyfile"></a>Caddyfile</h2><p><a target="_blank" rel="noopener" href="https://caddyserver.com/docs/caddyfile/">Caddyfile</a> 是 Caddy 的配置文件，官方文档定义是<strong>人类方便使用</strong>的一种配置文件（这句话让我想到以前的 <a href="https://ldsink.com/articles/toml/">Toml</a> 😊），我赞同这个点。<a target="_blank" rel="noopener" href="https://caddyserver.com/docs/caddyfile/">Caddyfile</a> 确实比 JSON 有意思多了！官方有个简单的对比表格 <a target="_blank" rel="noopener" href="https://caddyserver.com/docs/getting-started#json-vs-caddyfile"><strong>JSON vs. Caddyfile</strong></a>，我复制到下面：</p>
+<table>
+<thead>
+<tr>
+<th>JSON</th>
+<th>Caddyfile</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Easy to generate</td>
+<td>Easy to craft by hand</td>
+</tr>
+<tr>
+<td>Easily programmable</td>
+<td>Awkward to automate</td>
+</tr>
+<tr>
+<td>Extremely expressive</td>
+<td>Moderately expressive</td>
+</tr>
+<tr>
+<td>Full range of Caddy functionality</td>
+<td>Most of Caddy functionality</td>
+</tr>
+<tr>
+<td>Allows config traversal</td>
+<td>Cannot traverse within Caddyfile</td>
+</tr>
+<tr>
+<td>Partial config changes</td>
+<td>Whole config changes only</td>
+</tr>
+<tr>
+<td>Can be exported</td>
+<td>Cannot be exported</td>
+</tr>
+<tr>
+<td>Compatible with all API endpoints</td>
+<td>Compatible with some API endpoints</td>
+</tr>
+<tr>
+<td>Documentation generated automatically</td>
+<td>Documentation is hand-written</td>
+</tr>
+<tr>
+<td>Ubiquitous</td>
+<td>Niche</td>
+</tr>
+<tr>
+<td>More efficient</td>
+<td>More computational</td>
+</tr>
+<tr>
+<td>Kind of boring</td>
+<td>Kind of fun</td>
+</tr>
+</tbody></table>
+<p>自己配置过程中，主要按照官网的图例（如下）进行修改。各个部分参照着进行修改，可以很快地完成配置。</p>
+<p><img src="https://a.adcdn.cn/images/Caddyfile-visual.png" alt="Caddyfile Visual"></p>
+<p>不同于 Nginx 需要拆分很多个文件，使用 Caddy 将一个站点的全部配置放在一个 Caddyfile 内。得益于 Caddyfile 精简的结构和强大的表达能力，Caddyfile 可以由很少的内容表示复杂的配置！一个 PR 将成百上千行的 Nginx 配置替换成几十行 Caddyfile，感觉超级棒！</p>
+<p>这个站点的配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ldsink.com &#123;</span><br><span class="line">        header Strict-Transport-Security max-age=31536000;</span><br><span class="line">        root * /var/www/blog</span><br><span class="line">        file_server</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">www.ldsink.com &#123;</span><br><span class="line">        redir https://ldsink.com&#123;uri&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://caddyserver.com/">Caddy</a> 也可以很方便的代理 WebSocket 的流量，在某些时候很有用，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@websockets &#123;</span><br><span class="line">        header Connection *Upgrade*</span><br><span class="line">        header Upgrade websocket</span><br><span class="line">&#125;</span><br><span class="line">reverse_proxy @websockets localhost:1024</span><br></pre></td></tr></table></figure>
+
+<p>可能因为 Caddy 是使用 Go 开发，Caddyfile 保留了一些 Go 的特点，他的缩进使用 Tab，不是我们常用 Python 的 4 个空格。修改完配置文件以后，可以使用 Caddy 自带的 fmt 命令加上 <code>--overwrite</code> 格式化并覆盖配置文件（写这个文章前几天还是 <code>-overwrite</code>，然后更新了，此时就是 <code>--</code> 了）。进入配置文件所在目录，执行如下命令：</p>
+<blockquote>
+<p>caddy fmt –overwrite</p>
+</blockquote>
+<h2 id="自动-HTTPS，支持通配符证书"><a href="#自动-HTTPS，支持通配符证书" class="headerlink" title="自动 HTTPS，支持通配符证书"></a>自动 HTTPS，支持通配符证书</h2><p>Caddy 的一大特点就是自动 HTTPS，默认的配置都是 HTTPS 的，只需要使用 80 和 443 端口就可以自动在 <a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a> 或者 <a target="_blank" rel="noopener" href="https://zerossl.com/">ZeroSSL</a> 签发证书并正确配置。Caddy 除了自动搞定开始的签发和配置，还可以在证书过期前自动进行续签。对于我们这种小站而言，只要 DNS 设置正确，就再也不用担心各种证书问题，Caddy 都能帮忙自动搞定。</p>
+<p>Caddy 还支持修改 ACME 设置更改 SSL 证书的提供商，不过这个属于高级用法，我没用过，有需要的可以自己翻文档。这里介绍一下怎么通过插件把 Caddy 和 DNSPod 结合，自动签发通配符证书。</p>
+<p>首先需要安装一个第三方模块，让 Caddy 可以调用 DNSPod 的接口。</p>
+<blockquote>
+<p>caddy add-package github.com&#x2F;caddy-dns&#x2F;dnspod</p>
+</blockquote>
+<p>然后需要去 DNSPod 申请一个 Token 供 Caddy 使用，链接如下：</p>
+<p><a target="_blank" rel="noopener" href="https://console.dnspod.cn/account/token/token">https://console.dnspod.cn/account/token/token</a></p>
+<p>申请好 Token 后，需要添加到 Caddyfile 内。可以结合模块的介绍，填入对应的配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 这里我做成了一个 snippet，方便重复使用</span><br><span class="line">(dnspod) &#123;</span><br><span class="line">        tls &#123;</span><br><span class="line">                dns dnspod &lt;DNSPOD_TOKEN_ID&gt;,&lt;DNSPOD_TOKEN&gt;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">*.ldsink.com &#123;</span><br><span class="line">        import dnspod</span><br><span class="line">        # 以下是正常的内容</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后重新加载配置，自动的通配符证书应该就生效了。</p>
+<blockquote>
+<p>caddy reload</p>
+</blockquote>
+<p>这里特别夸一下，Caddy 支持不停机热更新。如果新的配置文件有错误，Caddy 会自动回滚到上一个有效的配置，保证服务持续可用。</p>
+<h2 id="目前的问题"><a href="#目前的问题" class="headerlink" title="目前的问题"></a>目前的问题</h2><p>前面夸了很多，Caddy 确实很好，但也不是十全十美，他也有一些小问题，这里也说明一下。使用过程中注意和规避掉这些缺点，Caddy 就可以在生产环境中替换 Nginx 使用。</p>
+<p>首先明确一点，Caddy 本体就是个独立的可执行二进制文件。想要集成任何模块，做的事情其实是 Caddy 加上模块的源代码一起重新编译出一个新的二进制文件。这种方式让 Caddy 变得简单和轻量，某种意义上也带来了一些麻烦。</p>
+<p>我最开始使用 Ubuntu 的包管理方式安装 Caddy，这种方式有个严重的问题：<strong>之后所有的更新（<code>apt update &amp;&amp; apt upgrade -y</code>），只会更新成不带第三方插件版本的最新的 Caddy</strong>。我们使用 <code>caddy add-package</code> 命令安装的任何第三方扩展，更新后都会丢失，例如上面的 DNSPod 模块。</p>
+<blockquote>
+<p>Tips: 查看安装的模块可以使用命令 <code>caddy list-modules</code></p>
+</blockquote>
+<p>想要在更新成携带第三方模块版本的 Caddy，需要使用自带的升级命令：</p>
+<blockquote>
+<p>caddy upgrade</p>
+</blockquote>
+<p><strong>我现在的做法是，通过 apt 安装完 Caddy 后，马上去 <code>/etc/apt/sources.list.d</code> 内删除源。只通过 apt 安装，后续的更新都走自带的升级命令。</strong>这样做，可以保持第三方模块存在。</p>
+<p>不过这样做也有一个坑，需要注意：caddy 自带的更新，会将现在的可执行文件直接备份，然后下载新的文件到对面的目录。<strong>如果这个时候网络中断导致更新没有完成，那么 caddy 文件会损坏，需要手动把备份文件恢复。</strong>否则如果此时遇到 caddy 进程重启，新的 caddy 将无法启动。</p>
+<p>更新时候的日志信息如下，遇到问题恢复也简单，把 <code>.tmp</code> 后缀的备份文件重新恢复成原始文件就好。</p>
+<blockquote>
+<p>mv &#x2F;usr&#x2F;bin&#x2F;caddy.tmp &#x2F;usr&#x2F;bin&#x2F;caddy</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;current_path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin/caddy&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;backup_path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin/caddy.tmp&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/fantasy-caddy/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-maxcompute"
          class="article article-type-post  article-index" itemscope
@@ -1002,208 +1260,9 @@
 
 
   
-    <article id="post-how-to-execute-sudo-without-password"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/how-to-execute-sudo-without-password/">设置执行 sudo 免密码</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/how-to-execute-sudo-without-password/" class="archive-article-date">
-  <time datetime="2021-06-27T07:00:45.000Z" itemprop="datePublished">
-    Published on 2021 / 06 / 27
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Linux 中，一些操作需要使用 <code>sudo</code> 命令进行提权到 <code>root</code> 后才可以顺利执行。默认这一步操作是需要输入密码的，可以通过设置免除密码。</p>
-<h1 id="获取用户名"><a href="#获取用户名" class="headerlink" title="获取用户名"></a>获取用户名</h1><p>执行如下命令，获得当前用户的用户名。</p>
-<blockquote>
-<p>echo $USER</p>
-</blockquote>
-<h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>配置文件位于 <code>/etc/sudoers</code>，但是注意，<strong>千万不要直接修改这个文件！</strong> 我见过太多直接修改这个文件造成系统无法启动的例子了。 正确的方式是使用 <code>visudo</code> 命令修改。执行</p>
-<blockquote>
-<p>sudo visudo</p>
-</blockquote>
-<p>按下 <code>Shift+g</code> 切换到文件尾部，按下 <code>o</code> 新增一行， 将下面这一行添加到文件尾部（<code>$USER</code> 替换成之前获取到的用户名）。 <code>Shift+z+z</code> 保存并退出。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="language-bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure>
-
-<p>注销或者重启之后，再次使用 <code>sudo</code> 命令就不需要输入密码了。</p>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><code>sudo</code> 本身是个危险操作，执行之后会使用最高的 <code>root</code> 权限执行命令。很多发行版第一次执行都会给出提示，比如 <code>deepin</code> 会有如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">我们信任您已经从系统管理员那里了解了日常注意事项。</span><br><span class="line">总结起来无外乎这三点：</span><br><span class="line"></span><br><span class="line">    #1) 尊重别人的隐私。</span><br><span class="line">    #2) 输入前要先考虑(后果和风险)。</span><br><span class="line">    #3) 权力越大，责任越大。</span><br></pre></td></tr></table></figure>
-
-<p>同时用户目录会生成 <code>.sudo_as_admin_successful</code> 文件，表示已经给出过提示。</p>
-<p>我非常喜欢这三点提示。</p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Execute sudo without Password?</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">how-to</a>
-        </li>
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color1">linux</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/how-to-execute-sudo-without-password/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-firefox-were-finally-getting-hw-acceleration-on-linux"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox 首次支持 Linux 上的硬件加速功能</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/firefox-were-finally-getting-hw-acceleration-on-linux/" class="archive-article-date">
-  <time datetime="2021-01-12T03:20:14.000Z" itemprop="datePublished">
-    Published on 2021 / 01 / 12
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/firefox-quantum-engine.webp" alt="firefox-quantum-engine"></p>
-<p>看到一则令人开心的消息<a target="_blank" rel="noopener" href="https://mastransky.wordpress.com/2021/01/10/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox – we’re finally getting HW acceleration on Linux</a>。目前 Firefox 在 Linux 下并不支持硬件加速，导致其在B站播放视频非常容易卡顿。我目前安装了一个 Chrome 专门用于看B站视频。期待 Firefox 早日实现全部功能，在 Linux 下也拥有流畅的效果。</p>
-<p>可以在 <code>about:support</code> 内查看目前使用的图像合成引擎，我这里 Firefox Developer Edition 85.0b7 还是 <code>OpenGL</code>，希望早日用上 <code>WebRender</code>。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color3">firefox</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/firefox-were-finally-getting-hw-acceleration-on-linux/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/">Next »</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/2/">Next »</a>
     </nav>
   
 
@@ -1359,12 +1418,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1389,11 +1448,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1409,12 +1463,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

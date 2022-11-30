@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,232 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-apache-kafka-notes"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/apache-kafka-notes/">Apache Kafka Notes</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/apache-kafka-notes/" class="archive-article-date">
+  <time datetime="2016-03-10T09:03:00.000Z" itemprop="datePublished">
+    Published on 2016 / 03 / 10
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Kafka简介"><a href="#Kafka简介" class="headerlink" title="Kafka简介"></a>Kafka简介</h3><ul>
+<li>分布式日志分发系统，可用于消息队列</li>
+<li>创建背景<ul>
+<li><code>LinkedIn</code>开发，2011年贡献给<code>Apache基金会</code></li>
+<li>使用 Scala 编写</li>
+</ul>
+</li>
+<li>设计目标<ul>
+<li>以时间复杂度为O(1)的方式提供消息持久化能力，即使对TB级以上数据也能保证常数时间复杂度的访问性能。</li>
+<li>高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒100K条以上消息的传输。</li>
+<li>支持Kafka Server间的消息分区，及分布式消费，同时保证每个Partition内的消息顺序传输。</li>
+<li>同时支持离线数据处理和实时数据处理。</li>
+<li>Scale out：支持在线水平扩展。</li>
+</ul>
+</li>
+<li>和常用MQ对比<ul>
+<li>吞吐快</li>
+</ul>
+</li>
+<li>与ZooKeeper配合使用</li>
+</ul>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_performance_numbers.webp" alt="Performance Numbers"></p>
+<h3 id="Kafka架构"><a href="#Kafka架构" class="headerlink" title="Kafka架构"></a>Kafka架构</h3><h4 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h4><p><strong>Broker</strong><br>Kafka物理机器节点，一个Kafka集群包含多个Kafka Broker</p>
+<p><strong>Topic</strong><br>消息的类别（逻辑上概念）</p>
+<p><strong>Partition</strong><br>消息存储物理上的概念</p>
+<p><strong>Producer</strong><br>消息生产者</p>
+<p><strong>Consumer</strong><br>消息消费者</p>
+<p><strong>Consumer Group</strong><br>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）</p>
+<h4 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h4><p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_topological_graph.webp" alt="Topological graph"></p>
+<ul>
+<li>Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。</li>
+<li>Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。</li>
+</ul>
+<h4 id="Topic-amp-Partition"><a href="#Topic-amp-Partition" class="headerlink" title="Topic &amp; Partition"></a>Topic &amp; Partition</h4><ul>
+<li>Topic在逻辑上可以被认为是一个queue，每条消费都必须指定它的Topic</li>
+<li>物理上把Topic分成一个或多个Partition，每个Partition在物理上对应一个文件夹，该文件夹下存储这个Partition的所有消息和索引文件。</li>
+<li>消息文件会分成多个segment，每个segment以该segment第一条消息的offset命名并以“.kafka”为后缀。</li>
+<li>索引文件标明了每个segment下包含的消息的offset范围，如下图所示。</li>
+</ul>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_segment_offset.webp" alt="Segment offset"></p>
+<ul>
+<li>在一个Partition上，每条消息都是顺序写入，因此在一个Partition上是有时序的。</li>
+</ul>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_partition_order.webp" alt="Partition Order"></p>
+<h4 id="Producer消息路由"><a href="#Producer消息路由" class="headerlink" title="Producer消息路由"></a>Producer消息路由</h4><p>通过指定key将消息发送到某个Partition。</p>
+<h4 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h4><p>同一Topic的一条消息只能被同一个Consumer Group内的一个Consumer消费，但多个Consumer Group可同时消费这一消息。</p>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_queue.webp" alt="Queue"></p>
+<h3 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h3><h4 id="Replica-分配策略"><a href="#Replica-分配策略" class="headerlink" title="Replica 分配策略"></a>Replica 分配策略</h4><p>尽量将所有的Partition均匀分配到整个集群上。<br>Replica分配算法如下：</p>
+<ul>
+<li>将所有Broker（假设共n个Broker）和待分配的Partition排序</li>
+<li>将第i个Partition分配到第（i mod n）个Broker上</li>
+<li>将第i个Partition的第j个Replica分配到第（(i + j) mode n）个Broker上</li>
+</ul>
+<h4 id="消息接受"><a href="#消息接受" class="headerlink" title="消息接受"></a>消息接受</h4><ol>
+<li>Producer通过ZooKeeper找到Partition的Leader，只将消息发给Leader</li>
+<li>Follower从Leader pull数据，在接收到数据后就立马向Leader发送ACK。（一个在性能和持久化上比较好的平衡）</li>
+<li>一旦Leader收到了ISR中的所有Replica的ACK，就认为已经commit，Leader将增加HW并且向Producer发送ACK。</li>
+</ol>
+<p>对于已经commit的消息，Kafka只能保证它被存于多个Replica的内存中，而不能保证它们被持久化到磁盘中，也就不能完全保证异常发生后该条消息一定能被Consumer消费。但这种场景非常少见</p>
+<p>Leader会跟踪与其保持同步的Replica列表，该列表称为ISR（即in-sync Replica）。如果一个Follower宕机，或者落后太多，Leader将把它从ISR中移除。</p>
+<h5 id="Leader-Election"><a href="#Leader-Election" class="headerlink" title="Leader Election"></a>Leader Election</h5><p>ISR谁先连接到就是谁</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/apache-kafka-notes/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-mongodb-ttl-indexes"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/mongodb-ttl-indexes/">MongoDB TTL 索引</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/mongodb-ttl-indexes/" class="archive-article-date">
+  <time datetime="2016-02-24T08:21:07.000Z" itemprop="datePublished">
+    Published on 2016 / 02 / 24
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MongoDB提供了TTL索引自动从集合中删除过期文档，这个功能在<code>存储日志</code>等一些只需要在固定时间内存储数据的场景下使用起来非常方便。最近用了一下，发现这个功能没有想象中的那么好。</p>
+<p>TTL索引的建立很简单，要求是只能在一个<code>field</code>上创建，并且这个<code>field</code>是一个Date类型数据或者是一个包含Date类型数据的Array。<br>在创建索引的时候只需要多增加一个<code>expireAfterSeconds</code>参数，在<code>field</code>加上这个<code>expireAfterSeconds</code>的时间大于当前时间后，这个文档就会被自动删除。</p>
+<p>TTL索引相比一般索引还多了一些合理的限制，比如：</p>
+<ul>
+<li>必须是单个字段（field），多字段不支持</li>
+<li><code>_id</code>字段不支持TTL索引</li>
+<li><code>定长集合(Capped Collections)</code>不支持</li>
+<li>不能使用<a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/reference/method/db.collection.createIndex/#db.collection.createIndex">createIndex()</a>来改变已有索引的<code>expireAfterSeconds</code>值。可以使用<a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/reference/command/collMod/#dbcmd.collMod">collMod</a>尝试，失败则只能删除并重建索引</li>
+<li>当目标字段（field）已有非TTL索引，必须先删除旧的，再重建新的TTL索引。<strong>不能建立一个只有这个参数（带有<code>expireAfterSeconds</code>）不同的索引</strong></li>
+</ul>
+<p>TTL索引有一般索引的功能，上面的限制大多数情况下能让人接受。但是因为TTL索引的删除机制，想要好好的用它，还需要斟酌。</p>
+<p>首先说一下TTL索引的实现方式：<br><code>mongod</code>每60s会启动一个后台线程来删除过期文档，这就意味这MongoDB的TTL不同于Redis，是一定有延迟的。<br>而且这个60s也不是硬性保证的，万一节点压力非常大，过期文档的删除时间会超过60s。<br>MongoDB只保证文档最后一定会删除，在没有删除之前，即使过了失效时间，文档依旧可以查询。</p>
+<p>在副本集的情况下，TTL后台线程只会在主节点删除文档，然后通过主节点把删除操作同步到从节点。但是每个从节点自身也会执行自己的TTL后台线程。<br>当主节点压力很大，从节点压力小的时候，就会出现过期文档在主节点依旧可以查询，在从节点却已被TTL索引删除的情况。</p>
+<p>索引的建立方式也会对这个造成影响。为了避免对读写造成堵塞，我一般会使用<code>background</code>后台建立索引。<br>当使用<code>background</code>方式建立索引，TTL线程可以在建立索引的过程中删除过期文档。而<code>foreground</code>则要等到索引建立完成才可以开始删除。</p>
+<p><code>TTL Indexes</code>和<code>Capped Collections</code>实现的功能其实有点类似，一个是是限定时间，一个是限定大小，但是<code>TTL Indexes</code>的不确定性大了很多。要使用他们肯定要根据具体的场景，我更倾向于使用确定的<code>Capped Collections</code>。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/core/index-ttl/#ttl-indexes">TTL Indexes</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/tutorial/expire-data/">Expire Data from Collections by Setting TTL</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/mongodb-ttl-indexes/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-github-offline-maintain"
          class="article article-type-post  article-index" itemscope
@@ -506,7 +732,7 @@
         <p><img src="https://a.adcdn.cn/images/redis%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89.webp" alt="Redis入门指南（第2版）"></p>
 <p>很不错的Redis入门书。之前在<code>Kindle</code>上看了盗版的第1版，现在买的第2版，新版主要增加了Redis3.0相关的内容。</p>
 <p>速成类书籍，前面都是对本书将要介绍的对象进行简单的介绍。从这本书我知道了<code>Redis</code>是<code>REmote DIctionary Server</code>的缩写，这也是我看完第一版之后唯一记下来的东西。（这点在官网的<a target="_blank" rel="noopener" href="http://redis.io/topics/faq#what-redis-means-actually">F&amp;Q</a>有写，但很多人估计不知道。）</p>
-<p>介绍完Redis是什么，50页，1/4的内容过去了。再介绍一下常用的命令，到100页。然后介绍一下在 PHP、Python、Ruby和Node.js上用库连接Redis，我们来到了130页。这部分用过Redis的基本可以跳过，要用了再去官网看。<br>这些内容中我觉得只有<strong>事务</strong>有意思，可以归结为<a target="_blank" rel="noopener" href="http://redisdoc.com/topic/transaction.html">Redis 在事务失败时不进行回滚，而是继续执行余下的命令</a>，使用的时候要注意。</p>
+<p>介绍完Redis是什么，50页，1&#x2F;4的内容过去了。再介绍一下常用的命令，到100页。然后介绍一下在 PHP、Python、Ruby和Node.js上用库连接Redis，我们来到了130页。这部分用过Redis的基本可以跳过，要用了再去官网看。<br>这些内容中我觉得只有<strong>事务</strong>有意思，可以归结为<a target="_blank" rel="noopener" href="http://redisdoc.com/topic/transaction.html">Redis 在事务失败时不进行回滚，而是继续执行余下的命令</a>，使用的时候要注意。</p>
 <p>130页之后，水分值降低。剩下四章，主要介绍了我感兴趣的三个点：</p>
 <ul>
 <li>脚本<ul>
@@ -972,219 +1198,9 @@
 
 
   
-    <article id="post-regular-expression-lookaround"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/regular-expression-lookaround/">正则表达式零宽断言</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/regular-expression-lookaround/" class="archive-article-date">
-  <time datetime="2015-10-14T15:20:00.000Z" itemprop="datePublished">
-    Published on 2015 / 10 / 14
-  </time>
-  
-    <time datetime="2015-11-06T07:22:22.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 11 / 06
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近的工作是号码过滤，需要提取文本中所有类似电话号码的数字。清理这块匹配的正则的时候好好学习了一下正则的零宽断言。</p>
-<p>零宽断言理解了很简单：有一段文本，希望在前面匹配的就是<code>预测先行断言</code>，希望在后面匹配的就是<code>回顾后发断言</code>；希望这段文本存在的就是<code>正</code>向的，不希望存在的就是<code>负</code>向的；因为匹配出的结果无论怎么样都是不包含这段文本的，所以是<code>零宽</code>（零的宽度）。</p>
-<table>
-<thead>
-<tr>
-<th>语法</th>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>(?=exp)</code></td>
-<td>零宽度正预测先行断言</td>
-<td>~ 匹配exp前面的位置</td>
-</tr>
-<tr>
-<td><code>(?&lt;=exp)</code></td>
-<td>零宽度正回顾后发断言</td>
-<td>~ 匹配exp后面的位置</td>
-</tr>
-<tr>
-<td><code>(?!exp)</code></td>
-<td>零宽度负预测先行断言</td>
-<td>~ 匹配后面不是exp的位置</td>
-</tr>
-<tr>
-<td><code>(?&lt;!exp)</code></td>
-<td>零宽度负回顾后发断言</td>
-<td>~ 匹配前面不是exp的位置</td>
-</tr>
-</tbody></table>
-<p>参考：<br><a target="_blank" rel="noopener" href="http://deerchao.net/tutorials/regex/regex.htm#lookaround">正则表达式30分钟入门教程</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/regular-expression-lookaround/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-warren-buffett-invests-like-a-girl"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/books/warren-buffett-invests-like-a-girl/">读书笔记：《巴菲特像女人》</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/books/warren-buffett-invests-like-a-girl/" class="archive-article-date">
-  <time datetime="2015-09-08T14:59:00.000Z" itemprop="datePublished">
-    Published on 2015 / 09 / 08
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/warren_buffett_invests_like_a_girl.webp" alt="巴菲特像女人：颠覆常识的性情投资心理学"></p>
-<h1 id="本书内容"><a href="#本书内容" class="headerlink" title="本书内容"></a>本书内容</h1><p>本书介绍投资心理学，基于“性情决定成败”的观点，认为女性通常具有的八个特征代表更容易在长期投资中获得收益。整本书的写作风格及其像软件项目的说明文档，于是我自然而然的把他当项目文档看了。</p>
-<p>开篇是本软件简单介绍，指出适用场景和包含的核心功能，然后按照核心功能逐条介绍，最后给出使用本软件的公司及其评价。精简下来整个项目就八个核心特点：</p>
-<h2 id="1-交易频率低"><a href="#1-交易频率低" class="headerlink" title="1. 交易频率低"></a>1. 交易频率低</h2><p>大力推荐长期投资和价值投资。对“在击鼓传花式的活动中就近从下一个土包子身上赚个盆满钵满”（就是某国股市）的邪恶想法持鄙视态度。</p>
-<h2 id="2-减少自负"><a href="#2-减少自负" class="headerlink" title="2. 减少自负"></a>2. 减少自负</h2><p>乐于承认自己的无知</p>
-<h2 id="3-厌恶风险"><a href="#3-厌恶风险" class="headerlink" title="3. 厌恶风险"></a>3. 厌恶风险</h2><p>取高安全边际的东西。“安全边际”这个概念挺好的。</p>
-<h2 id="4-脚踏实地"><a href="#4-脚踏实地" class="headerlink" title="4. 脚踏实地"></a>4. 脚踏实地</h2><p>投资（使用）前做充分的了解，不要别人一忽悠就跟风进了。</p>
-<h2 id="5-注重细节"><a href="#5-注重细节" class="headerlink" title="5. 注重细节"></a>5. 注重细节</h2><p>陌生的领域都是禁区，在熟悉的领域赚钱。</p>
-<h2 id="6-不受同辈压力影响"><a href="#6-不受同辈压力影响" class="headerlink" title="6. 不受同辈压力影响"></a>6. 不受同辈压力影响</h2><p>做出判断要基于自己的认识，不要人云亦云。</p>
-<h2 id="7-知错能改"><a href="#7-知错能改" class="headerlink" title="7. 知错能改"></a>7. 知错能改</h2><h2 id="8-睾酮含量少"><a href="#8-睾酮含量少" class="headerlink" title="8. 睾酮含量少"></a>8. 睾酮含量少</h2><p>介绍了睾酮和皮质醇这两个东西，而且还挂着“要怪就怪荷尔蒙”的标题介绍了整整六页。</p>
-<h1 id="看完的实际感觉"><a href="#看完的实际感觉" class="headerlink" title="看完的实际感觉"></a>看完的实际感觉</h1><ul>
-<li>其实没太大必要看的一本书。</li>
-<li>本软件有夸大宣传（典型标题党）的嫌疑，软件名称（书名）和实际功能（讲的东西）不符。测试用例（用来论证观点的例子）没有覆盖功能（举例没法证明观点正确 or 举例太简单）。</li>
-<li>内容挺无聊的，就是重复各类价值投资中的观点。就这么几句话能编一本书也难为作者了。</li>
-<li>这本书是亚马逊买书送的，这么想感觉就无所谓了。^_^</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/books/warren-buffett-invests-like-a-girl/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/5/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/7/">Next »</a>
     </nav>
   
 
@@ -1340,12 +1356,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1370,11 +1386,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1390,12 +1401,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

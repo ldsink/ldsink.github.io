@@ -21,9 +21,10 @@
 <meta property="og:image" content="https://a.adcdn.cn/images/apache_kafka_notes_-_performance_numbers.webp">
 <meta property="og:image" content="https://a.adcdn.cn/images/apache_kafka_notes_-_topological_graph.webp">
 <meta property="og:image" content="https://a.adcdn.cn/images/apache_kafka_notes_-_segment_offset.webp">
+<meta property="og:image" content="https://a.adcdn.cn/images/apache_kafka_notes_-_partition_order.webp">
 <meta property="og:image" content="https://a.adcdn.cn/images/apache_kafka_notes_-_queue.webp">
 <meta property="article:published_time" content="2016-03-10T09:03:00.000Z">
-<meta property="article:modified_time" content="2022-05-29T06:23:31.846Z">
+<meta property="article:modified_time" content="2022-11-30T12:47:50.087Z">
 <meta property="article:author" content="Sink">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://a.adcdn.cn/images/apache_kafka_notes_-_performance_numbers.webp">
@@ -44,7 +45,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -279,7 +280,7 @@
 <ul>
 <li>在一个Partition上，每条消息都是顺序写入，因此在一个Partition上是有时序的。</li>
 </ul>
-<p>![Partition Order](<a target="_blank" rel="noopener" href="https://static.ldsink.com/Apache">https://static.ldsink.com/Apache</a> Kafka Notes - Partition Order.png)</p>
+<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_partition_order.webp" alt="Partition Order"></p>
 <h4 id="Producer消息路由"><a href="#Producer消息路由" class="headerlink" title="Producer消息路由"></a>Producer消息路由</h4><p>通过指定key将消息发送到某个Partition。</p>
 <h4 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h4><p>同一Topic的一条消息只能被同一个Consumer Group内的一个Consumer消费，但多个Consumer Group可同时消费这一消息。</p>
 <p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_queue.webp" alt="Queue"></p>
@@ -572,12 +573,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -602,11 +603,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -622,12 +618,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

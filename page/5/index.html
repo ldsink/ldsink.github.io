@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,168 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-v2ex-auto-sign"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/v2ex-auto-sign/">v2ex.com 自动签到</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/v2ex-auto-sign/" class="archive-article-date">
+  <time datetime="2017-03-12T08:21:00.000Z" itemprop="datePublished">
+    Published on 2017 / 03 / 12
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>拖了好久，今天终于动手把<a target="_blank" rel="noopener" href="https://www.v2ex.com/">v2ex</a>的自动签到给做了。</p>
+<p>签到脚本在<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ldsink/toolbox/master/v2ex_auto_sign.py">这里</a>。</p>
+<p>丢到服务器上，使用 chmod 增加可执行权限，建立一个 crontab 任务，每天这个小脚本就可以忠实的帮你签到了。</p>
+<p><code>crontab -l</code> 查看我建立的任务如下，每天早上八点定期签到：<br><code> 0 8 * * * /path_to_script/v2ex_auto_sign.py &lt;username&gt; &lt;password&gt; &gt;&gt; /var/log/v2ex_sign.log</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/v2ex-auto-sign/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-nginx-php-fpm-permission-denied"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/nginx-php-fpm-permission-denied/">nginx 和 php-fpm 的 php7.0-fpm.sock Permission denied 错误</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/nginx-php-fpm-permission-denied/" class="archive-article-date">
+  <time datetime="2017-02-25T14:34:47.000Z" itemprop="datePublished">
+    Published on 2017 / 02 / 25
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>error.log 内容为：</p>
+<blockquote>
+<p>2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream</p>
+</blockquote>
+<p>这个是因为 nginx 和 php-fpm 分别使用了不同的用户权限。我的习惯是都统一成 www-data 用户。</p>
+<ul>
+<li><p>nginx 的默认配置文件位于<code>/etc/nginx/nginx.conf</code>，将其中的<code>user</code>的值修改为目标的用户组。</p>
+</li>
+<li><p>php-fpm 的配置文件位于<code>/etc/php/7.0/fpm/pool.d/www.conf</code>，将其中的<code>user</code>的值修改为目标的用户组。</p>
+</li>
+</ul>
+<p>无论修改哪个，改好之后重启对应的服务应该就能解决这个问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/nginx-php-fpm-permission-denied/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-deploy-https"
          class="article article-type-post  article-index" itemscope
@@ -948,235 +1110,9 @@
 
 
   
-    <article id="post-apache-kafka-notes"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/apache-kafka-notes/">Apache Kafka Notes</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/apache-kafka-notes/" class="archive-article-date">
-  <time datetime="2016-03-10T09:03:00.000Z" itemprop="datePublished">
-    Published on 2016 / 03 / 10
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Kafka简介"><a href="#Kafka简介" class="headerlink" title="Kafka简介"></a>Kafka简介</h3><ul>
-<li>分布式日志分发系统，可用于消息队列</li>
-<li>创建背景<ul>
-<li><code>LinkedIn</code>开发，2011年贡献给<code>Apache基金会</code></li>
-<li>使用 Scala 编写</li>
-</ul>
-</li>
-<li>设计目标<ul>
-<li>以时间复杂度为O(1)的方式提供消息持久化能力，即使对TB级以上数据也能保证常数时间复杂度的访问性能。</li>
-<li>高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒100K条以上消息的传输。</li>
-<li>支持Kafka Server间的消息分区，及分布式消费，同时保证每个Partition内的消息顺序传输。</li>
-<li>同时支持离线数据处理和实时数据处理。</li>
-<li>Scale out：支持在线水平扩展。</li>
-</ul>
-</li>
-<li>和常用MQ对比<ul>
-<li>吞吐快</li>
-</ul>
-</li>
-<li>与ZooKeeper配合使用</li>
-</ul>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_performance_numbers.webp" alt="Performance Numbers"></p>
-<h3 id="Kafka架构"><a href="#Kafka架构" class="headerlink" title="Kafka架构"></a>Kafka架构</h3><h4 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h4><p><strong>Broker</strong><br>Kafka物理机器节点，一个Kafka集群包含多个Kafka Broker</p>
-<p><strong>Topic</strong><br>消息的类别（逻辑上概念）</p>
-<p><strong>Partition</strong><br>消息存储物理上的概念</p>
-<p><strong>Producer</strong><br>消息生产者</p>
-<p><strong>Consumer</strong><br>消息消费者</p>
-<p><strong>Consumer Group</strong><br>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）</p>
-<h4 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h4><p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_topological_graph.webp" alt="Topological graph"></p>
-<ul>
-<li>Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。</li>
-<li>Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。</li>
-</ul>
-<h4 id="Topic-amp-Partition"><a href="#Topic-amp-Partition" class="headerlink" title="Topic &amp; Partition"></a>Topic &amp; Partition</h4><ul>
-<li>Topic在逻辑上可以被认为是一个queue，每条消费都必须指定它的Topic</li>
-<li>物理上把Topic分成一个或多个Partition，每个Partition在物理上对应一个文件夹，该文件夹下存储这个Partition的所有消息和索引文件。</li>
-<li>消息文件会分成多个segment，每个segment以该segment第一条消息的offset命名并以“.kafka”为后缀。</li>
-<li>索引文件标明了每个segment下包含的消息的offset范围，如下图所示。</li>
-</ul>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_segment_offset.webp" alt="Segment offset"></p>
-<ul>
-<li>在一个Partition上，每条消息都是顺序写入，因此在一个Partition上是有时序的。</li>
-</ul>
-<p>![Partition Order](<a target="_blank" rel="noopener" href="https://static.ldsink.com/Apache">https://static.ldsink.com/Apache</a> Kafka Notes - Partition Order.png)</p>
-<h4 id="Producer消息路由"><a href="#Producer消息路由" class="headerlink" title="Producer消息路由"></a>Producer消息路由</h4><p>通过指定key将消息发送到某个Partition。</p>
-<h4 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h4><p>同一Topic的一条消息只能被同一个Consumer Group内的一个Consumer消费，但多个Consumer Group可同时消费这一消息。</p>
-<p><img src="https://a.adcdn.cn/images/apache_kafka_notes_-_queue.webp" alt="Queue"></p>
-<h3 id="HA"><a href="#HA" class="headerlink" title="HA"></a>HA</h3><h4 id="Replica-分配策略"><a href="#Replica-分配策略" class="headerlink" title="Replica 分配策略"></a>Replica 分配策略</h4><p>尽量将所有的Partition均匀分配到整个集群上。<br>Replica分配算法如下：</p>
-<ul>
-<li>将所有Broker（假设共n个Broker）和待分配的Partition排序</li>
-<li>将第i个Partition分配到第（i mod n）个Broker上</li>
-<li>将第i个Partition的第j个Replica分配到第（(i + j) mode n）个Broker上</li>
-</ul>
-<h4 id="消息接受"><a href="#消息接受" class="headerlink" title="消息接受"></a>消息接受</h4><ol>
-<li>Producer通过ZooKeeper找到Partition的Leader，只将消息发给Leader</li>
-<li>Follower从Leader pull数据，在接收到数据后就立马向Leader发送ACK。（一个在性能和持久化上比较好的平衡）</li>
-<li>一旦Leader收到了ISR中的所有Replica的ACK，就认为已经commit，Leader将增加HW并且向Producer发送ACK。</li>
-</ol>
-<p>对于已经commit的消息，Kafka只能保证它被存于多个Replica的内存中，而不能保证它们被持久化到磁盘中，也就不能完全保证异常发生后该条消息一定能被Consumer消费。但这种场景非常少见</p>
-<p>Leader会跟踪与其保持同步的Replica列表，该列表称为ISR（即in-sync Replica）。如果一个Follower宕机，或者落后太多，Leader将把它从ISR中移除。</p>
-<h5 id="Leader-Election"><a href="#Leader-Election" class="headerlink" title="Leader Election"></a>Leader Election</h5><p>ISR谁先连接到就是谁</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/apache-kafka-notes/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-mongodb-ttl-indexes"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/mongodb-ttl-indexes/">MongoDB TTL 索引</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/mongodb-ttl-indexes/" class="archive-article-date">
-  <time datetime="2016-02-24T08:21:07.000Z" itemprop="datePublished">
-    Published on 2016 / 02 / 24
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MongoDB提供了TTL索引自动从集合中删除过期文档，这个功能在<code>存储日志</code>等一些只需要在固定时间内存储数据的场景下使用起来非常方便。最近用了一下，发现这个功能没有想象中的那么好。</p>
-<p>TTL索引的建立很简单，要求是只能在一个<code>field</code>上创建，并且这个<code>field</code>是一个Date类型数据或者是一个包含Date类型数据的Array。<br>在创建索引的时候只需要多增加一个<code>expireAfterSeconds</code>参数，在<code>field</code>加上这个<code>expireAfterSeconds</code>的时间大于当前时间后，这个文档就会被自动删除。</p>
-<p>TTL索引相比一般索引还多了一些合理的限制，比如：</p>
-<ul>
-<li>必须是单个字段（field），多字段不支持</li>
-<li><code>_id</code>字段不支持TTL索引</li>
-<li><code>定长集合(Capped Collections)</code>不支持</li>
-<li>不能使用<a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/reference/method/db.collection.createIndex/#db.collection.createIndex">createIndex()</a>来改变已有索引的<code>expireAfterSeconds</code>值。可以使用<a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/reference/command/collMod/#dbcmd.collMod">collMod</a>尝试，失败则只能删除并重建索引</li>
-<li>当目标字段（field）已有非TTL索引，必须先删除旧的，再重建新的TTL索引。<strong>不能建立一个只有这个参数（带有<code>expireAfterSeconds</code>）不同的索引</strong></li>
-</ul>
-<p>TTL索引有一般索引的功能，上面的限制大多数情况下能让人接受。但是因为TTL索引的删除机制，想要好好的用它，还需要斟酌。</p>
-<p>首先说一下TTL索引的实现方式：<br><code>mongod</code>每60s会启动一个后台线程来删除过期文档，这就意味这MongoDB的TTL不同于Redis，是一定有延迟的。<br>而且这个60s也不是硬性保证的，万一节点压力非常大，过期文档的删除时间会超过60s。<br>MongoDB只保证文档最后一定会删除，在没有删除之前，即使过了失效时间，文档依旧可以查询。</p>
-<p>在副本集的情况下，TTL后台线程只会在主节点删除文档，然后通过主节点把删除操作同步到从节点。但是每个从节点自身也会执行自己的TTL后台线程。<br>当主节点压力很大，从节点压力小的时候，就会出现过期文档在主节点依旧可以查询，在从节点却已被TTL索引删除的情况。</p>
-<p>索引的建立方式也会对这个造成影响。为了避免对读写造成堵塞，我一般会使用<code>background</code>后台建立索引。<br>当使用<code>background</code>方式建立索引，TTL线程可以在建立索引的过程中删除过期文档。而<code>foreground</code>则要等到索引建立完成才可以开始删除。</p>
-<p><code>TTL Indexes</code>和<code>Capped Collections</code>实现的功能其实有点类似，一个是是限定时间，一个是限定大小，但是<code>TTL Indexes</code>的不确定性大了很多。要使用他们肯定要根据具体的场景，我更倾向于使用确定的<code>Capped Collections</code>。</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/core/index-ttl/#ttl-indexes">TTL Indexes</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/tutorial/expire-data/">Expire Data from Collections by Setting TTL</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/mongodb-ttl-indexes/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/6/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/4/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/6/">Next »</a>
     </nav>
   
 
@@ -1332,12 +1268,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1362,11 +1298,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1382,12 +1313,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

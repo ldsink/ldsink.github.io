@@ -44,7 +44,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -255,7 +255,7 @@
 <p> 不久以前，是直接修改<code>/etc/resolv.conf</code>文件来修改DNS服务器配置的。</p>
 </blockquote>
 <p>打开<code>/etc/resolv.conf</code>，按照经验，两行<code>nameserver</code>就能解决问题。但迎接我的是</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># </span><span class="language-bash">This file is managed by man:systemd-resolved(8). Do not edit.</span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This is a dynamic resolv.conf file for connecting local clients to the</span></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">internal DNS stub resolver of systemd-resolved. This file lists all</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">configured search domains.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This file is managed by man:systemd-resolved(8). Do not edit.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This is a dynamic resolv.conf file for connecting local clients to the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">internal DNS stub resolver of systemd-resolved. This file lists all</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">configured search domains.</span></span><br></pre></td></tr></table></figure>
 
 <p><code>/etc/resolv.conf</code>实际上软链到了<code>/run/systemd/resolve/stub-resolv.conf</code>。</p>
 <p>这意味着直接修改的话，重启估计就没了。<code>systemd-resolved(8)</code>又是什么东西？</p>
@@ -566,12 +566,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -596,11 +596,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -616,12 +611,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

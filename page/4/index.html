@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,202 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-the-future-of-python-dependency-management"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/the-future-of-python-dependency-management/">Python 依赖管理的未来</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/the-future-of-python-dependency-management/" class="archive-article-date">
+  <time datetime="2018-07-09T08:37:54.000Z" itemprop="datePublished">
+    Published on 2018 / 07 / 09
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/kennethreitz">Kenneth Reitz 大神</a>最近在 PyTennessee 发表演讲 <a target="_blank" rel="noopener" href="https://speakerdeck.com/kennethreitz/the-future-of-python-dependency-management">The Future of Python Dependency Management</a>，安利他写的 Python 依赖管理工具。</p>
+<p>自2010年以来，<code>pip + virtualenv + requirements.txt</code>成为事实上通用的 Python 项目依赖管理方式。这套方式有他的好处，也有他麻烦的地方。完善掉以前方案的痛点，基于<code>Pipfile</code>和<code>Pipfile.lock</code>的<a target="_blank" rel="noopener" href="https://github.com/pypa/pipenv">Pipenv</a>来了。现在项目已经放到 <a target="_blank" rel="noopener" href="https://github.com/pypa">Python Packaging Authority</a> 下面，未来可期。</p>
+<p>新的<code>Pipfile</code>基于<code>TOML</code>，以前有写一个介绍 <a href="https://ldsink.com/articles/toml/">聊一聊TOML</a>。开发着可以很容易的阅读和修改。</p>
+<blockquote>
+<p>$ cat Pipfile</p>
+</blockquote>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[[source]]</span></span><br><span class="line"><span class="attr">url</span> = <span class="string">&quot;https://pypi.python.org/simple&quot;</span></span><br><span class="line"><span class="attr">verify_ssl</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;pypi&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[packages]</span></span><br><span class="line"><span class="attr">flask</span> = <span class="string">&quot;*&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[dev-packages]</span></span><br><span class="line"><span class="attr">pytest</span> = <span class="string">&quot;*&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>Pipfile.lock</code>基于<code>json</code>，用处和<code>npm</code>的下面的<code>package-lock.json</code>类似。锁定依赖的版本。机器很容易解析处理。</p>
+<blockquote>
+<p>cat Pipfile.lock</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span>  </span><br><span class="line">   <span class="attr">&quot;_meta&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>  </span><br><span class="line">      <span class="attr">&quot;hash&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>  </span><br><span class="line">         <span class="attr">&quot;sha256&quot;</span><span class="punctuation">:</span><span class="string">&quot;bdf5339d86cd6b5cc71e6293cbd509572776e1e1957b109fe8963a9bc5bbaf41&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>  </span><br><span class="line">         <span class="attr">&quot;click&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>  </span><br><span class="line">            <span class="attr">&quot;hashes&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span>  </span><br><span class="line">               <span class="string">&quot;sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d&quot;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&quot;sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span><span class="string">&quot;==6.7&quot;</span></span><br><span class="line">         <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">         <span class="attr">&quot;flask&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>  </span><br><span class="line">            <span class="attr">&quot;hashes&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span>  </span><br><span class="line">               <span class="string">&quot;sha256:0749df235e3ff61ac108f69ac178c9770caeaccad2509cb762ce1f65570a8856&quot;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&quot;sha256:49f44461237b69ecd901cc7ce66feea0319b9158743dd27a2899962ab214dac1&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span><span class="string">&quot;==0.12.2&quot;</span></span><br><span class="line">         <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">   <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">python</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/the-future-of-python-dependency-management/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-the-common-sense-of-arbitrage"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/books/the-common-sense-of-arbitrage/">套利的常识</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/books/the-common-sense-of-arbitrage/" class="archive-article-date">
+  <time datetime="2018-05-28T04:04:21.000Z" itemprop="datePublished">
+    Published on 2018 / 05 / 28
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>京东Plus的畅读包括本书。介绍了很多金融、套利相关的基本概念，符合名字“常识”的定义。有些内容很明显夹带了作者想法的一些私货。</p>
+<h3 id="72-法则"><a href="#72-法则" class="headerlink" title="72 法则"></a>72 法则</h3><p>以 1% 的复利计息，72 年后（72 是约数，准确值是 100ln2），本金翻倍。此规律称为 72 法则。</p>
+<p>应用场景：以12%的年化收益，复利投资，资金翻倍大约需要 72 &#x2F; 12 &#x3D; 6 年。</p>
+<h3 id="帕累托法则80-x2F-20法则"><a href="#帕累托法则80-x2F-20法则" class="headerlink" title="帕累托法则80&#x2F;20法则"></a>帕累托法则80&#x2F;20法则</h3><p>维尔弗雷多．帕累托，1848年7月15 - 1923年8月19日。意大利经济学家、社会学家，对经 济学、社会学和伦理学作出了很多重要的贡献，特别是在收入分配的研究和个人选择的分析中。他提出了帕累托最优的概念，并用无差异曲线来帮助发展了个体经济学领域。帕累托因对意大利20％的人口拥有80％的财产的观察而著名，后来他人概括为帕累托法则80&#x2F;20法则。</p>
+<h3 id="最大效用"><a href="#最大效用" class="headerlink" title="最大效用"></a>最大效用</h3><p>丹尼尔·伯努利在1738年的论文中对这个悖论作了解答，提出了效用的概念，以挑战以金额期望值为决策标准，论文主要包括两条原理:</p>
+<ol>
+<li>边际效用递减原理:一个人对于财富的占有多多益善，但随着财富的增加，满足程度的增加速度不断下降。</li>
+<li>最大效用原理:在风险和不确定条件下，个人的决策行为准则是为了获得最大期望效用值而非最大期望金额值。</li>
+</ol>
+<h3 id="一鸟在手胜过十鸟在林"><a href="#一鸟在手胜过十鸟在林" class="headerlink" title="一鸟在手胜过十鸟在林"></a>一鸟在手胜过十鸟在林</h3><p>出现阿莱悖论的原因是确定效应，即人在决策时，对结果确定的现象过度重视。<br>看来确定的结果比不确定的更多收益更吸引人，正如那句老话“一鸟在手胜过十鸟在林”。</p>
+<h3 id="沉锚效应"><a href="#沉锚效应" class="headerlink" title="沉锚效应"></a>沉锚效应</h3><p>做出决策时会根据之前的情况做出判断，而不是当前客观情况。这个能在一定程度上解释股市博弈环境下，所谓的“压力位”、“支撑位”的形成原因。</p>
+<p><strong>套利是门科学的，有意思的生意。赞同作者的一个观点，套利不应该属于投机的范畴。</strong></p>
+<p>接下来读《非理性繁荣（第三版）》和《思考，快与慢》</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/books/"
+             class="article-tag-list-link color1">books</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/books/the-common-sense-of-arbitrage/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-django-collectstatic-retrofit"
          class="article article-type-post  article-index" itemscope
@@ -495,7 +691,7 @@
 <p>《人类简史》的开篇极其精彩，通过八卦故事的例子引出了<strong>认知革命</strong>，解答了我的一些疑惑。人类使用的工具会进化，个人能力会变强，但是是什么支撑着人类从最开始的一个个原始部落进化到现在的地球村呢？答案是认识革命。</p>
 <p>在人类早期的八卦中，我们有了对抽象概念的认识，才有了共同的目标，才能组织起这么大的群体。公司、民族、政党、国家，这些现在我们耳熟能详的概念，都不是实际的物体，都是我们认知中的概念，但是这些概念能支撑起成千上万的人的团队。进一步，认知革命延伸开的，比如信任，比如创新，比如协作，能发展出金融、工业、互联网等，支撑起了现在的美好生活。</p>
 <p>有了<strong>认知革命</strong>，之后的一切发展是如此的水到渠成。</p>
-<p>之后的农业革命、资本主义相关的章节，相比认知革命，没有那么精彩，但是读完也还是有些有意思的点。比如从物种延续的角度讨论的小麦/家养牲畜这些被人类驯化的物种：</p>
+<p>之后的农业革命、资本主义相关的章节，相比认知革命，没有那么精彩，但是读完也还是有些有意思的点。比如从物种延续的角度讨论的小麦&#x2F;家养牲畜这些被人类驯化的物种：</p>
 <ul>
 <li>族群角度上是扩大了基因存在的范围，个体角度而言每个却很惨。</li>
 <li>小麦给人类提供食物，但是人类要好好伺候小麦。小麦因为被人类种植，从一种不怎么特别的野草到覆盖了大半个地球，谁利用谁？</li>
@@ -1128,7 +1324,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>最近搜狗输入法老是卡死，o(╯□╰)o。整了个脚本，丢到<code>/usr/local/bin</code>下面，一卡重启，干净利落。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">pidof fcitx | xargs kill</span><br><span class="line">pidof sogou-qimpanel | xargs kill</span><br><span class="line">nohup fcitx  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">nohup sogou-qimpanel  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">pidof fcitx | xargs kill</span><br><span class="line">pidof sogou-qimpanel | xargs kill</span><br><span class="line">nohup fcitx  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">nohup sogou-qimpanel  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br></pre></td></tr></table></figure>
 
       
 
@@ -1173,171 +1369,9 @@
 
 
   
-    <article id="post-v2ex-auto-sign"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/v2ex-auto-sign/">v2ex.com 自动签到</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/v2ex-auto-sign/" class="archive-article-date">
-  <time datetime="2017-03-12T08:21:00.000Z" itemprop="datePublished">
-    Published on 2017 / 03 / 12
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>拖了好久，今天终于动手把<a target="_blank" rel="noopener" href="https://www.v2ex.com/">v2ex</a>的自动签到给做了。</p>
-<p>签到脚本在<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ldsink/toolbox/master/v2ex_auto_sign.py">这里</a>。</p>
-<p>丢到服务器上，使用 chmod 增加可执行权限，建立一个 crontab 任务，每天这个小脚本就可以忠实的帮你签到了。</p>
-<p><code>crontab -l</code> 查看我建立的任务如下，每天早上八点定期签到：<br><code> 0 8 * * * /path_to_script/v2ex_auto_sign.py &lt;username&gt; &lt;password&gt; &gt;&gt; /var/log/v2ex_sign.log</code></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/v2ex-auto-sign/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-nginx-php-fpm-permission-denied"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/nginx-php-fpm-permission-denied/">nginx 和 php-fpm 的 php7.0-fpm.sock Permission denied 错误</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/nginx-php-fpm-permission-denied/" class="archive-article-date">
-  <time datetime="2017-02-25T14:34:47.000Z" itemprop="datePublished">
-    Published on 2017 / 02 / 25
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>error.log 内容为：</p>
-<blockquote>
-<p>2017&#x2F;02&#x2F;25 20:20:58 [crit] 10745#10745: *1 connect() to unix:&#x2F;var&#x2F;run&#x2F;php&#x2F;php7.0-fpm.sock failed (13: Permission denied) while connecting to upstream</p>
-</blockquote>
-<p>这个是因为 nginx 和 php-fpm 分别使用了不同的用户权限。我的习惯是都统一成 www-data 用户。</p>
-<ul>
-<li><p>nginx 的默认配置文件位于<code>/etc/nginx/nginx.conf</code>，将其中的<code>user</code>的值修改为目标的用户组。</p>
-</li>
-<li><p>php-fpm 的配置文件位于<code>/etc/php/7.0/fpm/pool.d/www.conf</code>，将其中的<code>user</code>的值修改为目标的用户组。</p>
-</li>
-</ul>
-<p>无论修改哪个，改好之后重启对应的服务应该就能解决这个问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/nginx-php-fpm-permission-denied/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">« Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/5/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/3/">« Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/5/">Next »</a>
     </nav>
   
 
@@ -1493,12 +1527,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1523,11 +1557,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1543,12 +1572,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

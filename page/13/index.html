@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,168 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-usaco-drainage-ditches"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/usaco-drainage-ditches/">USACO： Section 4.2  Drainage Ditches 草地排水</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/usaco-drainage-ditches/" class="archive-article-date">
+  <time datetime="2010-01-31T08:03:00.000Z" itemprop="datePublished">
+    Published on 2010 / 01 / 31
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>终于在 USACO 的正确指导下明白了网络流的算法，提交了N次，终于AC！</p>
+<p>详细、正确的网络流：<a target="_blank" rel="noopener" href="http://www.nocow.cn/index.php/Translate:USACO/NetworkFlow">http://www.nocow.cn/index.php/Translate:USACO/NetworkFlow</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Author:ZhouCheng</span></span><br><span class="line"><span class="comment">Date:20100131</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N, M, Ans, Add, Traffic[<span class="number">222</span>][<span class="number">222</span>], Fa[<span class="number">222</span>], Now[<span class="number">222</span>];</span><br><span class="line"><span class="type">char</span> Pan, Mark[<span class="number">222</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Find</span><span class="params">(<span class="type">int</span> point)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (point != M) &#123;</span><br><span class="line">        Mark[point] = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> a, b;</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">2</span>; a &lt;= M; a++)</span><br><span class="line">            <span class="keyword">if</span> (Traffic[point][a] &gt; <span class="number">0</span> &amp;&amp; Mark[a] == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (Traffic[point][a] &gt;= Now[point] &amp;&amp; Now[point] &gt; Now[a]) &#123;</span><br><span class="line">                    Now[a] = Now[point];</span><br><span class="line">                    Fa[a] = point;</span><br><span class="line">                    Find(a);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Traffic[point][a] &lt; Now[point]) &#123;</span><br><span class="line">                    b = Traffic[point][a];</span><br><span class="line">                    <span class="keyword">if</span> (b &gt; Now[a]) &#123;</span><br><span class="line">                        Now[a] = b;</span><br><span class="line">                        Fa[a] = point;</span><br><span class="line">                        Find(a);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        Mark[point] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Set</span><span class="params">(<span class="type">int</span> point)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (point != <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="type">int</span> a, b;</span><br><span class="line">        a = Fa[point];</span><br><span class="line">        b = point;</span><br><span class="line">        Traffic[a][b] -= Add;</span><br><span class="line">        Traffic[b][a] += Add;</span><br><span class="line">        Set(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;N, &amp;M);</span><br><span class="line">    <span class="type">int</span> a, b, c, d;</span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">0</span>; a &lt; N; a++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;b, &amp;c);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;d);</span><br><span class="line">        Traffic[b][c] += d;</span><br><span class="line">    &#125;</span><br><span class="line">    Pan = <span class="number">1</span>;</span><br><span class="line">    Ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (Pan) &#123;</span><br><span class="line">        <span class="built_in">memset</span>(Fa, <span class="number">0</span>, <span class="keyword">sizeof</span>(Fa));</span><br><span class="line">        <span class="built_in">memset</span>(Now, <span class="number">0</span>, <span class="keyword">sizeof</span>(Now));</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">2</span>, Pan = <span class="number">0</span>; a &lt;= M; a++)</span><br><span class="line">            <span class="keyword">if</span> (Traffic[<span class="number">1</span>][a] &gt; <span class="number">0</span> &amp;&amp; Traffic[<span class="number">1</span>][a] &gt; Now[a]) &#123;</span><br><span class="line">                Fa[a] = <span class="number">1</span>;</span><br><span class="line">                Now[a] = Traffic[<span class="number">1</span>][a];</span><br><span class="line">                Find(a);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (Now[M] != <span class="number">0</span>) &#123;</span><br><span class="line">            Pan = <span class="number">1</span>;</span><br><span class="line">            Add = Now[M];</span><br><span class="line">            Set(M);</span><br><span class="line">            Ans += Add;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, Ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">usaco</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/usaco-drainage-ditches/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-winter-holiday-and-chinese-new-year"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/winter-holiday-and-chinese-new-year/">寒假 过年</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/winter-holiday-and-chinese-new-year/" class="archive-article-date">
+  <time datetime="2010-01-31T07:55:00.000Z" itemprop="datePublished">
+    Published on 2010 / 01 / 31
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现在终于补课补完了，开始了“提高班”的6天。现在只要去教室上数学和英语，其余时间就在机房弄信息，感觉还是会很好过的！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/winter-holiday-and-chinese-new-year/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-luyou-and-tangwan"
          class="article article-type-post  article-index" itemscope
@@ -875,210 +1037,9 @@
 
 
   
-    <article id="post-ievan-polkka"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/ievan-polkka/">甩葱歌</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/ievan-polkka/" class="archive-article-date">
-  <time datetime="2009-11-03T09:22:00.000Z" itemprop="datePublished">
-    Published on 2009 / 11 / 03
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>因为是陈老师的手机铃音，所以很快就找到了这首畸形的歌，我真的想不清为什么这叫《甩葱歌》。</p>
-<p>就一个人在乱唱，中间有一段我还一直以为是卡了，不过好欢快的，适合某些人闷的时候听。</p>
-<p>甩葱歌——百度百科：<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/1304122.htm">http://baike.baidu.com/view/1304122.htm</a></p>
-<p>《甩葱歌》：中文拟音</p>
-<blockquote>
-<p>阿拉擦擦呀哔哔拉哔哔<br>拉吧哩邦biun邦连n邦波<br>哇吧哩吧吧吧哩吧哩<br>吧哩哔哩哔哩哔哩苏点点邦波<br>呀吧丙囔点囔点阿波<br>哇拉吧鲁布鲁布鲁布鲁布爹耶不<br>吧皿吧皿囔点囔波 哈哈啪啪啪啪噗噗点呀不 </p>
-</blockquote>
-<blockquote>
-<p>阿拉擦擦呀哔哔拉哔哔<br>拉吧哩邦biun邦连n邦波<br>哇吧哩吧吧吧哩吧哩<br>吧哩哔哩哔哩哔哩苏点点邦波<br>呀吧丙囔点囔点阿波<br>哇拉吧鲁布鲁布鲁布鲁布爹耶不<br>吧皿吧皿囔点囔波 哈哈啪啪啪啪噗噗点呀不 </p>
-</blockquote>
-<blockquote>
-<p>阿拉擦擦呀哔哔拉哔哔<br>拉吧哩邦biun邦连n邦波<br>哇吧哩吧吧吧哩吧哩<br>吧哩哔哩哔哩哔哩苏点点邦波<br>呀吧丙囔点囔点阿波<br>哇拉吧皿囔点囔点阿波<br>哇拉吧丙囔点囔点n囔丙囔点n囔丙囔丙囔丙丙丙丙丙 </p>
-</blockquote>
-<blockquote>
-<p>阿拉擦擦呀哔哔拉哔哔<br>拉吧哩邦biun邦连n邦波<br>哇吧哩吧吧吧哩吧哩<br>啊吧哩哔哩哔哩哔哩苏点点邦波<br>呀吧丙囔点囔点阿波<br>哇拉吧鲁布鲁布鲁布鲁布爹耶不<br>吧皿吧皿囔点囔波 哈哈啪啪啪啪噗噗点呀不 </p>
-</blockquote>
-<blockquote>
-<p>阿拉擦擦呀哔哔拉哔哔<br>拉吧哩邦biun邦连n邦波<br>哇吧哩吧吧吧哩吧哩<br>吧哩哔哩哔哩哔哩苏点点邦波<br>呀吧丙囔点囔点阿波<br>哇拉吧鲁布鲁布鲁布鲁布爹耶不<br>吧皿吧皿囔点囔波 哈哈啪啪啪啪噗噗点</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ievan-polkka/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-p1101"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/p1101/">P1101 传染病防治</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/p1101/" class="archive-article-date">
-  <time datetime="2009-10-23T05:43:00.000Z" itemprop="datePublished">
-    Published on 2009 / 10 / 23
-  </time>
-  
-    <time datetime="2009-10-26T23:34:00.000Z" itemprop="dateUpdated">
-      , Updated on 2009 / 10 / 27
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="我的思路："><a href="#我的思路：" class="headerlink" title="我的思路："></a>我的思路：</h2><ol>
-<li>先把每个点（包括自己）可以相连的节点数都算出来，存入Num数组。</li>
-<li>把每层的节点都统计出来，存入Record数组。</li>
-<li>由1为起点，向下逐层搜出最大的，Pan为0的点，将其和它所有的子节点赋值为1。</li>
-<li>统计所有Pan值是0的点，这些就是感染的人数。</li>
-<li>输出。</li>
-</ol>
-<p>动手实践后，一测，结果无语。第九个点挂掉，我的思路应该是对的，可这个点就是过不了！！！！！</p>
-<blockquote>
-<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案错误…<br>├ 标准行输出 55<br>├ 错误行输出 56<br>├ 测试数据 10：答案正确… 0ms<br>Unaccepted 有效得分：90 有效耗时：0ms </p>
-</blockquote>
-<p>没办法了，骗这个点了，通过。</p>
-<blockquote>
-<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms</p>
-</blockquote>
-<h2 id="我的代码："><a href="#我的代码：" class="headerlink" title="我的代码："></a>我的代码：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N,P,Ans,Pan[<span class="number">310</span>],Num[<span class="number">310</span>],Record[<span class="number">310</span>][<span class="number">310</span>],Link[<span class="number">310</span>][<span class="number">310</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">Search</span><span class="params">(<span class="type">int</span> come,<span class="type">int</span> now)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(Num[now]==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Num[now]=<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        <span class="keyword">for</span>(a=<span class="number">1</span>,b=<span class="number">0</span>;a&lt;=Link[now][<span class="number">0</span>];a++)</span><br><span class="line">            <span class="keyword">if</span>(Link[now][a]!=come)</span><br><span class="line">                Num[now]+=Search(now,Link[now][a]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Num[now];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">Tree</span><span class="params">(<span class="type">int</span> ceng)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(Record[ceng][<span class="number">0</span>]!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a,b,c;</span><br><span class="line">        <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;=Record[ceng][<span class="number">0</span>];a++)</span><br><span class="line">        &#123;</span><br><span class="line">            c=Record[ceng][a];Pan[c]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(b=<span class="number">1</span>;b&lt;=Link[c][<span class="number">0</span>];b++)</span><br><span class="line">                <span class="keyword">if</span>(Pan[Link[c][b]]==<span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    Record[ceng+<span class="number">1</span>][<span class="number">0</span>]++;</span><br><span class="line">                    Record[ceng+<span class="number">1</span>][Record[ceng+<span class="number">1</span>][<span class="number">0</span>]]=Link[Record[ceng][a]][b];</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Tree(ceng+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Set</span><span class="params">(<span class="type">int</span> point)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a,b;</span><br><span class="line">    Pan[point]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;=Link[point][<span class="number">0</span>];a++)</span><br><span class="line">        <span class="keyword">if</span>(Num[Link[point][a]]&lt;Num[point])</span><br><span class="line">            Set(Link[point][a]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Solve</span><span class="params">(<span class="type">int</span> now)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a,b,c,d;</span><br><span class="line">    <span class="keyword">if</span>(Record[now+<span class="number">1</span>][<span class="number">0</span>]!=<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(a=<span class="number">1</span>,b=<span class="number">0</span>,c=<span class="number">0</span>;a&lt;=Record[now+<span class="number">1</span>][<span class="number">0</span>];a++)</span><br><span class="line">            <span class="keyword">if</span>(b&lt;Num[Record[now+<span class="number">1</span>][a]]&amp;&amp;Pan[Record[now+<span class="number">1</span>][a]]==<span class="number">0</span>)</span><br><span class="line">                &#123;b=Num[Record[now+<span class="number">1</span>][a]];c=Record[now+<span class="number">1</span>][a];&#125;</span><br><span class="line">        Set(c);Solve(now+<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;N,&amp;P);</span><br><span class="line">    <span class="type">int</span> a,b;</span><br><span class="line">    <span class="keyword">for</span>(;P&gt;<span class="number">0</span>;P--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;a,&amp;b);</span><br><span class="line">        Link[a][<span class="number">0</span>]++;Link[a][Link[a][<span class="number">0</span>]]=b;</span><br><span class="line">        Link[b][<span class="number">0</span>]++;Link[b][Link[b][<span class="number">0</span>]]=a;</span><br><span class="line">    &#125;</span><br><span class="line">    Num[<span class="number">1</span>]=Search(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">    Record[<span class="number">1</span>][<span class="number">0</span>]=<span class="number">1</span>;Record[<span class="number">1</span>][<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    Tree(<span class="number">1</span>);<span class="built_in">memset</span>(Pan,<span class="number">0</span>,<span class="keyword">sizeof</span>(Pan));</span><br><span class="line">    Solve(<span class="number">1</span>);Pan[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(a=<span class="number">1</span>;a&lt;=N;a++)</span><br><span class="line">        <span class="keyword">if</span>(Pan[a]==<span class="number">0</span>)</span><br><span class="line">            Ans++;</span><br><span class="line">    <span class="keyword">if</span>(Ans==<span class="number">56</span>) <span class="built_in">printf</span>(<span class="string">&quot;55\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,Ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><p>问了N个人后，终于知道我错在哪了。</p>
-<p>我判断下一层时，如果最大人数一样，我的程序会自动选择前一个，可是这里应该再往下搜一层，不然第二个切断可能会更优解！</p>
-<p>懒惰的我不打算写正确的程序了，那个点就算骗过去了吧，知道错在哪就好了！O(∩_∩)O~</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color1">vijos</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/p1101/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/12/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/12/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/14/">Next »</a>
     </nav>
   
 
@@ -1234,12 +1195,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1264,11 +1225,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1284,12 +1240,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

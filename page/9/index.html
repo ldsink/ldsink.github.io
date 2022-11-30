@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -200,6 +200,169 @@
         </div>
         <div id="js-content" class="content-ll">
           
+  
+    <article id="post-ubuntu-compile-and-install-git"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/ubuntu-compile-and-install-git/">Ubuntu 编译安装最新版 git</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/ubuntu-compile-and-install-git/" class="archive-article-date">
+  <time datetime="2014-09-21T07:25:00.000Z" itemprop="datePublished">
+    Published on 2014 / 09 / 21
+  </time>
+  
+    <time datetime="2014-10-14T06:01:59.000Z" itemprop="dateUpdated">
+      , Updated on 2014 / 10 / 14
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ubuntu仓库里面是提供<code>git</code>工具的，可是很遗憾，一般来说仓库提供的不会最新版本。需要使用最新版本的<code>git</code>，需要靠我们自己编译安装。</p>
+<h2 id="获取最新版git"><a href="#获取最新版git" class="headerlink" title="获取最新版git"></a>获取最新版<code>git</code></h2><p>可以在<a target="_blank" rel="noopener" href="https://github.com/git/git/releases">Github</a>上下载最新版的<code>git</code>源代码。<br><code>wget https://github.com/git/git/archive/v2.1.1.tar.gz</code> (以<code>2.1.1</code>版本为例)</p>
+<h2 id="编译安装git"><a href="#编译安装git" class="headerlink" title="编译安装git"></a>编译安装<code>git</code></h2><ol>
+<li>首先需要安装依赖的包：<br><code>sudo apt-get -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev</code></li>
+<li>解压压缩包：<br><code>tar -zxvf v2.1.1.tar.gz</code><br><code>cd git-2.1.1</code></li>
+<li>编译安装<br><code>make prefix=/usr/local all</code><br><code>sudo make prefix=/usr/local install</code></li>
+</ol>
+<h2 id="添加补全"><a href="#添加补全" class="headerlink" title="添加补全"></a>添加补全</h2><p>此时<code>git</code>已经可以使用了，但是这样安装的<code>git</code>在终端里面按下<code>Tab</code>是没有自动补全的，我们需要自己添加配置。<br>进入解压后的<code>git</code>目录，执行下面两条命令：<br><code>cp contrib/completion/git-completion.bash /etc/bash_completion.d/</code><br><code>sed -i &#39;$a source /etc/bash_completion.d/git-completion.bash&#39; ~/.bashrc</code><br>就添加了自动补全，注销或重启生效。想要立即生效可以手动运行一次<br><code>source /etc/bash_completion.d/git-completion.bash</code></p>
+<h2 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h2><p>在已经有<code>git</code>的情况下，更新版本是很简单的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:git/git.git</span><br><span class="line">cd git</span><br><span class="line">git pull origin master</span><br><span class="line">make prefix=/usr/local all</span><br><span class="line">sudo make prefix=/usr/local install</span><br></pre></td></tr></table></figure>
+<p>每次只需要 pull 最新的代码再执行 make &amp;&amp; make install 就行了！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/ubuntu-compile-and-install-git/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-ubuntu-fonts-arphic-uming"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/ubuntu-fonts-arphic-uming/">Ubuntu 升级后字体变难看的解决办法</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/ubuntu-fonts-arphic-uming/" class="archive-article-date">
+  <time datetime="2014-08-26T03:04:00.000Z" itemprop="datePublished">
+    Published on 2014 / 08 / 26
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Ubuntu官方没配置好，多装了包。卸载掉之后恢复正常。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove fonts-arphic-ukai fonts-arphic-uming</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/ubuntu-fonts-arphic-uming/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
   
     <article id="post-git-command"
          class="article article-type-post  article-index" itemscope
@@ -502,7 +665,9 @@
         <p>想在KPW上安心的看漫画，可是下的图片包不做处理直接丢进去是看不了的。我们得自己动手做一下转换，生成Mobi文件。</p>
 <p>核心思路：<strong>下载漫画 -&gt; 处理图片 -&gt; 生成MOBI文件</strong></p>
 <h2 id="获取漫画"><a href="#获取漫画" class="headerlink" title="获取漫画"></a>获取漫画</h2><ul>
-<li>这个大家各有各的方法，各显神通吧。<h2 id="处理图片"><a href="#处理图片" class="headerlink" title="处理图片"></a>处理图片</h2></li>
+<li>这个大家各有各的方法，各显神通吧。</li>
+</ul>
+<h2 id="处理图片"><a href="#处理图片" class="headerlink" title="处理图片"></a>处理图片</h2><ul>
 <li>这里需要一个工具，<a target="_blank" rel="noopener" href="http://www.hi-pda.com/forum/viewthread.php?tid=898291&extra=page=3">Komic</a>，最新版本是 1.3.3。<br>这是个很聪明的切割图片的工具，能将下载的漫画处理成Kindle上E-ink上画质最好的形式。用这个唯一需要注意的是：<strong>Komic程序自身所处路径不能含有中文字符（输入输出目录不受影响）</strong><br><img src="https://a.adcdn.cn/images/5_1.webp" alt="Komic"></li>
 </ul>
 <h2 id="生成MOBI文件"><a href="#生成MOBI文件" class="headerlink" title="生成MOBI文件"></a>生成MOBI文件</h2><ul>
@@ -1010,162 +1175,9 @@
 
 
   
-    <article id="post-20110821-new-semester-new-things"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/20110821-new-semester-new-things/">2011-8-21 开学这点事</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/20110821-new-semester-new-things/" class="archive-article-date">
-  <time datetime="2011-08-21T04:23:00.000Z" itemprop="datePublished">
-    Published on 2011 / 08 / 21
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/2011_new_semester_calendar.webp" alt="2011_new_semester_calendar"></p>
-<blockquote>
-<p>开学时间 : 九月三号<br>学校的新变化 : 第一次去SJTU<br>晒晒学费 : 5000多，真贵<br>校园抓拍 : 忘记拍了，有时间再拍<br>开学心情 : 又要上课了<br>学习计划 : 还没想好<br>交友计划 : 顺其自然<br>新学期宣言 : 没啥想说的</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/20110821-new-semester-new-things/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-elimination"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/elimination/">淘汰赛制（elimination）</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/elimination/" class="archive-article-date">
-  <time datetime="2010-08-22T13:08:00.000Z" itemprop="datePublished">
-    Published on 2010 / 08 / 22
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="【问题描述】"><a href="#【问题描述】" class="headerlink" title="【问题描述】"></a>【问题描述】</h2><p>淘汰赛制是一种极其残酷的比赛制度，名选手分别标号1，2，3，……，，他们将要参加n轮的激烈角逐。每一轮中，将所有参加该轮的选手按照标号从小到大排序后，第1位与第2位比赛，第3位与第4位比赛，第5位与第6位比赛……只有每场比赛的胜者才有机会参加下一轮的比赛（不会有平局）。这样，每轮淘汰一般的选手。n轮过后，只剩下一名选手，该选手即为最终冠军。</p>
-<p>现在已知每位选手分别与其他选手比赛获胜的概率，请你预测一下谁夺冠的概率最大。</p>
-<p>全文传送门：<a target="_blank" rel="noopener" href="http://zckey.blogbus.com/logs/73545881.html">http://zckey.blogbus.com/logs/73545881.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/elimination/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/8/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/10/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/8/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/10/">Next »</a>
     </nav>
   
 
@@ -1321,12 +1333,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1351,11 +1363,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1371,12 +1378,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">

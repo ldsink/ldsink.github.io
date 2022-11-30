@@ -36,7 +36,7 @@
 
   
 
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 <body>
 <div id="container" q-class="show:isCtnShow">
@@ -201,6 +201,216 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-regular-expression-lookaround"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/regular-expression-lookaround/">正则表达式零宽断言</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/regular-expression-lookaround/" class="archive-article-date">
+  <time datetime="2015-10-14T15:20:00.000Z" itemprop="datePublished">
+    Published on 2015 / 10 / 14
+  </time>
+  
+    <time datetime="2015-11-06T07:22:22.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 11 / 06
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近的工作是号码过滤，需要提取文本中所有类似电话号码的数字。清理这块匹配的正则的时候好好学习了一下正则的零宽断言。</p>
+<p>零宽断言理解了很简单：有一段文本，希望在前面匹配的就是<code>预测先行断言</code>，希望在后面匹配的就是<code>回顾后发断言</code>；希望这段文本存在的就是<code>正</code>向的，不希望存在的就是<code>负</code>向的；因为匹配出的结果无论怎么样都是不包含这段文本的，所以是<code>零宽</code>（零的宽度）。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>(?=exp)</code></td>
+<td>零宽度正预测先行断言</td>
+<td>~ 匹配exp前面的位置</td>
+</tr>
+<tr>
+<td><code>(?&lt;=exp)</code></td>
+<td>零宽度正回顾后发断言</td>
+<td>~ 匹配exp后面的位置</td>
+</tr>
+<tr>
+<td><code>(?!exp)</code></td>
+<td>零宽度负预测先行断言</td>
+<td>~ 匹配后面不是exp的位置</td>
+</tr>
+<tr>
+<td><code>(?&lt;!exp)</code></td>
+<td>零宽度负回顾后发断言</td>
+<td>~ 匹配前面不是exp的位置</td>
+</tr>
+</tbody></table>
+<p>参考：<br><a target="_blank" rel="noopener" href="http://deerchao.net/tutorials/regex/regex.htm#lookaround">正则表达式30分钟入门教程</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/regular-expression-lookaround/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-warren-buffett-invests-like-a-girl"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/books/warren-buffett-invests-like-a-girl/">读书笔记：《巴菲特像女人》</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/books/warren-buffett-invests-like-a-girl/" class="archive-article-date">
+  <time datetime="2015-09-08T14:59:00.000Z" itemprop="datePublished">
+    Published on 2015 / 09 / 08
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://a.adcdn.cn/images/warren_buffett_invests_like_a_girl.webp" alt="巴菲特像女人：颠覆常识的性情投资心理学"></p>
+<h1 id="本书内容"><a href="#本书内容" class="headerlink" title="本书内容"></a>本书内容</h1><p>本书介绍投资心理学，基于“性情决定成败”的观点，认为女性通常具有的八个特征代表更容易在长期投资中获得收益。整本书的写作风格及其像软件项目的说明文档，于是我自然而然的把他当项目文档看了。</p>
+<p>开篇是本软件简单介绍，指出适用场景和包含的核心功能，然后按照核心功能逐条介绍，最后给出使用本软件的公司及其评价。精简下来整个项目就八个核心特点：</p>
+<h2 id="1-交易频率低"><a href="#1-交易频率低" class="headerlink" title="1. 交易频率低"></a>1. 交易频率低</h2><p>大力推荐长期投资和价值投资。对“在击鼓传花式的活动中就近从下一个土包子身上赚个盆满钵满”（就是某国股市）的邪恶想法持鄙视态度。</p>
+<h2 id="2-减少自负"><a href="#2-减少自负" class="headerlink" title="2. 减少自负"></a>2. 减少自负</h2><p>乐于承认自己的无知</p>
+<h2 id="3-厌恶风险"><a href="#3-厌恶风险" class="headerlink" title="3. 厌恶风险"></a>3. 厌恶风险</h2><p>取高安全边际的东西。“安全边际”这个概念挺好的。</p>
+<h2 id="4-脚踏实地"><a href="#4-脚踏实地" class="headerlink" title="4. 脚踏实地"></a>4. 脚踏实地</h2><p>投资（使用）前做充分的了解，不要别人一忽悠就跟风进了。</p>
+<h2 id="5-注重细节"><a href="#5-注重细节" class="headerlink" title="5. 注重细节"></a>5. 注重细节</h2><p>陌生的领域都是禁区，在熟悉的领域赚钱。</p>
+<h2 id="6-不受同辈压力影响"><a href="#6-不受同辈压力影响" class="headerlink" title="6. 不受同辈压力影响"></a>6. 不受同辈压力影响</h2><p>做出判断要基于自己的认识，不要人云亦云。</p>
+<h2 id="7-知错能改"><a href="#7-知错能改" class="headerlink" title="7. 知错能改"></a>7. 知错能改</h2><h2 id="8-睾酮含量少"><a href="#8-睾酮含量少" class="headerlink" title="8. 睾酮含量少"></a>8. 睾酮含量少</h2><p>介绍了睾酮和皮质醇这两个东西，而且还挂着“要怪就怪荷尔蒙”的标题介绍了整整六页。</p>
+<h1 id="看完的实际感觉"><a href="#看完的实际感觉" class="headerlink" title="看完的实际感觉"></a>看完的实际感觉</h1><ul>
+<li>其实没太大必要看的一本书。</li>
+<li>本软件有夸大宣传（典型标题党）的嫌疑，软件名称（书名）和实际功能（讲的东西）不符。测试用例（用来论证观点的例子）没有覆盖功能（举例没法证明观点正确 or 举例太简单）。</li>
+<li>内容挺无聊的，就是重复各类价值投资中的观点。就这么几句话能编一本书也难为作者了。</li>
+<li>这本书是亚马逊买书送的，这么想感觉就无所谓了。^_^</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/books/"
+             class="article-tag-list-link color1">books</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/books/warren-buffett-invests-like-a-girl/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-skill-tree"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -285,7 +495,7 @@
 </ul>
 </li>
 <li>专业技能<ul>
-<li>官方资源往往是最齐全和最准确的，学习技术一定要看官方文档/手册</li>
+<li>官方资源往往是最齐全和最准确的，学习技术一定要看官方文档&#x2F;手册</li>
 <li>英语读写能力，善用 <a target="_blank" rel="noopener" href="https://www.google.com/">Google</a>、<a target="_blank" rel="noopener" href="https://github.com/">Github</a> 和 <a target="_blank" rel="noopener" href="https://stackoverflow.com/">Stack Overflow</a></li>
 <li>基础知识<ul>
 <li>编程语言<ul>
@@ -307,7 +517,7 @@
 </li>
 <li>hello world 及简单项目水平<ul>
 <li>Java</li>
-<li>C/C++</li>
+<li>C&#x2F;C++</li>
 <li>C#</li>
 </ul>
 </li>
@@ -335,7 +545,7 @@
 </li>
 </ul>
 </li>
-<li>缓存/消息队列<ul>
+<li>缓存&#x2F;消息队列<ul>
 <li>通过缓存热数据来提高性能</li>
 <li>通过消息队列解耦，提高系统稳定性</li>
 <li>Redis<ul>
@@ -343,7 +553,7 @@
 <li>正确的使用 Redis 提供的数据结构</li>
 <li>Redis单实例，阻塞，Pipiline，事务</li>
 <li>Redis 集群、哨兵</li>
-<li>持久化 AOF / RDB</li>
+<li>持久化 AOF &#x2F; RDB</li>
 <li>For anything new, use Redis. <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/10558465/memcached+vs+redis">Memcached vs. Redis?</a></li>
 </ul>
 </li>
@@ -352,7 +562,7 @@
 </ul>
 </li>
 <li>AWS SQS</li>
-<li>Kafka/Zookeeper<ul>
+<li>Kafka&#x2F;Zookeeper<ul>
 <li>高吞吐消息队列</li>
 <li>知道 Topic、Consumer Group、Partition、Broker、Offset 在 Kafka 中的作用</li>
 </ul>
@@ -373,12 +583,12 @@
 </ul>
 </li>
 <li>版本控制<ul>
-<li>git / svn</li>
+<li>git &#x2F; svn</li>
 </ul>
 </li>
 <li>Web<ul>
 <li>熟悉 HTML、CSS、JavaScript</li>
-<li><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2616">HTTP/1.1</a></li>
+<li><a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc2616">HTTP&#x2F;1.1</a></li>
 </ul>
 </li>
 <li>文档、展示<ul>
@@ -741,7 +951,7 @@
 
 <h1 id="才能在正则表达式中表示-‘-‘字符"><a href="#才能在正则表达式中表示-‘-‘字符" class="headerlink" title="\\\\ 才能在正则表达式中表示 ‘\‘字符"></a>\\\\ 才能在正则表达式中表示 ‘\‘字符</h1><p>在编写正则表达式反转义函数的时候，我遇到了这个问题。这个函数很简单，就是去掉所有带’\‘字符前的’\‘，但是弄起来总是不对。<br>在仔细看完PHP文档之后，我终于理清了逻辑。</p>
 <p>“\\\\“这是写在代码中的，首先PHP会理解一次，”\\“会表示’\‘，这样传给正则的字符串就是是”\\“。<br>然后正则表达式再理解一次，这时”\\“对应的就是’\‘字符。在使用’\‘的时候一定要考虑这些情况。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $keywords 就是需要反转义的字符串</span></span><br><span class="line"><span class="title function_ invoke__">preg_replace_callback</span>(<span class="string">&quot;/\\\\./u&quot;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"><span class="variable">$matches</span></span>) </span>&#123; <span class="keyword">return</span> <span class="title function_ invoke__">substr</span>(<span class="variable">$matches</span>[<span class="number">0</span>],<span class="number">1</span>);&#125;, <span class="variable">$keywords</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $keywords 就是需要反转义的字符串</span></span><br><span class="line"><span class="title function_ invoke__">preg_replace_callback</span>(<span class="string">&quot;/\\\\./u&quot;</span>, function (<span class="variable">$matches</span>) &#123; <span class="keyword">return</span> <span class="title function_ invoke__">substr</span>(<span class="variable">$matches</span>[<span class="number">0</span>],<span class="number">1</span>);&#125;, <span class="variable">$keywords</span>);</span><br></pre></td></tr></table></figure>
 
 <h1 id="善用模式修饰符"><a href="#善用模式修饰符" class="headerlink" title="善用模式修饰符"></a>善用模式修饰符</h1><p><code>php</code>正则表达式中，分隔符之后是可以添加模式修饰符的，这里可以参阅<a target="_blank" rel="noopener" href="http://php.net/manual/zh/reference.pcre.pattern.modifiers.php">PHP文档</a>。</p>
 <p>我最常用的是<code>u</code>，此修正符使模式字符串被认为是utf-8的。</p>
@@ -1141,164 +1351,9 @@
 
 
   
-    <article id="post-fix-openssl-freak"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/fix-openssl-freak/">修复 Openssl FREAK 中间人劫持漏洞</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/fix-openssl-freak/" class="archive-article-date">
-  <time datetime="2015-03-31T02:33:14.000Z" itemprop="datePublished">
-    Published on 2015 / 03 / 31
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>收到阿里云的漏洞提示邮件，网站存在 OpenSSL FREAK 漏洞，现在已经修复。主要操作是升级了OpenSSL并且修改了nginx配置。</p>
-<p>修改 nginx 配置<br><code>ssl_ciphers HIGH:!aNULL:!MD5:!EXPORT56:!EXP;</code></p>
-<p>关于这个漏洞的详细资料可以看相关链接：<br><a target="_blank" rel="noopener" href="http://www.freebuf.com/news/60057.html">“历史遗留”漏洞：浅析新型SSL&#x2F;TLS漏洞FREAK</a><br><a target="_blank" rel="noopener" href="http://bbs.aliyun.com/read/231806.html">[分享]漏洞预警公告–Openssl SSL&#x2F;TLS中间人劫持漏洞</a><br><a target="_blank" rel="noopener" href="http://help.aliyun.com/knowledge_detail.htm?knowledgeId=5995398">Openssl FREAK 中间人劫持漏洞</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/fix-openssl-freak/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-python-json-dump-datetime"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/python-json-dump-datetime/">Python 使用 json 序列化 datetime 类型</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/python-json-dump-datetime/" class="archive-article-date">
-  <time datetime="2015-03-22T04:21:00.000Z" itemprop="datePublished">
-    Published on 2015 / 03 / 22
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>需要从 mongodb 导出数据，不使用 mongoexport，直接写 python 函数导出到文件。导出过程中发现了一个问题，mongodb 中的 Date 类型会转换成 python 中的 datetime，但在使用 json.dumps 的时候会抛出 <code>TypeError: datetime.datetime is not JSON serializable</code>，datetime 默认不支持 json 序列化。</p>
-<p>得手动扩展，我这里的需求是把 datetime 转换成时间戳：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DatetimeEncoder</span>(json.JSONEncoder):</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">dict转json的时候将datetime类型转换成timestamp</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">default</span>(<span class="params">self, obj</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(obj, datetime.datetime):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">int</span>(time.mktime(obj.timetuple()))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> json.JSONEncoder.default(self, obj)</span><br></pre></td></tr></table></figure>
-
-<p>使用的时候指定就可以了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json.dumps(data, ensure_ascii=<span class="literal">False</span>, cls=DatetimeEncoder)</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/python-json-dump-datetime/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/">Next »</a>
+      <a class="extend prev" rel="prev" href="/page/6/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/">Next »</a>
     </nav>
   
 
@@ -1454,12 +1509,12 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color4">rfc</a>
+                                   class="js-tag color2">deepin</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color2">deepin</a>
+                                   class="js-tag color4">rfc</a>
                             </li>
                         
                             <li class="article-tag-list-item">
@@ -1484,11 +1539,6 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color3">firefox</a>
-                            </li>
-                        
-                            <li class="article-tag-list-item">
-                                <a href="javascript:void(0)"
                                    class="js-tag color5">greenplum</a>
                             </li>
                         
@@ -1504,12 +1554,17 @@
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
+                                   class="js-tag color1">linux</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
                                    class="js-tag color1">react</a>
                             </li>
                         
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
-                                   class="js-tag color1">linux</a>
+                                   class="js-tag color3">firefox</a>
                             </li>
                         
                             <li class="article-tag-list-item">
