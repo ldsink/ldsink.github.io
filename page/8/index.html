@@ -201,6 +201,93 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-deepin-2014-3-released"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/deepin-2014-3-released/">Deepin 2014.3 已经发布</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/deepin-2014-3-released/" class="archive-article-date">
+  <time datetime="2015-04-28T18:18:00.000Z" itemprop="datePublished">
+    Published on 2015 / 04 / 29
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Deepin 2014.3 已经发布，欢迎下载体验！详细内容请移步<a target="_blank" rel="noopener" href="http://planet.linuxdeepin.com/deepin-2014-3-released-free%C2%B7unique%C2%B7avant-garde/">官方博客</a>。</p>
+<p>这是一个维护版本，所以版本号还是 2014。<br>Deepin 2015 据说已经在稳步开发中，将会直接基于Debian。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">deepin</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/deepin-2014-3-released/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-fix-openssl-freak"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -918,145 +1005,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-database-isolation-review"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/database-isolation-review/">数据库事务隔离级别复习</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/database-isolation-review/" class="archive-article-date">
-  <time datetime="2014-10-14T03:43:00.000Z" itemprop="datePublished">
-    Published on 2014 / 10 / 14
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目更新数据库数据出错了，因为我对数据库的隔离级别及实现细节理解有问题。<br>今天复习了一次。</p>
-<p>首先再明确一次数据库的四个隔离级别：</p>
-<ol>
-<li>Read uncommitted</li>
-<li>Read committed</li>
-<li>Repeatable read</li>
-<li>Serializable</li>
-</ol>
-<p>这四个隔离级别对应是要解决脏读（Dirty read）、不可重复读（Non-repeatable read）、幻象读（Phantom read）的问题。</p>
-<p>MySQL 可以通过</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@global</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@session</span>.tx_isolation;</span><br><span class="line"><span class="keyword">SELECT</span> @<span class="variable">@tx</span>_isolation;</span><br></pre></td></tr></table></figure>
-
-<p>查看当前数据库设置的隔离级别。</p>
-<h1 id="Read-uncommitted"><a href="#Read-uncommitted" class="headerlink" title="Read uncommitted"></a>Read uncommitted</h1><p>最低级的隔离级别就是 Read uncommitted，这是最低级的，拥有最高的并发性能，但是也有一列的并发问题。<br>除非数据并发安全性要求不是特别高，否则一般都不怎么使用。</p>
-<h1 id="Read-committed-与-脏读"><a href="#Read-committed-与-脏读" class="headerlink" title="Read committed 与 脏读"></a>Read committed 与 脏读</h1><p>Read uncommitted 之上就是 Read committed，这一级解决了脏读问题。<br>所谓脏读，就是一个事务可以读到另一个事务没有提交的数据。带来的问题是当另一个事务最终回滚，<br>脏读读到的数据实际上是不在数据库里面的。</p>
-<p><img src="https://a.adcdn.cn/images/dirty_reads.webp" alt="dirty_read"></p>
-<p>如上图所示，事务1最后读到的age的值是21。但是事务2最后回滚数据，所以21的值是不在数据库里面存在的。<br>Read committed 解决了脏读问题，不会允许事务读取另一个事务未提交的数据。<br>大部分支持事务的数据库默认隔离级别就是 Read committed。</p>
-<h1 id="Repeatable-read-与-不可重复读"><a href="#Repeatable-read-与-不可重复读" class="headerlink" title="Repeatable read 与 不可重复读"></a>Repeatable read 与 不可重复读</h1><p>第三级 Repeatable read 在之前的基础上，还解决了不可重复读的问题。</p>
-<h2 id="MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。"><a href="#MySQL-的-Innodb-引擎的默认隔离级别就是-Repeatable-read。" class="headerlink" title="MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。"></a>MySQL 的 Innodb 引擎的默认隔离级别就是 Repeatable read。</h2><p>下面的图是不可重复读的情况。</p>
-<p><img src="https://a.adcdn.cn/images/non-repeatable_read.webp" alt="non-repeatable_read"></p>
-<p>当事务2更新id为1的users的age并提交后，事务1第二次查询的信息是事务2更新之后的数据，与事务开始的时候的查询结果不一致。<br>这样前后两次的查询结果不一致的问题，就是不可重复读。</p>
-<p>有两种策略可以避免不可重复读(non-repeatable read)。</p>
-<ul>
-<li>一个是要求事务2延迟到事务1提交或者回滚之后再执行。这种方式实现了T1, T2 的串行化调度。<br>串行化调度可以支持可重复读(repeatable reads)。</li>
-<li>另一种策略是多版本并发控制。为了得到更好的并发性能，允许事务2先提交。<br>但因为事务1在事务2之前开始，事务1必须在其开始执行时间点的数据库的快照上面操作。<br>当事务1最终提交时候，数据库会检查其结果是否等价于T1, T2串行调度。<br>如果等价，则允许事务1提交，如果不等价，事务1需要回滚并抛出个串行化失败的错误。</li>
-</ul>
-<p>我出错的地方就是这里，我以为 MySQL 会串行化调度，<br>实际上为了并发性能，MySQL使用的是多版本并发控制。<br>我想在一个事务内加载数据，再根据加载出来的数据的情况对数据库做不同的操作。<br>虽然我在事务内虽然读取到的值和第一次是一样的，但这是因为读取的是快照的值，<br>数据库已经更新为新的值了。<br>这就造成了我的项目中重复计费……</p>
-<h1 id="Serializable-与-幻象读"><a href="#Serializable-与-幻象读" class="headerlink" title="Serializable 与 幻象读"></a>Serializable 与 幻象读</h1><p>隔离级别最高级的就是 Serializable，这一级除了解决之前所有的问题，还解决了幻象读的问题。</p>
-<p><img src="https://a.adcdn.cn/images/phantom_read.webp" alt="phantom_read"></p>
-<p>幻象读主要就是指另一个事务执行了 Insert 操作，导致当前事务两次查询出来的结果集不一致，<br>第二次的结果集会比第一次多出新插入的数据。</p>
-<p>Serializable 解决了脏读、不可重复读和幻象读这三个问题。</p>
-<h1 id="总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena"><a href="#总结：隔离级别-vs-读现象-Isolation-Levels-vs-Read-Phenomena" class="headerlink" title="总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)"></a>总结：隔离级别 vs 读现象(Isolation Levels vs Read Phenomena)</h1><table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读</th>
-<th>不可重复读</th>
-<th>幻影读</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>未授权读</td>
-<td>可能发生</td>
-<td>可能发生</td>
-<td>可能发生</td>
-</tr>
-<tr>
-<td>授权读</td>
-<td>-</td>
-<td>可能发生</td>
-<td>可能发生</td>
-</tr>
-<tr>
-<td>可重复读</td>
-<td>-</td>
-<td>-</td>
-<td>可能发生</td>
-</tr>
-<tr>
-<td>可序列化</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-</tbody></table>
-<p>“可能发生”表示这个隔离级别会发生对应现象，”-“表示不会发生。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/database-isolation-review/">展开全文 >></a>
         </p>
       
 

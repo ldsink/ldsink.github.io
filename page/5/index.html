@@ -201,6 +201,81 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-restart-sogou-input-script"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/restart-sogou-input-script/">重启搜狗输入法脚本</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/restart-sogou-input-script/" class="archive-article-date">
+  <time datetime="2017-06-21T03:08:07.000Z" itemprop="datePublished">
+    Published on 2017 / 06 / 21
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近搜狗输入法老是卡死，o(╯□╰)o。整了个脚本，丢到<code>/usr/local/bin</code>下面，一卡重启，干净利落。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">pidof fcitx | xargs kill</span><br><span class="line">pidof sogou-qimpanel | xargs kill</span><br><span class="line">nohup fcitx  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">nohup sogou-qimpanel  1&gt;/dev/null 2&gt;/dev/null &amp;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/restart-sogou-input-script/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-v2ex-auto-sign"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -976,110 +1051,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/unified-social-credit-identifier/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-ubuntu-16-04-lts-experience"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/ubuntu-16-04-lts-experience/">Ubuntu 16.04 LTS 体验</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/ubuntu-16-04-lts-experience/" class="archive-article-date">
-  <time datetime="2016-04-27T01:06:01.000Z" itemprop="datePublished">
-    Published on 2016 / 04 / 27
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我的工作系统一直是<code>Ubuntu LTS</code>。21日最新的<code>xenial</code>发布之后，马上安装进行了一些体验。Ubuntu 16.04 LTS的一些主要更新可以看<a target="_blank" rel="noopener" href="https://linux.cn/article-7254-1.html">这里</a>。</p>
-<h2 id="外观变化"><a href="#外观变化" class="headerlink" title="外观变化"></a>外观变化</h2><ul>
-<li>整体外观和上一个LTS相比变化不大。</li>
-<li>挂载硬盘的时候弹出标志会显示成一个突出的按钮，个人感觉没有之前好看。</li>
-<li>中文字体有变化，感觉更圆润。</li>
-</ul>
-<h2 id="必要设置"><a href="#必要设置" class="headerlink" title="必要设置"></a>必要设置</h2><ul>
-<li>关闭访客账户和<a href="https://ldsink.com/articles/disable-guest-session-in-Ubuntu.html">之前介绍</a>的差不多，Ubuntu自己在帮助中心也有<a target="_blank" rel="noopener" href="https://help.ubuntu.com/16.04/ubuntu-help/shell-guest-session.html">说明</a>。</li>
-<li>不需要手动在<code>隐私设置</code>中关闭在线搜索，默认已经关闭。文件记录、<br>发送错误报告还是要自己动手关闭。</li>
-</ul>
-<h2 id="软件变化"><a href="#软件变化" class="headerlink" title="软件变化"></a>软件变化</h2><ul>
-<li>推荐使用<code>apt</code>来管理软件，代替之前的<code>apt-get</code>。</li>
-<li>感觉更新需要连接的源变少了，使用<code>apt update</code>只会出几条日志，比起之前滚屏清爽很多。</li>
-<li>大量基础软甲包更新，我比较关心的有<code>Kernel 4.4</code>、<code>Python 3.</code>5、<code>OpenSSH 7.2p2</code>、<code>PHP 7.0</code>、<code>MySQL 5.7</code>、<code>GCC 5.3</code>，这些基础软件都升级到了最新的稳定版。看日志我一开始以为和<code>Arch Linux</code>一样只有默认的<code>Python3</code>了，实际使用发现只有服务器版是这样的，桌面版2和3都有，并且更新到了最新版。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python</span><br><span class="line">Python 2.7.11+ (default, Apr 17 2016, 14:00:29)</span><br><span class="line">[GCC 5.3.1 20160413] on linux2</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ python3</span><br><span class="line">Python 3.5.1+ (default, Mar 30 2016, 22:46:26)</span><br><span class="line">[GCC 5.3.1 20160330] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br></pre></td></tr></table></figure></li>
-<li>依旧预装了<code>Amazon</code>等鸡肋应用。这些可以通过一条命令全部卸载 <code>sudo apt remove unity-webapps-common</code>。</li>
-<li>去掉了<code>Ubuntu软件中心</code>，使用了<code>Gnome软件</code>改成的<code>Ubuntu软件</code>。我使用感觉响应很慢，还是习惯直接敲命令行。</li>
-<li>支持<code>snap</code>包，最近新闻好像<code>Firefox</code>以后在<code>Ubuntu</code>上就用<code>snap</code>包发行了。这个功能暂时没用上，但感觉挺不错的。</li>
-</ul>
-<h2 id="第三方软件"><a href="#第三方软件" class="headerlink" title="第三方软件"></a>第三方软件</h2><ul>
-<li>Chrome 可以正常使用，但是他签名使用的是弱密钥，更新会有提示<code>W: http://dl.google.com/linux/chrome/deb/dists/stable/Release.gpg: Signature by key 4CCA1EAF950CEE4AB83976DCA040830F7FAC5991 uses weak digest algorithm (SHA1)</code>。另外，默认设置中文字体显示特别细，需要自己再设置一下。</li>
-<li>Atom 我从PPA安装的，正常使用，很方便。</li>
-<li>WPS 用的Alpha 20 Patch 2，文件名<code>wps-office_10.1.0.5503-a20p2_amd64.deb</code>，没有问题。</li>
-<li>搜狗拼音 用的最新的包<code>sogoupinyin_2.0.0.0072_amd64.deb</code>,<code>dpkg -i</code>安装之后还需要<code>apt-get -f install</code>才成功，使用起来没问题。安装包感觉还没做好，以后应该更方便才行。</li>
-<li>快盘 直接安装，文件可以同步。</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>zsh、git、htop、tmux、keepass2、openvpn 等常用软件从源里安装都正常。</li>
-<li>配置好<code>Java</code>环境之后，<code>PhpStorm</code>和<code>PyCharm</code>正常。</li>
-<li>我用来干活的系统已经从<code>14.04 LTS</code>切换到<code>16.04 LTS</code></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ubuntu-16-04-lts-experience/">展开全文 >></a>
         </p>
       
 

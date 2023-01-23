@@ -201,6 +201,122 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-install-zsh-on-ubuntu"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/install-zsh-on-ubuntu/">Ubuntu 上安装 zsh</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/install-zsh-on-ubuntu/" class="archive-article-date">
+  <time datetime="2015-10-23T07:14:00.000Z" itemprop="datePublished">
+    Published on 2015 / 10 / 23
+  </time>
+  
+    <time datetime="2020-07-13T06:54:26.000Z" itemprop="dateUpdated">
+      , Updated on 2020 / 07 / 13
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>zsh</code>因为<a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh">oh my zsh</a>的存在，绝对是 Shell 中顶级的存在。<br>Deepin的默认终端已经使用<code>zsh</code>，但是我们可爱的Ubuntu依旧用着<code>bash</code>，本文的目的就是将Ubuntu的<code>bash</code>换成<code>zsh</code>。</p>
+<h1 id="0-动手前的准备"><a href="#0-动手前的准备" class="headerlink" title="0. 动手前的准备"></a>0. 动手前的准备</h1><p>首先得确认一下自己系统当前使用的shell，如果已经是<code>zsh</code>，就只要配置就OK了。</p>
+<ul>
+<li>终端输入<code>echo $SHELL</code>，可以输出当前使用的shell。</li>
+<li>终端输入<code>cat /etc/shells</code>，可以输出当前系统已经安装的shell。<br>如果你当前系统已经安装<code>zsh</code>，就不需要安装了～</li>
+</ul>
+<h1 id="1-安装-zsh"><a href="#1-安装-zsh" class="headerlink" title="1. 安装 zsh"></a>1. 安装 zsh</h1><p>先更新源，然后安装<code>zsh</code>。</p>
+<p><code>sudo apt update &amp;&amp; sudo apt install -y zsh</code></p>
+<p>等命令执行完，<code>zsh</code>就已经安装在系统。可以在当前终端输入<code>/bin/zsh</code>体验，<code>zsh</code>默认的配置文件位于<code>~/.zshrc</code>。</p>
+<h1 id="2-配置-oh-my-zsh"><a href="#2-配置-oh-my-zsh" class="headerlink" title="2. 配置 oh-my-zsh"></a>2. 配置 oh-my-zsh</h1><p>没有经过任何配置的<code>zsh</code>还是很原始的，和Ubuntu默认的<code>bash</code>比起来没有什么特点，这里就需要<code>zsh</code>的搭档<a target="_blank" rel="noopener" href="https://github.com/ohmyzsh/ohmyzsh">oh my zsh</a>出马。</p>
+<p><code>oh my zsh</code>的代码位于<code>Github</code>，我们直接通过git来获得。</p>
+<blockquote>
+<p>没有安装git请先安装git <code>sudo apt install git</code></p>
+</blockquote>
+<p>终端执行 <code>git clone git://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh</code>。</p>
+<p><code>git</code>会将代码库下载到 <code>~/.oh-my-zsh</code>目录。如果你没有配置自己的 <code>.zshrc</code> 文件，可以完全使用 <code>oh my zsh</code> 提供的配置文件。</p>
+<p><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc</code></p>
+<p>再执行<code>/bin/zsh</code>，新出来的<code>zsh</code>应该就是配置好的。</p>
+<h1 id="3-使用zsh作为默认终端"><a href="#3-使用zsh作为默认终端" class="headerlink" title="3. 使用zsh作为默认终端"></a>3. 使用<code>zsh</code>作为默认终端</h1><p><code>chsh -s /bin/zsh</code></p>
+<p>使用这个命令可以将当前用户的shell切换为<code>zsh</code>，下次重启电脑就能看见效果了。<br>BTW，这条命令更改的是<code>/etc/passwd</code>文件下当前用户对应的设置，可以<code>cat</code>出验证一下。</p>
+<p>接下来就可以尽情的享受<code>zsh</code>带来的便捷吧，下图是<code>oh my zsh</code>默认配置下某个项目的显示，分支等显示清清楚楚，超赞。</p>
+<p><img src="https://a.adcdn.cn/images/zsh-git-branch.webp" alt="oh my zsh 下 git branch 的显示"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">ubuntu</a>
+        </li>
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">deepin</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/install-zsh-on-ubuntu/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-regular-expression-lookaround"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1234,93 +1350,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/upgrade_mongodb_from_2_to_3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-deepin-2014-3-released"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/deepin-2014-3-released/">Deepin 2014.3 已经发布</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/deepin-2014-3-released/" class="archive-article-date">
-  <time datetime="2015-04-28T18:18:00.000Z" itemprop="datePublished">
-    Published on 2015 / 04 / 29
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Deepin 2014.3 已经发布，欢迎下载体验！详细内容请移步<a target="_blank" rel="noopener" href="http://planet.linuxdeepin.com/deepin-2014-3-released-free%C2%B7unique%C2%B7avant-garde/">官方博客</a>。</p>
-<p>这是一个维护版本，所以版本号还是 2014。<br>Deepin 2015 据说已经在稳步开发中，将会直接基于Debian。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">deepin</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/deepin-2014-3-released/">展开全文 >></a>
         </p>
       
 

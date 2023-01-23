@@ -201,6 +201,108 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-how-to-run-a-shell-script-at-startup"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/how-to-run-a-shell-script-at-startup/">Linux 启动后自动执行命令</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/how-to-run-a-shell-script-at-startup/" class="archive-article-date">
+  <time datetime="2021-06-27T07:40:45.000Z" itemprop="datePublished">
+    Published on 2021 / 06 / 27
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux 环境下，一般需要自启动执行任务，需要修改 <code>/etc/init.d</code> 或者 <code>/etc/rc.d/</code>。 这里介绍一个简单方式，通过 <code>crontab</code> 来实现这个目的。</p>
+<p>执行</p>
+<blockquote>
+<p>crontab -e</p>
+</blockquote>
+<p>增加如下内容，其中 <code>/path/to/your/script.sh</code> 替换成需要执行的命令或者脚本。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@reboot  /path/to/your/script.sh</span><br></pre></td></tr></table></figure>
+
+<p><code>crontab</code> 一般用于定时执行任务，但是它还提供了 <code>@reboot</code> 用于启动之后执行。 推荐一个非常好用的网站 <a target="_blank" rel="noopener" href="https://crontab.guru/">crontab.guru</a> ，可以用来检测命令，预测下一次任务的启动时间。</p>
+<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/12973777/how-to-run-a-shell-script-at-startup">How to run a shell script at startup</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">how-to</a>
+        </li>
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">linux</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/how-to-run-a-shell-script-at-startup/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-how-to-execute-sudo-without-password"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1105,92 +1207,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/python-style-guide/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-happy-15th-birthday-ubuntu"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/happy-15th-birthday-ubuntu/">Happy 15th Birthday, Ubuntu!</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/happy-15th-birthday-ubuntu/" class="archive-article-date">
-  <time datetime="2019-10-23T05:47:26.000Z" itemprop="datePublished">
-    Published on 2019 / 10 / 23
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/happy-15th-birthday-ubuntu.webp" alt="happy-15th-birthday-ubuntu"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">ubuntu</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/happy-15th-birthday-ubuntu/">展开全文 >></a>
         </p>
       
 

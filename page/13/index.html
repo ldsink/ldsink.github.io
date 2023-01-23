@@ -201,6 +201,81 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-perfect-milk"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/perfect-milk/">完美牛奶（二分图入门）</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/perfect-milk/" class="archive-article-date">
+  <time datetime="2010-02-03T02:09:00.000Z" itemprop="datePublished">
+    Published on 2010 / 02 / 03
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>网络流求二分图最大匹配。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Author:ZhouCheng</span></span><br><span class="line"><span class="comment">Date:20090203</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N, M, S, T, Add, Ans;</span><br><span class="line"><span class="type">char</span> Pan, Mark[<span class="number">520</span>];</span><br><span class="line"><span class="type">int</span> Link[<span class="number">520</span>][<span class="number">520</span>], Fa[<span class="number">520</span>], Now[<span class="number">520</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Find</span><span class="params">(<span class="type">int</span> point)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (point != T) &#123;</span><br><span class="line">        Mark[point] = <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> a, b;</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= T; a++)</span><br><span class="line">            <span class="keyword">if</span> (Link[point][a] &gt; <span class="number">0</span> &amp;&amp; Mark[a] == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (Link[point][a] &gt;= Now[point] &amp;&amp; Now[point] &gt; Now[a]) &#123;</span><br><span class="line">                    Now[a] = Now[point];</span><br><span class="line">                    Fa[a] = point;</span><br><span class="line">                    Find(a);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Link[point][a] &lt; Now[point]) &#123;</span><br><span class="line">                    b = Link[point][a];</span><br><span class="line">                    <span class="keyword">if</span> (b &gt; Now[a]) &#123;</span><br><span class="line">                        Now[a] = b;</span><br><span class="line">                        Fa[a] = point;</span><br><span class="line">                        Find(a);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        Mark[point] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Set</span><span class="params">(<span class="type">int</span> point)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (point != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="type">int</span> a, b;</span><br><span class="line">        a = Fa[point];</span><br><span class="line">        b = point;</span><br><span class="line">        Link[a][b] -= Add;</span><br><span class="line">        Link[b][a] += Add;</span><br><span class="line">        Set(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;N, &amp;M);</span><br><span class="line">    <span class="type">int</span> a, b, c;</span><br><span class="line">    <span class="comment">//读入数据，Cow 和 Fence 都处理成点。</span></span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= N; a++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;b);</span><br><span class="line">        <span class="keyword">for</span> (; b &gt; <span class="number">0</span>; b--) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;c);</span><br><span class="line">            Link[a][N + c] = <span class="number">1000000000</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//S 源点，T 汇点。</span></span><br><span class="line">    S = <span class="number">0</span>;</span><br><span class="line">    T = N + M + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (a = <span class="number">1</span>; a &lt;= N; a++)</span><br><span class="line">        Link[S][a] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (a = N + <span class="number">1</span>; a &lt; T; a++)</span><br><span class="line">        Link[a][T] = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//求最大流。</span></span><br><span class="line">    Pan = <span class="number">1</span>;</span><br><span class="line">    Ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (Pan) &#123;</span><br><span class="line">        <span class="built_in">memset</span>(Fa, <span class="number">0</span>, <span class="keyword">sizeof</span>(Fa));</span><br><span class="line">        <span class="built_in">memset</span>(Now, <span class="number">0</span>, <span class="keyword">sizeof</span>(Now));</span><br><span class="line">        <span class="keyword">for</span> (a = <span class="number">1</span>, Pan = <span class="number">0</span>; a &lt;= N; a++)</span><br><span class="line">            <span class="keyword">if</span> (Link[<span class="number">0</span>][a] &gt; <span class="number">0</span> &amp;&amp; Link[<span class="number">0</span>][a] &gt; Now[a]) &#123;</span><br><span class="line">                Fa[a] = <span class="number">0</span>;</span><br><span class="line">                Now[a] = Link[<span class="number">0</span>][a];</span><br><span class="line">                Find(a);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (Now[T] != <span class="number">0</span>) &#123;</span><br><span class="line">            Pan = <span class="number">1</span>;</span><br><span class="line">            Add = Now[T];</span><br><span class="line">            Set(T);</span><br><span class="line">            Ans += Add;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//输出结果。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, Ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/perfect-milk/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-usaco-drainage-ditches"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -914,99 +989,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/trip-to-the-main-campus/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-hatsune-miku"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/hatsune-miku/">用一根葱征服世界的少女——“初音未来”</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/hatsune-miku/" class="archive-article-date">
-  <time datetime="2009-11-03T13:11:00.000Z" itemprop="datePublished">
-    Published on 2009 / 11 / 03
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>看到初音未来的第一印象，好可爱！！！一个超萌的形象。</p>
-<p>百度百科：<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/1191949.htm">http://baike.baidu.com/view/1191949.htm</a></p>
-<p><img src="https://a.adcdn.cn/images/vocaloid-hatsune-miku.webp" alt="vocaloid-hatsune-miku"></p>
-<p>热遍秋叶原的初音未来是谁？ </p>
-<p>传说中的甩葱娘又是谁？ </p>
-<p>一切都很简单</p>
-<p>初音未来其实是CRYPTON以Yamaha的VOCALOID 2语音合成引擎为基础开发贩售的虚拟女性歌手软件系列。第一版“初音未来（初音ミク， 初音未来[2]）”于2007年8月31日发售，第二版预定同年12月推出，第三版则预定于2008年。开放价格，官方估计初音未来实际价格约￥15,750。</p>
-<p>软件使用了Yamaha的VOCALOID 2语音合成引擎，把人类的声音录音并合成为酷似真正的歌声。除了最基本的输入音调、歌词外，还可以调整音量、音速、声音的透明感、震音等，最多能够16人合唱，亦支援即时演奏。制作完成后会以WAV格式输出。相比2003年的VOCALOID，各种性能均有提升。</p>
-<p>初音未来（初音ミク， 初音未来）由插画家KEI以动漫风格设计人物及绘画，声优藤田笑提供原声，于2007年6月25日正式公开初音未来的造形，当时只有名字“ミク”，于同年7月12日发表其姓氏“初音”。“初音”是指“第一次的声音（初めての音， 第一次的声音）”、“出发点”、“最初的Vocaloid2”；“ミク”汉字写作“未来”，指“Vocaloid所象征的将来音乐之可能性”。官方声称初音未来擅长由80年代至最新的流行歌曲。</p>
-<p>初音未来的预订数目超出了制作人员的预期，而且是CRYPTON开创以来成绩最好的一次。推出数天后（2007年9月5日）即存货不足，截至同年9月12日，售卖数及预约数接近3000，对卖出1000套已算上大热的音乐软件来说，是个“不可能的销售数”。更有不少人以此软件“翻唱”歌曲并发放在NICONICO动画上而成为话题，特别是其中的一首“Ievan Polkka”。 </p>
-<p>初音未来设定  </p>
-<ul>
-<li>年龄：16岁  </li>
-<li>身高：158cm  </li>
-<li>体重：42kg  </li>
-<li>擅长的曲种：流行歌曲  </li>
-<li>擅长的节奏：70～150BPM（原设定为80～150）  </li>
-<li>擅长的音域：A3～E5（原设定为C3～E4）  </li>
-<li>衣服和机械部分以Yamaha于1983年发售的DX7为蓝本。</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/hatsune-miku/">展开全文 >></a>
         </p>
       
 
