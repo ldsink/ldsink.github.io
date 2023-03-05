@@ -299,6 +299,7 @@
 <p>编辑 <code>/etc/fstab</code>，增加如下内容</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span><br><span class="line">/dev/mapper/sda1 /mnt/sda1      btrfs   defaults        0       0</span><br></pre></td></tr></table></figure>
 
+<p>这样系统启动的时候就可以自动解密，然后再将解密后的入口挂载到 <code>/mnt/sda1</code>，任务完成。</p>
 
       
 
