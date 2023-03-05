@@ -201,6 +201,90 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-unified-social-credit-identifier"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/unified-social-credit-identifier/">统一社会信用代码</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/unified-social-credit-identifier/" class="archive-article-date">
+  <time datetime="2016-05-25T10:55:00.000Z" itemprop="datePublished">
+    Published on 2016 / 05 / 25
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是统一社会信用代码"><a href="#什么是统一社会信用代码" class="headerlink" title="什么是统一社会信用代码"></a>什么是统一社会信用代码</h3><p>很久很久以前，注册一家公司会有公司营业执照，上面会有营业执照注册号。公司赚钱了，要依法纳税，去税务局又会办理一个税务登记证，上面又有一个编号。<br>一个人只需要一个公民身份证号码就可以确定了，公司在不同的场合却需要多个证件编号。对企业而言，麻烦，办各种手续都不方便。对管理者而言，监管不便，管理成本高。</p>
+<p>我们都知道，统一的标准可以减少成本，提高效率。<code>GOV</code>作为某种意义上的特大企业，也明白这个道理，于是有了<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/15172871.htm">三证合一</a>，统一多个编号，使用唯一一个编号。</p>
+<p>企业编号决定统一使用一个标准，个人编号已经是一个标准，于是<code>GOV</code>再加了一把劲。怀着<code>为了更好的服务大众，构建信用社会</code>的目标，在现在的基础上，<code>GOV</code>倒腾出了<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E7%BB%9F%E4%B8%80%E7%A4%BE%E4%BC%9A%E4%BF%A1%E7%94%A8%E4%BB%A3%E7%A0%81%E5%88%B6%E5%BA%A6">统一社会信用代码制度</a>。</p>
+<p>这个企业的身份证号码就是<code>统一社会信用代码</code>，用于替换之前企业各个证件上的编号。和公民身份证号码一样，<code>统一社会信用代码</code>也是18位。</p>
+<h3 id="统一社会信用代码的用处"><a href="#统一社会信用代码的用处" class="headerlink" title="统一社会信用代码的用处"></a>统一社会信用代码的用处</h3><ul>
+<li>以前，业务上标识一家企业通过<code>公司名称</code>或者<code>营业执照注册号</code>，这些都不稳定。名称可以变，注册编号长度不确定。</li>
+<li>以后的新数据可以统一的通过<code>统一社会信用代码</code>标识，这个在稳定性和权威性上都好于以前。</li>
+</ul>
+<h3 id="统一社会信用代码编码规则"><a href="#统一社会信用代码编码规则" class="headerlink" title="统一社会信用代码编码规则"></a>统一社会信用代码编码规则</h3><p>工商总局在官网上发布了标准文件：<a target="_blank" rel="noopener" href="http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html">法人和其他组织统一社会信用代码编码规则</a>。和身份证编号类似，根据编码规则可以进行一下判断并获取有用的一些信息。我们在审核的时候，可以通过检测编号来判断公司的真假。</p>
+<p>下面是我用PHP实现的简单检测函数，<code>管理部门</code>、<code>机构类别</code>、<code>登记地区</code>这些信息还没有充分利用起来，只根据校验码检测。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法人和其他组织统一社会信用代码</span></span><br><span class="line"><span class="comment">// 编码规则：http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unifiedSocialCreditIdentifier</span>(<span class="params"><span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 统一代码由十八位的阿拉伯数字或者大写英文字母（不使用I、O、Z、S、V）组成</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="title function_ invoke__">is_string</span>(<span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="variable">$value</span> = <span class="title function_ invoke__">strtoupper</span>(<span class="variable">$value</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">strlen</span>(<span class="variable">$value</span>) !== <span class="number">18</span> || !<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^[\dA-HJ-NP-RT-UW-Y]&#123;18&#125;$/&#x27;</span>, <span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// todo 第1位：登记管理部门代码检查</span></span><br><span class="line">    <span class="comment">// todo 第2位：机构类别代码检查</span></span><br><span class="line">    <span class="comment">// todo 第3位～第8位：登记机关行政区划码检查</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="title function_ invoke__">is_numeric</span>(<span class="title function_ invoke__">substr</span>(<span class="variable">$value</span>, <span class="number">2</span>, <span class="number">6</span>))) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 简单检查，这部分一定是阿拉伯数字</span></span><br><span class="line">    <span class="comment">// todo 第9位～第17位：主体标识码检查</span></span><br><span class="line">    <span class="comment">// 第18位：检验码检查</span></span><br><span class="line">    $加权因子 = [</span><br><span class="line">        <span class="number">1</span> =&gt; <span class="number">1</span>, <span class="number">2</span> =&gt; <span class="number">3</span>, <span class="number">3</span> =&gt; <span class="number">9</span>, <span class="number">4</span> =&gt; <span class="number">27</span>, <span class="number">5</span> =&gt; <span class="number">19</span>, <span class="number">6</span> =&gt; <span class="number">26</span>, <span class="number">7</span> =&gt; <span class="number">16</span>, <span class="number">8</span> =&gt; <span class="number">17</span>, <span class="number">9</span> =&gt; <span class="number">20</span>,</span><br><span class="line">        <span class="number">10</span> =&gt; <span class="number">29</span>, <span class="number">11</span> =&gt; <span class="number">25</span>, <span class="number">12</span> =&gt; <span class="number">13</span>, <span class="number">13</span> =&gt; <span class="number">8</span>, <span class="number">14</span> =&gt; <span class="number">24</span>, <span class="number">15</span> =&gt; <span class="number">10</span>, <span class="number">16</span> =&gt; <span class="number">30</span>, <span class="number">17</span> =&gt; <span class="number">28</span></span><br><span class="line">    ];</span><br><span class="line">    $代码字符集 = [</span><br><span class="line">        <span class="number">0</span> =&gt; <span class="string">&#x27;0&#x27;</span>, <span class="number">1</span> =&gt; <span class="string">&#x27;1&#x27;</span>, <span class="number">2</span> =&gt; <span class="string">&#x27;2&#x27;</span>, <span class="number">3</span> =&gt; <span class="string">&#x27;3&#x27;</span>, <span class="number">4</span> =&gt; <span class="string">&#x27;4&#x27;</span>, <span class="number">5</span> =&gt; <span class="string">&#x27;5&#x27;</span>, <span class="number">6</span> =&gt; <span class="string">&#x27;6&#x27;</span>, <span class="number">7</span> =&gt; <span class="string">&#x27;7&#x27;</span>, <span class="number">8</span> =&gt; <span class="string">&#x27;8&#x27;</span>, <span class="number">9</span> =&gt; <span class="string">&#x27;9&#x27;</span>,</span><br><span class="line">        <span class="number">10</span> =&gt; <span class="string">&#x27;A&#x27;</span>, <span class="number">11</span> =&gt; <span class="string">&#x27;B&#x27;</span>, <span class="number">12</span> =&gt; <span class="string">&#x27;C&#x27;</span>, <span class="number">13</span> =&gt; <span class="string">&#x27;D&#x27;</span>, <span class="number">14</span> =&gt; <span class="string">&#x27;E&#x27;</span>, <span class="number">15</span> =&gt; <span class="string">&#x27;F&#x27;</span>, <span class="number">16</span> =&gt; <span class="string">&#x27;G&#x27;</span>, <span class="number">17</span> =&gt; <span class="string">&#x27;H&#x27;</span>, <span class="number">18</span> =&gt; <span class="string">&#x27;J&#x27;</span>, <span class="number">19</span> =&gt; <span class="string">&#x27;K&#x27;</span>,</span><br><span class="line">        <span class="number">20</span> =&gt; <span class="string">&#x27;L&#x27;</span>, <span class="number">21</span> =&gt; <span class="string">&#x27;M&#x27;</span>, <span class="number">22</span> =&gt; <span class="string">&#x27;N&#x27;</span>, <span class="number">23</span> =&gt; <span class="string">&#x27;P&#x27;</span>, <span class="number">24</span> =&gt; <span class="string">&#x27;Q&#x27;</span>, <span class="number">25</span> =&gt; <span class="string">&#x27;R&#x27;</span>, <span class="number">26</span> =&gt; <span class="string">&#x27;T&#x27;</span>, <span class="number">27</span> =&gt; <span class="string">&#x27;U&#x27;</span>, <span class="number">28</span> =&gt; <span class="string">&#x27;W&#x27;</span>, <span class="number">29</span> =&gt; <span class="string">&#x27;X&#x27;</span>, <span class="number">30</span> =&gt; <span class="string">&#x27;Y&#x27;</span></span><br><span class="line">    ];</span><br><span class="line">    $校验值 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">17</span>; <span class="variable">$i</span>++) &#123;</span><br><span class="line">        <span class="keyword">foreach</span> ($代码字符集 <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$value</span>[<span class="variable">$i</span>] === <span class="variable">$v</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $校验值 += <span class="variable">$k</span> * $加权因子[<span class="variable">$i</span> + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $校验值 = <span class="number">31</span> - ($校验值 % <span class="number">31</span>);</span><br><span class="line">    $校验值 = ($校验值 === <span class="number">31</span>) ? <span class="number">0</span> : $校验值; <span class="comment">// 校验值为 31 的时候，校验码使用 0 表示</span></span><br><span class="line">    <span class="keyword">return</span> $代码字符集[$校验值] === <span class="variable">$value</span>[<span class="number">17</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/unified-social-credit-identifier/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-ubuntu-16-04-lts-experience"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1072,90 +1156,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/set-up-an-open-vpn-server-on-ubuntu-14-04/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-disable-guest-session-in-ubuntu"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/disable-guest-session-in-ubuntu/">关闭Ubuntu系统中的访客账户</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/disable-guest-session-in-ubuntu/" class="archive-article-date">
-  <time datetime="2015-11-04T06:34:00.000Z" itemprop="datePublished">
-    Published on 2015 / 11 / 04
-  </time>
-  
-    <time datetime="2016-04-25T05:23:13.000Z" itemprop="dateUpdated">
-      , Updated on 2016 / 04 / 25
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>新装的<code>Ubuntu</code>发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o</p>
-<p>编辑<code>/etc/lightdm/lightdm.conf</code>文件，增加<code>allow-guest=false</code>即可。这个配置文件完整的内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-session=unity-greeter</span><br><span class="line">user-session=ubuntu</span><br><span class="line">allow-guest=false</span><br></pre></td></tr></table></figure>
-
-<p>Ubuntu 13.10 至 14.10, 这个配置文件移动到了<code>/etc/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
-<p>Ubuntu 14.10 或更高版本, 这个配置文件移动到了<code>/usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
-<p>更多的细节可以参考<code>AskUbuntu</code>上的相关问题：<br><a target="_blank" rel="noopener" href="http://askubuntu.com/questions/62564/how-do-i-disable-the-guest-session">How do I disable the guest session?</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/disable-guest-session-in-ubuntu/">展开全文 >></a>
         </p>
       
 

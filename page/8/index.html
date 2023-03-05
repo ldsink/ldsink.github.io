@@ -201,6 +201,92 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-upgrade_mongodb_from_2_to_3"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/upgrade_mongodb_from_2_to_3/">MongoDB从2.6升级到3.0</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/upgrade_mongodb_from_2_to_3/" class="archive-article-date">
+  <time datetime="2015-05-04T13:49:00.000Z" itemprop="datePublished">
+    Published on 2015 / 05 / 04
+  </time>
+  
+    <time datetime="2015-07-13T13:53:31.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 07 / 13
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个爬虫项目，数据存储使用的 MongoDB 2.6，按网站和月份划分数据库。每次到月末，存储性能就大幅下降，<code>mongostat</code>查看是锁操作花费太多的时间。</p>
+<p>MongoDB 2.6 默认的MMAP引擎只支持数据库锁，虽然做过一些优化，但是在我这实际用起来发现效果并不是很好。<br>想要降低锁操作的时间，要么减少数据库体积，要么就换引擎。前者需要拆分出更多的数据库，不方便管理，就只能在引擎上下手。</p>
+<p>MongoDB 3.0 自三月份正式发布已经快两个月，应该趋于稳定。3.0除了将默认的存储引擎MMAP升级到支持集合锁，更是带入了支持文档锁的WiredTiger引擎。本着试一试的想法，最近把MongoDB升级到了3.0，引擎切换到 WiredTiger，结果是在没做其他优化的情况下解决了爬虫存储性能下降的问题。：P</p>
+<ul>
+<li>升级的步骤可以参见<a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/">官方文档</a>。</li>
+<li>WiredTiger引擎还可以开启数据压缩，据说可以大幅降低空间占用，提升内存的效率。现在爬虫系统还没遇到新的瓶颈，就不做尝试了，之后可以在这个点上进行进一步的优化。</li>
+<li>3.0之后出的修复版本，更新内容很多都是修复WiredTiger引擎的问题的，希望 WT 引擎早日稳定。</li>
+<li>MMAP引擎和WiredTiger的数据文件不兼容，单库切换引擎需要将旧的数据使用<code>mongoexport</code>全部导出，在使用<code>mongoimport</code>重新导入。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/upgrade_mongodb_from_2_to_3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-deepin-2014-3-released"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -918,93 +1004,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/linux-terminal-shortcuts/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-find-a-linux-system-disk-space-before-the-10-largest-files-or-folders"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">查找 Linux 系统中的占用磁盘空间最大的前10个文件或文件夹</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/" class="archive-article-date">
-  <time datetime="2014-12-01T00:10:00.000Z" itemprop="datePublished">
-    Published on 2014 / 12 / 01
-  </time>
-  
-    <time datetime="2015-03-22T04:25:52.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 03 / 22
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>收到邮件警报，服务器硬盘使用率大于90%。需要快速找出占用硬盘空间大的文件或者文件夹。<br>一番搜索之后学习到可以使用三个组合命令快速找出:</p>
-<ul>
-<li>du : 计算出单个文件或者文件夹的磁盘空间占用。</li>
-<li>sort : 对文件行或者标准输出行记录排序后输出。</li>
-<li>head : 输出文件内容的前面部分。</li>
-</ul>
-<p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
-<blockquote>
-<p>du -hsx <strong>target_path&#x2F;*</strong> | sort -rh | head -10</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">展开全文 >></a>
         </p>
       
 

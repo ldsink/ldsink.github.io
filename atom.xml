@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2023-01-23T13:21:41.473Z</updated>
+  <updated>2023-03-05T11:41:07.913Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 系统创建加密磁盘并自动挂载</title>
+    <link href="https://ldsink.com/articles/how-to-create-crypt-disk-and-auto-mount/"/>
+    <id>https://ldsink.com/articles/how-to-create-crypt-disk-and-auto-mount/</id>
+    <published>2023-03-05T04:28:53.000Z</published>
+    <updated>2023-03-05T11:41:07.913Z</updated>
+    
+    <content type="html"><![CDATA[<p>现有一块移动硬盘通过 USB 接入小主机。目标：实现这个盘自动<strong>加密挂载</strong>到 Ubuntu，供其他服务使用。</p><h2 id="创建磁盘分区和格式化"><a href="#创建磁盘分区和格式化" class="headerlink" title="创建磁盘分区和格式化"></a>创建磁盘分区和格式化</h2><p>工具有 <code>fdisk</code> 和 <code>parted</code>，以往主要用 <code>fdisk</code>，所以这次用 <code>parted</code>，同时也尝试一下新的文件系统。</p><p>首先确定磁盘的信息。</p><blockquote><p>parted -l</p></blockquote><p>可以看到如下内容</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Model: WD My Passport 0748 (scsi)</span><br><span class="line">Disk /dev/sda: 2000GB</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br></pre></td></tr></table></figure><p><code>/dev/sda</code> 这个设备就是我们的移动硬盘了。使用 <code>parted</code> 选择这个磁盘，开始操作。</p><blockquote><p>parted &#x2F;dev&#x2F;sda</p></blockquote><p>全新使用，磁盘上没有数据，可以随意修改。因为容量比较大，使用新的分区表类型，调整磁盘分区表到 <code>gpt</code>。</p><blockquote><p>(parted) mklabel gpt</p></blockquote><p>个人习惯把整个磁盘作为一个分区。</p><blockquote><p>(parted) mkpart primary 0% 100%</p></blockquote><p><code>parted</code> 的操作就完成了。退出前可以用如下命令检查效果。</p><blockquote><p>(parted) print</p></blockquote><p>这样就建立好了磁盘分区。</p><h2 id="磁盘加密并自动挂载"><a href="#磁盘加密并自动挂载" class="headerlink" title="磁盘加密并自动挂载"></a>磁盘加密并自动挂载</h2><p>加密部分主要参考<a href="https://hack1ng4fun.github.io/2019/11/18/Linux%E3%80%8C%E7%A3%81%E7%9B%98%E5%8A%A0%E5%AF%86%E3%80%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/">Linux「磁盘加密」完全指南</a>，依赖系统软件 <a href="https://man7.org/linux/man-pages/man8/cryptsetup.8.html">cryptsetup</a>。</p><p>操作系统启动时候涉及磁盘挂载的顺序为：</p><ol><li>前置加载</li><li>基于 <code>/etc/crypttab</code> 解密被加密的设备</li><li>基于 <code>/etc/fstab</code> 挂载磁盘到目录</li><li>后续加载</li></ol><p>所以要实现自动挂载加密盘的思路就是：</p><ol><li>在 <code>/etc/crypttab</code> 自动解密加密磁盘</li><li>在 <code>/etc/fstab</code> 自动挂载解密盘</li></ol><p>查找资料过程中发现前几年 Linux 创建加密盘还比较麻烦，好在现在有 <a href="https://man7.org/linux/man-pages/man8/cryptsetup.8.html">cryptsetup</a>，方便简单了很多。确定思路就开始做。</p><h3 id="创建加密密钥"><a href="#创建加密密钥" class="headerlink" title="创建加密密钥"></a>创建加密密钥</h3><p>用密码不太友好，短了不安全，长了记忆成本高。使用密钥文件来进行加密解密，再妥善管理备份密钥文件。</p><p>通过 <code>dd</code> 命令使用随机数生成一个 4KB 的密钥文件，保存到 <code>/etc</code> 目录下：</p><blockquote><p>dd if&#x3D;&#x2F;dev&#x2F;urandom of&#x3D;&#x2F;etc&#x2F;cryptfs.key bs&#x3D;1k count&#x3D;4</p></blockquote><h3 id="创建加密磁盘"><a href="#创建加密磁盘" class="headerlink" title="创建加密磁盘"></a>创建加密磁盘</h3><p>使用这个密钥，加密磁盘：</p><blockquote><p>cryptsetup luksFormat &#x2F;dev&#x2F;sda1 &#x2F;etc&#x2F;cryptfs.key</p></blockquote><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WARNING!</span><br><span class="line">========</span><br><span class="line">This will overwrite data on /dev/sda1 irrevocably.</span><br><span class="line"></span><br><span class="line">Are you sure? (Type &#x27;yes&#x27; in capital letters):</span><br></pre></td></tr></table></figure><p>根据提示输入大写的 <code>YES</code> 确认操作。这里是空磁盘，创建非常快。创建完成之后，可以使用 <code>cryptsetup open</code> 打开加密磁盘，解密的设备位于 <code>/dev/mapper</code> 目录下。</p><blockquote><p>cryptsetup open –key-file&#x3D;&#x2F;etc&#x2F;cryptfs.key &#x2F;dev&#x2F;sda1 sda1</p></blockquote><h3 id="格式化加密分区"><a href="#格式化加密分区" class="headerlink" title="格式化加密分区"></a>格式化加密分区</h3><p>现在加密分区就被挂载到了 <code>/dev/mapper/sda1</code>，使用 <code>mkfs</code> 格式化分区，通过补全发现 Ubuntu 现在支持的分区如下：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkfs         mkfs.btrfs   mkfs.ext2    mkfs.ext4    mkfs.minix   mkfs.ntfs    mkfs.xfs</span><br><span class="line">mkfs.bfs     mkfs.cramfs  mkfs.ext3    mkfs.fat     mkfs.msdos   mkfs.vfat</span><br></pre></td></tr></table></figure><p>平时使用 <code>ext4</code>，这次尝试以下 <code>btrfs</code>。直接使用对应文件系统的命令，需要磁盘分区地址作为参数：</p><blockquote><p>mkfs.btrfs &#x2F;dev&#x2F;mapper&#x2F;sda1</p></blockquote><h3 id="自动解密并挂载"><a href="#自动解密并挂载" class="headerlink" title="自动解密并挂载"></a>自动解密并挂载</h3><p>下面配置启动时候的默认解密，编辑 <code>/etc/crypttab</code>，增加如下内容</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;target name&gt; &lt;source device&gt;         &lt;key file&gt;      &lt;options&gt;</span><br><span class="line">sda1            /dev/sda1               /etc/cryptfs.key</span><br></pre></td></tr></table></figure><p><code>&lt;target name&gt;</code>的部分，会作为 <code>/dev/mapper</code> 目录下映射出来的设备名称。设置完解密部分后，再将解密设备进行挂载。</p><p>编辑 <code>/etc/fstab</code>，增加如下内容</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span><br><span class="line">/dev/mapper/sda1 /mnt/sda1      btrfs   defaults        0       0</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;现有一块移动硬盘通过 USB 接入小主机。目标：实现这个盘自动&lt;strong&gt;加密挂载&lt;/strong&gt;到 Ubuntu，供其他服务使用。&lt;/p&gt;
+&lt;h2 id=&quot;创建磁盘分区和格式化&quot;&gt;&lt;a href=&quot;#创建磁盘分区和格式化&quot; class=&quot;headerlink&quot; ti</summary>
+      
+    
+    
+    
+    
+    <category term="how-to" scheme="https://ldsink.com/tags/how-to/"/>
+    
+  </entry>
   
   <entry>
     <title>2022 总结和 2023 展望</title>
@@ -437,28 +460,6 @@
     
     
     <category term="linux" scheme="https://ldsink.com/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python 编码风格指南</title>
-    <link href="https://ldsink.com/articles/python-style-guide/"/>
-    <id>https://ldsink.com/articles/python-style-guide/</id>
-    <published>2019-10-23T08:36:09.000Z</published>
-    <updated>2022-05-29T06:23:31.914Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="总则"><a href="#总则" class="headerlink" title="总则"></a>总则</h1><p>除非项目有自己的约定，默认应该遵循 <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> 和 <a href="https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/">Google Python 风格指南</a> 的要求。在开始编写代码前，请阅读并了解这两个文档。</p><h1 id="项目约定"><a href="#项目约定" class="headerlink" title="项目约定"></a>项目约定</h1><h2 id="代码布局"><a href="#代码布局" class="headerlink" title="代码布局"></a>代码布局</h2><h3 id="风格"><a href="#风格" class="headerlink" title="风格"></a>风格</h3><ul><li><code>list</code>，<code>tuple</code>，<code>dict</code> 多行定义的时候，每行结尾增加<code>,</code>，用于减少 <code>git diff</code> 时候的变动。</li></ul><h3 id="行长度"><a href="#行长度" class="headerlink" title="行长度"></a>行长度</h3><p>最大行长度180，推荐不超过120。</p><p>推荐在 PyCharm 内设置 <a href="https://www.jetbrains.com/help/pycharm/code-style-python.html#wrapping_and_braces">Wrapping and braces</a>，<code>Visual guides</code>设置为 <code>120, 180</code>。</p><h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h3><p><strong>使用 <code>format</code> 函数进行格式化</strong>，不使用 <code>%</code> 的方式。</p><h3 id="导入格式"><a href="#导入格式" class="headerlink" title="导入格式"></a>导入格式</h3><p>导入超过一行的情况下，使用括号包住引入模块。左括号后直接换行，右括号前不加内容。如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> package_name <span class="keyword">import</span> (</span><br><span class="line">    module_1, module_2, module_3, module_4, module_5</span><br><span class="line">)</span><br></pre></td></tr></table></figure><h3 id="嵌套函数（Nested-function）"><a href="#嵌套函数（Nested-function）" class="headerlink" title="嵌套函数（Nested function）"></a>嵌套函数（Nested function）</h3><ul><li>嵌套函数声明在使用的代码之前的地方</li><li>嵌套函数必须以<code>_</code>前缀开头</li></ul><h3 id="函数命名"><a href="#函数命名" class="headerlink" title="函数命名"></a>函数命名</h3><ul><li>判断检查类型逻辑的函数以 <code>is_</code> 或 <code>has_</code> 前缀开头，返回值应该是 <code>bool</code> 类型</li><li>验证校验类型逻辑的函数以 <code>check_</code> 或 <code>validate_</code> 前缀开头，返回值可以包括相关的对象</li><li>进行操作的函数应该以动词开头，如 <code>set_</code>、<code>get_</code>、<code>process_</code>、<code>enable_</code>、<code>disable_</code> 等</li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;总则&quot;&gt;&lt;a href=&quot;#总则&quot; class=&quot;headerlink&quot; title=&quot;总则&quot;&gt;&lt;/a&gt;总则&lt;/h1&gt;&lt;p&gt;除非项目有自己的约定，默认应该遵循 &lt;a href=&quot;https://www.python.org/dev/peps/pep-0008/&quot;&gt;</summary>
-      
-    
-    
-    
-    
-    <category term="python" scheme="https://ldsink.com/tags/python/"/>
     
   </entry>
   

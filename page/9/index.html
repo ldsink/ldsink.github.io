@@ -201,6 +201,93 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-find-a-linux-system-disk-space-before-the-10-largest-files-or-folders"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">查找 Linux 系统中的占用磁盘空间最大的前10个文件或文件夹</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/" class="archive-article-date">
+  <time datetime="2014-12-01T00:10:00.000Z" itemprop="datePublished">
+    Published on 2014 / 12 / 01
+  </time>
+  
+    <time datetime="2015-03-22T04:25:52.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 03 / 22
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>收到邮件警报，服务器硬盘使用率大于90%。需要快速找出占用硬盘空间大的文件或者文件夹。<br>一番搜索之后学习到可以使用三个组合命令快速找出:</p>
+<ul>
+<li>du : 计算出单个文件或者文件夹的磁盘空间占用。</li>
+<li>sort : 对文件行或者标准输出行记录排序后输出。</li>
+<li>head : 输出文件内容的前面部分。</li>
+</ul>
+<p>用下面的命令组合就可以查找<code>target_path</code>中占用磁盘空间最大的前10个文件或文件夹：</p>
+<blockquote>
+<p>du -hsx <strong>target_path&#x2F;*</strong> | sort -rh | head -10</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/find-a-linux-system-disk-space-before-the-10-largest-files-or-folders/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-database-isolation-review"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1020,132 +1107,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/pages/about/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-python3-use-polarssl-replace-pydes-realize-3des-encryption"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/">Python3中使用PolarSSL替换pyDes实现3DES加密</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/" class="archive-article-date">
-  <time datetime="2014-07-18T04:05:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 18
-  </time>
-  
-    <time datetime="2014-10-12T04:13:56.000Z" itemprop="dateUpdated">
-      , Updated on 2014 / 10 / 12
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>pyDES是纯的python DES加密算法实现。系统目前使用PyDES的3DES加密算法，但是性能低下，已成为系统目前的瓶颈，为提高性能，考虑换用C语言实现。</p>
-<p>Google C语言的DES实现，PolarSSL排在前面，这是纯C的实现，决定采用。</p>
-<h1 id="编译PolarSSL"><a href="#编译PolarSSL" class="headerlink" title="编译PolarSSL"></a>编译PolarSSL</h1><p>首先在<a target="_blank" rel="noopener" href="https://polarssl.org/">PolarSSL</a>的网站下载最新的源代码，解压。使用默认的配置文件编译出的结果是静态链接库（.a 文件），我用这个静态库在Python那边的C语言文件编译会失败，所以得编译成动态链接库（.so 文件）。如下修改配置文件：</p>
-<ol>
-<li>打开PolarSSL的 library&#x2F;Makefile 文件。</li>
-<li>在文件头添加 SHARED &#x3D; -shared。</li>
-</ol>
-<p>然后在PolarSSL目录打开终端，执行</p>
-<blockquote>
-<p>make all</p>
-</blockquote>
-<p>等待编译完成之后执行安装</p>
-<blockquote>
-<p>sudo make install</p>
-</blockquote>
-<p>执行完上条命令之后我们可以看一下效果</p>
-<blockquote>
-<p>ls &#x2F;usr&#x2F;local&#x2F;lib&#x2F;<br>ls &#x2F;usr&#x2F;local&#x2F;include&#x2F;</p>
-</blockquote>
-<p>刚才编译好的文件都在以上目录存在了，这里需要注意，so文件只在 &#x2F;usr&#x2F;local&#x2F;lib 目录下还是不够的，程序运行时会提示缺失，得复制到 &#x2F;usr&#x2F;lib 下。</p>
-<blockquote>
-<p>sudo cp &#x2F;usr&#x2F;local&#x2F;lib&#x2F;libpolarssl.so.7 &#x2F;usr&#x2F;lib&#x2F;</p>
-</blockquote>
-<h1 id="配置Python"><a href="#配置Python" class="headerlink" title="配置Python"></a>配置Python</h1><p>按照我之前写的<a href="https://ldsink.com/articles/extending-python3-with-c/">探究：使用C语言扩展Python3</a>写好接口的C文件，源代码如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  Author : Zhou Cheng (Sink)</span></span><br><span class="line"><span class="comment">  Date   : July 17, 2014</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Python.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;polarssl/des.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// My C function</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">tdes_encrypt</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *key_in, <span class="type">const</span> <span class="type">char</span> *data, <span class="type">char</span> *dest, <span class="type">const</span> <span class="type">int</span> byte_len)</span> &#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> KEY_SIZE = <span class="number">24</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> CHUNK_SIZE = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span> key[KEY_SIZE];</span><br><span class="line">    <span class="built_in">memset</span>(key, <span class="number">0</span>, KEY_SIZE);</span><br><span class="line">    <span class="type">int</span> len  = (<span class="type">int</span>)<span class="built_in">strlen</span>(key_in);</span><br><span class="line">    <span class="keyword">if</span> (len &gt; KEY_SIZE)</span><br><span class="line">        len = KEY_SIZE;</span><br><span class="line">    <span class="built_in">memcpy</span>(key, key_in, len);</span><br><span class="line"></span><br><span class="line">    des3_context ctx;</span><br><span class="line">    des3_set3key_enc(&amp;ctx, (<span class="type">unsigned</span> <span class="type">char</span> *)key);</span><br><span class="line">    <span class="type">int</span> i, j, k;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, j = byte_len / CHUNK_SIZE, k = <span class="number">0</span>; i &lt; j; i ++, k += CHUNK_SIZE)  &#123;</span><br><span class="line">        des3_crypt_ecb(&amp;ctx, (<span class="type">unsigned</span> <span class="type">char</span> *)(data + k), (<span class="type">unsigned</span> <span class="type">char</span> *)(dest + k));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// python extending with c function</span></span><br><span class="line"><span class="type">static</span> PyObject *</span><br><span class="line"><span class="title function_">triple_des_encrypt</span><span class="params">(PyObject *self, PyObject *args)</span> &#123;</span><br><span class="line">    <span class="type">char</span> *key;</span><br><span class="line">    <span class="type">char</span> *data;</span><br><span class="line">    <span class="keyword">if</span> (!PyArg_ParseTuple(args, <span class="string">&quot;ss&quot;</span>, &amp;key, &amp;data)) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> cur_len, new_len;</span><br><span class="line">    <span class="type">int</span> i, j;</span><br><span class="line">    i = <span class="built_in">strlen</span>(data);</span><br><span class="line">    j = i / <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">if</span> (i % <span class="number">8</span>)</span><br><span class="line">        j ++;</span><br><span class="line">    cur_len = i;</span><br><span class="line">    new_len = j * <span class="number">8</span>;</span><br><span class="line">    <span class="type">char</span> *input = (<span class="type">char</span> *)<span class="built_in">malloc</span>(new_len);</span><br><span class="line">    <span class="type">char</span> *output = (<span class="type">char</span> *)<span class="built_in">malloc</span>(new_len);</span><br><span class="line">    <span class="built_in">memset</span>(input, <span class="string">&#x27;\0&#x27;</span>, new_len);</span><br><span class="line">    <span class="built_in">memset</span>(output, <span class="string">&#x27;\0&#x27;</span>, new_len);</span><br><span class="line">    <span class="built_in">memcpy</span>(input, data, cur_len);</span><br><span class="line">    tdes_encrypt(key, input, output, new_len);</span><br><span class="line"></span><br><span class="line">    PyObject *result = Py_BuildValue(<span class="string">&quot;y#&quot;</span>, output, new_len);</span><br><span class="line">    <span class="built_in">free</span>(input);</span><br><span class="line">    <span class="built_in">free</span>(output);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// method table</span></span><br><span class="line"><span class="type">static</span> PyMethodDef DemoMethods[] = &#123;</span><br><span class="line">    &#123;<span class="string">&quot;tdes_encrypt&quot;</span>, triple_des_encrypt, METH_VARARGS, <span class="literal">NULL</span>&#125;,</span><br><span class="line">    &#123;<span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>&#125;        <span class="comment">/* Sentinel */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The method table must be referenced in the module definition structure.</span></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">PyModuleDef</span> <span class="title">demomodule</span> =</span> &#123;</span><br><span class="line">    PyModuleDef_HEAD_INIT,</span><br><span class="line">    <span class="string">&quot;demo&quot;</span>,   <span class="comment">/* name of module */</span></span><br><span class="line">    <span class="literal">NULL</span>, <span class="comment">/* module documentation, may be NULL */</span></span><br><span class="line">    <span class="number">-1</span>,       <span class="comment">/* size of per-interpreter state of the module,</span></span><br><span class="line"><span class="comment">                or -1 if the module keeps state in global variables. */</span></span><br><span class="line">    DemoMethods</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The initialization function must be named PyInit_name()</span></span><br><span class="line">PyMODINIT_FUNC</span><br><span class="line"><span class="title function_">PyInit_demo</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> PyModule_Create(&amp;demomodule);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里用到了PolarSSL库里面的函数，加密字符串不足8byte的整数倍补0,加密密钥不足24位同样。</p>
-<p>接下来配置编译文件 setup.py，在需要添加的库中包含 PolarSSL，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup, Extension</span><br><span class="line"></span><br><span class="line">module1 = Extension(<span class="string">&#x27;demo&#x27;</span>,</span><br><span class="line">    libraries = [<span class="string">&#x27;polarssl&#x27;</span>],</span><br><span class="line">    sources = [<span class="string">&#x27;demo.c&#x27;</span>])</span><br><span class="line"></span><br><span class="line">setup (name = <span class="string">&#x27;3DES&#x27;</span>,</span><br><span class="line">    version = <span class="string">&#x27;1.0&#x27;</span>,</span><br><span class="line">    description = <span class="string">&#x27;This is a demo package by Sink&#x27;</span>,</span><br><span class="line">    ext_modules = [module1])</span><br></pre></td></tr></table></figure>
-
-<p>编译</p>
-<blockquote>
-<p>python3 setup.py build</p>
-</blockquote>
-<p>编译出的 so 文件就可以被调用了。</p>
-<h1 id="性能对比"><a href="#性能对比" class="headerlink" title="性能对比"></a>性能对比</h1><p>Python随机生成1000条data和key，保证正确的情况下分别调用两个函数测试性能。C语言只要0.02秒，Python则花了182秒，性能差距巨大。测试代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pyDes</span><br><span class="line"><span class="keyword">import</span> demo</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> Random</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">random_str</span>(<span class="params">randomlength=<span class="number">8</span></span>):</span><br><span class="line">    <span class="built_in">str</span> = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    chars = <span class="string">&#x27;AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789!@#$%^&amp;*()_+&#x27;</span></span><br><span class="line">    length = <span class="built_in">len</span>(chars) - <span class="number">1</span></span><br><span class="line">    random = Random()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(randomlength):</span><br><span class="line">        <span class="built_in">str</span>+=chars[random.randint(<span class="number">0</span>, length)]</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">des_encrypt_test</span>(<span class="params">key, data</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;3des encrypt&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(key, <span class="built_in">str</span>):</span><br><span class="line">        key = key.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(data, <span class="built_in">str</span>):</span><br><span class="line">        data = data.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(key) &lt; <span class="number">24</span>:</span><br><span class="line">        key += (<span class="number">24</span> - <span class="built_in">len</span>(key)) * <span class="string">b&quot;\0&quot;</span></span><br><span class="line">    k = pyDes.triple_des(key, pyDes.ECB, pad=<span class="string">b&quot;\0&quot;</span>)</span><br><span class="line">    d = k.encrypt(data)</span><br><span class="line">    <span class="comment"># print(&quot;Encrypted:%r&quot; % binascii.hexlify(d))</span></span><br><span class="line">    <span class="comment"># print(&quot;Decrypted:%r&quot; % binascii.hexlify(k.decrypt(d)))</span></span><br><span class="line">    <span class="comment"># print(&quot;pre str      :%r&quot; % k.decrypt(d).decode(&quot;utf-8&quot;))</span></span><br><span class="line">    <span class="keyword">return</span> d</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    data = []</span><br><span class="line">    key = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># data init</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">        data.append(random_str(x))</span><br><span class="line">        key.append(random_str(<span class="number">16</span> + (x % <span class="number">9</span>)))</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Correct</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        p = des_encrypt_test(key[x], data[x])</span><br><span class="line">        c = demo.tdes_encrypt(key[x], data[x])</span><br><span class="line">        <span class="keyword">if</span> (p != c):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Error\n&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(key[x])</span><br><span class="line">            <span class="built_in">print</span>(data[x])</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Performance</span></span><br><span class="line">    st = time.time()</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        des_encrypt_test(key[x], data[x])</span><br><span class="line">    et = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; P Time taken:  &#123;0&#125; seconds.&quot;</span>.<span class="built_in">format</span>(et - st))</span><br><span class="line">    st = time.time()</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">999</span>):</span><br><span class="line">        demo.tdes_encrypt(key[x], data[x])</span><br><span class="line">    et = time.time()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; C Time taken:  &#123;0&#125; seconds.&quot;</span>.<span class="built_in">format</span>(et - st))</span><br><span class="line"> <span class="comment"># P Time taken:  181.95579504966736 seconds.</span></span><br><span class="line"> <span class="comment"># C Time taken:  0.027108192443847656 seconds.</span></span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">python</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/python3-use-polarssl-replace-pydes-realize-3des-encryption/">展开全文 >></a>
         </p>
       
 

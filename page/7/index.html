@@ -201,6 +201,90 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-disable-guest-session-in-ubuntu"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/disable-guest-session-in-ubuntu/">关闭Ubuntu系统中的访客账户</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/disable-guest-session-in-ubuntu/" class="archive-article-date">
+  <time datetime="2015-11-04T06:34:00.000Z" itemprop="datePublished">
+    Published on 2015 / 11 / 04
+  </time>
+  
+    <time datetime="2016-04-25T05:23:13.000Z" itemprop="dateUpdated">
+      , Updated on 2016 / 04 / 25
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>新装的<code>Ubuntu</code>发现默认会允许访客登陆，在设置中寻找一番之后没有找到关闭的方法。Google得知得改配置文件o(╯□╰)o</p>
+<p>编辑<code>/etc/lightdm/lightdm.conf</code>文件，增加<code>allow-guest=false</code>即可。这个配置文件完整的内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[SeatDefaults]</span><br><span class="line">greeter-session=unity-greeter</span><br><span class="line">user-session=ubuntu</span><br><span class="line">allow-guest=false</span><br></pre></td></tr></table></figure>
+
+<p>Ubuntu 13.10 至 14.10, 这个配置文件移动到了<code>/etc/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
+<p>Ubuntu 14.10 或更高版本, 这个配置文件移动到了<code>/usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code></p>
+<p>更多的细节可以参考<code>AskUbuntu</code>上的相关问题：<br><a target="_blank" rel="noopener" href="http://askubuntu.com/questions/62564/how-do-i-disable-the-guest-session">How do I disable the guest session?</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/disable-guest-session-in-ubuntu/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-install-zsh-on-ubuntu"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1264,92 +1348,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/usage-of-digital-fingerprint/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-upgrade_mongodb_from_2_to_3"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/upgrade_mongodb_from_2_to_3/">MongoDB从2.6升级到3.0</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/upgrade_mongodb_from_2_to_3/" class="archive-article-date">
-  <time datetime="2015-05-04T13:49:00.000Z" itemprop="datePublished">
-    Published on 2015 / 05 / 04
-  </time>
-  
-    <time datetime="2015-07-13T13:53:31.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 07 / 13
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一个爬虫项目，数据存储使用的 MongoDB 2.6，按网站和月份划分数据库。每次到月末，存储性能就大幅下降，<code>mongostat</code>查看是锁操作花费太多的时间。</p>
-<p>MongoDB 2.6 默认的MMAP引擎只支持数据库锁，虽然做过一些优化，但是在我这实际用起来发现效果并不是很好。<br>想要降低锁操作的时间，要么减少数据库体积，要么就换引擎。前者需要拆分出更多的数据库，不方便管理，就只能在引擎上下手。</p>
-<p>MongoDB 3.0 自三月份正式发布已经快两个月，应该趋于稳定。3.0除了将默认的存储引擎MMAP升级到支持集合锁，更是带入了支持文档锁的WiredTiger引擎。本着试一试的想法，最近把MongoDB升级到了3.0，引擎切换到 WiredTiger，结果是在没做其他优化的情况下解决了爬虫存储性能下降的问题。：P</p>
-<ul>
-<li>升级的步骤可以参见<a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/">官方文档</a>。</li>
-<li>WiredTiger引擎还可以开启数据压缩，据说可以大幅降低空间占用，提升内存的效率。现在爬虫系统还没遇到新的瓶颈，就不做尝试了，之后可以在这个点上进行进一步的优化。</li>
-<li>3.0之后出的修复版本，更新内容很多都是修复WiredTiger引擎的问题的，希望 WT 引擎早日稳定。</li>
-<li>MMAP引擎和WiredTiger的数据文件不兼容，单库切换引擎需要将旧的数据使用<code>mongoexport</code>全部导出，在使用<code>mongoimport</code>重新导入。</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/upgrade_mongodb_from_2_to_3/">展开全文 >></a>
         </p>
       
 

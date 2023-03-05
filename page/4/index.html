@@ -201,6 +201,134 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-become-stable-dns-server"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/become-stable-dns-server/">稳定吧，DNS服务器</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/become-stable-dns-server/" class="archive-article-date">
+  <time datetime="2018-12-15T06:45:06.000Z" itemprop="datePublished">
+    Published on 2018 / 12 / 15
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://a.adcdn.cn/images/1.1.1.1.webp" alt="1.1.1.1"></p>
+<blockquote>
+<p>不久以前，是直接修改<code>/etc/resolv.conf</code>文件来修改DNS服务器配置的。</p>
+</blockquote>
+<h3 id="起"><a href="#起" class="headerlink" title="起"></a>起</h3><p>接到云服务器商的电话推销，在HK区新释放了一批自建路线的IP资源，更好更快更强，可以申请用来替换现有IP资源。鄙人应和之后，丢在一边。<br>隔两日，又接到电话通知，这次直言旧IP需要升级维护，吧啦吧啦一通之后，我明白了一个事实：旧的IP在15号之前需要更换，不然可能就无法使用了。</p>
+<p>在两通负责任的电话通知（实际上是谈心）之后。我明白了一定得进行操作，不能偷懒了。<br>旧的服务器使用的IP已平平安安用了两年，账户余额已经不多，还是Ubuntu上个LTS的<code>xenial</code>系统。<br>既然操作无可避免，那么不如去新的区域整一个新的系统，体验新的<code>bionic</code>（其实这把申请一个新的动态IP，绑定资源，释放旧的IP，这个简单的操作变复杂了）。</p>
+<p>于是乎，我开始了新的系统体验。</p>
+<h3 id="承"><a href="#承" class="headerlink" title="承"></a>承</h3><p>感谢平时用<code>ansible</code>脚本化部署的好习惯。简单的点击加上命令行，新机器很快就创建出来。<br>服务器在香港的主要原因是为了必须的科学上网，SS服务是必不可少的。<br>新环境，特意用了Go版本的，替换之前一直使用的Python原版的server端。<br>部署好了该有的服务，连接成功。一番测试，延迟低，网速快，一切是那么的美好。</p>
+<h3 id="转"><a href="#转" class="headerlink" title="转"></a>转</h3><p>时不时的，某G开头的搜索引擎会无法使用，但是过一会儿又会变好。<br>家里网络环境最近也是不太稳定，没有在意。<br>在又一次连接失败之后，我看了下浏览器提示的错误信息，发现问题了。</p>
+<p><strong>“SSL证书不匹配“</strong></p>
+<p><img src="https://a.adcdn.cn/images/black_question_mark.webp" alt="问号"></p>
+<p>访问某G网站，返回的某F网站的SSL证书。根据当前的IP地址反查，的确此IP对应的是某F网站。</p>
+<p>所以去G家的请求，为什么会拿到F家的证书？为什么时好时坏？脑中闪过了<code>600</code>这个数字，<strong>DNS服务器有污染</strong>。</p>
+<p>主机位于祖国香港，理论上应该不会走国内的DNS服务器。但是现在事实上DNS有概率被污染，事实胜于雄辩，强制使用不受污染的DNS Server应该能解决问题。</p>
+<p>Python版的SS服务支持设置<code>dns_server</code>参数指定服务器，很遗憾我现在用了Go版本的。查看了一下<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-go/">项目代码</a>，好像并不支持在参数里面设置DNS服务器。转而考虑设置系统的DNS服务。</p>
+<blockquote>
+<p> 不久以前，是直接修改<code>/etc/resolv.conf</code>文件来修改DNS服务器配置的。</p>
+</blockquote>
+<p>打开<code>/etc/resolv.conf</code>，按照经验，两行<code>nameserver</code>就能解决问题。但迎接我的是</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This file is managed by man:systemd-resolved(8). Do not edit.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This is a dynamic resolv.conf file for connecting local clients to the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">internal DNS stub resolver of systemd-resolved. This file lists all</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">configured search domains.</span></span><br></pre></td></tr></table></figure>
+
+<p><code>/etc/resolv.conf</code>实际上软链到了<code>/run/systemd/resolve/stub-resolv.conf</code>。</p>
+<p>这意味着直接修改的话，重启估计就没了。<code>systemd-resolved(8)</code>又是什么东西？</p>
+<p>Google 一下，按顺序追踪：</p>
+<ol>
+<li><code>archlinux</code>的资料 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Systemd-resolved">https://wiki.archlinux.org/index.php/Systemd-resolved</a></li>
+<li>阅读1，来到了 <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/core/systemd/systemd-resolved.8.en">https://jlk.fjfi.cvut.cz/arch/manpages/man/core/systemd/systemd-resolved.8.en</a> 。其中有描述：<br>See <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5.en">resolved.conf(5)</a> and <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5.en">systemd.network(5)</a> for details about systemd’s own configuration files for DNS servers.</li>
+<li>阅读2，来到了 <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5.en">https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5.en</a></li>
+<li>阅读3，基本看懂了现在的 <code>systemd-resolved</code>该怎么配置。</li>
+<li><code>vim /etc/systemd/resolved.conf</code>，在<code>[Resolve]</code>块，设置<code>DNS=8.8.8.8 8.8.4.4</code>。</li>
+<li>重启服务，<code>sudo service systemd-resolved restart</code></li>
+</ol>
+<h3 id="合"><a href="#合" class="headerlink" title="合"></a>合</h3><p>执行<code>systemd-resolve --status</code>，可以看到现在的配置，已经更新成<code>8.8.8.8</code>这个全球稳定的服务。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Global</span><br><span class="line">         DNS Servers: 8.8.8.8</span><br><span class="line">                      8.8.4.4</span><br></pre></td></tr></table></figure>
+
+<p>意外看到了以前的DNS Server 列表。其中包含有国内的<code>114.114.114.114</code>，这个对于某G的IP肯定是被污染的。</p>
+<p>以前看到某些网络攻击，是污染DNS指向攻击目标，形成DDOS。现在和平年代，干起了G和F互换的骚操作。佩服佩服。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cloudflare.com/">Cloudflare</a> 旗下的<code>1.1.1.1</code>号称比<code>8.8.8.8</code>更快，以后可以尝试。多一个可用的选择，厂商存在着竞争，总归是一件好事情。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">ubuntu</a>
+        </li>
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color4">dns</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/become-stable-dns-server/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-how-to-change-the-bulb-scientifically"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1216,149 +1344,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/nginx-with-certbot/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-python3-upgrade-notes"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/python3-upgrade-notes/">Python3 升级注意事项</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/python3-upgrade-notes/" class="archive-article-date">
-  <time datetime="2017-08-02T07:28:20.000Z" itemprop="datePublished">
-    Published on 2017 / 08 / 02
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>面向开发同事的分享。</strong><br><strong>整个迁移过程可以看<a target="_blank" rel="noopener" href="http://www.liriansu.com/py2-to-py3">这里</a>。</strong></p>
-<h1 id="开发-x2F-服务器环境"><a href="#开发-x2F-服务器环境" class="headerlink" title="开发&#x2F;服务器环境"></a>开发&#x2F;服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
-<ul>
-<li>新建 Python3 环境的 virtualenv，并且安装 requirements.txt</li>
-</ul>
-<blockquote>
-<p>virtualenv -p &#x2F;usr&#x2F;bin&#x2F;python3 &lt;path&#x2F;to&#x2F;virtualenv&gt;</p>
-</blockquote>
-<ul>
-<li><p>PyCharm 设置新的虚拟环境，设置 Python3.5 的检测</p>
-</li>
-<li><p>Terminal 可以使用如下命令载入，可以自由在多个 virtualenv 之间切换</p>
-</li>
-</ul>
-<blockquote>
-<p>cd &lt;path&#x2F;to&#x2F;virtualenv&gt; &amp;&amp; source bin&#x2F;activate &amp;&amp; cd - </p>
-</blockquote>
-<h1 id="Python3-需要注意的点"><a href="#Python3-需要注意的点" class="headerlink" title="Python3 需要注意的点"></a>Python3 需要注意的点</h1><h2 id="基础的-print"><a href="#基础的-print" class="headerlink" title="基础的 print"></a>基础的 print</h2><p>现在是函数了，不再是关键词</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="字符串与字节"><a href="#字符串与字节" class="headerlink" title="字符串与字节"></a>字符串与字节</h2><p>没有 unicode 类型。所有的 str 就是 unicode 类型。Python3 严格区分字节和字符串，以前字符串和字节混用的地方都会出问题，需要注意。</p>
-<p>常见的问题如下：</p>
-<ul>
-<li>requests 的 response，<code>text</code>属性返回的是自动 decode 的字符串。<code>content</code>属性返回的是未处理的字节。</li>
-<li>redis 所有获取到的返回值，都是字节。如果需要获取到字符串，需要 decode() 。</li>
-<li>加密相关的，需要二进制数据。原来的字符串需要 encode() 转换成 utf-8 编码的字节。</li>
-<li>json.loads() 接收的是字符串。</li>
-<li>StringIO.StringIO 字节数据替换成 io.BytesIO，字符串使用 io.StringIO。</li>
-</ul>
-<h2 id="列表与迭代器"><a href="#列表与迭代器" class="headerlink" title="列表与迭代器"></a>列表与迭代器</h2><ul>
-<li>map，filter，range 之类的返回都是 iterator。</li>
-<li>dict 类型的 keys, values, items 返回 iterator，不再是 list。</li>
-<li>iterator 不具有 len() 方法，使用 len(list(iterator))</li>
-<li>iterator 和 list 大部分方法，基本一致，不需要特别注意。</li>
-</ul>
-<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
-<li>expect SomeException as e。</li>
-<li>raise Exception(‘content’)</li>
-<li>Exception 类不再默认含有 message 方法，通过 str 获取到字符串。</li>
-</ul>
-<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
-<li>很多 2.6、2.7 新增加的不稳定的方法名称，在 3.0-3.5 版本逐渐移除或者重命名。</li>
-<li>现在单元测试已兼容 Python3，以后新的单元测试请依照 Python3.5 的文档函数编写。</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>一些内置库、内置函数的变更，用到了，按照 Python3.5 文档更新。</li>
-<li>&#x2F; 默认是除法。3&#x2F;2&#x3D;1.5。整除严格使用 &#x2F;&#x2F;。</li>
-<li>统一 long 和 int。</li>
-<li>强制 absolute_import。</li>
-<li>可以使用 Type Hints 进行标记（只有标记作用，不影响实际运行）。</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(name)</span><br></pre></td></tr></table></figure>
-
-<h1 id="后续的一些改动"><a href="#后续的一些改动" class="headerlink" title="后续的一些改动"></a>后续的一些改动</h1><ul>
-<li>全部切换到 Python3 之后，所有的 <code>__future__</code> 引入会删除。</li>
-<li>Python3 buildin 的库，会从 requirements.txt 移除，如 enum。</li>
-<li>以前的一些兼容代码，也会移除，如 unicode，urlencode。</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">python</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/python3-upgrade-notes/">展开全文 >></a>
         </p>
       
 

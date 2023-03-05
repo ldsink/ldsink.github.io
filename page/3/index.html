@@ -201,6 +201,114 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-python-style-guide"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/python-style-guide/">Python 编码风格指南</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/python-style-guide/" class="archive-article-date">
+  <time datetime="2019-10-23T08:36:09.000Z" itemprop="datePublished">
+    Published on 2019 / 10 / 23
+  </time>
+  
+    <time datetime="2019-11-20T08:04:27.000Z" itemprop="dateUpdated">
+      , Updated on 2019 / 11 / 20
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="总则"><a href="#总则" class="headerlink" title="总则"></a>总则</h1><p>除非项目有自己的约定，默认应该遵循 <a target="_blank" rel="noopener" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> 和 <a target="_blank" rel="noopener" href="https://zh-google-styleguide.readthedocs.io/en/latest/google-python-styleguide/contents/">Google Python 风格指南</a> 的要求。在开始编写代码前，请阅读并了解这两个文档。</p>
+<h1 id="项目约定"><a href="#项目约定" class="headerlink" title="项目约定"></a>项目约定</h1><h2 id="代码布局"><a href="#代码布局" class="headerlink" title="代码布局"></a>代码布局</h2><h3 id="风格"><a href="#风格" class="headerlink" title="风格"></a>风格</h3><ul>
+<li><code>list</code>，<code>tuple</code>，<code>dict</code> 多行定义的时候，每行结尾增加<code>,</code>，用于减少 <code>git diff</code> 时候的变动。</li>
+</ul>
+<h3 id="行长度"><a href="#行长度" class="headerlink" title="行长度"></a>行长度</h3><p>最大行长度180，推荐不超过120。</p>
+<p>推荐在 PyCharm 内设置 <a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/pycharm/code-style-python.html#wrapping_and_braces">Wrapping and braces</a>，<code>Visual guides</code>设置为 <code>120, 180</code>。</p>
+<h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h3><p><strong>使用 <code>format</code> 函数进行格式化</strong>，不使用 <code>%</code> 的方式。</p>
+<h3 id="导入格式"><a href="#导入格式" class="headerlink" title="导入格式"></a>导入格式</h3><p>导入超过一行的情况下，使用括号包住引入模块。左括号后直接换行，右括号前不加内容。如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> package_name <span class="keyword">import</span> (</span><br><span class="line">    module_1, module_2, module_3, module_4, module_5</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套函数（Nested-function）"><a href="#嵌套函数（Nested-function）" class="headerlink" title="嵌套函数（Nested function）"></a>嵌套函数（Nested function）</h3><ul>
+<li>嵌套函数声明在使用的代码之前的地方</li>
+<li>嵌套函数必须以<code>_</code>前缀开头</li>
+</ul>
+<h3 id="函数命名"><a href="#函数命名" class="headerlink" title="函数命名"></a>函数命名</h3><ul>
+<li>判断检查类型逻辑的函数以 <code>is_</code> 或 <code>has_</code> 前缀开头，返回值应该是 <code>bool</code> 类型</li>
+<li>验证校验类型逻辑的函数以 <code>check_</code> 或 <code>validate_</code> 前缀开头，返回值可以包括相关的对象</li>
+<li>进行操作的函数应该以动词开头，如 <code>set_</code>、<code>get_</code>、<code>process_</code>、<code>enable_</code>、<code>disable_</code> 等</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">python</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/python-style-guide/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-happy-15th-birthday-ubuntu"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1216,134 +1324,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/blog-changes-in-early-2019/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-become-stable-dns-server"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/become-stable-dns-server/">稳定吧，DNS服务器</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/become-stable-dns-server/" class="archive-article-date">
-  <time datetime="2018-12-15T06:45:06.000Z" itemprop="datePublished">
-    Published on 2018 / 12 / 15
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/1.1.1.1.webp" alt="1.1.1.1"></p>
-<blockquote>
-<p>不久以前，是直接修改<code>/etc/resolv.conf</code>文件来修改DNS服务器配置的。</p>
-</blockquote>
-<h3 id="起"><a href="#起" class="headerlink" title="起"></a>起</h3><p>接到云服务器商的电话推销，在HK区新释放了一批自建路线的IP资源，更好更快更强，可以申请用来替换现有IP资源。鄙人应和之后，丢在一边。<br>隔两日，又接到电话通知，这次直言旧IP需要升级维护，吧啦吧啦一通之后，我明白了一个事实：旧的IP在15号之前需要更换，不然可能就无法使用了。</p>
-<p>在两通负责任的电话通知（实际上是谈心）之后。我明白了一定得进行操作，不能偷懒了。<br>旧的服务器使用的IP已平平安安用了两年，账户余额已经不多，还是Ubuntu上个LTS的<code>xenial</code>系统。<br>既然操作无可避免，那么不如去新的区域整一个新的系统，体验新的<code>bionic</code>（其实这把申请一个新的动态IP，绑定资源，释放旧的IP，这个简单的操作变复杂了）。</p>
-<p>于是乎，我开始了新的系统体验。</p>
-<h3 id="承"><a href="#承" class="headerlink" title="承"></a>承</h3><p>感谢平时用<code>ansible</code>脚本化部署的好习惯。简单的点击加上命令行，新机器很快就创建出来。<br>服务器在香港的主要原因是为了必须的科学上网，SS服务是必不可少的。<br>新环境，特意用了Go版本的，替换之前一直使用的Python原版的server端。<br>部署好了该有的服务，连接成功。一番测试，延迟低，网速快，一切是那么的美好。</p>
-<h3 id="转"><a href="#转" class="headerlink" title="转"></a>转</h3><p>时不时的，某G开头的搜索引擎会无法使用，但是过一会儿又会变好。<br>家里网络环境最近也是不太稳定，没有在意。<br>在又一次连接失败之后，我看了下浏览器提示的错误信息，发现问题了。</p>
-<p><strong>“SSL证书不匹配“</strong></p>
-<p><img src="https://a.adcdn.cn/images/black_question_mark.webp" alt="问号"></p>
-<p>访问某G网站，返回的某F网站的SSL证书。根据当前的IP地址反查，的确此IP对应的是某F网站。</p>
-<p>所以去G家的请求，为什么会拿到F家的证书？为什么时好时坏？脑中闪过了<code>600</code>这个数字，<strong>DNS服务器有污染</strong>。</p>
-<p>主机位于祖国香港，理论上应该不会走国内的DNS服务器。但是现在事实上DNS有概率被污染，事实胜于雄辩，强制使用不受污染的DNS Server应该能解决问题。</p>
-<p>Python版的SS服务支持设置<code>dns_server</code>参数指定服务器，很遗憾我现在用了Go版本的。查看了一下<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-go/">项目代码</a>，好像并不支持在参数里面设置DNS服务器。转而考虑设置系统的DNS服务。</p>
-<blockquote>
-<p> 不久以前，是直接修改<code>/etc/resolv.conf</code>文件来修改DNS服务器配置的。</p>
-</blockquote>
-<p>打开<code>/etc/resolv.conf</code>，按照经验，两行<code>nameserver</code>就能解决问题。但迎接我的是</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">This file is managed by man:systemd-resolved(8). Do not edit.</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># This is a dynamic resolv.conf file for connecting local clients to the</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">internal DNS stub resolver of systemd-resolved. This file lists all</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">configured search domains.</span></span><br></pre></td></tr></table></figure>
-
-<p><code>/etc/resolv.conf</code>实际上软链到了<code>/run/systemd/resolve/stub-resolv.conf</code>。</p>
-<p>这意味着直接修改的话，重启估计就没了。<code>systemd-resolved(8)</code>又是什么东西？</p>
-<p>Google 一下，按顺序追踪：</p>
-<ol>
-<li><code>archlinux</code>的资料 <a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Systemd-resolved">https://wiki.archlinux.org/index.php/Systemd-resolved</a></li>
-<li>阅读1，来到了 <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/core/systemd/systemd-resolved.8.en">https://jlk.fjfi.cvut.cz/arch/manpages/man/core/systemd/systemd-resolved.8.en</a> 。其中有描述：<br>See <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5.en">resolved.conf(5)</a> and <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/systemd.network.5.en">systemd.network(5)</a> for details about systemd’s own configuration files for DNS servers.</li>
-<li>阅读2，来到了 <a target="_blank" rel="noopener" href="https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5.en">https://jlk.fjfi.cvut.cz/arch/manpages/man/resolved.conf.5.en</a></li>
-<li>阅读3，基本看懂了现在的 <code>systemd-resolved</code>该怎么配置。</li>
-<li><code>vim /etc/systemd/resolved.conf</code>，在<code>[Resolve]</code>块，设置<code>DNS=8.8.8.8 8.8.4.4</code>。</li>
-<li>重启服务，<code>sudo service systemd-resolved restart</code></li>
-</ol>
-<h3 id="合"><a href="#合" class="headerlink" title="合"></a>合</h3><p>执行<code>systemd-resolve --status</code>，可以看到现在的配置，已经更新成<code>8.8.8.8</code>这个全球稳定的服务。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Global</span><br><span class="line">         DNS Servers: 8.8.8.8</span><br><span class="line">                      8.8.4.4</span><br></pre></td></tr></table></figure>
-
-<p>意外看到了以前的DNS Server 列表。其中包含有国内的<code>114.114.114.114</code>，这个对于某G的IP肯定是被污染的。</p>
-<p>以前看到某些网络攻击，是污染DNS指向攻击目标，形成DDOS。现在和平年代，干起了G和F互换的骚操作。佩服佩服。</p>
-<p><a target="_blank" rel="noopener" href="https://www.cloudflare.com/">Cloudflare</a> 旗下的<code>1.1.1.1</code>号称比<code>8.8.8.8</code>更快，以后可以尝试。多一个可用的选择，厂商存在着竞争，总归是一件好事情。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color2">ubuntu</a>
-        </li>
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color4">dns</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/become-stable-dns-server/">展开全文 >></a>
         </p>
       
 

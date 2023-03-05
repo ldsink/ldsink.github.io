@@ -201,6 +201,160 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-how-to-create-crypt-disk-and-auto-mount"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/how-to-create-crypt-disk-and-auto-mount/">Linux 系统创建加密磁盘并自动挂载</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/how-to-create-crypt-disk-and-auto-mount/" class="archive-article-date">
+  <time datetime="2023-03-05T04:28:53.000Z" itemprop="datePublished">
+    Published on 2023 / 03 / 05
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现有一块移动硬盘通过 USB 接入小主机。目标：实现这个盘自动<strong>加密挂载</strong>到 Ubuntu，供其他服务使用。</p>
+<h2 id="创建磁盘分区和格式化"><a href="#创建磁盘分区和格式化" class="headerlink" title="创建磁盘分区和格式化"></a>创建磁盘分区和格式化</h2><p>工具有 <code>fdisk</code> 和 <code>parted</code>，以往主要用 <code>fdisk</code>，所以这次用 <code>parted</code>，同时也尝试一下新的文件系统。</p>
+<p>首先确定磁盘的信息。</p>
+<blockquote>
+<p>parted -l</p>
+</blockquote>
+<p>可以看到如下内容</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Model: WD My Passport 0748 (scsi)</span><br><span class="line">Disk /dev/sda: 2000GB</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br></pre></td></tr></table></figure>
+
+<p><code>/dev/sda</code> 这个设备就是我们的移动硬盘了。使用 <code>parted</code> 选择这个磁盘，开始操作。</p>
+<blockquote>
+<p>parted &#x2F;dev&#x2F;sda</p>
+</blockquote>
+<p>全新使用，磁盘上没有数据，可以随意修改。因为容量比较大，使用新的分区表类型，调整磁盘分区表到 <code>gpt</code>。</p>
+<blockquote>
+<p>(parted) mklabel gpt</p>
+</blockquote>
+<p>个人习惯把整个磁盘作为一个分区。</p>
+<blockquote>
+<p>(parted) mkpart primary 0% 100%</p>
+</blockquote>
+<p><code>parted</code> 的操作就完成了。退出前可以用如下命令检查效果。</p>
+<blockquote>
+<p>(parted) print</p>
+</blockquote>
+<p>这样就建立好了磁盘分区。</p>
+<h2 id="磁盘加密并自动挂载"><a href="#磁盘加密并自动挂载" class="headerlink" title="磁盘加密并自动挂载"></a>磁盘加密并自动挂载</h2><p>加密部分主要参考<a target="_blank" rel="noopener" href="https://hack1ng4fun.github.io/2019/11/18/Linux%E3%80%8C%E7%A3%81%E7%9B%98%E5%8A%A0%E5%AF%86%E3%80%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/">Linux「磁盘加密」完全指南</a>，依赖系统软件 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/cryptsetup.8.html">cryptsetup</a>。</p>
+<p>操作系统启动时候涉及磁盘挂载的顺序为：</p>
+<ol>
+<li>前置加载</li>
+<li>基于 <code>/etc/crypttab</code> 解密被加密的设备</li>
+<li>基于 <code>/etc/fstab</code> 挂载磁盘到目录</li>
+<li>后续加载</li>
+</ol>
+<p>所以要实现自动挂载加密盘的思路就是：</p>
+<ol>
+<li>在 <code>/etc/crypttab</code> 自动解密加密磁盘</li>
+<li>在 <code>/etc/fstab</code> 自动挂载解密盘</li>
+</ol>
+<p>查找资料过程中发现前几年 Linux 创建加密盘还比较麻烦，好在现在有 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/cryptsetup.8.html">cryptsetup</a>，方便简单了很多。确定思路就开始做。</p>
+<h3 id="创建加密密钥"><a href="#创建加密密钥" class="headerlink" title="创建加密密钥"></a>创建加密密钥</h3><p>用密码不太友好，短了不安全，长了记忆成本高。使用密钥文件来进行加密解密，再妥善管理备份密钥文件。</p>
+<p>通过 <code>dd</code> 命令使用随机数生成一个 4KB 的密钥文件，保存到 <code>/etc</code> 目录下：</p>
+<blockquote>
+<p>dd if&#x3D;&#x2F;dev&#x2F;urandom of&#x3D;&#x2F;etc&#x2F;cryptfs.key bs&#x3D;1k count&#x3D;4</p>
+</blockquote>
+<h3 id="创建加密磁盘"><a href="#创建加密磁盘" class="headerlink" title="创建加密磁盘"></a>创建加密磁盘</h3><p>使用这个密钥，加密磁盘：</p>
+<blockquote>
+<p>cryptsetup luksFormat &#x2F;dev&#x2F;sda1 &#x2F;etc&#x2F;cryptfs.key</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WARNING!</span><br><span class="line">========</span><br><span class="line">This will overwrite data on /dev/sda1 irrevocably.</span><br><span class="line"></span><br><span class="line">Are you sure? (Type &#x27;yes&#x27; in capital letters):</span><br></pre></td></tr></table></figure>
+
+<p>根据提示输入大写的 <code>YES</code> 确认操作。这里是空磁盘，创建非常快。创建完成之后，可以使用 <code>cryptsetup open</code> 打开加密磁盘，解密的设备位于 <code>/dev/mapper</code> 目录下。</p>
+<blockquote>
+<p>cryptsetup open –key-file&#x3D;&#x2F;etc&#x2F;cryptfs.key &#x2F;dev&#x2F;sda1 sda1</p>
+</blockquote>
+<h3 id="格式化加密分区"><a href="#格式化加密分区" class="headerlink" title="格式化加密分区"></a>格式化加密分区</h3><p>现在加密分区就被挂载到了 <code>/dev/mapper/sda1</code>，使用 <code>mkfs</code> 格式化分区，通过补全发现 Ubuntu 现在支持的分区如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkfs         mkfs.btrfs   mkfs.ext2    mkfs.ext4    mkfs.minix   mkfs.ntfs    mkfs.xfs</span><br><span class="line">mkfs.bfs     mkfs.cramfs  mkfs.ext3    mkfs.fat     mkfs.msdos   mkfs.vfat</span><br></pre></td></tr></table></figure>
+
+<p>平时使用 <code>ext4</code>，这次尝试以下 <code>btrfs</code>。直接使用对应文件系统的命令，需要磁盘分区地址作为参数：</p>
+<blockquote>
+<p>mkfs.btrfs &#x2F;dev&#x2F;mapper&#x2F;sda1</p>
+</blockquote>
+<h3 id="自动解密并挂载"><a href="#自动解密并挂载" class="headerlink" title="自动解密并挂载"></a>自动解密并挂载</h3><p>下面配置启动时候的默认解密，编辑 <code>/etc/crypttab</code>，增加如下内容</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;target name&gt; &lt;source device&gt;         &lt;key file&gt;      &lt;options&gt;</span><br><span class="line">sda1            /dev/sda1               /etc/cryptfs.key</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;target name&gt;</code>的部分，会作为 <code>/dev/mapper</code> 目录下映射出来的设备名称。设置完解密部分后，再将解密设备进行挂载。</p>
+<p>编辑 <code>/etc/fstab</code>，增加如下内容</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span><br><span class="line">/dev/mapper/sda1 /mnt/sda1      btrfs   defaults        0       0</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">how-to</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/how-to-create-crypt-disk-and-auto-mount/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-2022-summary-and-2023-outlook"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1208,83 +1362,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/recommended-efficiency-tools/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-cpc-100th-anniversary"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/cpc-100th-anniversary/">庆祝中国共产党成立100周年</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/cpc-100th-anniversary/" class="archive-article-date">
-  <time datetime="2021-07-01T15:45:01.000Z" itemprop="datePublished">
-    Published on 2021 / 07 / 01
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/cpc-100th-anniversary.webp" alt="image"></p>
-<p><strong>胸怀千秋伟业，恰是百年风华。</strong></p>
-<p><strong>伟大、光荣、正确的中国共产党万岁！</strong></p>
-<p><strong>伟大、光荣、英雄的中国人民万岁！</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/cpc-100th-anniversary/">展开全文 >></a>
         </p>
       
 

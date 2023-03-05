@@ -201,6 +201,149 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-python3-upgrade-notes"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/python3-upgrade-notes/">Python3 升级注意事项</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/python3-upgrade-notes/" class="archive-article-date">
+  <time datetime="2017-08-02T07:28:20.000Z" itemprop="datePublished">
+    Published on 2017 / 08 / 02
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>面向开发同事的分享。</strong><br><strong>整个迁移过程可以看<a target="_blank" rel="noopener" href="http://www.liriansu.com/py2-to-py3">这里</a>。</strong></p>
+<h1 id="开发-x2F-服务器环境"><a href="#开发-x2F-服务器环境" class="headerlink" title="开发&#x2F;服务器环境"></a>开发&#x2F;服务器环境</h1><p><strong>服务器环境 Ubuntu 16.04 LTS x64， Python 3.5.2</strong><br><strong>开发环境以 Python3.5 为基准，Python文档请查询 Python3.5 版本</strong></p>
+<ul>
+<li>新建 Python3 环境的 virtualenv，并且安装 requirements.txt</li>
+</ul>
+<blockquote>
+<p>virtualenv -p &#x2F;usr&#x2F;bin&#x2F;python3 &lt;path&#x2F;to&#x2F;virtualenv&gt;</p>
+</blockquote>
+<ul>
+<li><p>PyCharm 设置新的虚拟环境，设置 Python3.5 的检测</p>
+</li>
+<li><p>Terminal 可以使用如下命令载入，可以自由在多个 virtualenv 之间切换</p>
+</li>
+</ul>
+<blockquote>
+<p>cd &lt;path&#x2F;to&#x2F;virtualenv&gt; &amp;&amp; source bin&#x2F;activate &amp;&amp; cd - </p>
+</blockquote>
+<h1 id="Python3-需要注意的点"><a href="#Python3-需要注意的点" class="headerlink" title="Python3 需要注意的点"></a>Python3 需要注意的点</h1><h2 id="基础的-print"><a href="#基础的-print" class="headerlink" title="基础的 print"></a>基础的 print</h2><p>现在是函数了，不再是关键词</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;hello world!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串与字节"><a href="#字符串与字节" class="headerlink" title="字符串与字节"></a>字符串与字节</h2><p>没有 unicode 类型。所有的 str 就是 unicode 类型。Python3 严格区分字节和字符串，以前字符串和字节混用的地方都会出问题，需要注意。</p>
+<p>常见的问题如下：</p>
+<ul>
+<li>requests 的 response，<code>text</code>属性返回的是自动 decode 的字符串。<code>content</code>属性返回的是未处理的字节。</li>
+<li>redis 所有获取到的返回值，都是字节。如果需要获取到字符串，需要 decode() 。</li>
+<li>加密相关的，需要二进制数据。原来的字符串需要 encode() 转换成 utf-8 编码的字节。</li>
+<li>json.loads() 接收的是字符串。</li>
+<li>StringIO.StringIO 字节数据替换成 io.BytesIO，字符串使用 io.StringIO。</li>
+</ul>
+<h2 id="列表与迭代器"><a href="#列表与迭代器" class="headerlink" title="列表与迭代器"></a>列表与迭代器</h2><ul>
+<li>map，filter，range 之类的返回都是 iterator。</li>
+<li>dict 类型的 keys, values, items 返回 iterator，不再是 list。</li>
+<li>iterator 不具有 len() 方法，使用 len(list(iterator))</li>
+<li>iterator 和 list 大部分方法，基本一致，不需要特别注意。</li>
+</ul>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><ul>
+<li>expect SomeException as e。</li>
+<li>raise Exception(‘content’)</li>
+<li>Exception 类不再默认含有 message 方法，通过 str 获取到字符串。</li>
+</ul>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
+<li>很多 2.6、2.7 新增加的不稳定的方法名称，在 3.0-3.5 版本逐渐移除或者重命名。</li>
+<li>现在单元测试已兼容 Python3，以后新的单元测试请依照 Python3.5 的文档函数编写。</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>一些内置库、内置函数的变更，用到了，按照 Python3.5 文档更新。</li>
+<li>&#x2F; 默认是除法。3&#x2F;2&#x3D;1.5。整除严格使用 &#x2F;&#x2F;。</li>
+<li>统一 long 和 int。</li>
+<li>强制 absolute_import。</li>
+<li>可以使用 Type Hints 进行标记（只有标记作用，不影响实际运行）。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">name: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>  <span class="comment"># 也能运行，不会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(name)</span><br></pre></td></tr></table></figure>
+
+<h1 id="后续的一些改动"><a href="#后续的一些改动" class="headerlink" title="后续的一些改动"></a>后续的一些改动</h1><ul>
+<li>全部切换到 Python3 之后，所有的 <code>__future__</code> 引入会删除。</li>
+<li>Python3 buildin 的库，会从 requirements.txt 移除，如 enum。</li>
+<li>以前的一些兼容代码，也会移除，如 unicode，urlencode。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color2">python</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/python3-upgrade-notes/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-restart-sogou-input-script"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -967,90 +1110,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/ccg-2016/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-unified-social-credit-identifier"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/unified-social-credit-identifier/">统一社会信用代码</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/unified-social-credit-identifier/" class="archive-article-date">
-  <time datetime="2016-05-25T10:55:00.000Z" itemprop="datePublished">
-    Published on 2016 / 05 / 25
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是统一社会信用代码"><a href="#什么是统一社会信用代码" class="headerlink" title="什么是统一社会信用代码"></a>什么是统一社会信用代码</h3><p>很久很久以前，注册一家公司会有公司营业执照，上面会有营业执照注册号。公司赚钱了，要依法纳税，去税务局又会办理一个税务登记证，上面又有一个编号。<br>一个人只需要一个公民身份证号码就可以确定了，公司在不同的场合却需要多个证件编号。对企业而言，麻烦，办各种手续都不方便。对管理者而言，监管不便，管理成本高。</p>
-<p>我们都知道，统一的标准可以减少成本，提高效率。<code>GOV</code>作为某种意义上的特大企业，也明白这个道理，于是有了<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/15172871.htm">三证合一</a>，统一多个编号，使用唯一一个编号。</p>
-<p>企业编号决定统一使用一个标准，个人编号已经是一个标准，于是<code>GOV</code>再加了一把劲。怀着<code>为了更好的服务大众，构建信用社会</code>的目标，在现在的基础上，<code>GOV</code>倒腾出了<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E7%BB%9F%E4%B8%80%E7%A4%BE%E4%BC%9A%E4%BF%A1%E7%94%A8%E4%BB%A3%E7%A0%81%E5%88%B6%E5%BA%A6">统一社会信用代码制度</a>。</p>
-<p>这个企业的身份证号码就是<code>统一社会信用代码</code>，用于替换之前企业各个证件上的编号。和公民身份证号码一样，<code>统一社会信用代码</code>也是18位。</p>
-<h3 id="统一社会信用代码的用处"><a href="#统一社会信用代码的用处" class="headerlink" title="统一社会信用代码的用处"></a>统一社会信用代码的用处</h3><ul>
-<li>以前，业务上标识一家企业通过<code>公司名称</code>或者<code>营业执照注册号</code>，这些都不稳定。名称可以变，注册编号长度不确定。</li>
-<li>以后的新数据可以统一的通过<code>统一社会信用代码</code>标识，这个在稳定性和权威性上都好于以前。</li>
-</ul>
-<h3 id="统一社会信用代码编码规则"><a href="#统一社会信用代码编码规则" class="headerlink" title="统一社会信用代码编码规则"></a>统一社会信用代码编码规则</h3><p>工商总局在官网上发布了标准文件：<a target="_blank" rel="noopener" href="http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html">法人和其他组织统一社会信用代码编码规则</a>。和身份证编号类似，根据编码规则可以进行一下判断并获取有用的一些信息。我们在审核的时候，可以通过检测编号来判断公司的真假。</p>
-<p>下面是我用PHP实现的简单检测函数，<code>管理部门</code>、<code>机构类别</code>、<code>登记地区</code>这些信息还没有充分利用起来，只根据校验码检测。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 法人和其他组织统一社会信用代码</span></span><br><span class="line"><span class="comment">// 编码规则：http://qyj.saic.gov.cn/wjfb/201509/t20150929_162430.html</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">unifiedSocialCreditIdentifier</span>(<span class="params"><span class="variable">$value</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 统一代码由十八位的阿拉伯数字或者大写英文字母（不使用I、O、Z、S、V）组成</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="title function_ invoke__">is_string</span>(<span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="variable">$value</span> = <span class="title function_ invoke__">strtoupper</span>(<span class="variable">$value</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">strlen</span>(<span class="variable">$value</span>) !== <span class="number">18</span> || !<span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/^[\dA-HJ-NP-RT-UW-Y]&#123;18&#125;$/&#x27;</span>, <span class="variable">$value</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// todo 第1位：登记管理部门代码检查</span></span><br><span class="line">    <span class="comment">// todo 第2位：机构类别代码检查</span></span><br><span class="line">    <span class="comment">// todo 第3位～第8位：登记机关行政区划码检查</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="title function_ invoke__">is_numeric</span>(<span class="title function_ invoke__">substr</span>(<span class="variable">$value</span>, <span class="number">2</span>, <span class="number">6</span>))) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 简单检查，这部分一定是阿拉伯数字</span></span><br><span class="line">    <span class="comment">// todo 第9位～第17位：主体标识码检查</span></span><br><span class="line">    <span class="comment">// 第18位：检验码检查</span></span><br><span class="line">    $加权因子 = [</span><br><span class="line">        <span class="number">1</span> =&gt; <span class="number">1</span>, <span class="number">2</span> =&gt; <span class="number">3</span>, <span class="number">3</span> =&gt; <span class="number">9</span>, <span class="number">4</span> =&gt; <span class="number">27</span>, <span class="number">5</span> =&gt; <span class="number">19</span>, <span class="number">6</span> =&gt; <span class="number">26</span>, <span class="number">7</span> =&gt; <span class="number">16</span>, <span class="number">8</span> =&gt; <span class="number">17</span>, <span class="number">9</span> =&gt; <span class="number">20</span>,</span><br><span class="line">        <span class="number">10</span> =&gt; <span class="number">29</span>, <span class="number">11</span> =&gt; <span class="number">25</span>, <span class="number">12</span> =&gt; <span class="number">13</span>, <span class="number">13</span> =&gt; <span class="number">8</span>, <span class="number">14</span> =&gt; <span class="number">24</span>, <span class="number">15</span> =&gt; <span class="number">10</span>, <span class="number">16</span> =&gt; <span class="number">30</span>, <span class="number">17</span> =&gt; <span class="number">28</span></span><br><span class="line">    ];</span><br><span class="line">    $代码字符集 = [</span><br><span class="line">        <span class="number">0</span> =&gt; <span class="string">&#x27;0&#x27;</span>, <span class="number">1</span> =&gt; <span class="string">&#x27;1&#x27;</span>, <span class="number">2</span> =&gt; <span class="string">&#x27;2&#x27;</span>, <span class="number">3</span> =&gt; <span class="string">&#x27;3&#x27;</span>, <span class="number">4</span> =&gt; <span class="string">&#x27;4&#x27;</span>, <span class="number">5</span> =&gt; <span class="string">&#x27;5&#x27;</span>, <span class="number">6</span> =&gt; <span class="string">&#x27;6&#x27;</span>, <span class="number">7</span> =&gt; <span class="string">&#x27;7&#x27;</span>, <span class="number">8</span> =&gt; <span class="string">&#x27;8&#x27;</span>, <span class="number">9</span> =&gt; <span class="string">&#x27;9&#x27;</span>,</span><br><span class="line">        <span class="number">10</span> =&gt; <span class="string">&#x27;A&#x27;</span>, <span class="number">11</span> =&gt; <span class="string">&#x27;B&#x27;</span>, <span class="number">12</span> =&gt; <span class="string">&#x27;C&#x27;</span>, <span class="number">13</span> =&gt; <span class="string">&#x27;D&#x27;</span>, <span class="number">14</span> =&gt; <span class="string">&#x27;E&#x27;</span>, <span class="number">15</span> =&gt; <span class="string">&#x27;F&#x27;</span>, <span class="number">16</span> =&gt; <span class="string">&#x27;G&#x27;</span>, <span class="number">17</span> =&gt; <span class="string">&#x27;H&#x27;</span>, <span class="number">18</span> =&gt; <span class="string">&#x27;J&#x27;</span>, <span class="number">19</span> =&gt; <span class="string">&#x27;K&#x27;</span>,</span><br><span class="line">        <span class="number">20</span> =&gt; <span class="string">&#x27;L&#x27;</span>, <span class="number">21</span> =&gt; <span class="string">&#x27;M&#x27;</span>, <span class="number">22</span> =&gt; <span class="string">&#x27;N&#x27;</span>, <span class="number">23</span> =&gt; <span class="string">&#x27;P&#x27;</span>, <span class="number">24</span> =&gt; <span class="string">&#x27;Q&#x27;</span>, <span class="number">25</span> =&gt; <span class="string">&#x27;R&#x27;</span>, <span class="number">26</span> =&gt; <span class="string">&#x27;T&#x27;</span>, <span class="number">27</span> =&gt; <span class="string">&#x27;U&#x27;</span>, <span class="number">28</span> =&gt; <span class="string">&#x27;W&#x27;</span>, <span class="number">29</span> =&gt; <span class="string">&#x27;X&#x27;</span>, <span class="number">30</span> =&gt; <span class="string">&#x27;Y&#x27;</span></span><br><span class="line">    ];</span><br><span class="line">    $校验值 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="number">17</span>; <span class="variable">$i</span>++) &#123;</span><br><span class="line">        <span class="keyword">foreach</span> ($代码字符集 <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$value</span>[<span class="variable">$i</span>] === <span class="variable">$v</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $校验值 += <span class="variable">$k</span> * $加权因子[<span class="variable">$i</span> + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    $校验值 = <span class="number">31</span> - ($校验值 % <span class="number">31</span>);</span><br><span class="line">    $校验值 = ($校验值 === <span class="number">31</span>) ? <span class="number">0</span> : $校验值; <span class="comment">// 校验值为 31 的时候，校验码使用 0 表示</span></span><br><span class="line">    <span class="keyword">return</span> $代码字符集[$校验值] === <span class="variable">$value</span>[<span class="number">17</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/unified-social-credit-identifier/">展开全文 >></a>
         </p>
       
 
