@@ -19,7 +19,7 @@
 <meta property="og:description" content="现有一块移动硬盘通过 USB 接入小主机。目标：实现这个盘自动加密挂载到 Ubuntu，供其他服务使用。 创建磁盘分区和格式化工具有 fdisk 和 parted，以往主要用 fdisk，所以这次用 parted，同时也尝试一下新的文件系统。 首先确定磁盘的信息。  parted -l  可以看到如下内容 123Model: WD My Passport 0748 (scsi)Disk &#x2F;dev&#x2F;">
 <meta property="og:locale">
 <meta property="article:published_time" content="2023-03-05T04:28:53.000Z">
-<meta property="article:modified_time" content="2023-03-05T11:54:37.598Z">
+<meta property="article:modified_time" content="2023-04-01T05:32:41.861Z">
 <meta property="article:author" content="Sink">
 <meta property="article:tag" content="how-to">
 <meta name="twitter:card" content="summary">
@@ -297,11 +297,27 @@
 <h3 id="自动解密并挂载"><a href="#自动解密并挂载" class="headerlink" title="自动解密并挂载"></a>自动解密并挂载</h3><p>下面配置启动时候的默认解密，编辑 <code>/etc/crypttab</code>，增加如下内容</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;target name&gt; &lt;source device&gt;         &lt;key file&gt;      &lt;options&gt;</span><br><span class="line">sda1            /dev/sda1               /etc/cryptfs.key</span><br></pre></td></tr></table></figure>
 
-<p><code>&lt;target name&gt;</code>的部分，会作为 <code>/dev/mapper</code> 目录下映射出来的设备名称。设置完解密部分后，再将解密设备进行挂载。</p>
-<p>编辑 <code>/etc/fstab</code>，增加如下内容</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt; &lt;mount point&gt;   &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span><br><span class="line">/dev/mapper/sda1 /mnt/sda1      btrfs   defaults        0       0</span><br></pre></td></tr></table></figure>
+<p><code>&lt;target name&gt;</code> 的部分，会作为 <code>/dev/mapper</code> 目录下映射出来的设备名称。设置完解密部分后，再将解密设备进行挂载。</p>
+<p><code>&lt;source device&gt;</code> 是挂载的设备，简单的可以直接用 <code>/dev/sda1</code>，但是这个在系统重启或者插入其他的磁盘的时候，可能发生变动。可以改成 uuid 的方式，更加保险。执行如下命令获取硬盘 uuid</p>
+<blockquote>
+<p>sudo blkid</p>
+</blockquote>
+<p>这个命令会显示当前全部的设备，找到我们这块磁盘的部分。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sda1: UUID=&quot;89c83d74-6f09-4210-90a1-5718d680b9dd&quot; TYPE=&quot;crypto_LUKS&quot; PARTLABEL=&quot;primary&quot; PARTUUID=&quot;718e439b-f52f-427c-9571-999784104ef6&quot;</span><br></pre></td></tr></table></figure>
 
-<p>这样系统启动的时候就可以自动解密，然后再将解密后的入口挂载到 <code>/mnt/sda1</code>，任务完成。</p>
+<p>然后就可以使用这个 UUID 来更新 <code>/etc/crypttab</code> 文件，下次就会基于 UUID 来处理设备，只要是这块硬盘，换 USB 插口也不会有问题。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;target name&gt; &lt;source device&gt;                            &lt;key file&gt;      &lt;options&gt;</span><br><span class="line">sda1            UUID=89c83d74-6f09-4210-90a1-5718d680b9dd  /etc/cryptfs.key</span><br></pre></td></tr></table></figure>
+
+<p>搞定了解密部分，剩下的就是编辑 <code>/etc/fstab</code> 自动把解密后的设备挂载到系统目录，供软件正常使用。增加如下内容</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt;  &lt;mount point&gt;  &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span><br><span class="line">/dev/mapper/sda1 /mnt/sda1      btrfs   defaults        0       0</span><br></pre></td></tr></table></figure>
+
+<p>完成这些操作，系统启动的时候可以自动解密，然后再将解密后的设备挂载到 <code>/mnt/sda1</code>，任务完成。</p>
+<h2 id="一些额外的工作"><a href="#一些额外的工作" class="headerlink" title="一些额外的工作"></a>一些额外的工作</h2><h3 id="Backup-LUKS-header-and-keyslot-area"><a href="#Backup-LUKS-header-and-keyslot-area" class="headerlink" title="Backup LUKS header and keyslot area"></a>Backup LUKS header and keyslot area</h3><p>未加密的情况下，机械硬盘某些扇区损坏，只会丢失这部分数据。加密的情况下，如果某些损坏的扇区刚好是 LUKS header 的数据，那会因为 LUKS 损坏而无法解密，造成整块磁盘的数据都不可用。</p>
+<p>所以这个唯一的入口数据，需要做好必要的备份。参考 <a target="_blank" rel="noopener" href="https://www.cyberciti.biz/security/how-to-backup-and-restore-luks-header-on-linux/">How to backup and restore LUKS header on Linux</a>，主要使用 <a target="_blank" rel="noopener" href="https://www.mankier.com/8/cryptsetup-luksHeaderBackup">luksHeaderBackup</a>。设备使用 <code>/dev/disk/by-uuid/</code>下拼接 UUID 的定位。</p>
+<blockquote>
+<p>cryptsetup luksHeaderBackup &#x2F;dev&#x2F;disk&#x2F;by-uuid&#x2F;89c83d74-6f09-4210-90a1-5718d680b9dd –header-backup-file &#x2F;mnt&#x2F;backup.bin</p>
+</blockquote>
+<p>这个文件存储到云上或者安全的位置，就完成了简单的备份。</p>
 
       
 
