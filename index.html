@@ -231,7 +231,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>家里网络从联通更换到了移动，移动没有公网 IPv4 但是有公网 IPv6。联通时代搞定了 IPv4 之后停止了探索，这次目标搞定 IPv6。</p>
-<p>IPv6 的知识来自于网络资料和<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1aF411v7hU/">IPv6和IPv4的主要区别？</a>，配置过程主要参考 <a target="_blank" rel="noopener" href="https://blog.otakusaikou.com/2020/11/11/x86-soft-router-and-ipv6/">X86 软路由配置 IPv6 踩坑小记</a>。</p>
+<p>IPv6 的知识来自于网络资料和 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1aF411v7hU/">IPv6 和 IPv4 的主要区别？</a>，配置过程主要参考 <a target="_blank" rel="noopener" href="https://blog.otakusaikou.com/2020/11/11/x86-soft-router-and-ipv6/">X86 软路由配置 IPv6 踩坑小记</a>。</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>目前的网络环境为：</p>
 <p><code>移动光猫（桥接）</code>  ——&gt;  <code>小服务器（PPPoE 拨号及网关）</code>  ——&gt;   <code>其他设备（有线接入的台式机、无线AP的路由器）</code></p>
 <p>小服务器负责 PPPoE 拨号，及使用 Dnsmasq 处理 IPv4 的 DHCP 和 DNS。其中 WAN 口接移动光猫，两个 LAN 口分别接台式机和无线路由器。无线路由器配置成 AP 模式作为一个有无线功能的交换机用。</p>
