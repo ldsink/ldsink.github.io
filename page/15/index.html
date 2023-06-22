@@ -201,6 +201,99 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-p1143"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/p1143/">P1143 三取方格数</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/p1143/" class="archive-article-date">
+  <time datetime="2009-10-20T11:40:00.000Z" itemprop="datePublished">
+    Published on 2009 / 10 / 20
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 初赛虽然是挂了，还是得做题~</p>
+<p>这是一个比较经典的题的改编，当时是只取两条路，有点类似于某年NOIP的传纸条游戏。在Vijos里改成了三条路，这就增加了一点难度，我原来是直接开四维数组DP，这里就开六维数组肯定爆。开始优化。</p>
+<p>具体方法是只记录横坐标和步数，纵坐标用横坐标于步数来求。</p>
+<p>数据在20内，很容易秒杀。O(∩_∩)O~</p>
+<blockquote>
+<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms </p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> N,Num[<span class="number">20</span>][<span class="number">20</span>],Re[<span class="number">21</span>][<span class="number">21</span>][<span class="number">21</span>][<span class="number">41</span>];</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Search</span><span class="params">(<span class="type">int</span> xa,<span class="type">int</span> xb,<span class="type">int</span> xc,<span class="type">int</span> step)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(Re[xa][xb][xc][step]==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> ya,yb,yc;</span><br><span class="line">        ya=step-xa<span class="number">-1</span>;</span><br><span class="line">        yb=step-xb<span class="number">-1</span>;</span><br><span class="line">        yc=step-xc<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">if</span>(xa&lt;N&amp;&amp;xb&lt;N&amp;&amp;xc&lt;N&amp;&amp;ya&lt;N&amp;&amp;yb&lt;N&amp;&amp;yc&lt;N)</span><br><span class="line">        &#123;</span><br><span class="line">            Re[xa][xb][xc][step]+=Num[xa][ya];</span><br><span class="line">            <span class="keyword">if</span>(xb!=xa) Re[xa][xb][xc][step]+=Num[xb][yb];</span><br><span class="line">            <span class="keyword">if</span>(xc!=xa&amp;&amp;xc!=xb) Re[xa][xb][xc][step]+=Num[xc][yc];</span><br><span class="line">            <span class="type">int</span> temp=<span class="number">0</span>;</span><br><span class="line">            Search(xa+<span class="number">1</span>,xb+<span class="number">1</span>,xc+<span class="number">1</span>,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa+<span class="number">1</span>][xb+<span class="number">1</span>][xc+<span class="number">1</span>][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa+<span class="number">1</span>][xb+<span class="number">1</span>][xc+<span class="number">1</span>][step+<span class="number">1</span>];</span><br><span class="line">            Search(xa+<span class="number">1</span>,xb+<span class="number">1</span>,xc,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa+<span class="number">1</span>][xb+<span class="number">1</span>][xc][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa+<span class="number">1</span>][xb+<span class="number">1</span>][xc][step+<span class="number">1</span>];</span><br><span class="line">            Search(xa+<span class="number">1</span>,xb,xc+<span class="number">1</span>,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa+<span class="number">1</span>][xb][xc+<span class="number">1</span>][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa+<span class="number">1</span>][xb][xc+<span class="number">1</span>][step+<span class="number">1</span>];  </span><br><span class="line">            Search(xa,xb+<span class="number">1</span>,xc+<span class="number">1</span>,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa][xb+<span class="number">1</span>][xc+<span class="number">1</span>][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa][xb+<span class="number">1</span>][xc+<span class="number">1</span>][step+<span class="number">1</span>];</span><br><span class="line">            Search(xa,xb,xc+<span class="number">1</span>,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa][xb][xc+<span class="number">1</span>][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa][xb][xc+<span class="number">1</span>][step+<span class="number">1</span>];</span><br><span class="line">            Search(xa,xb+<span class="number">1</span>,xc,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa][xb+<span class="number">1</span>][xc][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa][xb+<span class="number">1</span>][xc][step+<span class="number">1</span>];</span><br><span class="line">            Search(xa+<span class="number">1</span>,xb,xc,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa+<span class="number">1</span>][xb][xc][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa+<span class="number">1</span>][xb][xc][step+<span class="number">1</span>];  </span><br><span class="line">            Search(xa,xb,xc,step+<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span>(temp&lt;Re[xa][xb][xc][step+<span class="number">1</span>])</span><br><span class="line">                temp=Re[xa][xb][xc][step+<span class="number">1</span>];</span><br><span class="line">            Re[xa][xb][xc][step]+=temp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a,b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;N);</span><br><span class="line">    <span class="keyword">for</span>(a=<span class="number">0</span>;a&lt;N;a++)</span><br><span class="line">        <span class="keyword">for</span>(b=<span class="number">0</span>;b&lt;N;b++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;Num[a][b]);</span><br><span class="line">    Search(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,Re[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>][<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">vijos</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/p1143/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-noip2008-4"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1033,97 +1126,6 @@
 
 
   
-    <article id="post-p1096-savings-plan"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/p1096-savings-plan/">P1096 津津的储蓄计划 解题报告</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/p1096-savings-plan/" class="archive-article-date">
-  <time datetime="2009-05-05T12:36:00.000Z" itemprop="datePublished">
-    Published on 2009 / 05 / 05
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目地址：<a target="_blank" rel="noopener" href="http://www.vijos.cn/Problem_Show.asp?id=1096">http://www.vijos.cn/Problem_Show.asp?id=1096</a></p>
-<p>这题本来很水，可是粗心。在增加百分之二十的时候犯了一点小错误，提交了3次才AC。对自己无语……</p>
-<blockquote>
-<p>编译通过…<br>├ 测试数据 01：答案正确… 0ms<br>├ 测试数据 02：答案正确… 0ms<br>├ 测试数据 03：答案正确… 0ms<br>├ 测试数据 04：答案正确… 0ms<br>├ 测试数据 05：答案正确… 0ms<br>├ 测试数据 06：答案正确… 0ms<br>├ 测试数据 07：答案正确… 0ms<br>├ 测试数据 08：答案正确… 0ms<br>├ 测试数据 09：答案正确… 0ms<br>├ 测试数据 10：答案正确… 0ms<br>Accepted 有效得分：100 有效耗时：0ms</p>
-</blockquote>
-<h4 id="我的程序（C语言）："><a href="#我的程序（C语言）：" class="headerlink" title="我的程序（C语言）："></a>我的程序（C语言）：</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> i,j,pan,money,save,budget[<span class="number">12</span>];</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>,m,save=<span class="number">0</span>;i&lt;<span class="number">12</span>;i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;budget);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>,pan=<span class="number">1</span>;i&lt;<span class="number">12</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">        money+=<span class="number">300</span>;</span><br><span class="line">        money-=budget;</span><br><span class="line">        <span class="keyword">if</span>(money&lt;<span class="number">0</span>)</span><br><span class="line">            &#123;i++,pan=<span class="number">0</span>;<span class="keyword">break</span>;&#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">            j=money/<span class="number">100</span>;</span><br><span class="line">            money%=<span class="number">100</span>;</span><br><span class="line">            save+=j*<span class="number">100</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span>(pan==<span class="number">1</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,save*<span class="number">6</span>/<span class="number">5</span>+money);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;-%d&quot;</span>,i);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color1">vijos</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/p1096-savings-plan/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/14/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/16/">Next »</a>
@@ -1368,6 +1370,11 @@
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
                                    class="js-tag color1">usaco</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color5">IPv6</a>
                             </li>
                         
                         <div class="clearfix"></div>

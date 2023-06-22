@@ -201,6 +201,108 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-nginx-with-certbot"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/nginx-with-certbot/">Nginx 与 Certbot</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/nginx-with-certbot/" class="archive-article-date">
+  <time datetime="2017-11-15T07:13:43.000Z" itemprop="datePublished">
+    Published on 2017 / 11 / 15
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>管理了很多内部系统，每个在内网部署好之后，需要在入口的 Nginx 配置。内部系统，安全性也很重要，出于习惯都会配置上HTTPS。以前数量少，手动申请再配置免费的DV证书。现在站点一多，这么整就太麻烦了。<br>很幸运，现在的<a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a>附带的<code>Certbot</code>已经比以前好多了，能自动的处理这些，稍加配置，就能轻松让全部域名实现。</p>
+<h2 id="Certbot是什么"><a href="#Certbot是什么" class="headerlink" title="Certbot是什么"></a>Certbot是什么</h2><blockquote>
+<p>Automatically enable HTTPS on your website with EFF’s Certbot, deploying Let’s Encrypt certificates.</p>
+</blockquote>
+<h2 id="怎么部署"><a href="#怎么部署" class="headerlink" title="怎么部署"></a>怎么部署</h2><p><a target="_blank" rel="noopener" href="https://certbot.eff.org/">官网首页</a>就有文档，选择好<code>Software</code>和<code>System</code>就有具体的细节。Certbot在Ubuntu上有PPA，安装很方便。<br><code>Ubuntu Xenial</code>上<code>Nginx</code>的自动化部署方式<a target="_blank" rel="noopener" href="https://certbot.eff.org/#ubuntuxenial-nginx">点这里</a>，核心流程就是：</p>
+<ol>
+<li>安装好<code>Certbot</code></li>
+<li><code>$ sudo certbot --nginx</code>，自动检测Nginx站点，自动配置HTTPS跳转</li>
+<li><code>sudo certbot renew --dry-run</code>，检测更新是否正常工作</li>
+<li>在<code>crontab</code>里面添加<code>certbot renew</code>任务<br><code>0 0 * * 1 /usr/bin/certbot --nginx renew &gt;&gt; /var/log/certbot_renew.log</code></li>
+</ol>
+<h2 id="可能会出问题的点"><a href="#可能会出问题的点" class="headerlink" title="可能会出问题的点"></a>可能会出问题的点</h2><ul>
+<li>域名DNS解析不能是<code>cname</code>记录，得是<code>a</code>记录</li>
+<li><a target="_blank" rel="noopener" href="https://certbot.eff.org/">Certbot</a>的配置、证书都在<code>/etc/letsencrypt</code>目录，有时候可以去删除一些错误的配置</li>
+<li><a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a>证书有效时间3个月，注意自动更新证书的时间。<code>certbot renew</code>在快接近失效时间的时候才会更新，可以放心的重复调用。我的<code>crontab</code>设置的每周一更新一次。</li>
+</ul>
+<p><strong>期待明年一月放出的通配符证书，有了这个，几个环境也可以不用买证书啦。 <code>*★,°*:.☆\(￣▽￣)/$:*.°★*</code></strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">nginx</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/nginx-with-certbot/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-python3-upgrade-notes"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1041,105 +1143,6 @@
 
 
   
-    <article id="post-ccg-2016"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/ccg-2016/">CCG 2016</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/ccg-2016/" class="archive-article-date">
-  <time datetime="2016-07-09T12:46:00.000Z" itemprop="datePublished">
-    Published on 2016 / 07 / 09
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="入场"><a href="#入场" class="headerlink" title="入场"></a>入场</h1><p>昨晚看小说三点多才睡，但是早上七点钟依旧爬了起来。展会是九点整入场，提前出发是希望入场的时候不要排那么长的队伍，结果到了才发现已经有很多人在排队……</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_1.webp" alt="排队"></p>
-<p>排队的时候和小伙伴们聊天，慢慢的把人凑齐。我其实主要就是想看水濑祈，毕竟就是因为她会来才决定出门看这个展会的，腹黑的上神大人还是很萌的。Harmony Ribbon 绝赞发售中！</p>
-<p>门票有两种，很早买的是邮寄的纸质票。近期买的是电子票。电子票得多排一个队兑换纸质票。</p>
-<h1 id="EXPO"><a href="#EXPO" class="headerlink" title="EXPO"></a>EXPO</h1><p>进入之后领了本小册子，仔细看了下，其实有三个馆（EXPO，MAX和电竞），主要参观的应该是EXPO。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_2.webp" alt="分布图"></p>
-<p>川原今天有签售，貌似买满200可以抽奖，中了去要签名。要排队这么麻烦的事情我是不会去的，主要还是看看手办。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_3.webp" alt="image"></p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_4.webp" alt="image"></p>
-<p>万代的高达馆，一些模型挺好玩</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_5.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_6.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_7.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_8.webp" alt="image"></p>
-<p>FATE的痛车</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_9.webp" alt="image"></p>
-<p>11：30有心欲呐喊主创见面会，水濑祈来了。不让牌照，我很老实的遵守了。正面太多人，我们站在侧面，感觉距离反而进了。真人好可爱，(๑•ᴗ•๑)。</p>
-<p>穹妹这个数量限定的手办，一开始没排队，后面想买的时候已经没了。(┬＿┬)</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_10.webp" alt="image"></p>
-<p>买了两本画册，走之前5个小伙伴买了小圆的5个人，凑成了五色战队。我的小圆明明很可爱，盒子也最大，为什么价格最便宜，不解。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_11.webp" alt="image"></p>
-<h1 id="MAX"><a href="#MAX" class="headerlink" title="MAX"></a>MAX</h1><p>这个貌似是同人馆，但是没啥好东西买。主要就是等水濑祈一点半的歌，听完就走。此时腿已经很疼了，果然家里最舒服。</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_12.webp" alt="image"></p>
-<p>这个馆COS挺多的，有个COS成Nico的在拍雷姆，感觉很好玩。话说这个Nico脸有点像空丸啊。</p>
-<h1 id="电竞馆"><a href="#电竞馆" class="headerlink" title="电竞馆"></a>电竞馆</h1><p>G联赛Dota2的决赛，同福打IG，没其他好玩的东西，拍了张图就走了。今年Ti6中国队加油！</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_13.webp" alt="image"></p>
-<h1 id="归途"><a href="#归途" class="headerlink" title="归途"></a>归途</h1><p>临走拍了一张，发现这个位置过一条街就是上次看Dota2春季特锦标赛的梅赛德斯-奔驰文化中心。<br><img src="https://a.adcdn.cn/images/ccg2016_14.webp" alt="image"></p>
-<h1 id="小圆"><a href="#小圆" class="headerlink" title="小圆"></a>小圆</h1><p>小圆的浴衣做的很精致啊，为什么这么便宜。(&#x2F; □ \)</p>
-<p><img src="https://a.adcdn.cn/images/ccg2016_15.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_16.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_17.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_18.webp" alt="image"><br><img src="https://a.adcdn.cn/images/ccg2016_19.webp" alt="image"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/ccg-2016/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/6/">Next »</a>
@@ -1384,6 +1387,11 @@
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
                                    class="js-tag color1">usaco</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color5">IPv6</a>
                             </li>
                         
                         <div class="clearfix"></div>

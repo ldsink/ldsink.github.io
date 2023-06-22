@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2023-04-01T06:07:06.688Z</updated>
+  <updated>2023-06-22T06:14:42.683Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PPPoE 拨号配置 IPv6</title>
+    <link href="https://ldsink.com/articles/pppoe-and-ipv6/"/>
+    <id>https://ldsink.com/articles/pppoe-and-ipv6/</id>
+    <published>2023-06-22T04:44:14.000Z</published>
+    <updated>2023-06-22T06:14:42.683Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>家里网络从联通更换到了移动，移动没有公网 IPv4 但是有公网 IPv6。联通时代搞定了 IPv4 之后停止了探索，这次目标搞定 IPv6。</p><p>IPv6 的知识来自于网络资料和<a href="https://www.bilibili.com/video/BV1aF411v7hU/">IPv6和IPv4的主要区别？</a>，配置过程主要参考 <a href="https://blog.otakusaikou.com/2020/11/11/x86-soft-router-and-ipv6/">X86 软路由配置 IPv6 踩坑小记</a>。</p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>目前的网络环境为：</p><p><code>移动光猫（桥接）</code>  ——&gt;  <code>小服务器（PPPoE 拨号及网关）</code>  ——&gt;   <code>其他设备（有线接入的台式机、无线AP的路由器）</code></p><p>小服务器负责 PPPoE 拨号，及使用 Dnsmasq 处理 IPv4 的 DHCP 和 DNS。其中 WAN 口接移动光猫，两个 LAN 口分别接台式机和无线路由器。无线路由器配置成 AP 模式作为一个有无线功能的交换机用。</p><p>IPv6 和 IPv4 区别很多，主要点是：</p><ol><li>不需要 NAT，除开 <code>fe80::</code> 这类保留网段，其他都能当公网用 </li><li>分配 IP 的方式很多，考虑兼容性 <code>SLAAC</code> 应该是最好的</li></ol><p>查了一圈资料，按照现在的网络拓扑结构，实现目标需要完成的步骤是：</p><ol><li>小服务开启 IPv6 的转发</li><li>PPPoE 拨号支持 IPv6，这样小服务器本身支持 IPv6</li><li>PPPoE 能正确申请 IPv6 的 PD，然后绑定到网桥上，这样 LAN 口的设备可以使用 IPv6</li><li>正确配置通告报文（Router Advertisement），这样内网的设备生成 IPv6 地址后知道去何处通知自己存在</li></ol><h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="启用-IPv6-转发"><a href="#启用-IPv6-转发" class="headerlink" title="启用 IPv6 转发"></a>启用 IPv6 转发</h3><p>在 <code>/etc/sysctl.conf</code> 添加上：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">net.ipv6.conf.all.forwarding=2</span><br><span class="line">net.ipv6.conf.default.forwarding=2</span><br><span class="line"></span><br><span class="line">net.ipv6.conf.all.accept_ra=2</span><br><span class="line">net.ipv6.conf.default.accept_ra=2</span><br><span class="line"></span><br><span class="line">net.ipv6.conf.all.use_tempaddr=2</span><br><span class="line">net.ipv6.conf.default.use_tempaddr=2</span><br></pre></td></tr></table></figure><p>上述三段分别为开启转发、接受 RA和支持临时地址</p><h3 id="在-pppoeconf-启用-IPv6"><a href="#在-pppoeconf-启用-IPv6" class="headerlink" title="在 pppoeconf 启用 IPv6"></a>在 <code>pppoeconf</code> 启用 IPv6</h3><p>在 <code>/etc/ppp/options</code> 添加上</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ipv6</span><br></pre></td></tr></table></figure><p>上述为在全局配置启用，也可以在拨号的配置文件 <code>/etc/ppp/peers/dsl-provider</code> 内添加。</p><h3 id="使用-wide-dhcpv6-client-申请-PD"><a href="#使用-wide-dhcpv6-client-申请-PD" class="headerlink" title="使用 wide-dhcpv6-client 申请 PD"></a>使用 wide-dhcpv6-client 申请 PD</h3><p>给内网设备也分配对应的 IPv6 地址使用 Prefix delegation（前缀代理），简称 PD。简单来说就是我们向我们的上级路由发送 PD 请求，上级路由会分给我们一个前缀长度小于等于64的网段，然后我们就能将个网段划分成一个或者一些 &#x2F;64 的网段接着向局域网内的设备分配，此时局域网内的设备的上级路由就是我们的网关。</p><p>为了实现这个功能，我们需要使用 <code>wide-dhcpv6-client</code>。</p><p>安装命令如下，<strong>因为使用 <code>pppoeconf</code> 拨号，所以安装 <code>wide-dhcpv6-client</code> 的时候要选择 <code>ppp0</code> 网卡作为申请 PD 的网卡</strong></p><blockquote><p>apt install wide-dhcpv6-client</p></blockquote><p>如果开启了防火墙，需要开放 dhcpv6-client 服务对应的端口 <code>546</code>。我使用的 ufw，命令如下：</p><blockquote><p>ufw allow dhcpv6-client</p></blockquote><p>编辑 <code>/etc/wide-dhcpv6/dhcp6c.conf</code>，增加</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface ppp0 &#123;</span><br><span class="line">  send ia-pd 0;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">id-assoc pd 0 &#123;</span><br><span class="line">  # use the interface connected to your LAN</span><br><span class="line">  prefix-interface br &#123;</span><br><span class="line">    sla-id 1;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>设置之后重启服务，检查 br 网卡是否分配到 Global 的 IPv6 地址</p><blockquote><p>service wide-dhcpv6-client restart</p></blockquote><h3 id="使用-Dnsmasq-分配-IPv6-地址"><a href="#使用-Dnsmasq-分配-IPv6-地址" class="headerlink" title="使用 Dnsmasq 分配 IPv6 地址"></a>使用 Dnsmasq 分配 IPv6 地址</h3><p>最后需要向局域网设备发送 RA ，使用 SLAAC 来分配IP地址，这里我们使用了 Dnsmasq。在 Dnsmasq 的配置文件里加上:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">enable-ra</span><br><span class="line">dhcp-range=::,constructor:br0,ra-only,slaac</span><br><span class="line">dhcp-option=option6:dns-server,[2400:3200::1],[2400:3200:baba::1]  # 使用阿里 DNS</span><br></pre></td></tr></table></figure><p>重启服务使配置生效</p><blockquote><p>service dnsmasq restart</p></blockquote><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>完成配置后，访问 <a href="https://ipw.cn/ipv6/">https://ipw.cn/ipv6/</a> 或者 <a href="https://test-ipv6.com/">https://test-ipv6.com/</a> 测试 IPv6 连接情况</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;家里网络从联通更换到了移动，移动没有公网 IPv4 但是有公网 IPv6。联通时代搞定了 IPv4 之后停止了探索，这次目标搞定 IPv6。</summary>
+      
+    
+    
+    
+    
+    <category term="IPv6" scheme="https://ldsink.com/tags/ipv6/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 系统创建加密磁盘并自动挂载</title>
@@ -437,29 +459,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>Linux QQ 全新回归</title>
-    <link href="https://ldsink.com/articles/linux-qq-come-back/"/>
-    <id>https://ldsink.com/articles/linux-qq-come-back/</id>
-    <published>2019-10-25T05:17:47.000Z</published>
-    <updated>2022-05-29T06:23:31.574Z</updated>
-    
-    <content type="html"><![CDATA[<p>看到一则新闻，Linux QQ全新回归，号称“从心出发·趣无止境”。官网：<a href="https://im.qq.com/linuxqq/">https://im.qq.com/linuxqq/</a></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux QQ 2.0.0 Beta（New）2019/10/24</span><br><span class="line">    - Linux QQ全新回归</span><br><span class="line">    - 支持x64、ARM64、MIPS64三种架构</span><br><span class="line">    - 优化消息体验，完善消息收发能力</span><br><span class="line">    - 性能优化</span><br></pre></td></tr></table></figure><p>高中竞赛的时候 QQ 有 Linux 版本，可惜后面不维护，再后面就没了。现在重新发布，第一时间下载体验。很遗憾，这个复古的界面效果，和十年前的界面没太多的区别。deepin 深色主题下，聊天框背景还都是黑的，很难看清聊天窗口。</p><p>麻利的卸载，继续打开了 Tim，感谢 deepin 商店配置的 wine Tim。希望腾讯继续努力，以后 Linux 原生版本的体验能达到正常水平。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;看到一则新闻，Linux QQ全新回归，号称“从心出发·趣无止境”。官网：&lt;a href=&quot;https://im.qq.com/linuxqq/&quot;&gt;https://im.qq.com/linuxqq/&lt;/a&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight pla</summary>
-      
-    
-    
-    
-    
-    <category term="linux" scheme="https://ldsink.com/tags/linux/"/>
     
   </entry>
   
