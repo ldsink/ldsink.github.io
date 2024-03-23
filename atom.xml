@@ -6,7 +6,7 @@
   <link href="https://ldsink.com/atom.xml" rel="self"/>
   
   <link href="https://ldsink.com/"/>
-  <updated>2023-06-22T07:01:32.047Z</updated>
+  <updated>2024-03-23T03:43:47.804Z</updated>
   <id>https://ldsink.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>续期过期 GPG 密钥</title>
+    <link href="https://ldsink.com/articles/renew-gpg-key/"/>
+    <id>https://ldsink.com/articles/renew-gpg-key/</id>
+    <published>2024-03-22T03:30:53.000Z</published>
+    <updated>2024-03-23T03:43:47.804Z</updated>
+    
+    <content type="html"><![CDATA[<p>git 提交提示 <code>error: gpg failed to sign the data</code>，发现 GPG 密钥过期。上次签发场景还历历在目，一晃几年就过去了。</p><p>本机 gpg 密钥相关的数据都在 <code>~/.gnupg</code> 目录下，这次续期之后，可以备份这个目录，之后换电脑或者重装系统，之前的密钥数据都可以恢复。</p><p>续期流程如下：</p><ol><li>查看密钥列表，找到过期的密钥 ID</li><li>续期密钥</li></ol><h2 id="查看密钥列表"><a href="#查看密钥列表" class="headerlink" title="查看密钥列表"></a>查看密钥列表</h2><p>终端执行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --list-keys</span><br></pre></td></tr></table></figure><p>列出的密钥列表中，ID后 8 位可以当成简化版密钥 ID，供后续使用。这里是 <code>B0AF5E1C</code></p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/root/.gnupg/pubring.kbx</span><br><span class="line">------------------------</span><br><span class="line">pub   rsa4096 2021-03-22 [SC] [expired: 2024-03-21]</span><br><span class="line">      5233A9D383EAD23BAEF6CB2D8CE00782B0AF5E1C</span><br><span class="line">uid           [ expired] ldsink &lt;admin@ldsink.com&gt;</span><br></pre></td></tr></table></figure><h2 id="续期密钥"><a href="#续期密钥" class="headerlink" title="续期密钥"></a>续期密钥</h2><p>进入 gpg 编辑模式</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --edit-key B0AF5E1C</span><br></pre></td></tr></table></figure><p>输入 <code>expire</code> 命令，选择新的过期时间，这里再续 5 年</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gpg&gt; expire</span><br><span class="line">Changing expiration time <span class="keyword">for</span> the primary key.</span><br><span class="line">Please specify how long the key should be valid.</span><br><span class="line">         0 = key does not expire</span><br><span class="line">      &lt;n&gt;  = key expires <span class="keyword">in</span> n days</span><br><span class="line">      &lt;n&gt;w = key expires <span class="keyword">in</span> n weeks</span><br><span class="line">      &lt;n&gt;m = key expires <span class="keyword">in</span> n months</span><br><span class="line">      &lt;n&gt;y = key expires <span class="keyword">in</span> n years</span><br><span class="line">Key is valid <span class="keyword">for</span>? (0) 5y</span><br><span class="line">Key expires at Thu 22 Mar 2029 11:41:39 AM CST</span><br><span class="line">Is this correct? (y/N) y</span><br></pre></td></tr></table></figure><p>续期成功后，退出编辑模式。在查看密钥列表，可以看到密钥过期时间已经更新。备份一下数据，这 5 年这个密钥可以继续安心的签名。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;git 提交提示 &lt;code&gt;error: gpg failed to sign the data&lt;/code&gt;，发现 GPG 密钥过期。上次签发场景还历历在目，一晃几年就过去了。&lt;/p&gt;
+&lt;p&gt;本机 gpg 密钥相关的数据都在 &lt;code&gt;~/.gnupg&lt;/code&gt; </summary>
+      
+    
+    
+    
+    
+    <category term="gpg" scheme="https://ldsink.com/tags/gpg/"/>
+    
+  </entry>
   
   <entry>
     <title>PPPoE 拨号配置 IPv6</title>
@@ -433,28 +456,6 @@
       
       
     <summary type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/ldsink/toolbox/&quot;&gt;toolbox&lt;/a&gt; 是自己整理的一些脚本库，将平时用的多的常用操作固定成脚本，可追踪可维护，减少重复劳动。主要有脚本、Shell命令和&lt;code&gt;docker-compose&lt;/c</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>2020 新年快乐！</title>
-    <link href="https://ldsink.com/articles/2020-happy-new-year/"/>
-    <id>https://ldsink.com/articles/2020-happy-new-year/</id>
-    <published>2020-01-01T06:00:18.000Z</published>
-    <updated>2022-05-29T06:23:31.990Z</updated>
-    
-    <content type="html"><![CDATA[<p>21世纪的第三个十年，加油！</p><p><img src="https://a.adcdn.cn/images/2020-dream.webp" alt="2020-dream"></p><p><img src="https://a.adcdn.cn/images/python2.7-countdown.webp" alt="python2.7-countdown"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;21世纪的第三个十年，加油！&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/2020-dream.webp&quot; alt=&quot;2020-dream&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/p</summary>
       
     
     

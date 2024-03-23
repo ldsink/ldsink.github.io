@@ -201,6 +201,111 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-monit-and-mmonit"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/monit-and-mmonit/">Monit 和 M/Monit 的调教笔记</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/monit-and-mmonit/" class="archive-article-date">
+  <time datetime="2015-07-07T07:42:00.000Z" itemprop="datePublished">
+    Published on 2015 / 07 / 07
+  </time>
+  
+    <time datetime="2016-03-25T10:52:23.000Z" itemprop="dateUpdated">
+      , Updated on 2016 / 03 / 25
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://mmonit.com/monit/">Monit</a>是一款强大的系统监控软件。<code>M/Monit</code>是<code>Monit</code>的扩展,可以作为中心节点监控多台<code>Monit</code>机器。<br>以下是这息息相关的两者的调教笔记。</p>
+<h2 id="Monit-安装"><a href="#Monit-安装" class="headerlink" title="Monit 安装"></a>Monit 安装</h2><p><a target="_blank" rel="noopener" href="https://mmonit.com/monit/">Monit官网</a>有源代码，有二进制安装包，怎么喜欢怎么来。</p>
+<h2 id="M-x2F-Monit-安装"><a href="#M-x2F-Monit-安装" class="headerlink" title="M&#x2F;Monit 安装"></a>M&#x2F;Monit 安装</h2><p><a target="_blank" rel="noopener" href="https://mmonit.com/download/">M&#x2F;Monit下载地址</a>，下载好之后就按<a target="_blank" rel="noopener" href="https://mmonit.com/wiki/MMonit/Setup">官方手册</a>在30S内运行起来吧。</p>
+<ol>
+<li>解压下载好的安装包，将解压出的文件夹放在合适的位置。推荐<code>/opt</code>或者<code>/usr/local</code>。</li>
+<li>进入目录，执行<code>./bin/mmonit</code>,<code>M/Monit</code>启动完成。</li>
+<li>打开浏览器，输入 <a target="_blank" rel="noopener" href="http://localhost:8080/">http://localhost:8080/</a> 。成功的话就可以看到登录界面。</li>
+<li>默认用户<code>admin</code>，默认密码<code>swordfish</code>。登录之后尽情玩耍。</li>
+</ol>
+<h2 id="M-x2F-Monit-自动启动"><a href="#M-x2F-Monit-自动启动" class="headerlink" title="M&#x2F;Monit 自动启动"></a>M&#x2F;Monit 自动启动</h2><p>推荐使用<code>Monit</code>来管理<code>M/Monit</code>。</p>
+<p>首先在<code>Monit</code>的配置文件里面加上监控<code>M/Monit</code>的设置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 假设你存放 M/Monit 的目录是 /usr/local。</span><br><span class="line">check process mmonit with pidfile /usr/local/mmonit/logs/mmonit.pid</span><br><span class="line">    start program = &quot;/usr/local/mmonit/bin/mmonit&quot;</span><br><span class="line">    stop program = &quot;/usr/local/mmonit/bin/mmonit stop&quot;</span><br></pre></td></tr></table></figure>
+<p>再载入新的配置就OK了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monit reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="Monit-向-M-x2F-Monit-报告存在"><a href="#Monit-向-M-x2F-Monit-报告存在" class="headerlink" title="Monit 向 M&#x2F;Monit 报告存在"></a>Monit 向 M&#x2F;Monit 报告存在</h2><p>新建的每个<code>Monit</code>需要向<code>M/Monit</code>报告，这样<code>M/Monit</code>作为中心节点才能了解并管理新的<code>Monit</code>实例。</p>
+<p><code>Monit</code>报告的具体设置方法可以查阅<a target="_blank" rel="noopener" href="http://mmonit.com/documentation/">官方手册</a>，下面是简化的步骤。</p>
+<ol>
+<li><p>首先需要在配置文件中声明<code>M/Monit</code>的位置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set mmonit http://&lt;username&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/collector</span><br></pre></td></tr></table></figure>
+<p>其中<code>username</code>和<code>password</code>是<code>M/Monit</code>中任何有效用户。可以使用管理员账户登录<code>M/Monit</code>对这些用户进行管理。<br><code>&lt;host&gt;:&lt;port&gt;</code>是<code>M/Monit</code>的位置，端口默认是8080。</p>
+</li>
+<li><p>然后再启用httpd服务，以便接收 M&#x2F;Monit 的操作指令。新版本的默认配置文件是开启的，只需要确认一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set httpd port 2812 and</span><br><span class="line">    set httpd port 2812</span><br><span class="line">    allow localhost</span><br><span class="line">    allow &lt;host&gt;</span><br><span class="line">    allow admin:secret</span><br></pre></td></tr></table></figure>
+<p>需要注意<host>的值是前面设置的M&#x2F;Monit的位置，否则不生效。</p>
+</li>
+</ol>
+<p><strong>Monit和M&#x2F;Monit之间的联系是有版本要求的，如果已经正确设置，但是还不生效，请查看日志检查错误原因。</strong><br><strong>需要注意CentOS默认源的Monit版本是5.1，而最新版的M&#x2F;Monit要求Monit版本不低于5.2，直接使用默认源安装会造成连接问题。</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/monit-and-mmonit/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-usage-of-digital-fingerprint"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -953,84 +1058,6 @@
 
 
   
-    <article id="post-solve-permissions-0755-for-root-ssh-id_rsa-are-too-open"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">解决使用秘钥连接提示“Permissions 0755 for &#39;/root/.ssh/id_rsa&#39; are too open. ”问题</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/" class="archive-article-date">
-  <time datetime="2014-12-16T13:54:00.000Z" itemprop="datePublished">
-    Published on 2014 / 12 / 16
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>直接复制个人的私钥到新的系统，结果远程的主机和git仓库都无法访问，提示</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0755 for &#x27;/home/deepin/.ssh/id_rsa&#x27; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">bad permissions: ignore key: /home/deepin/.ssh/id_rsa</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
-<p>私钥是正确的，看提示信息应该是权限设置的问题。<br>私钥的权限只能是700，执行下面命令修改之后就可以了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 700 ~/.ssh/*</span><br></pre></td></tr></table></figure>
-<p>.ssh 是我的私钥目录，<code>-R</code>递归改完全部的秘钥的权限。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/">Next »</a>
@@ -1046,7 +1073,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2023 Sink.
+        Copyrights &copy; 2009 - 2024 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">
@@ -1280,6 +1307,11 @@
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
                                    class="js-tag color5">IPv6</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color4">gpg</a>
                             </li>
                         
                         <div class="clearfix"></div>

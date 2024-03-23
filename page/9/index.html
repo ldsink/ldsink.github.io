@@ -201,6 +201,84 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-solve-permissions-0755-for-root-ssh-id_rsa-are-too-open"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">解决使用秘钥连接提示“Permissions 0755 for &#39;/root/.ssh/id_rsa&#39; are too open. ”问题</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/" class="archive-article-date">
+  <time datetime="2014-12-16T13:54:00.000Z" itemprop="datePublished">
+    Published on 2014 / 12 / 16
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>直接复制个人的私钥到新的系统，结果远程的主机和git仓库都无法访问，提示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">@         WARNING: UNPROTECTED PRIVATE KEY FILE!          @</span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line">Permissions 0755 for &#x27;/home/deepin/.ssh/id_rsa&#x27; are too open.</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line">This private key will be ignored.</span><br><span class="line">bad permissions: ignore key: /home/deepin/.ssh/id_rsa</span><br><span class="line">Permission denied (publickey).</span><br><span class="line">fatal: Could not read from remote repository.</span><br><span class="line"></span><br><span class="line">Please make sure you have the correct access rights</span><br><span class="line">and the repository exists.</span><br></pre></td></tr></table></figure>
+<p>私钥是正确的，看提示信息应该是权限设置的问题。<br>私钥的权限只能是700，执行下面命令修改之后就可以了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 700 ~/.ssh/*</span><br></pre></td></tr></table></figure>
+<p>.ssh 是我的私钥目录，<code>-R</code>递归改完全部的秘钥的权限。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/solve-permissions-0755-for-root-ssh-id_rsa-are-too-open/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-linux-terminal-shortcuts"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1022,101 +1100,6 @@
 
 
   
-    <article id="post-install-oracle-java-jdk-on-ubuntu-linux"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/install-oracle-java-jdk-on-ubuntu-linux/">Ubuntu 安装配置 Java 环境</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/install-oracle-java-jdk-on-ubuntu-linux/" class="archive-article-date">
-  <time datetime="2014-07-26T07:17:00.000Z" itemprop="datePublished">
-    Published on 2014 / 07 / 26
-  </time>
-  
-    <time datetime="2016-04-25T03:00:42.000Z" itemprop="dateUpdated">
-      , Updated on 2016 / 04 / 25
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>首先去Oracle官网下载<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">jdk</a>，注意根据系统选择合适的版本。<br>我下载的文件为<code>jdk-8u40-linux-x64.tar.gz</code>，解压文件得到<code>jdk1.8.0_40</code>，移动到<code>/opt</code>目录下</p>
-</li>
-<li><p>在终端中打配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/profile</span><br></pre></td></tr></table></figure></li>
-<li><p>在打开的配置文件末尾添加Java环境:</p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/opt/jdk1.8.0_40</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>重启电脑或注销当前用户即可生效，可以在终端中运行<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-查看java的版本。配置成功会出现如下的信息：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  ~  java -version</span><br><span class="line">Picked up _JAVA_OPTIONS:   -Dawt.useSystemAAFontSettings=gasp</span><br><span class="line">java version &quot;1.8.0_40&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_40-b26)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.40-b25, mixed mode)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="wikiHow上有一篇比较详细的图文版。"><a href="#wikiHow上有一篇比较详细的图文版。" class="headerlink" title="wikiHow上有一篇比较详细的图文版。"></a>wikiHow上有一篇比较详细的<a target="_blank" rel="noopener" href="http://www.wikihow.com/Install-Oracle-Java-JDK-on-Ubuntu-Linux">图文版</a>。</h2><p><em>最后更新时间：2015-03-30 15:02:58</em></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/install-oracle-java-jdk-on-ubuntu-linux/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/8/">« Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/10/">Next »</a>
@@ -1132,7 +1115,7 @@
   <div class="outer">
     <div id="footer-info">
       <div class="footer-left">
-        Copyrights &copy; 2009 - 2023 Sink.
+        Copyrights &copy; 2009 - 2024 Sink.
         All Rights Reserved.
       </div>
       <div class="footer-right">
@@ -1366,6 +1349,11 @@
                             <li class="article-tag-list-item">
                                 <a href="javascript:void(0)"
                                    class="js-tag color5">IPv6</a>
+                            </li>
+                        
+                            <li class="article-tag-list-item">
+                                <a href="javascript:void(0)"
+                                   class="js-tag color4">gpg</a>
                             </li>
                         
                         <div class="clearfix"></div>
