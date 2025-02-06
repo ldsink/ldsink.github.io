@@ -201,6 +201,127 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-setup-sentry-with-docker"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/setup-sentry-with-docker/">使用 Docker 搭建 Sentry</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/setup-sentry-with-docker/" class="archive-article-date">
+  <time datetime="2016-08-20T08:32:00.000Z" itemprop="datePublished">
+    Published on 2016 / 08 / 20
+  </time>
+  
+    <time datetime="2016-09-11T08:35:49.000Z" itemprop="dateUpdated">
+      , Updated on 2016 / 09 / 11
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目之前使用的是<a target="_blank" rel="noopener" href="https://sentry.io/welcome/">Sentry</a>官方提供的付费服务，但是因为我们在国内，访问比较慢，体验很糟糕。Sentry本身就是开源的，打算自己动手搭建一个，老板就把这个光荣的任务交给我，Fight～～～</p>
+<p>配置环境一直是一个比较繁琐的事情，还好现在容器盛行，我计划就是直接使用 Docker 来启动 Sentry 的服务。</p>
+<h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><p>不得不说现在 Docker 的生态链比2014年我刚了解这个工具的时候好太多了，现在安装 Docker 也很简单。</p>
+<p>系统源里面可能有 Docker，但是我喜欢使用最新版软件，于是打算从官网下载安装。但是现在已经有了<a target="_blank" rel="noopener" href="https://get.docker.com/">Get Docker</a>，打开这个网页，复制一行命令，再终端执行，OK，Docker 安装完成。</p>
+<blockquote>
+<p>如果服务器的用户权限不是 root 的话，每次调用 docker 的命令需要加 sudo，有些人可能觉得这个很烦。<br>可以添加一个 docker 组来解决这个问题。参见：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group">https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group</a></p>
+</blockquote>
+<h2 id="Sentry-安装"><a href="#Sentry-安装" class="headerlink" title="Sentry 安装"></a>Sentry 安装</h2><p>Sentry 在 <a target="_blank" rel="noopener" href="https://hub.docker.com/">DockerHub</a> 上有官方的镜像，这个就大大方便了我们。</p>
+<p>Sentry Official <a target="_blank" rel="noopener" href="https://hub.docker.com/_/sentry/">https://hub.docker.com/_/sentry/</a></p>
+<h4 id="核心的流程如下："><a href="#核心的流程如下：" class="headerlink" title="核心的流程如下："></a>核心的流程如下：</h4><p><strong>启动Sentry需要的Redis实例</strong></p>
+<p><code>docker run -d --name sentry-redis redis</code></p>
+<p><strong>启动Sentry需要的PostgreSQL实例</strong></p>
+<p> <code>docker run -d --name sentry-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=sentry postgres</code></p>
+<p><strong>生成 SENTRY_SECRET_KEY</strong></p>
+<p><code>docker run --rm sentry config generate-secret-key</code></p>
+<p>这个生成的 SENTRY_SECRET_KEY 需要记住，后面都要用到</p>
+<p><strong>初始化数据库</strong></p>
+<p><code> docker run -it --rm -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade</code></p>
+<p>这里需要使用刚才生成的 SENTRY_SECRET_KEY。这个操作会在PostgresQL里面初始化表信息。</p>
+<p><strong>启动Sentry的Web服务</strong></p>
+<p><code>docker run -d -p 80:9000 --name my-sentry -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-redis:redis --link sentry-postgres:postgres sentry</code></p>
+<p>-p 参数设置实例暴露的端口号，我这台机器只跑这个就直接占了80端口。</p>
+<p><strong>启动Sentry的Worker</strong></p>
+<p><code>docker run -d --name sentry-cron -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run cron</code></p>
+<p><code>docker run -d --name sentry-worker-1 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
+<p>worker 和 celery beat 根据实际情况添加，我这里就只加1个。</p>
+<h2 id="必要的配置"><a href="#必要的配置" class="headerlink" title="必要的配置"></a>必要的配置</h2><p><strong>邮件设置</strong></p>
+<p>上面的步骤跑完，Sentry 就已经搭建好并且可以使用了，还有问题，你会发现没有邮件提醒，我们需要配置邮件服务。</p>
+<p>官方的介绍了两种方法，一个是再 link 一个 SMTP 的 instance，一个是添加SMTP服务的配置。我两个都试了，前者发出的邮件很容易被当做垃圾邮件拦截，我现在采用的是后者。现在国内的免费邮件服务都提供了SMTP功能，一开始我直接使用了免费的QQ邮箱和163邮箱，一部分邮件可以发送成功，一部分会连接超时，这个让我很无语，这种不稳定不能用。Gmail估计不会有问题，但是可能被墙，就没试（其实是拿老板手机注册的时候没成功，没成功的原因的老板手机欠费停机，没收到验证短信。o(╯□╰)o）</p>
+<p>考虑邮件推送服务。服务器在AWS中国上，AWS有邮件推送服务，但是这个AWS中国貌似还没开发这个功能；搜狐家有<a target="_blank" rel="noopener" href="https://sendcloud.sohu.com/">SendCloud</a>,注册之后发现要获取免费的额度需要填太多东西，作罢；因为有阿里云的账号，阿里云家配置比较简单，暂时用的阿里云的邮件推送服务，地址：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/directmail">https://www.aliyun.com/product/directmail</a>。实际使用中还是有发送失败的情况，没有说的那么好。</p>
+<p>配好之后，我们需要将这些配置加到我们的Sentry实例中。我没有作为 instance 的启动参数，而是直接修改了 sentry.conf.py 文件，直接将配置文件 mount 到 instance 内。相关的部分如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># email = env(&#x27;SENTRY_EMAIL_HOST&#x27;) or (env(&#x27;SMTP_PORT_25_TCP_ADDR&#x27;) and &#x27;smtp&#x27;)</span></span><br><span class="line"><span class="comment"># if email:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;smtp&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.host&#x27;] = email</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.password&#x27;] = env(&#x27;SENTRY_EMAIL_PASSWORD&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.username&#x27;] = env(&#x27;SENTRY_EMAIL_USER&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.port&#x27;] = int(env(&#x27;SENTRY_EMAIL_PORT&#x27;) or 25)</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.use-tls&#x27;] = Bool(env(&#x27;SENTRY_EMAIL_USE_TLS&#x27;, False))</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;dummy&#x27;</span></span><br><span class="line"></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.backend&#x27;</span>] = <span class="string">&#x27;smtp&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.host&#x27;</span>] = <span class="string">&#x27;smtpdm.aliyun.com&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.password&#x27;</span>] = <span class="string">&#x27;your password&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.username&#x27;</span>] = <span class="string">&#x27;your email address&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.port&#x27;</span>] = <span class="number">25</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.use-tls&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>启动命令如下:</p>
+<p><code>docker run -d -p 80:9000 -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry</code></p>
+<p><code>docker run -d -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
+<blockquote>
+<p>注意：如果只启动 Web，在 Sentry 内的测试发送邮件会成功，但是通知邮件依旧会失败。因为通知邮件是 Worker instance 发送的，不是 Web instance 发送的，邮件配置必须也传到 Worker instance 里面。</p>
+</blockquote>
+<p><strong>关闭注册功能</strong></p>
+<p>内部用的系统，不希望开放公开的注册。需要把这个功能 disable 掉。还是改<code>sentry.conf.py</code>文件，添加一行 <code>SENTRY_FEATURES[&#39;auth:register&#39;] = False</code></p>
+<p><strong>更多的参数写到 sentry.conf.py</strong></p>
+<p>很多参数都是可以直接写到 sentry.conf.py 内的。我把<code>system.secret-key</code>这个也写到文件内，这样 docker  run 需要带的参数就大大减少。</p>
+<h2 id="Sentry-使用"><a href="#Sentry-使用" class="headerlink" title="Sentry 使用"></a>Sentry 使用</h2><p>这个就不多说了。用管理员账号登录之后，自己添加 Project 和 Member，再把 Sentry 的 Track 加到需要监测的项目里面就好。我们项目用的 Django，里面的 raven 配置加上新的链接就可用，非常方便。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/setup-sentry-with-docker/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-congratulations-wings"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1032,129 +1153,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/books/javascript-in-24-hours-sams-teach-yourself-5th-edition/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-redis-getting-started-guide-2nd-edition"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/books/redis-getting-started-guide-2nd-edition/">读书笔记：Redis入门指南（第2版）</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/books/redis-getting-started-guide-2nd-edition/" class="archive-article-date">
-  <time datetime="2015-12-15T12:47:00.000Z" itemprop="datePublished">
-    Published on 2015 / 12 / 15
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/redis%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89.webp" alt="Redis入门指南（第2版）"></p>
-<p>很不错的Redis入门书。之前在<code>Kindle</code>上看了盗版的第1版，现在买的第2版，新版主要增加了Redis3.0相关的内容。</p>
-<p>速成类书籍，前面都是对本书将要介绍的对象进行简单的介绍。从这本书我知道了<code>Redis</code>是<code>REmote DIctionary Server</code>的缩写，这也是我看完第一版之后唯一记下来的东西。（这点在官网的<a target="_blank" rel="noopener" href="http://redis.io/topics/faq#what-redis-means-actually">F&amp;Q</a>有写，但很多人估计不知道。）</p>
-<p>介绍完Redis是什么，50页，1&#x2F;4的内容过去了。再介绍一下常用的命令，到100页。然后介绍一下在 PHP、Python、Ruby和Node.js上用库连接Redis，我们来到了130页。这部分用过Redis的基本可以跳过，要用了再去官网看。<br>这些内容中我觉得只有<strong>事务</strong>有意思，可以归结为<a target="_blank" rel="noopener" href="http://redisdoc.com/topic/transaction.html">Redis 在事务失败时不进行回滚，而是继续执行余下的命令</a>，使用的时候要注意。</p>
-<p>130页之后，水分值降低。剩下四章，主要介绍了我感兴趣的三个点：</p>
-<ul>
-<li>脚本<ul>
-<li>因为<code>Redis</code>是单例，脚本会作为整体执行，所以是原子操作</li>
-<li><code>Redis</code>内部可以使用<code>Lua</code>脚本。（自己搜了解到:<code>一个完整的Lua解释器不过200k，在目前所有脚本引擎中，Lua的速度是最快的。这一切都决定了Lua是作为嵌入式脚本的最佳选择。</code>）</li>
-<li>通过几次强调<code>Lua</code>的数组是从1开始，成功的让我从和谐的玄学角度上不喜欢<code>Lua</code></li>
-</ul>
-</li>
-<li>持久化<ul>
-<li>RDB 和 AOF</li>
-<li><code>flushall</code>这条命令可能会触发<code>save</code></li>
-</ul>
-</li>
-<li>集群<ul>
-<li><code>Redis</code>3.0添加的可用的集群功能</li>
-<li>哨兵2.0</li>
-<li>集群的配置、搭建和要注意的点，<strong>插槽</strong>这个概念。</li>
-<li>以上两个很遗憾都没有任何配图，需要耐心阅读，有配图会好理解很多。但是文字解释很详细，一步一步说明哨兵、集群的行为。能让人理解各个节点之间怎么监控，怎么选举。</li>
-</ul>
-</li>
-</ul>
-<p>剩下的内容就是一些管理相关的了，包括</p>
-<ul>
-<li>安全</li>
-</ul>
-<blockquote>
-<p>Redis只适合Redis适合的场景。<a target="_blank" rel="noopener" href="http://antirez.com/news/96">Redis Crackit</a>这类应该需要注意。</p>
-</blockquote>
-<ul>
-<li>通讯协议</li>
-</ul>
-<blockquote>
-<p>介绍了Redis客户端之间使用的通讯协议，利用<code>telnet</code>连接一个客户端然后模拟通讯，这个挺好玩的。</p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-  <div class="article-category tagcloud">
-    <i class="icon-book icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="/categories/books/"
-             class="article-tag-list-link color1">books</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/books/redis-getting-started-guide-2nd-edition/">展开全文 >></a>
         </p>
       
 

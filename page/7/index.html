@@ -201,6 +201,129 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-redis-getting-started-guide-2nd-edition"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/books/redis-getting-started-guide-2nd-edition/">读书笔记：Redis入门指南（第2版）</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/books/redis-getting-started-guide-2nd-edition/" class="archive-article-date">
+  <time datetime="2015-12-15T12:47:00.000Z" itemprop="datePublished">
+    Published on 2015 / 12 / 15
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://a.adcdn.cn/images/redis%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89.webp" alt="Redis入门指南（第2版）"></p>
+<p>很不错的Redis入门书。之前在<code>Kindle</code>上看了盗版的第1版，现在买的第2版，新版主要增加了Redis3.0相关的内容。</p>
+<p>速成类书籍，前面都是对本书将要介绍的对象进行简单的介绍。从这本书我知道了<code>Redis</code>是<code>REmote DIctionary Server</code>的缩写，这也是我看完第一版之后唯一记下来的东西。（这点在官网的<a target="_blank" rel="noopener" href="http://redis.io/topics/faq#what-redis-means-actually">F&amp;Q</a>有写，但很多人估计不知道。）</p>
+<p>介绍完Redis是什么，50页，1&#x2F;4的内容过去了。再介绍一下常用的命令，到100页。然后介绍一下在 PHP、Python、Ruby和Node.js上用库连接Redis，我们来到了130页。这部分用过Redis的基本可以跳过，要用了再去官网看。<br>这些内容中我觉得只有<strong>事务</strong>有意思，可以归结为<a target="_blank" rel="noopener" href="http://redisdoc.com/topic/transaction.html">Redis 在事务失败时不进行回滚，而是继续执行余下的命令</a>，使用的时候要注意。</p>
+<p>130页之后，水分值降低。剩下四章，主要介绍了我感兴趣的三个点：</p>
+<ul>
+<li>脚本<ul>
+<li>因为<code>Redis</code>是单例，脚本会作为整体执行，所以是原子操作</li>
+<li><code>Redis</code>内部可以使用<code>Lua</code>脚本。（自己搜了解到:<code>一个完整的Lua解释器不过200k，在目前所有脚本引擎中，Lua的速度是最快的。这一切都决定了Lua是作为嵌入式脚本的最佳选择。</code>）</li>
+<li>通过几次强调<code>Lua</code>的数组是从1开始，成功的让我从和谐的玄学角度上不喜欢<code>Lua</code></li>
+</ul>
+</li>
+<li>持久化<ul>
+<li>RDB 和 AOF</li>
+<li><code>flushall</code>这条命令可能会触发<code>save</code></li>
+</ul>
+</li>
+<li>集群<ul>
+<li><code>Redis</code>3.0添加的可用的集群功能</li>
+<li>哨兵2.0</li>
+<li>集群的配置、搭建和要注意的点，<strong>插槽</strong>这个概念。</li>
+<li>以上两个很遗憾都没有任何配图，需要耐心阅读，有配图会好理解很多。但是文字解释很详细，一步一步说明哨兵、集群的行为。能让人理解各个节点之间怎么监控，怎么选举。</li>
+</ul>
+</li>
+</ul>
+<p>剩下的内容就是一些管理相关的了，包括</p>
+<ul>
+<li>安全</li>
+</ul>
+<blockquote>
+<p>Redis只适合Redis适合的场景。<a target="_blank" rel="noopener" href="http://antirez.com/news/96">Redis Crackit</a>这类应该需要注意。</p>
+</blockquote>
+<ul>
+<li>通讯协议</li>
+</ul>
+<blockquote>
+<p>介绍了Redis客户端之间使用的通讯协议，利用<code>telnet</code>连接一个客户端然后模拟通讯，这个挺好玩的。</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+  <div class="article-category tagcloud">
+    <i class="icon-book icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="/categories/books/"
+             class="article-tag-list-link color1">books</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/books/redis-getting-started-guide-2nd-edition/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-vim-save-file-without-root-permission"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1251,99 +1374,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/permit-password-authentication/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-regular-expression-traps-in-php"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/regular-expression-traps-in-php/">PHP 中使用正则表达式的那些坑</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/regular-expression-traps-in-php/" class="archive-article-date">
-  <time datetime="2015-07-27T01:06:00.000Z" itemprop="datePublished">
-    Published on 2015 / 07 / 27
-  </time>
-  
-    <time datetime="2015-08-17T06:02:28.000Z" itemprop="dateUpdated">
-      , Updated on 2015 / 08 / 17
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近弄关键词匹配，主要用的正则表达式。之前一直没写过PHP的正则表达式的代码，一番折腾之后表示这其中好多坑。</p>
-<h1 id="慎用"><a href="#慎用" class="headerlink" title="慎用 |"></a>慎用 |</h1><p>任务场景是需要在一段字符串中匹配多个关键字。一开始想当然的使用了<code>|</code>拼接全部的关键字作为pattern，然后直接<code>preg_match</code>解决问题。<br>但我这样想当然的做法在<code>Code Review</code>的时候被拒，理由是可能存在安全等问题。<br>因为PHP内存限制，pattern过长会造成段异常，而且这样使用性能很低。正确的做法是每一个关键词都是pattern，运行n次<code>preg_match</code>函数。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一次匹配（不推荐）</span></span><br><span class="line"><span class="variable">$pattern</span> = <span class="title function_ invoke__">implode</span>(<span class="string">&#x27;|&#x27;</span>, <span class="variable">$keywords</span>);</span><br><span class="line"><span class="variable">$ret</span> = <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/&#x27;</span> . <span class="variable">$pattern</span> . <span class="string">&#x27;/u&#x27;</span>, <span class="variable">$subject</span>, <span class="variable">$matches</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多次匹配</span></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$keywords</span> <span class="keyword">as</span> <span class="variable">$keyword</span>) &#123;</span><br><span class="line">    <span class="variable">$ret</span> = <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/&#x27;</span> . <span class="variable">$keyword</span> . <span class="string">&#x27;/u&#x27;</span>, <span class="variable">$subject</span>, <span class="variable">$matches</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$ret</span>) <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在我的测试中，字符串在一万、十万甚至百万长度的时候都是下面多次匹配快于上面的一次匹配，时间差甚至能达到九倍。<br>想想原因其实很简单，因为上面和下面的逻辑本质上是一样的，但是下面因为一次只匹配一个单词，很自然的能用一些高性能的字符串匹配算法，如KMP。<br>上面的很长的pattern，反而不好使用各种优化算法，只能用最原始的方法，性能当然会下降。</p>
-<p>那<code>|</code>应该用在什么场合呢？</p>
-<p>在拆分开不便于程序代码理解的时候使用。当使用<code>|</code>可以使代码更加直观简洁，使逻辑更加易于理解，那就放心大胆的用。<br>当决定要使用正则表达式，其实不太需要考虑性能问题，一般来说性能差别不会很大。</p>
-<h1 id="preg-quote-注意添加分隔符"><a href="#preg-quote-注意添加分隔符" class="headerlink" title="preg_quote 注意添加分隔符"></a>preg_quote 注意添加分隔符</h1><p><code>php</code>提供了<code>preg_match</code>函数用于转义正则表达式字符，但是需要注意，这个函数仅仅转义正则表达式的特殊字符“ . \ + * ? [ ^ ] $ ( ) { } &#x3D; ! &lt; &gt; | : -”。<br>其中并不包含分隔符，调用这个函数的时候最好把使用的分隔符也作为<code>delimiter</code>参数传递进去。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x27;/&#x27;是最通用的分隔符。</span></span><br><span class="line"><span class="variable">$keywords</span> = <span class="title function_ invoke__">preg_quote</span>(<span class="variable">$keywords</span>, <span class="string">&#x27;/&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h1 id="才能在正则表达式中表示-‘-‘字符"><a href="#才能在正则表达式中表示-‘-‘字符" class="headerlink" title="\\\\ 才能在正则表达式中表示 ‘\‘字符"></a>\\\\ 才能在正则表达式中表示 ‘\‘字符</h1><p>在编写正则表达式反转义函数的时候，我遇到了这个问题。这个函数很简单，就是去掉所有带’\‘字符前的’\‘，但是弄起来总是不对。<br>在仔细看完PHP文档之后，我终于理清了逻辑。</p>
-<p>“\\\\“这是写在代码中的，首先PHP会理解一次，”\\“会表示’\‘，这样传给正则的字符串就是是”\\“。<br>然后正则表达式再理解一次，这时”\\“对应的就是’\‘字符。在使用’\‘的时候一定要考虑这些情况。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $keywords 就是需要反转义的字符串</span></span><br><span class="line"><span class="title function_ invoke__">preg_replace_callback</span>(<span class="string">&quot;/\\\\./u&quot;</span>, function (<span class="variable">$matches</span>) &#123; <span class="keyword">return</span> <span class="title function_ invoke__">substr</span>(<span class="variable">$matches</span>[<span class="number">0</span>],<span class="number">1</span>);&#125;, <span class="variable">$keywords</span>);</span><br></pre></td></tr></table></figure>
-
-<h1 id="善用模式修饰符"><a href="#善用模式修饰符" class="headerlink" title="善用模式修饰符"></a>善用模式修饰符</h1><p><code>php</code>正则表达式中，分隔符之后是可以添加模式修饰符的，这里可以参阅<a target="_blank" rel="noopener" href="http://php.net/manual/zh/reference.pcre.pattern.modifiers.php">PHP文档</a>。</p>
-<p>我最常用的是<code>u</code>，此修正符使模式字符串被认为是utf-8的。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/regular-expression-traps-in-php/">展开全文 >></a>
         </p>
       
 

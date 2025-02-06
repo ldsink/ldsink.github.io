@@ -201,6 +201,129 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-p1003-equal"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/p1003-equal/">P1003 等价表达式</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/p1003-equal/" class="archive-article-date">
+  <time datetime="2019-05-12T06:37:52.000Z" itemprop="datePublished">
+    Published on 2019 / 05 / 12
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>懒癌患者学习Go语言，断断续续都看了几遍，可惜工作中一直没机会用上。偶然看到<a target="_blank" rel="noopener" href="https://vijos.org/">vijos</a>，现在已经支持Go语言。So，做题使我快乐！做题使我RP++</p>
+<p>现在是为了学习Go来做题，和十年前信息竞赛刷<a target="_blank" rel="noopener" href="https://vijos.org/">vijos</a>是完全不同的心态。当时是为了短时间内尽可能多拿分，搞不定正确的算法，也起码得按照输入数据规模把简单的三四十分拿到手。借着那本人手必读的骗分导论，暴力打表之道也偶尔发生。光阴似箭，日月如梭。扯回来，咱们来做这道题<a target="_blank" rel="noopener" href="https://vijos.org/p/1003">P1003 等价表达式</a>。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>一个字符串处理问题。按照做题的思路，应该是读取进来一个表达式，再将<code>a</code>带入求值。若两个表达式<code>a</code>带入同一个值得到的结果相同，则认为表达式一致。可以使用多组数据，避免偶然发生的不同表达式计算结果一样的情况。整理出来，步骤如下：</p>
+<ol>
+<li>读取输入数据</li>
+<li>实现一个函数，接收一个表达式和一个变量值，返回计算结果</li>
+<li>定义一组测试用例</li>
+<li>将每个选项，使用测试用例进行测试，通过则认为一致，输出选项</li>
+</ol>
+<p>逻辑想明白，接下来就是编码实现。出于学习Go的目的，为了熟悉相关函数和语法，有些地方不一定用最简单的方式实现逻辑。</p>
+<h3 id="数据输入"><a href="#数据输入" class="headerlink" title="数据输入"></a>数据输入</h3><p>尝试了<code>fmt</code>，<code>bufio.NewReader</code>和<code>bufio.NewScanner</code>，因为输入数据有空格，<code>fmt</code>会把空格作为终止符，单行读取不完整。<code>bufio.NewReader</code>一次性读取了全部的。<code>bufio.NewScanner</code>比较像熟悉的<code>readline</code>。</p>
+<h3 id="表达式过滤"><a href="#表达式过滤" class="headerlink" title="表达式过滤"></a>表达式过滤</h3><p>表达式头部尾部中间会有多余的空格，最简单的是字符串替换，过滤掉全部的空格。我用了另一种方式，使用正则表达式，留下符合要求的符号、数字和字母。多用用Go的正则表达式。多习惯一下基本数据结构<code>string</code>、<code>rune</code>、<code>byte</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filterExpression</span><span class="params">(expression <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="comment">// 只允许 a 数字 + - * ^ ( )</span></span><br><span class="line">    reg, _ := regexp.Compile(<span class="string">&quot;[a\\d\\+\\-\\*\\^\\(\\)]+&quot;</span>)</span><br><span class="line">    mapping := <span class="function"><span class="keyword">func</span><span class="params">(r <span class="type">rune</span>)</span></span> <span class="type">rune</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> reg.MatchString(<span class="type">string</span>(r)) &#123;</span><br><span class="line">            <span class="keyword">return</span> r</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> strings.Map(mapping, expression)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="表达式计算"><a href="#表达式计算" class="headerlink" title="表达式计算"></a>表达式计算</h3><p>构造并维护一个数字栈和一个操作符栈，从左至右处理表达式。遇见数字压栈；遇见<code>a</code>替换成数字压栈；遇见操作符，和栈顶操作符比较，优先级高压栈，否则弹出栈顶操作符和两个数字进行计算。</p>
+<p>操作符优先级 <code>(</code>&gt;<code>^</code>&gt;<code>*</code>&gt;<code>+</code>&#x3D;<code>-</code>&gt;<code>)</code>，我用一个 <a target="_blank" rel="noopener" href="https://tour.golang.org/moretypes/19/">Maps</a> 维护，代码如下：</p>
+<h4 id="操作符优先级"><a href="#操作符优先级" class="headerlink" title="操作符优先级"></a>操作符优先级</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">operatorOrder[<span class="string">&quot;+&quot;</span>] = <span class="number">1</span></span><br><span class="line">operatorOrder[<span class="string">&quot;-&quot;</span>] = <span class="number">1</span></span><br><span class="line">operatorOrder[<span class="string">&quot;*&quot;</span>] = <span class="number">2</span></span><br><span class="line">operatorOrder[<span class="string">&quot;^&quot;</span>] = <span class="number">3</span></span><br><span class="line">operatorOrder[<span class="string">&quot;(&quot;</span>] = <span class="number">4</span></span><br><span class="line">operatorOrder[<span class="string">&quot;)&quot;</span>] = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="乘法和幂"><a href="#乘法和幂" class="headerlink" title="乘法和幂"></a>乘法和幂</h4><p>因为有幂的存在，数值可能会变得很大。好在我们并不需要计算表达式的精确值，所以可以对所有涉及<code>*</code>和<code>^</code>的计算取一个大质数的模，这样可以有效避免数值过大越界。幂计算多用位运算加速。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> prime = <span class="number">16769023</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">powerMod</span><span class="params">(x, y <span class="type">int64</span>)</span></span> <span class="type">int64</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> i <span class="type">int64</span> = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j := x; y &gt; <span class="number">0</span>; j = j * j % prime &#123;</span><br><span class="line">        <span class="keyword">if</span> y&amp;<span class="number">1</span> == <span class="number">1</span> &#123;</span><br><span class="line">            i = i * j % prime</span><br><span class="line">        &#125;</span><br><span class="line">        y = y &gt;&gt; <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">multiMod</span><span class="params">(x, y <span class="type">int64</span>)</span></span> <span class="type">int64</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> x * y % prime</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="括号处理"><a href="#括号处理" class="headerlink" title="括号处理"></a>括号处理</h4><p>操作符栈只有两个括号的时候，应该弹出。测试数据应该有脏数据，有些括号不是成对的。不能直接的弹出两个了事，得做一下判断，是我们需要弹出的括号则弹出，否则不做处理。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>下面是AC代码，还有改进的点：</p>
+<ul>
+<li>表达式过滤掉空格之后，可以在全部的操作符和<code>a</code>前后增加空格，然后按照空格做 split，过滤掉空元素，直接将字符串换成一个操作符、数字和<code>a</code>的 List，会比现在这样一次一次拿更优雅。</li>
+<li>有些可以用 <code>rune</code> 的地方，还是用的 <code>string</code>，对这些转换很明确的话，可以更精确点。</li>
+<li>质数随便找了一个，可以按照数据规模找一个更合适的。</li>
+</ul>
+<blockquote>
+<p>全程脑袋都在想，用 Python 的，替换完字符，稍微做点处理，大概就能 eval 直接计算了吧……</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ZHOU Cheng &lt;c.zhou@live.com&gt;</span></span><br><span class="line"><span class="comment">2019-5-11 16:12:46</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;bufio&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;os&quot;</span></span><br><span class="line">    <span class="string">&quot;regexp&quot;</span></span><br><span class="line">    <span class="string">&quot;strconv&quot;</span></span><br><span class="line">    <span class="string">&quot;strings&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> operatorOrder = <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Number = <span class="string">&quot;1234567890&quot;</span></span><br><span class="line"><span class="keyword">const</span> Mark = <span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filterExpression</span><span class="params">(expression <span class="type">string</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="comment">// 只允许 a 数字 + - * ^ ( )</span></span><br><span class="line">    reg, _ := regexp.Compile(<span class="string">&quot;[a\\d\\+\\-\\*\\^\\(\\)]+&quot;</span>)</span><br><span class="line">    mapping := <span class="function"><span class="keyword">func</span><span class="params">(r <span class="type">rune</span>)</span></span> <span class="type">rune</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> reg.MatchString(<span class="type">string</span>(r)) &#123;</span><br><span class="line">            <span class="keyword">return</span> r</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> strings.Map(mapping, expression)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getNumOrOperator</span><span class="params">(expression <span class="type">string</span>, offset <span class="type">int</span>)</span></span> (<span class="type">string</span>, <span class="type">int</span>) &#123;</span><br><span class="line">    c := expression[offset : offset+<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">if</span> c == <span class="string">&quot;a&quot;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> c, offset + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> _, ok := operatorOrder[c]; ok &#123;</span><br><span class="line">        <span class="keyword">return</span> c, offset + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    length := <span class="built_in">len</span>(expression)</span><br><span class="line">    number := <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> ; offset &lt; length; offset++ &#123;</span><br><span class="line">        c := expression[offset : offset+<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> !strings.Contains(Number, c) &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        number += c</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> number, offset</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> prime = <span class="number">16769023</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">powerMod</span><span class="params">(x, y <span class="type">int64</span>)</span></span> <span class="type">int64</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> i <span class="type">int64</span> = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j := x; y &gt; <span class="number">0</span>; j = j * j % prime &#123;</span><br><span class="line">        <span class="keyword">if</span> y&amp;<span class="number">1</span> == <span class="number">1</span> &#123;</span><br><span class="line">            i = i * j % prime</span><br><span class="line">        &#125;</span><br><span class="line">        y = y &gt;&gt; <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">multiMod</span><span class="params">(x, y <span class="type">int64</span>)</span></span> <span class="type">int64</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> x * y % prime</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">calculateValue</span><span class="params">(val1, val2 <span class="type">int64</span>, op <span class="type">string</span>)</span></span> <span class="type">int64</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> op &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;+&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> val1 + val2</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;-&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> val1 - val2</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;*&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> multiMod(val1, val2)</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;^&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> powerMod(val1, val2)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">calculateExpression</span><span class="params">(expression <span class="type">string</span>, value <span class="type">int64</span>)</span></span> <span class="type">int64</span> &#123;</span><br><span class="line">    numStack := [<span class="number">50</span>]<span class="type">int64</span>&#123;&#125;</span><br><span class="line">    numStackTop := <span class="number">0</span></span><br><span class="line">    opStack := [<span class="number">50</span>]<span class="type">string</span>&#123;&#125;</span><br><span class="line">    opStackTop := <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    curStr := <span class="string">&quot;&quot;</span></span><br><span class="line">    offset := <span class="number">0</span></span><br><span class="line">    length := <span class="built_in">len</span>(expression)</span><br><span class="line">    <span class="keyword">for</span> ; offset &lt; length; &#123;</span><br><span class="line">        curStr, offset = getNumOrOperator(expression, offset)</span><br><span class="line">        <span class="keyword">if</span> curStr == <span class="string">&quot;a&quot;</span> &#123;</span><br><span class="line">            numStackTop++</span><br><span class="line">            numStack[numStackTop] = value</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> _, ok := operatorOrder[curStr]; ok &#123;</span><br><span class="line">            curOrder, _ := operatorOrder[curStr]</span><br><span class="line">            <span class="keyword">for</span> opStackTop &gt; <span class="number">0</span> &#123;</span><br><span class="line">                topOrder, _ := operatorOrder[opStack[opStackTop]]</span><br><span class="line">                <span class="comment">// 如果优先级小于前面操作符，计算上一个值</span></span><br><span class="line">                <span class="keyword">if</span> curOrder &lt;= topOrder &amp;&amp; opStack[opStackTop] != <span class="string">&quot;(&quot;</span> &#123;</span><br><span class="line">                    num1, num2 := numStack[numStackTop<span class="number">-1</span>], numStack[numStackTop]</span><br><span class="line">                    numStackTop -= <span class="number">2</span></span><br><span class="line">                    topOp := opStack[opStackTop]</span><br><span class="line">                    opStackTop--</span><br><span class="line"></span><br><span class="line">                    numStackTop++</span><br><span class="line">                    numStack[numStackTop] = calculateValue(num1, num2, topOp)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            opStackTop++</span><br><span class="line">            opStack[opStackTop] = curStr</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 检测结尾如果是 )，弹出两个括号。</span></span><br><span class="line">            <span class="keyword">if</span> opStack[opStackTop] == <span class="string">&quot;)&quot;</span> &#123;</span><br><span class="line">                opStackTop--</span><br><span class="line">                <span class="comment">// 详细判断，兼容一个错误的测试用例</span></span><br><span class="line">                <span class="keyword">if</span> opStackTop &gt; <span class="number">0</span> &amp;&amp; opStack[opStackTop] == <span class="string">&quot;(&quot;</span> &#123;</span><br><span class="line">                    opStackTop--</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最后处理数字</span></span><br><span class="line">        num, _ := strconv.ParseInt(curStr, <span class="number">10</span>, <span class="number">64</span>)</span><br><span class="line">        numStackTop++</span><br><span class="line">        numStack[numStackTop] = num</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 还需要计算一次</span></span><br><span class="line">    <span class="keyword">for</span> ; opStackTop &gt; <span class="number">0</span>; &#123;</span><br><span class="line">        num1, num2 := numStack[numStackTop<span class="number">-1</span>], numStack[numStackTop]</span><br><span class="line">        numStackTop -= <span class="number">2</span></span><br><span class="line">        op := opStack[opStackTop]</span><br><span class="line">        opStackTop--</span><br><span class="line"></span><br><span class="line">        numStackTop++</span><br><span class="line">        numStack[numStackTop] = calculateValue(num1, num2, op)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> numStack[numStackTop]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    scanner := bufio.NewScanner(os.Stdin)</span><br><span class="line"></span><br><span class="line">    scanner.Scan()</span><br><span class="line">    baseExpression := scanner.Text()</span><br><span class="line">    baseExpression = filterExpression(baseExpression)</span><br><span class="line"></span><br><span class="line">    scanner.Scan()</span><br><span class="line">    nStr := scanner.Text()</span><br><span class="line">    n, _ := strconv.Atoi(nStr)</span><br><span class="line"></span><br><span class="line">    operatorOrder[<span class="string">&quot;+&quot;</span>] = <span class="number">1</span></span><br><span class="line">    operatorOrder[<span class="string">&quot;-&quot;</span>] = <span class="number">1</span></span><br><span class="line">    operatorOrder[<span class="string">&quot;*&quot;</span>] = <span class="number">2</span></span><br><span class="line">    operatorOrder[<span class="string">&quot;^&quot;</span>] = <span class="number">3</span></span><br><span class="line">    operatorOrder[<span class="string">&quot;(&quot;</span>] = <span class="number">4</span></span><br><span class="line">    operatorOrder[<span class="string">&quot;)&quot;</span>] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> caseNum = <span class="number">3</span></span><br><span class="line">    values := [caseNum]<span class="type">int64</span>&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>&#125;</span><br><span class="line">    result := [caseNum]<span class="type">int64</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; caseNum; i++ &#123;</span><br><span class="line">        result[i] = calculateExpression(baseExpression, values[i])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> offset := <span class="number">0</span>; offset &lt; n; offset++ &#123;</span><br><span class="line">        scanner.Scan()</span><br><span class="line">        expression := scanner.Text()</span><br><span class="line">        expression = filterExpression(expression)</span><br><span class="line">        equal := <span class="literal">true</span></span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; equal &amp;&amp; i &lt; caseNum; i++ &#123;</span><br><span class="line">            r := calculateExpression(expression, values[i])</span><br><span class="line">            <span class="keyword">if</span> r != result[i] &#123;</span><br><span class="line">                equal = <span class="literal">false</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> equal &#123;</span><br><span class="line">            fmt.Print(Mark[offset : offset+<span class="number">1</span>])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color1">vijos</a>
+        </li>
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color3">go</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/p1003-equal/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-django-migrate-model-to-other-app"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1154,155 +1277,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/books/a-brief-history-of-humankind/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-date-and-time-on-the-internet"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/date-and-time-on-the-internet/">互联网上的日期和时间</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/date-and-time-on-the-internet/" class="archive-article-date">
-  <time datetime="2017-12-08T07:02:52.000Z" itemprop="datePublished">
-    Published on 2017 / 12 / 08
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://a.adcdn.cn/images/time-zone-map.webp" alt="time-zone-map"></p>
-<p>最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。</p>
-<h1 id="日期（Date）、时间（Time）和时间戳（Timestamp）"><a href="#日期（Date）、时间（Time）和时间戳（Timestamp）" class="headerlink" title="日期（Date）、时间（Time）和时间戳（Timestamp）"></a>日期（Date）、时间（Time）和时间戳（Timestamp）</h1><p>互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一个统一的标准，来规范统一不同语言、不同时区对同一个时刻的表示。</p>
-<p>国际标准组织（ISO）制定了<a target="_blank" rel="noopener" href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>,我们的<a target="_blank" rel="noopener" href="http://www.cmaph.org/attachment/2013530/1369881489484.pdf">中华人民共和国国家标准GB&#x2F;T 7408-2005《数据元和交换格式 信息交换 日期和时间表示法》</a>与ISO 8601:2000等效采用。</p>
-<p>上面两个标准，对开发者而言，太过于严肃。其实有一份更加简单易读的文件 <a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc3339.txt">RFC3339 Date and Time on the Internet: Timestamps</a>。本文之后的讨论，都基于 RFC3339。</p>
-<p>RFC3339 比 ISO 8601 有一个很一个明显的限制，这里提一下：ISO允许24点，而 RFC3339 为了减少混淆，限制小时必须在0至23之间。23:59过1分钟，是第二天的0:00。</p>
-<p>阅读RFC3339，我主要明确下面三个定义：</p>
-<ul>
-<li>时间戳</li>
-<li>本地时间</li>
-<li>标准时间</li>
-</ul>
-<h2 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h2><p>时间戳是一个数字，定义为格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。<strong>注意，同一时刻，不同时区获得的时间戳是相同的。</strong>以前很多用来记录时间的字段，在数据库中往往不会存储为Datetime类型，而是直接存储为无符号整形，存放时间戳的值。</p>
-<p>Python获取时间戳的代码为</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="built_in">int</span>(time.time())</span><br></pre></td></tr></table></figure>
-
-<h2 id="本地时间"><a href="#本地时间" class="headerlink" title="本地时间"></a>本地时间</h2><p>当前时区的本地时间</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">datetime.datetime.now()</span><br></pre></td></tr></table></figure>
-
-<p>上面的输出值为</p>
-<blockquote>
-<p>2017-12-08 11:50:03.537506</p>
-</blockquote>
-<h2 id="标准时间"><a href="#标准时间" class="headerlink" title="标准时间"></a>标准时间</h2><p>本地时间只包括当前的时间，不包含任何时区信息。同一时刻，东八区的本地时间比零时区的本地时间快了8个小时。在不同时区之间交换时间数据，除了用纯数字的时间戳，还有一种更方便人类阅读的表示方式：标准时间的偏移量表示方法。</p>
-<p>RFC3339详细定义了互联网上日期&#x2F;时间的偏移量表示：</p>
-<blockquote>
-<p>2017-12-08T00:00:00.00Z</p>
-</blockquote>
-<p>这个代表了UTC时间的2017年12月08日零时</p>
-<blockquote>
-<p>2017-12-08T08:00:00.00+08:00</p>
-</blockquote>
-<p>这个代表了同一时刻的，东八区北京时间（CST）表示的方法</p>
-<p>上面两个时间的时间戳是等价的。两个的区别，就是在本地时间后面增加了时区信息。Z表示零时区。+08:00表示UTC时间增加8小时。</p>
-<p>这种表示方式容易让人疑惑的点是从标准时间换算UTC时间。以CST转换UTC为例，没有看文档的情况下，根据 +08:00 的结尾，很容易根据直觉在本地时间再加上8小时。正确的计算方法是本地时间减去多增加的8小时。+08:00减去8小时才是UTC时间，-08:00加上8小时才是UTC时间。</p>
-<h1 id="为什么我们会踩坑"><a href="#为什么我们会踩坑" class="headerlink" title="为什么我们会踩坑"></a>为什么我们会踩坑</h1><p>了解了本地时间和标准时间之后，很容易想到为什么我们会在这里出问题。</p>
-<p>很自然的，开发者编写代码处理用户输入的时间类型数据，处理的都是本地时间的格式。而计算机系统处理逻辑，依赖标准时间。从用户输入的本地时间，转化成系统能处理的标准时间，这个过程是系统隐式的自动转换。当系统的时区设置和用户所处的时区不一致的时候，时间经过一次输入，处理之后再输出，就有了差异。</p>
-<p>为了避免在时间处理上出现问题，核心就是统一输入输出时间的转化。因此解决的思路也是两个：</p>
-<ol>
-<li>强制用户输入的时间类型是标准的，使用时间戳&#x2F;标准时间。如果你的系统是给全球用户使用的，应该采用这种功能方法。这是最准确，最不容易出错的。</li>
-<li>系统的时区和用户的时区严格一致。项目规模小，全部都是一个时区的用户。采用这种方案，一旦用户跨时区了，还是会存在问题。不是很推荐。</li>
-</ol>
-<p>时区的名称可以查维基百科，也可以查官方的数据库 <a target="_blank" rel="noopener" href="https://www.iana.org/time-zones">Time Zone Database</a>。</p>
-<h1 id="踩过的坑和解决方法"><a href="#踩过的坑和解决方法" class="headerlink" title="踩过的坑和解决方法"></a>踩过的坑和解决方法</h1><p>避免踩时间坑，总的改进方式：</p>
-<ul>
-<li>系统最好都配好<a target="_blank" rel="noopener" href="http://www.ntp.org/">NTP</a>，保证时间准确。</li>
-<li>所有的输入数据，最好转换成标准时间，再交给业务逻辑处理。</li>
-<li>在天朝，还是把系统时区设置成北京时间比较好。</li>
-</ul>
-<h2 id="下面是一些踩过的坑："><a href="#下面是一些踩过的坑：" class="headerlink" title="下面是一些踩过的坑："></a>下面是一些踩过的坑：</h2><h3 id="Docker-设置时区"><a href="#Docker-设置时区" class="headerlink" title="Docker 设置时区"></a>Docker 设置时区</h3><p>很多Docker镜像都是UTC时区，在上海使用镜像启用容器，容器里面获取的本地时间都会慢8个小时。可以在Dockerfile里面设置时区。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes">参考这个问题的回答</a></p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">ln</span> -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Ubuntu-设置时区"><a href="#Ubuntu-设置时区" class="headerlink" title="Ubuntu 设置时区"></a>Ubuntu 设置时区</h3><p>Docker里面大部分镜像是基于Debian的，Docker这么解决，Ubuntu上思路类似，直接执行命令就好了。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TZ=Asia/Shanghai</span><br><span class="line">ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
-
-<p>可以执行<code>date</code>命令查看时间，CST是中国标准时间。</p>
-<blockquote>
-<p>➜  ~ date<br>Fri Dec  8 14:12:46 CST 2017</p>
-</blockquote>
-<h3 id="Linux-和-Windows-双系统时间差"><a href="#Linux-和-Windows-双系统时间差" class="headerlink" title="Linux 和 Windows 双系统时间差"></a>Linux 和 Windows 双系统时间差</h3><p>以前写过<a href="https://ldsink.com/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/">修复Ubuntu和Win10双系统时间差</a>。</p>
-<h3 id="Celery-4-1-0-时区计算错误"><a href="#Celery-4-1-0-时区计算错误" class="headerlink" title="Celery 4.1.0 时区计算错误"></a>Celery 4.1.0 时区计算错误</h3><p>这个PR <a target="_blank" rel="noopener" href="https://github.com/celery/celery/pull/4173/">Correct calculation of application current time with timezone</a> 已经修复了，但是现在还没发布新版本。要么回退4.0.2，要么等下个版本。</p>
-<h3 id="Python-怎么从本地时间转换成标准时间"><a href="#Python-怎么从本地时间转换成标准时间" class="headerlink" title="Python 怎么从本地时间转换成标准时间"></a>Python 怎么从本地时间转换成标准时间</h3><p><strong>Python 里面的 datetime.datetime.now() 拿到的是本地时间。</strong>如果用这个保存时间，请务必确保系统的时区设置正确，统一。</p>
-<p>Python中间的时间戳、datetime之间的转换，最好强制写清楚时区。<a target="_blank" rel="noopener" href="https://github.com/hui-z/meican/pull/7/">这是个例子</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳转换到CST时间</span></span><br><span class="line">timestamp = <span class="built_in">int</span>(time.time())</span><br><span class="line">datetime.datetime.fromtimestamp(timestamp, tz=datetime.timezone(datetime.timedelta(hours=<span class="number">8</span>)))</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-  <div class="article-tag tagcloud">
-    <i class="icon-price-tags icon"></i>
-    <ul class="article-tag-list">
-      
-        <li class="article-tag-list-item">
-          <a href="javascript:void(0)"
-             class="js-tag article-tag-list-link color4">rfc</a>
-        </li>
-      
-    </ul>
-  </div>
-
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/date-and-time-on-the-internet/">展开全文 >></a>
         </p>
       
 

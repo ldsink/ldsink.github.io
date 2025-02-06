@@ -201,6 +201,155 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-date-and-time-on-the-internet"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/date-and-time-on-the-internet/">互联网上的日期和时间</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/date-and-time-on-the-internet/" class="archive-article-date">
+  <time datetime="2017-12-08T07:02:52.000Z" itemprop="datePublished">
+    Published on 2017 / 12 / 08
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://a.adcdn.cn/images/time-zone-map.webp" alt="time-zone-map"></p>
+<p>最近参加公司Hackthon，自己写的项目，同事写的项目，都踩了时间的坑。以前升级Celery到4.1.0之后定时任务同样出了时区的BUG。时间&#x2F;时区这块，大家经常用，但是却没有系统的整理总结，遂写此文。</p>
+<h1 id="日期（Date）、时间（Time）和时间戳（Timestamp）"><a href="#日期（Date）、时间（Time）和时间戳（Timestamp）" class="headerlink" title="日期（Date）、时间（Time）和时间戳（Timestamp）"></a>日期（Date）、时间（Time）和时间戳（Timestamp）</h1><p>互联网这么大，覆盖了全球这么多时区。如果没有统一的标准来规定怎么表示时间，那么一定是混乱的，无法正常运行的。我们需要一个统一的标准，来规范统一不同语言、不同时区对同一个时刻的表示。</p>
+<p>国际标准组织（ISO）制定了<a target="_blank" rel="noopener" href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>,我们的<a target="_blank" rel="noopener" href="http://www.cmaph.org/attachment/2013530/1369881489484.pdf">中华人民共和国国家标准GB&#x2F;T 7408-2005《数据元和交换格式 信息交换 日期和时间表示法》</a>与ISO 8601:2000等效采用。</p>
+<p>上面两个标准，对开发者而言，太过于严肃。其实有一份更加简单易读的文件 <a target="_blank" rel="noopener" href="https://www.ietf.org/rfc/rfc3339.txt">RFC3339 Date and Time on the Internet: Timestamps</a>。本文之后的讨论，都基于 RFC3339。</p>
+<p>RFC3339 比 ISO 8601 有一个很一个明显的限制，这里提一下：ISO允许24点，而 RFC3339 为了减少混淆，限制小时必须在0至23之间。23:59过1分钟，是第二天的0:00。</p>
+<p>阅读RFC3339，我主要明确下面三个定义：</p>
+<ul>
+<li>时间戳</li>
+<li>本地时间</li>
+<li>标准时间</li>
+</ul>
+<h2 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h2><p>时间戳是一个数字，定义为格林威治时间1970年01月01日00时00分00秒(北京时间1970年01月01日08时00分00秒)起至现在的总秒数。<strong>注意，同一时刻，不同时区获得的时间戳是相同的。</strong>以前很多用来记录时间的字段，在数据库中往往不会存储为Datetime类型，而是直接存储为无符号整形，存放时间戳的值。</p>
+<p>Python获取时间戳的代码为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="built_in">int</span>(time.time())</span><br></pre></td></tr></table></figure>
+
+<h2 id="本地时间"><a href="#本地时间" class="headerlink" title="本地时间"></a>本地时间</h2><p>当前时区的本地时间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line">datetime.datetime.now()</span><br></pre></td></tr></table></figure>
+
+<p>上面的输出值为</p>
+<blockquote>
+<p>2017-12-08 11:50:03.537506</p>
+</blockquote>
+<h2 id="标准时间"><a href="#标准时间" class="headerlink" title="标准时间"></a>标准时间</h2><p>本地时间只包括当前的时间，不包含任何时区信息。同一时刻，东八区的本地时间比零时区的本地时间快了8个小时。在不同时区之间交换时间数据，除了用纯数字的时间戳，还有一种更方便人类阅读的表示方式：标准时间的偏移量表示方法。</p>
+<p>RFC3339详细定义了互联网上日期&#x2F;时间的偏移量表示：</p>
+<blockquote>
+<p>2017-12-08T00:00:00.00Z</p>
+</blockquote>
+<p>这个代表了UTC时间的2017年12月08日零时</p>
+<blockquote>
+<p>2017-12-08T08:00:00.00+08:00</p>
+</blockquote>
+<p>这个代表了同一时刻的，东八区北京时间（CST）表示的方法</p>
+<p>上面两个时间的时间戳是等价的。两个的区别，就是在本地时间后面增加了时区信息。Z表示零时区。+08:00表示UTC时间增加8小时。</p>
+<p>这种表示方式容易让人疑惑的点是从标准时间换算UTC时间。以CST转换UTC为例，没有看文档的情况下，根据 +08:00 的结尾，很容易根据直觉在本地时间再加上8小时。正确的计算方法是本地时间减去多增加的8小时。+08:00减去8小时才是UTC时间，-08:00加上8小时才是UTC时间。</p>
+<h1 id="为什么我们会踩坑"><a href="#为什么我们会踩坑" class="headerlink" title="为什么我们会踩坑"></a>为什么我们会踩坑</h1><p>了解了本地时间和标准时间之后，很容易想到为什么我们会在这里出问题。</p>
+<p>很自然的，开发者编写代码处理用户输入的时间类型数据，处理的都是本地时间的格式。而计算机系统处理逻辑，依赖标准时间。从用户输入的本地时间，转化成系统能处理的标准时间，这个过程是系统隐式的自动转换。当系统的时区设置和用户所处的时区不一致的时候，时间经过一次输入，处理之后再输出，就有了差异。</p>
+<p>为了避免在时间处理上出现问题，核心就是统一输入输出时间的转化。因此解决的思路也是两个：</p>
+<ol>
+<li>强制用户输入的时间类型是标准的，使用时间戳&#x2F;标准时间。如果你的系统是给全球用户使用的，应该采用这种功能方法。这是最准确，最不容易出错的。</li>
+<li>系统的时区和用户的时区严格一致。项目规模小，全部都是一个时区的用户。采用这种方案，一旦用户跨时区了，还是会存在问题。不是很推荐。</li>
+</ol>
+<p>时区的名称可以查维基百科，也可以查官方的数据库 <a target="_blank" rel="noopener" href="https://www.iana.org/time-zones">Time Zone Database</a>。</p>
+<h1 id="踩过的坑和解决方法"><a href="#踩过的坑和解决方法" class="headerlink" title="踩过的坑和解决方法"></a>踩过的坑和解决方法</h1><p>避免踩时间坑，总的改进方式：</p>
+<ul>
+<li>系统最好都配好<a target="_blank" rel="noopener" href="http://www.ntp.org/">NTP</a>，保证时间准确。</li>
+<li>所有的输入数据，最好转换成标准时间，再交给业务逻辑处理。</li>
+<li>在天朝，还是把系统时区设置成北京时间比较好。</li>
+</ul>
+<h2 id="下面是一些踩过的坑："><a href="#下面是一些踩过的坑：" class="headerlink" title="下面是一些踩过的坑："></a>下面是一些踩过的坑：</h2><h3 id="Docker-设置时区"><a href="#Docker-设置时区" class="headerlink" title="Docker 设置时区"></a>Docker 设置时区</h3><p>很多Docker镜像都是UTC时区，在上海使用镜像启用容器，容器里面获取的本地时间都会慢8个小时。可以在Dockerfile里面设置时区。<a target="_blank" rel="noopener" href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes">参考这个问题的回答</a></p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">ln</span> -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Ubuntu-设置时区"><a href="#Ubuntu-设置时区" class="headerlink" title="Ubuntu 设置时区"></a>Ubuntu 设置时区</h3><p>Docker里面大部分镜像是基于Debian的，Docker这么解决，Ubuntu上思路类似，直接执行命令就好了。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TZ=Asia/Shanghai</span><br><span class="line">ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
+
+<p>可以执行<code>date</code>命令查看时间，CST是中国标准时间。</p>
+<blockquote>
+<p>➜  ~ date<br>Fri Dec  8 14:12:46 CST 2017</p>
+</blockquote>
+<h3 id="Linux-和-Windows-双系统时间差"><a href="#Linux-和-Windows-双系统时间差" class="headerlink" title="Linux 和 Windows 双系统时间差"></a>Linux 和 Windows 双系统时间差</h3><p>以前写过<a href="https://ldsink.com/articles/fix-time-differences-in-ubuntu-16-04-and-windows-10-dual-boot/">修复Ubuntu和Win10双系统时间差</a>。</p>
+<h3 id="Celery-4-1-0-时区计算错误"><a href="#Celery-4-1-0-时区计算错误" class="headerlink" title="Celery 4.1.0 时区计算错误"></a>Celery 4.1.0 时区计算错误</h3><p>这个PR <a target="_blank" rel="noopener" href="https://github.com/celery/celery/pull/4173/">Correct calculation of application current time with timezone</a> 已经修复了，但是现在还没发布新版本。要么回退4.0.2，要么等下个版本。</p>
+<h3 id="Python-怎么从本地时间转换成标准时间"><a href="#Python-怎么从本地时间转换成标准时间" class="headerlink" title="Python 怎么从本地时间转换成标准时间"></a>Python 怎么从本地时间转换成标准时间</h3><p><strong>Python 里面的 datetime.datetime.now() 拿到的是本地时间。</strong>如果用这个保存时间，请务必确保系统的时区设置正确，统一。</p>
+<p>Python中间的时间戳、datetime之间的转换，最好强制写清楚时区。<a target="_blank" rel="noopener" href="https://github.com/hui-z/meican/pull/7/">这是个例子</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 时间戳转换到CST时间</span></span><br><span class="line">timestamp = <span class="built_in">int</span>(time.time())</span><br><span class="line">datetime.datetime.fromtimestamp(timestamp, tz=datetime.timezone(datetime.timedelta(hours=<span class="number">8</span>)))</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+  <div class="article-tag tagcloud">
+    <i class="icon-price-tags icon"></i>
+    <ul class="article-tag-list">
+      
+        <li class="article-tag-list-item">
+          <a href="javascript:void(0)"
+             class="js-tag article-tag-list-link color4">rfc</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/date-and-time-on-the-internet/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-toml"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1063,127 +1212,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/let-s-encrypt/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-setup-sentry-with-docker"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/setup-sentry-with-docker/">使用 Docker 搭建 Sentry</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/setup-sentry-with-docker/" class="archive-article-date">
-  <time datetime="2016-08-20T08:32:00.000Z" itemprop="datePublished">
-    Published on 2016 / 08 / 20
-  </time>
-  
-    <time datetime="2016-09-11T08:35:49.000Z" itemprop="dateUpdated">
-      , Updated on 2016 / 09 / 11
-    </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目之前使用的是<a target="_blank" rel="noopener" href="https://sentry.io/welcome/">Sentry</a>官方提供的付费服务，但是因为我们在国内，访问比较慢，体验很糟糕。Sentry本身就是开源的，打算自己动手搭建一个，老板就把这个光荣的任务交给我，Fight～～～</p>
-<p>配置环境一直是一个比较繁琐的事情，还好现在容器盛行，我计划就是直接使用 Docker 来启动 Sentry 的服务。</p>
-<h2 id="Docker-安装"><a href="#Docker-安装" class="headerlink" title="Docker 安装"></a>Docker 安装</h2><p>不得不说现在 Docker 的生态链比2014年我刚了解这个工具的时候好太多了，现在安装 Docker 也很简单。</p>
-<p>系统源里面可能有 Docker，但是我喜欢使用最新版软件，于是打算从官网下载安装。但是现在已经有了<a target="_blank" rel="noopener" href="https://get.docker.com/">Get Docker</a>，打开这个网页，复制一行命令，再终端执行，OK，Docker 安装完成。</p>
-<blockquote>
-<p>如果服务器的用户权限不是 root 的话，每次调用 docker 的命令需要加 sudo，有些人可能觉得这个很烦。<br>可以添加一个 docker 组来解决这个问题。参见：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group">https://docs.docker.com/engine/installation/linux/ubuntulinux/#/create-a-docker-group</a></p>
-</blockquote>
-<h2 id="Sentry-安装"><a href="#Sentry-安装" class="headerlink" title="Sentry 安装"></a>Sentry 安装</h2><p>Sentry 在 <a target="_blank" rel="noopener" href="https://hub.docker.com/">DockerHub</a> 上有官方的镜像，这个就大大方便了我们。</p>
-<p>Sentry Official <a target="_blank" rel="noopener" href="https://hub.docker.com/_/sentry/">https://hub.docker.com/_/sentry/</a></p>
-<h4 id="核心的流程如下："><a href="#核心的流程如下：" class="headerlink" title="核心的流程如下："></a>核心的流程如下：</h4><p><strong>启动Sentry需要的Redis实例</strong></p>
-<p><code>docker run -d --name sentry-redis redis</code></p>
-<p><strong>启动Sentry需要的PostgreSQL实例</strong></p>
-<p> <code>docker run -d --name sentry-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=sentry postgres</code></p>
-<p><strong>生成 SENTRY_SECRET_KEY</strong></p>
-<p><code>docker run --rm sentry config generate-secret-key</code></p>
-<p>这个生成的 SENTRY_SECRET_KEY 需要记住，后面都要用到</p>
-<p><strong>初始化数据库</strong></p>
-<p><code> docker run -it --rm -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade</code></p>
-<p>这里需要使用刚才生成的 SENTRY_SECRET_KEY。这个操作会在PostgresQL里面初始化表信息。</p>
-<p><strong>启动Sentry的Web服务</strong></p>
-<p><code>docker run -d -p 80:9000 --name my-sentry -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-redis:redis --link sentry-postgres:postgres sentry</code></p>
-<p>-p 参数设置实例暴露的端口号，我这台机器只跑这个就直接占了80端口。</p>
-<p><strong>启动Sentry的Worker</strong></p>
-<p><code>docker run -d --name sentry-cron -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run cron</code></p>
-<p><code>docker run -d --name sentry-worker-1 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
-<p>worker 和 celery beat 根据实际情况添加，我这里就只加1个。</p>
-<h2 id="必要的配置"><a href="#必要的配置" class="headerlink" title="必要的配置"></a>必要的配置</h2><p><strong>邮件设置</strong></p>
-<p>上面的步骤跑完，Sentry 就已经搭建好并且可以使用了，还有问题，你会发现没有邮件提醒，我们需要配置邮件服务。</p>
-<p>官方的介绍了两种方法，一个是再 link 一个 SMTP 的 instance，一个是添加SMTP服务的配置。我两个都试了，前者发出的邮件很容易被当做垃圾邮件拦截，我现在采用的是后者。现在国内的免费邮件服务都提供了SMTP功能，一开始我直接使用了免费的QQ邮箱和163邮箱，一部分邮件可以发送成功，一部分会连接超时，这个让我很无语，这种不稳定不能用。Gmail估计不会有问题，但是可能被墙，就没试（其实是拿老板手机注册的时候没成功，没成功的原因的老板手机欠费停机，没收到验证短信。o(╯□╰)o）</p>
-<p>考虑邮件推送服务。服务器在AWS中国上，AWS有邮件推送服务，但是这个AWS中国貌似还没开发这个功能；搜狐家有<a target="_blank" rel="noopener" href="https://sendcloud.sohu.com/">SendCloud</a>,注册之后发现要获取免费的额度需要填太多东西，作罢；因为有阿里云的账号，阿里云家配置比较简单，暂时用的阿里云的邮件推送服务，地址：<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/directmail">https://www.aliyun.com/product/directmail</a>。实际使用中还是有发送失败的情况，没有说的那么好。</p>
-<p>配好之后，我们需要将这些配置加到我们的Sentry实例中。我没有作为 instance 的启动参数，而是直接修改了 sentry.conf.py 文件，直接将配置文件 mount 到 instance 内。相关的部分如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># email = env(&#x27;SENTRY_EMAIL_HOST&#x27;) or (env(&#x27;SMTP_PORT_25_TCP_ADDR&#x27;) and &#x27;smtp&#x27;)</span></span><br><span class="line"><span class="comment"># if email:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;smtp&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.host&#x27;] = email</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.password&#x27;] = env(&#x27;SENTRY_EMAIL_PASSWORD&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.username&#x27;] = env(&#x27;SENTRY_EMAIL_USER&#x27;) or &#x27;&#x27;</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.port&#x27;] = int(env(&#x27;SENTRY_EMAIL_PORT&#x27;) or 25)</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.use-tls&#x27;] = Bool(env(&#x27;SENTRY_EMAIL_USE_TLS&#x27;, False))</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     SENTRY_OPTIONS[&#x27;mail.backend&#x27;] = &#x27;dummy&#x27;</span></span><br><span class="line"></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.backend&#x27;</span>] = <span class="string">&#x27;smtp&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.host&#x27;</span>] = <span class="string">&#x27;smtpdm.aliyun.com&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.password&#x27;</span>] = <span class="string">&#x27;your password&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.username&#x27;</span>] = <span class="string">&#x27;your email address&#x27;</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.port&#x27;</span>] = <span class="number">25</span></span><br><span class="line">SENTRY_OPTIONS[<span class="string">&#x27;mail.use-tls&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p>启动命令如下:</p>
-<p><code>docker run -d -p 80:9000 -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry</code></p>
-<p><code>docker run -d -v /path/to/sentry.conf.py:/etc/sentry/sentry.conf.py --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></p>
-<blockquote>
-<p>注意：如果只启动 Web，在 Sentry 内的测试发送邮件会成功，但是通知邮件依旧会失败。因为通知邮件是 Worker instance 发送的，不是 Web instance 发送的，邮件配置必须也传到 Worker instance 里面。</p>
-</blockquote>
-<p><strong>关闭注册功能</strong></p>
-<p>内部用的系统，不希望开放公开的注册。需要把这个功能 disable 掉。还是改<code>sentry.conf.py</code>文件，添加一行 <code>SENTRY_FEATURES[&#39;auth:register&#39;] = False</code></p>
-<p><strong>更多的参数写到 sentry.conf.py</strong></p>
-<p>很多参数都是可以直接写到 sentry.conf.py 内的。我把<code>system.secret-key</code>这个也写到文件内，这样 docker  run 需要带的参数就大大减少。</p>
-<h2 id="Sentry-使用"><a href="#Sentry-使用" class="headerlink" title="Sentry 使用"></a>Sentry 使用</h2><p>这个就不多说了。用管理员账号登录之后，自己添加 Project 和 Member，再把 Sentry 的 Track 加到需要监测的项目里面就好。我们项目用的 Django，里面的 raven 配置加上新的链接就可用，非常方便。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/setup-sentry-with-docker/">展开全文 >></a>
         </p>
       
 

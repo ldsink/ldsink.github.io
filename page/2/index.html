@@ -201,6 +201,113 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-fuck-zhihu"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/fuck-zhihu/">友善度-知乎</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/fuck-zhihu/" class="archive-article-date">
+  <time datetime="2022-02-12T03:06:06.000Z" itemprop="datePublished">
+    Published on 2022 / 02 / 12
+  </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>知乎老用户，这些年来，见证各种骚操作。好端端的知识分享网站沦落成一个无良XX。</p>
+<p>产品设计上：</p>
+<ul>
+<li>有教用户做人的无法按照用户关注来的Feed流</li>
+<li>有时不时插入回答的小广告</li>
+<li>有知音读者故事会风格的盐选小故事</li>
+<li>有强制开屏小广告（切换APP都会强制弹出）</li>
+<li>有一不小心就会滑到就自动下载并播放的低俗视频</li>
+<li>有刻意设计让你容易误触的向下和点赞按钮</li>
+<li>有不知道什么时候强制关注的一堆问题</li>
+<li>有无法隐藏的个人动态</li>
+</ul>
+<p>除开产品，还有不知道 G 点在哪里的小管家。</p>
+<p>稍微一盘点，老实说，如此不把用户当人看的产品，我还在使用，真佩服自己的忍耐力。可能知乎在早期确实给我留下了太好的印象，当时从上面很多专业大佬会分享知识，学习到了很多。但是现在，只能呵呵。</p>
+<p>因为是老用户，还是和一些朋友互相关注，直接注销账号感觉有些可惜。账号留着，但是估计不会再使用，找了一些方法，尽可能的减少感到恶心的地方。</p>
+<h3 id="关闭最近浏览"><a href="#关闭最近浏览" class="headerlink" title="关闭最近浏览"></a>关闭最近浏览</h3><p>进入 APP，<code>我的</code> -&gt; <code>最近浏览</code>，点击右上角三个点图标的设置，可以 <code>关闭最近浏览</code>。</p>
+<h3 id="批量取消关注的问题"><a href="#批量取消关注的问题" class="headerlink" title="批量取消关注的问题"></a>批量取消关注的问题</h3><p>不知道是哪个版本引入的功能，可能有点赞或者评论就会自动关注问题，再配合 APP 刻意设计的误触式点赞，我发现自己多了千余个关注的问题。再次 bibibi……</p>
+<p>参考知乎上<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/shi-xiao-jie-23">小荷才</a>在问题<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/27922502/answer/964383258">如何批量取消关注的问题？</a>的回答，可以使用如下方式：</p>
+<ol>
+<li>打开<strong>旧版</strong>我关注的问提的页面 <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/following">https://www.zhihu.com/question/following</a></li>
+<li><code>F12</code> 打开浏览器控制台，切换到<code>控制台</code>部分</li>
+<li>粘贴如下的代码并回车执行，会自动往下翻页并取消关注</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">unfollow_all</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> remaining = $(<span class="string">&quot;.zg-unfollow&quot;</span>).<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">if</span> (remaining &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        $(<span class="string">&quot;.zg-unfollow&quot;</span>).<span class="title function_">first</span>().<span class="title function_">trigger</span>(<span class="string">&#x27;click&#x27;</span>);</span><br><span class="line">        <span class="built_in">setTimeout</span>(unfollow_all, <span class="number">1000</span>);</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">unfollow_all</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="批量取消个人中心的点赞"><a href="#批量取消个人中心的点赞" class="headerlink" title="批量取消个人中心的点赞"></a>批量取消个人中心的点赞</h3><p>个人中心的点赞也无法隐藏。我不想去深究这么设计的原因是为了追求更多的用户数据，还是知乎产品经理的大脑发育有部分缺陷。批量取消关注的问题提供了一个思路，自己动手写了个JS函数，模拟点击取消投票。</p>
+<p>步骤如下：</p>
+<ol>
+<li>打开<code>我的主页</code> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/%E7%94%A8%E6%88%B7ID/">https://www.zhihu.com/people/用户ID/</a></li>
+<li><code>F12</code> 打开浏览器控制台，切换到<code>控制台</code>部分</li>
+<li>粘贴如下的代码并回车执行，会自动往下翻页并取消点赞。取消一定数量之后，会触发知乎的拦截，那就休息一下，过一阵再来，总能取消干净。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> neutralCount = <span class="number">0</span> </span><br><span class="line"><span class="keyword">const</span> <span class="title function_">neutral</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> button = $(<span class="string">&quot;button.VoteButton.is-active&quot;</span>) <span class="comment">// 定位到一个已投票按钮</span></span><br><span class="line">    <span class="keyword">if</span> (!button) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>) <span class="comment">// 下划到底部，触发新数据的加载</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        button.<span class="title function_">click</span>() <span class="comment">// 触发点击，取消投票</span></span><br><span class="line">        neutralCount++ <span class="comment">// 计数器加 1</span></span><br><span class="line">        <span class="keyword">if</span> (neutralCount % <span class="number">10</span> == <span class="number">0</span>) <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`已取消 <span class="subst">$&#123;neutralCount&#125;</span> 次投票`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">setTimeout</span>(neutral, <span class="number">1000</span>) <span class="comment">// 休息一下，找下一个目标，继续取消</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">neutral</span>()</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/fuck-zhihu/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-2022-happy-new-year"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -1114,88 +1221,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/tuning-nginx/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-toolbox-updates-2020-02"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/toolbox-updates-2020-02/">toolbox 的一些更新</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/toolbox-updates-2020-02/" class="archive-article-date">
-  <time datetime="2020-02-10T07:21:49.000Z" itemprop="datePublished">
-    Published on 2020 / 02 / 10
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a target="_blank" rel="noopener" href="https://github.com/ldsink/toolbox/">toolbox</a> 是自己整理的一些脚本库，将平时用的多的常用操作固定成脚本，可追踪可维护，减少重复劳动。主要有脚本、Shell命令和<code>docker-compose</code>配置三块。</p>
-<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><ul>
-<li>增加了 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ldsink/toolbox/master/install-python.sh">install-python.sh</a> 脚本，方便编译安装对应的 Python 版本</li>
-<li>统一了脚本文件名，依照动词+用途命名，例如 <code>install-XXX</code>、<code>set-XXX</code></li>
-<li><code>Shebang</code> 均使用 <code>#!/usr/bin/env bash</code> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?title=Shebang_(Unix)#Portability">提高兼容性</a></li>
-<li>更新、删除了一些失效脚本</li>
-</ul>
-<h3 id="docker-compose配置"><a href="#docker-compose配置" class="headerlink" title="docker-compose配置"></a><code>docker-compose</code>配置</h3><p>简单更新了一下镜像版本。</p>
-<p>其他的遇到了一个有意思的问题，如何在 Jenkins 的容器内继续使用 Docker。参考 <a target="_blank" rel="noopener" href="https://forums.docker.com/t/using-docker-in-a-dockerized-jenkins-container/322">Using docker in a dockerized Jenkins container</a> 更新编排文件。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/toolbox-updates-2020-02/">展开全文 >></a>
         </p>
       
 

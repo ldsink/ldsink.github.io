@@ -201,6 +201,99 @@
         <div id="js-content" class="content-ll">
           
   
+    <article id="post-regular-expression-traps-in-php"
+         class="article article-type-post  article-index" itemscope
+         itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/articles/regular-expression-traps-in-php/">PHP 中使用正则表达式的那些坑</a>
+    </h1>
+  
+
+      </header>
+      
+        <div style="text-align: center">
+          <a href="/articles/regular-expression-traps-in-php/" class="archive-article-date">
+  <time datetime="2015-07-27T01:06:00.000Z" itemprop="datePublished">
+    Published on 2015 / 07 / 27
+  </time>
+  
+    <time datetime="2015-08-17T06:02:28.000Z" itemprop="dateUpdated">
+      , Updated on 2015 / 08 / 17
+    </time>
+  
+</a>
+
+        </div>
+      
+    
+    <br />
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近弄关键词匹配，主要用的正则表达式。之前一直没写过PHP的正则表达式的代码，一番折腾之后表示这其中好多坑。</p>
+<h1 id="慎用"><a href="#慎用" class="headerlink" title="慎用 |"></a>慎用 |</h1><p>任务场景是需要在一段字符串中匹配多个关键字。一开始想当然的使用了<code>|</code>拼接全部的关键字作为pattern，然后直接<code>preg_match</code>解决问题。<br>但我这样想当然的做法在<code>Code Review</code>的时候被拒，理由是可能存在安全等问题。<br>因为PHP内存限制，pattern过长会造成段异常，而且这样使用性能很低。正确的做法是每一个关键词都是pattern，运行n次<code>preg_match</code>函数。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一次匹配（不推荐）</span></span><br><span class="line"><span class="variable">$pattern</span> = <span class="title function_ invoke__">implode</span>(<span class="string">&#x27;|&#x27;</span>, <span class="variable">$keywords</span>);</span><br><span class="line"><span class="variable">$ret</span> = <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/&#x27;</span> . <span class="variable">$pattern</span> . <span class="string">&#x27;/u&#x27;</span>, <span class="variable">$subject</span>, <span class="variable">$matches</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多次匹配</span></span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$keywords</span> <span class="keyword">as</span> <span class="variable">$keyword</span>) &#123;</span><br><span class="line">    <span class="variable">$ret</span> = <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/&#x27;</span> . <span class="variable">$keyword</span> . <span class="string">&#x27;/u&#x27;</span>, <span class="variable">$subject</span>, <span class="variable">$matches</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$ret</span>) <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在我的测试中，字符串在一万、十万甚至百万长度的时候都是下面多次匹配快于上面的一次匹配，时间差甚至能达到九倍。<br>想想原因其实很简单，因为上面和下面的逻辑本质上是一样的，但是下面因为一次只匹配一个单词，很自然的能用一些高性能的字符串匹配算法，如KMP。<br>上面的很长的pattern，反而不好使用各种优化算法，只能用最原始的方法，性能当然会下降。</p>
+<p>那<code>|</code>应该用在什么场合呢？</p>
+<p>在拆分开不便于程序代码理解的时候使用。当使用<code>|</code>可以使代码更加直观简洁，使逻辑更加易于理解，那就放心大胆的用。<br>当决定要使用正则表达式，其实不太需要考虑性能问题，一般来说性能差别不会很大。</p>
+<h1 id="preg-quote-注意添加分隔符"><a href="#preg-quote-注意添加分隔符" class="headerlink" title="preg_quote 注意添加分隔符"></a>preg_quote 注意添加分隔符</h1><p><code>php</code>提供了<code>preg_match</code>函数用于转义正则表达式字符，但是需要注意，这个函数仅仅转义正则表达式的特殊字符“ . \ + * ? [ ^ ] $ ( ) { } &#x3D; ! &lt; &gt; | : -”。<br>其中并不包含分隔符，调用这个函数的时候最好把使用的分隔符也作为<code>delimiter</code>参数传递进去。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x27;/&#x27;是最通用的分隔符。</span></span><br><span class="line"><span class="variable">$keywords</span> = <span class="title function_ invoke__">preg_quote</span>(<span class="variable">$keywords</span>, <span class="string">&#x27;/&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="才能在正则表达式中表示-‘-‘字符"><a href="#才能在正则表达式中表示-‘-‘字符" class="headerlink" title="\\\\ 才能在正则表达式中表示 ‘\‘字符"></a>\\\\ 才能在正则表达式中表示 ‘\‘字符</h1><p>在编写正则表达式反转义函数的时候，我遇到了这个问题。这个函数很简单，就是去掉所有带’\‘字符前的’\‘，但是弄起来总是不对。<br>在仔细看完PHP文档之后，我终于理清了逻辑。</p>
+<p>“\\\\“这是写在代码中的，首先PHP会理解一次，”\\“会表示’\‘，这样传给正则的字符串就是是”\\“。<br>然后正则表达式再理解一次，这时”\\“对应的就是’\‘字符。在使用’\‘的时候一定要考虑这些情况。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $keywords 就是需要反转义的字符串</span></span><br><span class="line"><span class="title function_ invoke__">preg_replace_callback</span>(<span class="string">&quot;/\\\\./u&quot;</span>, function (<span class="variable">$matches</span>) &#123; <span class="keyword">return</span> <span class="title function_ invoke__">substr</span>(<span class="variable">$matches</span>[<span class="number">0</span>],<span class="number">1</span>);&#125;, <span class="variable">$keywords</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="善用模式修饰符"><a href="#善用模式修饰符" class="headerlink" title="善用模式修饰符"></a>善用模式修饰符</h1><p><code>php</code>正则表达式中，分隔符之后是可以添加模式修饰符的，这里可以参阅<a target="_blank" rel="noopener" href="http://php.net/manual/zh/reference.pcre.pattern.modifiers.php">PHP文档</a>。</p>
+<p>我最常用的是<code>u</code>，此修正符使模式字符串被认为是utf-8的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/articles/regular-expression-traps-in-php/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+  <div class="mod-side-operation">
+    
+      <div class="jump-container" id="js-jump-container" style="display:none;">
+        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+          <i class="icon-font icon-back"></i>
+        </a>
+        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+          <i class="icon-font icon-plane jump-plane"></i>
+        </div>
+      </div>
+    
+    
+  </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-monit-and-mmonit"
          class="article article-type-post  article-index" itemscope
          itemprop="blogPost">
@@ -946,88 +1039,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/articles/uptime-top-and-htop/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-  <div class="mod-side-operation">
-    
-      <div class="jump-container" id="js-jump-container" style="display:none;">
-        <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-          <i class="icon-font icon-back"></i>
-        </a>
-        <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-          <i class="icon-font icon-plane jump-plane"></i>
-        </div>
-      </div>
-    
-    
-  </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-import-this"
-         class="article article-type-post  article-index" itemscope
-         itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/articles/import-this/">Python import this！</a>
-    </h1>
-  
-
-      </header>
-      
-        <div style="text-align: center">
-          <a href="/articles/import-this/" class="archive-article-date">
-  <time datetime="2015-01-10T15:09:00.000Z" itemprop="datePublished">
-    Published on 2015 / 01 / 10
-  </time>
-  
-</a>
-
-        </div>
-      
-    
-    <br />
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Python用了这么久了，今天第一次知道 import this，传说中的<code>Zen of Python</code>！</p>
-<blockquote>
-<p>其实也没那么玄乎，就是Python的一些设计思想和基于这些思想的写作建议。</p>
-</blockquote>
-<p>➜  ~  python3<br>&gt;&gt;&gt; import this<br>The Zen of Python, by Tim Peters</p>
-<p>Beautiful is better than ugly.<br>Explicit is better than implicit.<br>Simple is better than complex.<br>Complex is better than complicated.<br>Flat is better than nested.<br>Sparse is better than dense.<br>Readability counts.<br>Special cases aren’t special enough to break the rules.<br>Although practicality beats purity.<br>Errors should never pass silently.<br>Unless explicitly silenced.<br>In the face of ambiguity, refuse the temptation to guess.<br>There should be one– and preferably only one –obvious way to do it.<br>Although that way may not be obvious at first unless you’re Dutch.<br>Now is better than never.<br>Although never is often better than <em>right</em> now.<br>If the implementation is hard to explain, it’s a bad idea.<br>If the implementation is easy to explain, it may be a good idea.<br>Namespaces are one honking great idea – let’s do more of those!</p>
-<p><strong>这里有个小小的彩蛋，查看 this 的源代码，如下所示：</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">&quot;&quot;&quot;Gur Mra bs Clguba, ol Gvz Crgref</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Ornhgvshy vf orggre guna htyl.</span></span><br><span class="line"><span class="string">Rkcyvpvg vf orggre guna vzcyvpvg.</span></span><br><span class="line"><span class="string">Fvzcyr vf orggre guna pbzcyrk.</span></span><br><span class="line"><span class="string">Pbzcyrk vf orggre guna pbzcyvpngrq.</span></span><br><span class="line"><span class="string">Syng vf orggre guna arfgrq.</span></span><br><span class="line"><span class="string">Fcnefr vf orggre guna qrafr.</span></span><br><span class="line"><span class="string">Ernqnovyvgl pbhagf.</span></span><br><span class="line"><span class="string">Fcrpvny pnfrf nera&#x27;g fcrpvny rabhtu gb oernx gur ehyrf.</span></span><br><span class="line"><span class="string">Nygubhtu cenpgvpnyvgl orngf chevgl.</span></span><br><span class="line"><span class="string">Reebef fubhyq arire cnff fvyragyl.</span></span><br><span class="line"><span class="string">Hayrff rkcyvpvgyl fvyraprq.</span></span><br><span class="line"><span class="string">Va gur snpr bs nzovthvgl, ershfr gur grzcgngvba gb thrff.</span></span><br><span class="line"><span class="string">Gurer fubhyq or bar-- naq cersrenoyl bayl bar --boivbhf jnl gb qb vg.</span></span><br><span class="line"><span class="string">Nygubhtu gung jnl znl abg or boivbhf ng svefg hayrff lbh&#x27;er Qhgpu.</span></span><br><span class="line"><span class="string">Abj vf orggre guna arire.</span></span><br><span class="line"><span class="string">Nygubhtu arire vf bsgra orggre guna *evtug* abj.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf uneq gb rkcynva, vg&#x27;f n onq vqrn.</span></span><br><span class="line"><span class="string">Vs gur vzcyrzragngvba vf rnfl gb rkcynva, vg znl or n tbbq vqrn.</span></span><br><span class="line"><span class="string">Anzrfcnprf ner bar ubaxvat terng vqrn -- yrg&#x27;f qb zber bs gubfr!&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">d = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> (<span class="number">65</span>, <span class="number">97</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">26</span>):</span><br><span class="line">        d[<span class="built_in">chr</span>(i+c)] = <span class="built_in">chr</span>((i+<span class="number">13</span>) % <span class="number">26</span> + c)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&quot;</span>.join([d.get(c, c) <span class="keyword">for</span> c <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
-<p>这里用了最简单的凯撒加密，s里面每个字符的值往后移13位就是 Zen of Python，很好奇为什么不直接打印文章，而是要这样再算一次，不是<code>Simple is better than complex</code>么？O(∩_∩)O~</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/articles/import-this/">展开全文 >></a>
         </p>
       
 
