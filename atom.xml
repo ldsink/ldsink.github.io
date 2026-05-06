@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Sink 的笔记本</title>
+  
+  <subtitle>沉舟侧畔千帆过</subtitle>
+  <link href="https://ldsink.com/atom.xml" rel="self"/>
+  
+  <link href="https://ldsink.com/"/>
+  <updated>2025-02-06T06:37:23.663Z</updated>
+  <id>https://ldsink.com/</id>
+  
+  <author>
+    <name>Sink</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu 的软件源新格式 —— deb822</title>
+    <link href="https://ldsink.com/articles/deb822/"/>
+    <id>https://ldsink.com/articles/deb822/</id>
+    <published>2025-02-06T06:32:41.000Z</published>
+    <updated>2025-02-06T06:37:23.663Z</updated>
+    
+    <content type="html"><![CDATA[<p>Ubuntu 24.04 发布快一年，新安装的系统开始采用这个版本。发现这个新 LTS 的软件源配置文件变更为 <a href="https://man7.org/linux/man-pages/man5/deb822.5.html">DEB822 格式</a>。默认源的路径为 <code>/etc/apt/sources.list.d/ubuntu.sources</code>。</p><p>清华源对这个的支持最完善，通过勾选还可以直接生成对应的配置文件。</p><p><a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Ubuntu 24.04 发布快一年，新安装的系统开始采用这个版本。发现这个新 LTS 的软件源配置文件变更为 &lt;a href=&quot;https://man7.org/linux/man-pages/man5/deb822.5.html&quot;&gt;DEB822 格式&lt;/a&gt;。默认源的路</summary>
+      
+    
+    
+    
+    
+    <category term="ubuntu" scheme="https://ldsink.com/tags/ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>续期过期 GPG 密钥</title>
+    <link href="https://ldsink.com/articles/renew-gpg-key/"/>
+    <id>https://ldsink.com/articles/renew-gpg-key/</id>
+    <published>2024-03-22T03:30:53.000Z</published>
+    <updated>2024-03-23T03:45:22.991Z</updated>
+    
+    <content type="html"><![CDATA[<p>git 提交提示 <code>error: gpg failed to sign the data</code>，发现 GPG 密钥过期。上次签发场景还历历在目，一晃几年就过去了。</p><p>本机 gpg 密钥相关的数据都在 <code>~/.gnupg</code> 目录下，这次续期之后，可以备份这个目录，以后换电脑或者重装系统，之前的密钥数据都可以恢复。</p><p>续期流程如下：</p><ol><li>查看密钥列表，找到过期的密钥 ID</li><li>续期密钥</li></ol><h2 id="查看密钥列表"><a href="#查看密钥列表" class="headerlink" title="查看密钥列表"></a>查看密钥列表</h2><p>终端执行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --list-keys</span><br></pre></td></tr></table></figure><p>列出的密钥列表中，ID后 8 位可以当成简化版密钥 ID，供后续使用。这里是 <code>B0AF5E1C</code></p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/root/.gnupg/pubring.kbx</span><br><span class="line">------------------------</span><br><span class="line">pub   rsa4096 2021-03-22 [SC] [expired: 2024-03-21]</span><br><span class="line">      5233A9D383EAD23BAEF6CB2D8CE00782B0AF5E1C</span><br><span class="line">uid           [ expired] ldsink &lt;admin@ldsink.com&gt;</span><br></pre></td></tr></table></figure><h2 id="续期密钥"><a href="#续期密钥" class="headerlink" title="续期密钥"></a>续期密钥</h2><p>进入 gpg 编辑模式</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --edit-key B0AF5E1C</span><br></pre></td></tr></table></figure><p>输入 <code>expire</code> 命令，选择新的过期时间，这里再续 5 年</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gpg&gt; expire</span><br><span class="line">Changing expiration time <span class="keyword">for</span> the primary key.</span><br><span class="line">Please specify how long the key should be valid.</span><br><span class="line">         0 = key does not expire</span><br><span class="line">      &lt;n&gt;  = key expires <span class="keyword">in</span> n days</span><br><span class="line">      &lt;n&gt;w = key expires <span class="keyword">in</span> n weeks</span><br><span class="line">      &lt;n&gt;m = key expires <span class="keyword">in</span> n months</span><br><span class="line">      &lt;n&gt;y = key expires <span class="keyword">in</span> n years</span><br><span class="line">Key is valid <span class="keyword">for</span>? (0) 5y</span><br><span class="line">Key expires at Thu 22 Mar 2029 11:41:39 AM CST</span><br><span class="line">Is this correct? (y/N) y</span><br></pre></td></tr></table></figure><p>续期成功后，退出编辑模式。在查看密钥列表，可以看到密钥过期时间已经更新。备份一下数据，这 5 年这个密钥可以继续安心的签名。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;git 提交提示 &lt;code&gt;error: gpg failed to sign the data&lt;/code&gt;，发现 GPG 密钥过期。上次签发场景还历历在目，一晃几年就过去了。&lt;/p&gt;
+&lt;p&gt;本机 gpg 密钥相关的数据都在 &lt;code&gt;~/.gnupg&lt;/code&gt; </summary>
+      
+    
+    
+    
+    
+    <category term="gpg" scheme="https://ldsink.com/tags/gpg/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PPPoE 拨号配置 IPv6</title>
+    <link href="https://ldsink.com/articles/pppoe-and-ipv6/"/>
+    <id>https://ldsink.com/articles/pppoe-and-ipv6/</id>
+    <published>2023-06-22T04:44:14.000Z</published>
+    <updated>2023-06-22T07:01:32.047Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>家里网络从联通更换到了移动，移动没有公网 IPv4 但是有公网 IPv6。联通时代搞定了 IPv4 之后停止了探索，这次目标搞定 IPv6。</p><p>IPv6 的知识来自于网络资料和 <a href="https://www.bilibili.com/video/BV1aF411v7hU/">IPv6 和 IPv4 的主要区别？</a>，配置过程主要参考 <a href="https://blog.otakusaikou.com/2020/11/11/x86-soft-router-and-ipv6/">X86 软路由配置 IPv6 踩坑小记</a>。</p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>目前的网络环境为：</p><p><code>移动光猫（桥接）</code>  ——&gt;  <code>小服务器（PPPoE 拨号及网关）</code>  ——&gt;   <code>其他设备（有线接入的台式机、无线AP的路由器）</code></p><p>小服务器负责 PPPoE 拨号，及使用 Dnsmasq 处理 IPv4 的 DHCP 和 DNS。其中 WAN 口接移动光猫，两个 LAN 口分别接台式机和无线路由器。无线路由器配置成 AP 模式作为一个有无线功能的交换机用。</p><p>IPv6 和 IPv4 区别很多，主要点是：</p><ol><li>不需要 NAT，除开 <code>fe80::</code> 这类保留网段，其他都能当公网用</li><li>分配 IP 的方式很多，考虑兼容性 <code>SLAAC</code> 应该是最好的</li></ol><p>查了一圈资料，按照现在的网络拓扑结构，实现目标需要完成的步骤是：</p><ol><li>小服务开启 IPv6 的转发</li><li>PPPoE 拨号支持 IPv6，这样小服务器本身支持 IPv6</li><li>PPPoE 能正确申请 IPv6 的 PD，然后绑定到网桥上，这样 LAN 口的设备可以使用 IPv6</li><li>正确配置通告报文（Router Advertisement），这样内网的设备生成 IPv6 地址后知道去何处通知自己存在</li></ol><h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="启用-IPv6-转发"><a href="#启用-IPv6-转发" class="headerlink" title="启用 IPv6 转发"></a>启用 IPv6 转发</h3><p>在 <code>/etc/sysctl.conf</code> 添加上：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">net.ipv6.conf.all.forwarding=2</span><br><span class="line">net.ipv6.conf.default.forwarding=2</span><br><span class="line"></span><br><span class="line">net.ipv6.conf.all.accept_ra=2</span><br><span class="line">net.ipv6.conf.default.accept_ra=2</span><br><span class="line"></span><br><span class="line">net.ipv6.conf.all.use_tempaddr=2</span><br><span class="line">net.ipv6.conf.default.use_tempaddr=2</span><br></pre></td></tr></table></figure><p>上述三段分别为开启转发、接受 RA 和支持临时地址</p><h3 id="在-pppoeconf-启用-IPv6"><a href="#在-pppoeconf-启用-IPv6" class="headerlink" title="在 pppoeconf 启用 IPv6"></a>在 <code>pppoeconf</code> 启用 IPv6</h3><p>在 <code>/etc/ppp/options</code> 添加上</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ipv6</span><br></pre></td></tr></table></figure><p>上述为在全局配置启用，也可以在拨号的配置文件 <code>/etc/ppp/peers/dsl-provider</code> 内添加。</p><h3 id="使用-wide-dhcpv6-client-申请-PD"><a href="#使用-wide-dhcpv6-client-申请-PD" class="headerlink" title="使用 wide-dhcpv6-client 申请 PD"></a>使用 wide-dhcpv6-client 申请 PD</h3><p>给内网设备也分配对应的 IPv6 地址使用 Prefix delegation（前缀代理），简称 PD。简单来说就是我们向我们的上级路由发送 PD 请求，上级路由会分给我们一个前缀长度小于等于64的网段，然后我们就能将个网段划分成一个或者一些 &#x2F;64 的网段接着向局域网内的设备分配，此时局域网内的设备的上级路由就是我们的网关。</p><p>为了实现这个功能，我们需要使用 <code>wide-dhcpv6-client</code>。</p><p>安装命令如下，<strong>因为使用 <code>pppoeconf</code> 拨号，所以安装 <code>wide-dhcpv6-client</code> 的时候要选择 <code>ppp0</code> 网卡作为申请 PD 的网卡</strong></p><blockquote><p>apt install wide-dhcpv6-client</p></blockquote><p>如果开启了防火墙，需要开放 dhcpv6-client 服务对应的端口 <code>546</code>。我使用的 ufw，命令如下：</p><blockquote><p>ufw allow dhcpv6-client</p></blockquote><p>编辑 <code>/etc/wide-dhcpv6/dhcp6c.conf</code>，增加</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface ppp0 &#123;</span><br><span class="line">  send ia-pd 0;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">id-assoc pd 0 &#123;</span><br><span class="line">  # use the interface connected to your LAN</span><br><span class="line">  prefix-interface br &#123;</span><br><span class="line">    sla-id 1;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>设置之后重启服务，检查 br 网卡是否分配到 Global 的 IPv6 地址</p><blockquote><p>service wide-dhcpv6-client restart</p></blockquote><h3 id="使用-Dnsmasq-分配-IPv6-地址"><a href="#使用-Dnsmasq-分配-IPv6-地址" class="headerlink" title="使用 Dnsmasq 分配 IPv6 地址"></a>使用 Dnsmasq 分配 IPv6 地址</h3><p>最后需要向局域网设备发送 RA ，使用 SLAAC 来分配IP地址，这里我们使用了 Dnsmasq。在 Dnsmasq 的配置文件里加上:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">enable-ra</span><br><span class="line">dhcp-range=::,constructor:br0,ra-only,slaac</span><br><span class="line">dhcp-option=option6:dns-server,[2400:3200::1],[2400:3200:baba::1]  # 使用阿里 DNS</span><br></pre></td></tr></table></figure><p>重启服务使配置生效</p><blockquote><p>service dnsmasq restart</p></blockquote><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>完成配置后，访问 <a href="https://ipw.cn/ipv6/">https://ipw.cn/ipv6/</a> 或者 <a href="https://test-ipv6.com/">https://test-ipv6.com/</a> 测试 IPv6 连接情况</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;家里网络从联通更换到了移动，移动没有公网 IPv4 但是有公网 IPv6。联通时代搞定了 IPv4 之后停止了探索，这次目标搞定 IPv6。</summary>
+      
+    
+    
+    
+    
+    <category term="IPv6" scheme="https://ldsink.com/tags/ipv6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 系统创建加密磁盘并自动挂载</title>
+    <link href="https://ldsink.com/articles/how-to-create-crypt-disk-and-auto-mount/"/>
+    <id>https://ldsink.com/articles/how-to-create-crypt-disk-and-auto-mount/</id>
+    <published>2023-03-05T04:28:53.000Z</published>
+    <updated>2023-04-01T06:07:06.688Z</updated>
+    
+    <content type="html"><![CDATA[<p>现有一块移动硬盘通过 USB 接入小主机。目标：实现这个盘自动<strong>加密挂载</strong>到 Ubuntu，供其他服务使用。</p><h2 id="创建磁盘分区和格式化"><a href="#创建磁盘分区和格式化" class="headerlink" title="创建磁盘分区和格式化"></a>创建磁盘分区和格式化</h2><p>工具有 <code>fdisk</code> 和 <code>parted</code>，以往主要用 <code>fdisk</code>，所以这次用 <code>parted</code>，同时也尝试一下新的文件系统。</p><p>首先确定磁盘的信息。</p><blockquote><p>parted -l</p></blockquote><p>可以看到如下内容</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Model: WD My Passport 0748 (scsi)</span><br><span class="line">Disk /dev/sda: 2000GB</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br></pre></td></tr></table></figure><p><code>/dev/sda</code> 这个设备就是我们的移动硬盘了。使用 <code>parted</code> 选择这个磁盘，开始操作。</p><blockquote><p>parted &#x2F;dev&#x2F;sda</p></blockquote><p>全新使用，磁盘上没有数据，可以随意修改。因为容量比较大，使用新的分区表类型，调整磁盘分区表到 <code>gpt</code>。</p><blockquote><p>(parted) mklabel gpt</p></blockquote><p>个人习惯把整个磁盘作为一个分区。</p><blockquote><p>(parted) mkpart primary 0% 100%</p></blockquote><p><code>parted</code> 的操作就完成了。退出前可以用如下命令检查效果。</p><blockquote><p>(parted) print</p></blockquote><p>这样就建立好了磁盘分区。</p><h2 id="磁盘加密并自动挂载"><a href="#磁盘加密并自动挂载" class="headerlink" title="磁盘加密并自动挂载"></a>磁盘加密并自动挂载</h2><p>加密部分主要参考<a href="https://hack1ng4fun.github.io/2019/11/18/Linux%E3%80%8C%E7%A3%81%E7%9B%98%E5%8A%A0%E5%AF%86%E3%80%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/">Linux「磁盘加密」完全指南</a>，依赖系统软件 <a href="https://man7.org/linux/man-pages/man8/cryptsetup.8.html">cryptsetup</a>。</p><p>操作系统启动时候涉及磁盘挂载的顺序为：</p><ol><li>前置加载</li><li>基于 <code>/etc/crypttab</code> 解密被加密的设备</li><li>基于 <code>/etc/fstab</code> 挂载磁盘到目录</li><li>后续加载</li></ol><p>所以要实现自动挂载加密盘的思路就是：</p><ol><li>在 <code>/etc/crypttab</code> 自动解密加密磁盘</li><li>在 <code>/etc/fstab</code> 自动挂载解密盘</li></ol><p>查找资料过程中发现前几年 Linux 创建加密盘还比较麻烦，好在现在有 <a href="https://man7.org/linux/man-pages/man8/cryptsetup.8.html">cryptsetup</a>，方便简单了很多。确定思路就开始做。</p><h3 id="创建加密密钥"><a href="#创建加密密钥" class="headerlink" title="创建加密密钥"></a>创建加密密钥</h3><p>用密码不太友好，短了不安全，长了记忆成本高。使用密钥文件来进行加密解密，再妥善管理备份密钥文件。</p><p>通过 <code>dd</code> 命令使用随机数生成一个 4KB 的密钥文件，保存到 <code>/etc</code> 目录下：</p><blockquote><p>dd if&#x3D;&#x2F;dev&#x2F;urandom of&#x3D;&#x2F;etc&#x2F;cryptfs.key bs&#x3D;1k count&#x3D;4</p></blockquote><h3 id="创建加密磁盘"><a href="#创建加密磁盘" class="headerlink" title="创建加密磁盘"></a>创建加密磁盘</h3><p>使用这个密钥，加密磁盘：</p><blockquote><p>cryptsetup luksFormat &#x2F;dev&#x2F;sda1 &#x2F;etc&#x2F;cryptfs.key</p></blockquote><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WARNING!</span><br><span class="line">========</span><br><span class="line">This will overwrite data on /dev/sda1 irrevocably.</span><br><span class="line"></span><br><span class="line">Are you sure? (Type &#x27;yes&#x27; in capital letters):</span><br></pre></td></tr></table></figure><p>根据提示输入大写的 <code>YES</code> 确认操作。这里是空磁盘，创建非常快。创建完成之后，可以使用 <code>cryptsetup open</code> 打开加密磁盘，解密的设备位于 <code>/dev/mapper</code> 目录下。</p><blockquote><p>cryptsetup open –key-file&#x3D;&#x2F;etc&#x2F;cryptfs.key &#x2F;dev&#x2F;sda1 sda1</p></blockquote><h3 id="格式化加密分区"><a href="#格式化加密分区" class="headerlink" title="格式化加密分区"></a>格式化加密分区</h3><p>现在加密分区就被挂载到了 <code>/dev/mapper/sda1</code>，使用 <code>mkfs</code> 格式化分区，通过补全发现 Ubuntu 现在支持的分区如下：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkfs         mkfs.btrfs   mkfs.ext2    mkfs.ext4    mkfs.minix   mkfs.ntfs    mkfs.xfs</span><br><span class="line">mkfs.bfs     mkfs.cramfs  mkfs.ext3    mkfs.fat     mkfs.msdos   mkfs.vfat</span><br></pre></td></tr></table></figure><p>平时使用 <code>ext4</code>，这次尝试以下 <code>btrfs</code>。直接使用对应文件系统的命令，需要磁盘分区地址作为参数：</p><blockquote><p>mkfs.btrfs &#x2F;dev&#x2F;mapper&#x2F;sda1</p></blockquote><h3 id="自动解密并挂载"><a href="#自动解密并挂载" class="headerlink" title="自动解密并挂载"></a>自动解密并挂载</h3><p>下面配置启动时候的默认解密，编辑 <code>/etc/crypttab</code>，增加如下内容</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;target name&gt; &lt;source device&gt;         &lt;key file&gt;      &lt;options&gt;</span><br><span class="line">sda1            /dev/sda1               /etc/cryptfs.key</span><br></pre></td></tr></table></figure><p><code>&lt;target name&gt;</code> 的部分，会作为 <code>/dev/mapper</code> 目录下映射出来的设备名称。设置完解密部分后，再将解密设备进行挂载。</p><p><code>&lt;source device&gt;</code> 是挂载的设备，简单的可以直接用 <code>/dev/sda1</code>，但是这个在系统重启或者插入其他的磁盘的时候，可能发生变动。可以改成 uuid 的方式，更加保险。执行如下命令获取硬盘 uuid</p><blockquote><p>sudo blkid</p></blockquote><p>这个命令会显示当前全部的设备，找到我们这块磁盘的部分。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sda1: UUID=&quot;89c83d74-6f09-4210-90a1-5718d680b9dd&quot; TYPE=&quot;crypto_LUKS&quot; PARTLABEL=&quot;primary&quot; PARTUUID=&quot;718e439b-f52f-427c-9571-999784104ef6&quot;</span><br></pre></td></tr></table></figure><p>然后就可以使用这个 UUID 来更新 <code>/etc/crypttab</code> 文件，下次就会基于 UUID 来处理设备，只要是这块硬盘，换 USB 插口也不会有问题。</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;target name&gt; &lt;source device&gt;                            &lt;key file&gt;      &lt;options&gt;</span><br><span class="line">sda1            UUID=89c83d74-6f09-4210-90a1-5718d680b9dd  /etc/cryptfs.key</span><br></pre></td></tr></table></figure><p>搞定了解密部分，剩下的就是编辑 <code>/etc/fstab</code> 自动把解密后的设备挂载到系统目录，供软件正常使用。增加如下内容</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># &lt;file system&gt;  &lt;mount point&gt;  &lt;type&gt;  &lt;options&gt;       &lt;dump&gt;  &lt;pass&gt;</span><br><span class="line">/dev/mapper/sda1 /mnt/sda1      btrfs   defaults        0       0</span><br></pre></td></tr></table></figure><p>完成这些操作，系统启动的时候可以自动解密，然后再将解密后的设备挂载到 <code>/mnt/sda1</code>，任务完成。</p><h2 id="一些额外的工作"><a href="#一些额外的工作" class="headerlink" title="一些额外的工作"></a>一些额外的工作</h2><h3 id="Backup-LUKS-header-and-keyslot-area"><a href="#Backup-LUKS-header-and-keyslot-area" class="headerlink" title="Backup LUKS header and keyslot area"></a>Backup LUKS header and keyslot area</h3><p>未加密的情况下，机械硬盘某些扇区损坏，只会丢失这部分数据。加密的情况下，如果某些损坏的扇区刚好是 LUKS header 的数据，那会因为 LUKS 损坏而无法解密，造成整块磁盘的数据都不可用。</p><p>所以这个唯一的入口数据，需要做好必要的备份。参考 <a href="https://www.cyberciti.biz/security/how-to-backup-and-restore-luks-header-on-linux/">How to backup and restore LUKS header on Linux</a>，主要使用 <a href="https://www.mankier.com/8/cryptsetup-luksHeaderBackup">luksHeaderBackup</a>。设备使用 <code>/dev/disk/by-uuid/</code>下拼接 UUID 的定位。</p><blockquote><p>cryptsetup luksHeaderBackup &#x2F;dev&#x2F;disk&#x2F;by-uuid&#x2F;89c83d74-6f09-4210-90a1-5718d680b9dd –header-backup-file &#x2F;mnt&#x2F;backup.bin</p></blockquote><p>这个文件备份到云上或者安全的位置，完成备份。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;现有一块移动硬盘通过 USB 接入小主机。目标：实现这个盘自动&lt;strong&gt;加密挂载&lt;/strong&gt;到 Ubuntu，供其他服务使用。&lt;/p&gt;
+&lt;h2 id=&quot;创建磁盘分区和格式化&quot;&gt;&lt;a href=&quot;#创建磁盘分区和格式化&quot; class=&quot;headerlink&quot; ti</summary>
+      
+    
+    
+    
+    
+    <category term="how-to" scheme="https://ldsink.com/tags/how-to/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2022 总结和 2023 展望</title>
+    <link href="https://ldsink.com/articles/2022-summary-and-2023-outlook/"/>
+    <id>https://ldsink.com/articles/2022-summary-and-2023-outlook/</id>
+    <published>2023-01-23T05:49:03.000Z</published>
+    <updated>2023-01-23T13:21:41.473Z</updated>
+    
+    <content type="html"><![CDATA[<p>辞旧迎新，新年可期，兔年大吉！总结 2022，展望 2023。</p><h1 id="微观个体"><a href="#微观个体" class="headerlink" title="微观个体"></a>微观个体</h1><p>工作上的一些技术细节不赘述，整体上今年在<code>开发环境</code>和<code>计算机网络</code>这两块折腾的很开心。</p><h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2><p>我是 Linux 党，但是因为开会需求，目前主系统是 Windows。之前使用 IDE 直接连接 WSL 做开发，近似 Linux 体验。缺点是 IDE 是以网络方式连接 WSL 内的文件系统，构建缓存索引的操作都非常慢且大量占用系统资源，每次切换分支带来文件变动，IDE 都需要大量时间来更新索引和缓存。</p><p>年初开始用 VMWare 虚拟机，在虚拟机内再装 IDE 然后进行开发。我机器配置不低，这样开发也还算顺畅。缺点也有：</p><ol><li>系统资源占用多，降低续航</li><li>Ubuntu 里面拼音输入法不好用，容易和 IDE 冲突，造成卡死</li></ol><p>上面两个缺点属于可接受的范围，所以今年主要是这么做的。</p><p>最近 <a href="https://www.jetbrains.com/remote-development/gateway/">JetBrains Gateway</a> 开始 beta。集中式的远程开发在工具方面终于开始就绪，年末进行了切换。</p><blockquote><p><code>Visual Studio Code</code> 也支持类似的功能</p></blockquote><p>现在我的开发方式为<code>本机的 IDE</code>连接 <code>本机 WSL / 远端服务器（有 IDE 引擎 + git 仓库）</code>。目前远端为本机的 WSL，年后打算自己在家组一台服务器作为远端，把本机的作为备份。正常有网的情况都能连接服务器进行开发。服务器计算能力、网络环境都好于笔记本，这样的开发体验应该会不错。</p><p>这个方式目前的缺点是配置无法正常同步，并且部分插件无法在 <code>Gateway</code> 里面使用。官方有这个相关的 Issue，清楚这个问题，但是目前没有支持的计划。这类远端开发架构的产品刚推出，我理解 <code>JetBrains</code> 目前肯定有很多更加重要的问题需要先解决。希望他们工作顺利，之后有资源来完善这块，让我之后有更加好的体验。</p><h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><p>今年对计算机网络这块理解也更加深入，细分成 <code>实例</code> 和 <code>抽象</code> 两块。</p><h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>实例指组成计算机网络的各个独立设备、配件的概念。2021年末自己组了主机，当时诉求还只是为了让显卡带的动 4K 屏幕。今年随着配件降价，和想帮同事装机，看着各种介绍科普视频，对各个配件的了解反而比去年自己装机的时候有了大的进步。总结如下：</p><ul><li>CPU: 制程、功耗、架构、A&#x2F;I 家的代数和特点</li><li>内存：DDR 区别，频率，时序</li><li>显卡：位宽、显存、CUDA</li><li>主板：BIOS、规格（ITX、M-ATX）</li><li>硬盘：<ul><li>协议：SATA、PCIE、M2 接口</li><li>机械：3.5寸转速、功耗区别</li><li>固态：M2 PCIE 3 &#x2F; PCIE 4 x4</li></ul></li><li>网卡：有线 &#x2F; 无线，网速</li><li>散热：机箱风道、风冷方案、水冷方案</li><li>电源：功率、转化率（80 Plus）、型号（ATX、SFX、1U）</li></ul><p>路由器、NAS 和其他树莓派等小型嵌入式设备大同小异也都包含在这个里面，基本组成也都是这些。</p><p>表现是有向<code>垃圾佬</code>转变的趋势，闲暇时间会想淘二手低成本组装一个高性能、稳定的 <code>软路由</code> &#x2F; <code>服务器</code> &#x2F; <code>NAS</code> 等等等等。毕竟几十块钱的双路服务器和云服务上开出的实例相比，太便宜了。好在工作上需要测试数据库，需要一些常开的低成本机器，新的一年可以考虑组几台节约成本。还有目前主要玩的都是 x86 指令集，未来服务信创需要一些 arm 的机器（就是不想用 mac，不想用云厂商的 arm），新的一年有机会也尝试一下。</p><h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><p>今年业务上部分服务开始用 k8s (这东西好归好，重也是真重)，服务编排比单节点的 <code>docker-compose</code> 复杂很多，对服务之间的组网方式有了更加深入的理解。今年也服务了更多的客户，了解了更多的网络管理方式。根据异常表现在抽象的网络拓扑结构中定位问题的能力肯定也比一年有提高。</p><p>这块比较有成就感的是使用某 v 开头的软件做了一个自动分发流量的软路由，无感知科学上课。这类工具很棒的点是有详细的配置文档。V4 版本的配置文档我仔细的看了一遍，在看的过程中，可以根据各个配置项的介绍，反推到计算机网络中各个层级、各个位置对流量的处理方式。这种方式我感觉可以帮助人很顺利、有实感的理解抽象的计算机网络，推荐给大家。</p><p>还有个今年实际动手操作的，内网穿透，用的 <a href="https://github.com/fatedier/frp">frp</a>。以前了解过花生壳，但是没上手过。现在有服务器有公网IP，用开源方案解决更安心。</p><p>2023 年有个小目标，搞定自己的私有化存储，把备份的数据从几块移动硬盘转移到这个里面。这里现在的初步想法是：</p><ol><li>不会买现成的 NAS 解决方案</li><li>要实现高安全性，但不采用 RAID1 &#x2F; RAID5 之类的磁盘列阵，采用 Ceph 之类的分布式文件系统</li></ol><p>分布式文件存储系统之前有了解，但是没实践。今年有空研究一下 &amp; 动手搭建出来。好了之后配合内网穿透，各种玩法都能做出来。</p><h1 id="宏观社会"><a href="#宏观社会" class="headerlink" title="宏观社会"></a>宏观社会</h1><p>2022 年因为疫情加上大会，整体是求稳。没有激进政策，在别人都是激进政策的情况下，就会显得保守。开完经济会议后，最近这一个月的政策变化的又有点大，一下子从冬天进入了夏天。应该对 2023 年保持乐观预期。大环境总体趋势是容易赚的钱赚的差不多了，需要赚辛苦钱。几个大厂都在降本增效，长期来看，我觉得是个好事情。</p><h2 id="挤泡泡"><a href="#挤泡泡" class="headerlink" title="挤泡泡"></a>挤泡泡</h2><p>很直接的一个问题，一个技术，怎么样应用可以快速变现？我个人把技术应用的方向简单的分为三类（变现速度从快到慢）：</p><ol><li>旁氏类：创造概念吸引大量热钱（“虚拟货币”、Web3）</li><li>信息差：利用信息技术比竞争对手更快更准确得到信息，创造收益（纯金融应用等）</li><li>能效类：提高社会整体生产力，由此创造收入</li></ol><p>用切蛋糕来举例，上述应用分别对应：</p><ol><li>零和博弈，在已有的蛋糕里面怎么从别人那里多切过来</li><li>在做大蛋糕的过程中，在<strong>新增的蛋糕</strong>里面获得更多（甚至可能是全部）的蛋糕</li><li>加快做蛋糕的速度，让蛋糕变得更大，这样每个人都能获得更多的蛋糕</li></ol><p>一个中立的技术，比如区块链。可以发行“虚拟货币”构造旁氏类快速积累财富；也可以利用不可篡改的特性，开发电子合同解决多方的信任问题，降低交易成本。前者来钱非常快，但是不创造任何社会价值，甚至有非常大的外负性。后者商业模式都不确定，成功了可以降低商业成本，但是即使有价值也不一定有盈利。如果没有外部因素介入，一定是劣币驱逐良币，更多的人基于现实因素考虑选择短期内收益更高的方式。我自己不会去碰第一类，第二类能接受但是感觉社会价值不大，第三类路很难，个人的收益也不一定最大，但是对社会整体式有意义的。不好的经济环境可以有效的挤泡泡，淘汰掉第一类的应用，沉淀下能为整体创造价值的应用。</p><p>2022 年的整体环境就在挤泡泡，并且大方向慢慢从做蛋糕到分蛋糕转变，强调公平的分配。某些行业特殊的超额收益一定会慢慢的回归正常，这个需要自己调整好心态。毕竟整个社会更加公平，对大部分个体而言，一定是好事情。</p><h2 id="小周期"><a href="#小周期" class="headerlink" title="小周期"></a>小周期</h2><blockquote><p>我不会给朋友任何股票买卖建议，毕竟赚了也不分我钱，亏了就要埋怨我<br>以下仅供参考，不提供任何投资建议，朋友们需要独立思考然后做出自己的投资决策</p></blockquote><p>我们的 A 股市场一般是 3-5 年一个小周期，可以参考<a href="https://www.weibo.com/1670659923/MaRPO9NaQ">这条微博</a>，引用如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">大家回想了一下，最近几年的牛熊顶底：</span><br><span class="line">1、2005年-熊底；</span><br><span class="line">2、2007年-牛顶；</span><br><span class="line">3、2008年-熊底；</span><br><span class="line">4、2009年-牛顶；</span><br><span class="line">5、2012年-熊底；</span><br><span class="line">6、2015年-牛顶；</span><br><span class="line">7、2018年-熊底；</span><br><span class="line">8、2020年-牛顶；</span><br><span class="line">9、2022年-熊底？</span><br><span class="line"></span><br><span class="line">注意时间差，2005-2007-2009-2012-2015-2018-2020-2022，除了2008年这个异常值因为2007年的6124超级牛市过于激烈导致筑底过于激烈（还有一个原因是全球金融危机）以外，跨度一直是稳定在2-3年，对不对。</span><br></pre></td></tr></table></figure><p>去年大部分时间是个下坡路，年末 2 个月开始反弹，可以期待现在是一个小周期的上升方向。</p><h2 id="产业升级"><a href="#产业升级" class="headerlink" title="产业升级"></a>产业升级</h2><p>欧美打工人为啥 WLB，我们为啥 996。因为他们有更多的高端产业，能够创造更多的产业附加值，溢出流到个体上，就有更好的福利。所以作为中国打工人，需要关注国家整体的产业升级情况。虽然他不直接影响我们的工作，但他影响我们基础生活水平的下限。</p><h3 id="芯片"><a href="#芯片" class="headerlink" title="芯片"></a>芯片</h3><p>首先提一本书，余盛的《芯片战争》，被推荐了但是还没看，今年会看完。</p><p>芯片设计感觉有长足进步。龙芯 2022 年的几款产品看起来都不错，3A5000 系列个人应用应该已经到 Zen1 的水平，这个其实够用了。现在混乱的点是指令集太多，国内信创 x86、ARM、RISC-V、MIPS 和 LoongArch，几个指令集，导致研发力量分散，形成生态也慢。好处是一定会有激烈的竞争，整下来的一定是相对有竞争优势的。未来应该会集中到一两个里面，个人比较看好 RISC-V 和 LoongArch，一个作为社区主导的开放架构，一个作为商业公司主导的开放架构。x86 本身就是要被替代的，MIPS 已经死了。现在 ARM 最为主流，但是他后面还是商业公司主导，自主可控性质上感觉差点意思。</p><p>芯片制造应该是遇到困难了，毕竟制造业得一步步踩坑，不像信息产业。去年关键技术上没什么好的消息。值得一提的是投资这个的<code>大基金</code>反腐，一锅端了一群人。希望扫清垃圾之后认清现实，好好努力，早日实现突破。</p><p>去年长江存储弯道超车，已经率先量产了使用 XTacking 3.0 技术 232 层堆叠的存储芯片。我已经买了两块致态的硬盘以示支持。希望未来长存在存储芯片领域，可以有更大的市场占有率。</p><h3 id="汽车"><a href="#汽车" class="headerlink" title="汽车"></a>汽车</h3><p>我不买车，但是不妨碍我看车。去年新能源市场，比亚迪已经暴捶其他主机厂。技术积累厚积薄发。年末还发布了仰望，仰望这车是真牛逼（我贫瘠的语言只会说这两个字），易四方这种精准的四轮独立控制技术，和互联网厂商造车是不同的技术应用思路。现在的“智能”是联通各个系统，思路还是互联网打通系统，提高信息流转这一套，相对容易实现。信息化精准控制各个部件，类比下来就是改造基础物理条件了，需要长期的测试和技术积累，这是真正的技术壁垒。希望以后我需要买车的时候，要么有钱买得起仰望，要么技术进步，这些功能已经下放到普通款。</p><p>父上如果今年想换车，怂恿买千山翠，不然就等 2024 年新款。</p><blockquote><p>据说比亚迪去年 3W 校招指标，去年应届毕业生 1000W，仅比亚迪一家，贡献了全国 1&#x2F;333 的校招。在这种裁员缩招的大环境下，应该更能感受占据高端产业后，对个人的发展和工作有哪些影响。</p></blockquote><h1 id="新年展望"><a href="#新年展望" class="headerlink" title="新年展望"></a>新年展望</h1><ol><li>2023 年身体健康，实现旅游自由和电影自由<ol><li>出行政策稳定，可以出去看看</li><li>最近的三体电视剧很棒，明天出门看<code>流浪地球2</code></li></ol></li><li>工作顺利，服务的客户数量可以上一两个数量级</li><li>大环境回暖，冒险精神慢慢恢复</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;辞旧迎新，新年可期，兔年大吉！总结 2022，展望 2023。&lt;/p&gt;
+&lt;h1 id=&quot;微观个体&quot;&gt;&lt;a href=&quot;#微观个体&quot; class=&quot;headerlink&quot; title=&quot;微观个体&quot;&gt;&lt;/a&gt;微观个体&lt;/h1&gt;&lt;p&gt;工作上的一些技术细节不赘述，整体上今年在&lt;co</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>🕯</title>
+    <link href="https://ldsink.com/articles/zhangzhe/"/>
+    <id>https://ldsink.com/articles/zhangzhe/</id>
+    <published>2022-11-30T12:50:52.000Z</published>
+    <updated>2022-11-30T12:55:36.030Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/20221130.webp" alt="赴戍登程口占示家人"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/20221130.webp&quot; alt=&quot;赴戍登程口占示家人&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>比 Nginx 更加有趣的 Caddy！</title>
+    <link href="https://ldsink.com/articles/fantasy-caddy/"/>
+    <id>https://ldsink.com/articles/fantasy-caddy/</id>
+    <published>2022-10-06T09:16:52.000Z</published>
+    <updated>2022-11-30T12:47:50.087Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近把自己和公司的 Web 服务器都从 Nginx 切换成了 <a href="https://caddyserver.com/">Caddy</a>，主要原因是 HTTPS 证书申请太麻烦。之前的 Nginx 如果使用 <a href="https://letsencrypt.org/">Let’s Encrypt</a> 的证书，代理程序会自动修改网站的配置文件，不太方便通过 git 来管理这些配置。刚好更换 Caddy 一起解决了这些问题。几年前就看过 Caddy 的相关介绍，但是没有真正使用。现在最新的 Caddy 已经到 2.0 版本，这次实际使用体验下来，Caddy 吸引我的几个功能点如下：</p><ul><li>Caddyfile，比 JSON 和 Nginx 的默认配置方式有好玩</li><li>自动 HTTPS，默认 DV 证书，可以支持到通配符证书</li><li>Go 开发，写自己的模块比 Nginx 的 Lua 模块方便</li><li>不停机热更新</li></ul><h2 id="Caddyfile"><a href="#Caddyfile" class="headerlink" title="Caddyfile"></a>Caddyfile</h2><p><a href="https://caddyserver.com/docs/caddyfile/">Caddyfile</a> 是 Caddy 的配置文件，官方文档定义是<strong>人类方便使用</strong>的一种配置文件（这句话让我想到以前的 <a href="https://ldsink.com/articles/toml/">Toml</a> 😊），我赞同这个点。<a href="https://caddyserver.com/docs/caddyfile/">Caddyfile</a> 确实比 JSON 有意思多了！官方有个简单的对比表格 <a href="https://caddyserver.com/docs/getting-started#json-vs-caddyfile"><strong>JSON vs. Caddyfile</strong></a>，我复制到下面：</p><table><thead><tr><th>JSON</th><th>Caddyfile</th></tr></thead><tbody><tr><td>Easy to generate</td><td>Easy to craft by hand</td></tr><tr><td>Easily programmable</td><td>Awkward to automate</td></tr><tr><td>Extremely expressive</td><td>Moderately expressive</td></tr><tr><td>Full range of Caddy functionality</td><td>Most of Caddy functionality</td></tr><tr><td>Allows config traversal</td><td>Cannot traverse within Caddyfile</td></tr><tr><td>Partial config changes</td><td>Whole config changes only</td></tr><tr><td>Can be exported</td><td>Cannot be exported</td></tr><tr><td>Compatible with all API endpoints</td><td>Compatible with some API endpoints</td></tr><tr><td>Documentation generated automatically</td><td>Documentation is hand-written</td></tr><tr><td>Ubiquitous</td><td>Niche</td></tr><tr><td>More efficient</td><td>More computational</td></tr><tr><td>Kind of boring</td><td>Kind of fun</td></tr></tbody></table><p>自己配置过程中，主要按照官网的图例（如下）进行修改。各个部分参照着进行修改，可以很快地完成配置。</p><p><img src="https://a.adcdn.cn/images/Caddyfile-visual.png" alt="Caddyfile Visual"></p><p>不同于 Nginx 需要拆分很多个文件，使用 Caddy 将一个站点的全部配置放在一个 Caddyfile 内。得益于 Caddyfile 精简的结构和强大的表达能力，Caddyfile 可以由很少的内容表示复杂的配置！一个 PR 将成百上千行的 Nginx 配置替换成几十行 Caddyfile，感觉超级棒！</p><p>这个站点的配置如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ldsink.com &#123;</span><br><span class="line">        header Strict-Transport-Security max-age=31536000;</span><br><span class="line">        root * /var/www/blog</span><br><span class="line">        file_server</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">www.ldsink.com &#123;</span><br><span class="line">        redir https://ldsink.com&#123;uri&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><a href="https://caddyserver.com/">Caddy</a> 也可以很方便的代理 WebSocket 的流量，在某些时候很有用，如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@websockets &#123;</span><br><span class="line">        header Connection *Upgrade*</span><br><span class="line">        header Upgrade websocket</span><br><span class="line">&#125;</span><br><span class="line">reverse_proxy @websockets localhost:1024</span><br></pre></td></tr></table></figure><p>可能因为 Caddy 是使用 Go 开发，Caddyfile 保留了一些 Go 的特点，他的缩进使用 Tab，不是我们常用 Python 的 4 个空格。修改完配置文件以后，可以使用 Caddy 自带的 fmt 命令加上 <code>--overwrite</code> 格式化并覆盖配置文件（写这个文章前几天还是 <code>-overwrite</code>，然后更新了，此时就是 <code>--</code> 了）。进入配置文件所在目录，执行如下命令：</p><blockquote><p>caddy fmt –overwrite</p></blockquote><h2 id="自动-HTTPS，支持通配符证书"><a href="#自动-HTTPS，支持通配符证书" class="headerlink" title="自动 HTTPS，支持通配符证书"></a>自动 HTTPS，支持通配符证书</h2><p>Caddy 的一大特点就是自动 HTTPS，默认的配置都是 HTTPS 的，只需要使用 80 和 443 端口就可以自动在 <a href="https://letsencrypt.org/">Let’s Encrypt</a> 或者 <a href="https://zerossl.com/">ZeroSSL</a> 签发证书并正确配置。Caddy 除了自动搞定开始的签发和配置，还可以在证书过期前自动进行续签。对于我们这种小站而言，只要 DNS 设置正确，就再也不用担心各种证书问题，Caddy 都能帮忙自动搞定。</p><p>Caddy 还支持修改 ACME 设置更改 SSL 证书的提供商，不过这个属于高级用法，我没用过，有需要的可以自己翻文档。这里介绍一下怎么通过插件把 Caddy 和 DNSPod 结合，自动签发通配符证书。</p><p>首先需要安装一个第三方模块，让 Caddy 可以调用 DNSPod 的接口。</p><blockquote><p>caddy add-package github.com&#x2F;caddy-dns&#x2F;dnspod</p></blockquote><p>然后需要去 DNSPod 申请一个 Token 供 Caddy 使用，链接如下：</p><p><a href="https://console.dnspod.cn/account/token/token">https://console.dnspod.cn/account/token/token</a></p><p>申请好 Token 后，需要添加到 Caddyfile 内。可以结合模块的介绍，填入对应的配置。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 这里我做成了一个 snippet，方便重复使用</span><br><span class="line">(dnspod) &#123;</span><br><span class="line">        tls &#123;</span><br><span class="line">                dns dnspod &lt;DNSPOD_TOKEN_ID&gt;,&lt;DNSPOD_TOKEN&gt;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">*.ldsink.com &#123;</span><br><span class="line">        import dnspod</span><br><span class="line">        # 以下是正常的内容</span><br><span class="line">        ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最后重新加载配置，自动的通配符证书应该就生效了。</p><blockquote><p>caddy reload</p></blockquote><p>这里特别夸一下，Caddy 支持不停机热更新。如果新的配置文件有错误，Caddy 会自动回滚到上一个有效的配置，保证服务持续可用。</p><h2 id="目前的问题"><a href="#目前的问题" class="headerlink" title="目前的问题"></a>目前的问题</h2><p>前面夸了很多，Caddy 确实很好，但也不是十全十美，他也有一些小问题，这里也说明一下。使用过程中注意和规避掉这些缺点，Caddy 就可以在生产环境中替换 Nginx 使用。</p><p>首先明确一点，Caddy 本体就是个独立的可执行二进制文件。想要集成任何模块，做的事情其实是 Caddy 加上模块的源代码一起重新编译出一个新的二进制文件。这种方式让 Caddy 变得简单和轻量，某种意义上也带来了一些麻烦。</p><p>我最开始使用 Ubuntu 的包管理方式安装 Caddy，这种方式有个严重的问题：<strong>之后所有的更新（<code>apt update &amp;&amp; apt upgrade -y</code>），只会更新成不带第三方插件版本的最新的 Caddy</strong>。我们使用 <code>caddy add-package</code> 命令安装的任何第三方扩展，更新后都会丢失，例如上面的 DNSPod 模块。</p><blockquote><p>Tips: 查看安装的模块可以使用命令 <code>caddy list-modules</code></p></blockquote><p>想要在更新成携带第三方模块版本的 Caddy，需要使用自带的升级命令：</p><blockquote><p>caddy upgrade</p></blockquote><p><strong>我现在的做法是，通过 apt 安装完 Caddy 后，马上去 <code>/etc/apt/sources.list.d</code> 内删除源。只通过 apt 安装，后续的更新都走自带的升级命令。</strong>这样做，可以保持第三方模块存在。</p><p>不过这样做也有一个坑，需要注意：caddy 自带的更新，会将现在的可执行文件直接备份，然后下载新的文件到对面的目录。<strong>如果这个时候网络中断导致更新没有完成，那么 caddy 文件会损坏，需要手动把备份文件恢复。</strong>否则如果此时遇到 caddy 进程重启，新的 caddy 将无法启动。</p><p>更新时候的日志信息如下，遇到问题恢复也简单，把 <code>.tmp</code> 后缀的备份文件重新恢复成原始文件就好。</p><blockquote><p>mv &#x2F;usr&#x2F;bin&#x2F;caddy.tmp &#x2F;usr&#x2F;bin&#x2F;caddy</p></blockquote><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;current_path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin/caddy&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;backup_path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/usr/bin/caddy.tmp&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近把自己和公司的 Web 服务器都从 Nginx 切换成了 &lt;a href=&quot;https://caddyserver.com/&quot;&gt;Caddy&lt;/a&gt;，主要原因是 HTTPS 证书申请太麻烦。之前的 Nginx 如果使用 &lt;a href=&quot;https://letsencry</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MaxCompute 简单调研</title>
+    <link href="https://ldsink.com/articles/maxcompute/"/>
+    <id>https://ldsink.com/articles/maxcompute/</id>
+    <published>2022-05-29T06:18:25.000Z</published>
+    <updated>2022-05-29T06:20:35.206Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://help.aliyun.com/document_detail/27800.html">文档</a> | <a href="https://workbench.data.aliyun.com/console#/MCEngines">控制台</a></p><ul><li>产品定位定位：云数据仓库</li><li>支持内部表和外部表（MaxCompute 2.0版本开始支持外部表）</li><li>产品上，和阿里云内部的 DataWorks 和 Quick BI 打通</li><li>数据上，可以通过数据集成功能加载不同数据源（例如 MySQL）的数据，也可以通过数据集成把 MaxCompute 的数据导出到各种业务数据库。</li></ul><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4646012261/p277090.png" alt="MaxCompute产品架构"></p><h3 id="MaxCompute的项目发挥什么作用？"><a href="#MaxCompute的项目发挥什么作用？" class="headerlink" title="MaxCompute的项目发挥什么作用？"></a>MaxCompute的项目发挥什么作用？</h3><ul><li>项目（Project）是MaxCompute的基本组织单元，类似于传统数据库的Database或Schema的概念，是进行多用户隔离和访问控制的主要边界。</li><li>项目中包含多个对象，例如表（Table）、资源（Resource）、函数（Function）和实例（Instance）等。</li><li>一个用户可以同时拥有多个项目的权限。</li><li>通过安全授权，可以在一个项目访问另一个项目中的对象。</li></ul><h3 id="MaxCompute常见错误信息如何理解，怎么定位问题？"><a href="#MaxCompute常见错误信息如何理解，怎么定位问题？" class="headerlink" title="MaxCompute常见错误信息如何理解，怎么定位问题？"></a>MaxCompute常见错误信息如何理解，怎么定位问题？</h3><p>MaxCompute的常见报错信息编号有规范定义，格式为：<code>异常编号：通用描述 - 上下文相关说明</code>。其中SQL、MapReduce、Tunnel的错误信息是不一样的。更多错误信息，请参见<a href="https://help.aliyun.com/document_detail/34636.htm?spm=a2c4g.11186623.0.0.5a6d7e6ddQj4YT#concept-orf-tcw-tdb">错误码概述</a>。</p><h3 id="核心概念的层次结构"><a href="#核心概念的层次结构" class="headerlink" title="核心概念的层次结构"></a>核心概念的层次结构</h3><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/8564001361/p324382.png" alt="MaxCompute核心概念的层次结构"></p><h3 id="关键性里程碑"><a href="#关键性里程碑" class="headerlink" title="关键性里程碑"></a>关键性里程碑</h3><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4633419161/p1001.png" alt="MaxCompute关键性里程碑"></p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><ol><li><a href="https://help.aliyun.com/document_detail/185240.html">浏览器，MaxCompute 控制台-查询编辑器</a></li><li><a href="https://help.aliyun.com/document_detail/27971.html">PC，MaxCompute客户端（odpscmd）</a></li><li><a href="https://help.aliyun.com/document_detail/50889.html">集成开发环境工具，用于 IntelliJ IDEA</a></li></ol><h3 id="生态对接"><a href="#生态对接" class="headerlink" title="生态对接"></a>生态对接</h3><p><strong>基本都是 Java 生态，提供 Connector，使用 JDBC 连接。Python 提供了 <a href="https://help.aliyun.com/document_detail/155553.html">SDK</a>，需要开发。</strong></p><blockquote><p>连接页面，是否需要根据不同的数据源的形式，实现不同的标签说明？</p></blockquote><p><img src="https://help-static-aliyun-doc.aliyuncs.com/assets/img/zh-CN/4515317361/p301250.png" alt="MaxCompute的生态架构"></p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul><li><a href="https://help.aliyun.com/document_detail/114422.html">产品：构建与优化数据仓库</a></li><li><a href="https://help.aliyun.com/document_detail/27859.html">开发：SQL及函数</a></li><li><a href="https://help.aliyun.com/document_detail/104045.html">安全：权限管理</a></li><li><a href="https://help.aliyun.com/document_detail/117432.html">规范：数据模型架构规范</a></li><li><a href="https://help.aliyun.com/document_detail/66048.html">演示：公开数据集</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://help.aliyun.com/document_detail/27800.html&quot;&gt;文档&lt;/a&gt; | </summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>奈飞文化手册</title>
+    <link href="https://ldsink.com/books/powerful-building-a-culture-of-freedom-and-responsibility/"/>
+    <id>https://ldsink.com/books/powerful-building-a-culture-of-freedom-and-responsibility/</id>
+    <published>2022-05-17T05:30:58.000Z</published>
+    <updated>2022-05-24T09:14:37.995Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>尽信书，不如无书。 —— 孟子</p></blockquote><blockquote><p>一个人的命运啊，当然要靠自我奋斗，但是也要考虑到历史的行程。 —— 长者</p></blockquote><p>批判的看管理学&#x2F;成功学书籍，思考内容里面举例和结果之间的因果关系是否成立。找到真正的关键因素。</p><p><img src="https://a.adcdn.cn/images/mindmaster-netflix.png" alt="Netflix MindMaster"></p><h2 id="几次成功的转型"><a href="#几次成功的转型" class="headerlink" title="几次成功的转型"></a>几次成功的转型</h2><h3 id="2006-2007"><a href="#2006-2007" class="headerlink" title="2006-2007"></a>2006-2007</h3><p>结果：实现从邮政递送DVD到网络流媒体播放的转型；</p><p>历史行程：</p><ul><li>互联网条件成熟，带宽提高，Youtube崛起</li></ul><p>自我奋斗：</p><ul><li>算法推荐！</li></ul><h3 id="2011Q3"><a href="#2011Q3" class="headerlink" title="2011Q3"></a>2011Q3</h3><p>结果：从网络播放旧内容到通过外部制片公司创作新内容，如《纸牌屋》；</p><p>历史行程：</p><ul><li>第一个在流媒体播放的主流电视剧《纸牌屋》<ul><li>演员 + 导演Kevin Spacey （Margin Call）</li><li>播放方式</li></ul></li></ul><p>自我奋斗：</p><ul><li>数据分析！！</li></ul><p><strong>核心护城河：为用户提供优质内容。</strong></p><p>小Lin姐的 <a href="https://www.bilibili.com/video/BV1KL4y1W7EV/">【硬核商业分析】Netflix《鱿鱼游戏》背后最大赢家，网飞的崛起之路</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;尽信书，不如无书。 —— 孟子&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一个人的命运啊，当然要靠自我奋斗，但是也要考虑到历史的行程。 —— 长者&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;批判的看管理学&amp;#x2F;成功学</summary>
+      
+    
+    
+    
+    <category term="books" scheme="https://ldsink.com/categories/books/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>从收藏夹观察网址变化趋势</title>
+    <link href="https://ldsink.com/articles/observe-the-trend-of-urls-from-bookmarks/"/>
+    <id>https://ldsink.com/articles/observe-the-trend-of-urls-from-bookmarks/</id>
+    <published>2022-04-30T04:30:46.000Z</published>
+    <updated>2022-05-29T06:23:31.830Z</updated>
+    
+    <content type="html"><![CDATA[<p>五一前夕，我花了点时间使用扩展 <a href="https://addons.mozilla.org/zh-CN/firefox/addon/bookmarks-organizer/">Bookmarks Organizer</a> 整理了十年间在浏览器内积累的近千个书签。根据网址的变化，记录一些个人对趋势的观察。</p><h2 id="HTTPS-全面普及"><a href="#HTTPS-全面普及" class="headerlink" title="HTTPS 全面普及"></a>HTTPS 全面普及</h2><p>最为明显的特征是 HTTPS 全面普及，几乎没有 HTTP 的网页。收藏夹一些政府部门，甚至包括银行官网（非个人网银页面），传统意义上比较顽固的页面都进行了更新，部署了 HTTPS。</p><h2 id="网址更短，更精简"><a href="#网址更短，更精简" class="headerlink" title="网址更短，更精简"></a>网址更短，更精简</h2><p>这块主要是四个变化方向：</p><ol><li>域名精简。现在有了更多的顶级域名，很多网站不再拘泥传统的 com 域名。可以会变成更短更合适的其他顶级域名（持有成本甚至可能更低）。技术类网站，io、ai、dev、pro 等都是非常好的选择，例如 <code>celeryproject.org</code> &#x3D;&gt; <code>celeryq.dev</code> 、<code>tylermcginnis.com</code> &#x3D;&gt; <code>ui.dev</code></li><li>移除 www 前缀。比如本站和 <code>Github.com</code>。这个有很多例子，就不举例了</li><li>和 2 有关，移除 www 后，一些功能会独立成二级域名，从而缩短网址长度。例如 <code>www.domain.com/(blog/bbs/doc)</code> 直接更换成二级域名的方式 <code>(blog/bbs/doc).domain.com</code></li><li>uri 精简。早期很多文章域名采用 WordPress 带日期的方式。<code>/articles/2022/04/30/three-passions</code> 会直接变成 <code>/three-passions</code></li></ol><h2 id="cn-域名增多"><a href="#cn-域名增多" class="headerlink" title="cn 域名增多"></a>cn 域名增多</h2><p>一部分国内网站，曾经的顶级域名优先使用 .com，现在切换成了 .cn。这部分也分为两类：</p><ol><li>就是喜欢 .cn 的，其他主域名都跳转 .cn。比如 <code>moegirl.org</code> &#x3D;&gt; <code>moegirl.org.cn</code></li><li>走出去，国际化。.com 作为国际化首页，.cn 服务本土。比如 <a href="https://www.infoq.cn/">InfoQ</a></li></ol><h2 id="政府站点质量上升"><a href="#政府站点质量上升" class="headerlink" title="政府站点质量上升"></a>政府站点质量上升</h2><p>以前政府网站质量一言难尽，现在感觉重视起来了。域名，内容和网站本身安全性等各个方面都有了很多提升。现在厅级以下应该不让独立建站，挂靠上级网站下对应的模块。以前长沙市长沙县泉塘街道的 <code>url.gov.cn</code> 这样有意思的域名以后应该难再见到了。</p><p>法院、工商、财政相关的信息获取难度比以前大大降低，而且看得出有些部门审美是在线的。</p><p>全国社会组织查询</p><ul><li>旧：<a href="https://www.chinanpo.gov.cn/search/orgcx.html">https://www.chinanpo.gov.cn/search/orgcx.html</a></li><li>新：<a href="https://chinanpo.mca.gov.cn/">https://chinanpo.mca.gov.cn/</a></li></ul><p>储蓄国债发行</p><ul><li>旧：2021年数据已经停止更新，就不放出来了</li><li>新：<a href="http://gks.mof.gov.cn/ztztz/guozaiguanli/gzfxdzs/">http://gks.mof.gov.cn/ztztz/guozaiguanli/gzfxdzs/</a></li></ul><h2 id="个人站点大量消失"><a href="#个人站点大量消失" class="headerlink" title="个人站点大量消失"></a>个人站点大量消失</h2><p>社会环境和商业模式变化，很多个人站点因为各种原因都消失了。</p><h2 id="产品发展进化"><a href="#产品发展进化" class="headerlink" title="产品发展进化"></a>产品发展进化</h2><p>很多好的产品随着时代落幕，也有更多好的产品变得更加成熟。一些产品或者服务被收购，网址更新成集团网址。这里提两个和我的主业没关系的网站，以前偏社区，现在正式商业化运作，希望他们未来更加美好。</p><ul><li>Tushare：<a href="http://www.tushare.org/">www.tushare.org</a> &#x3D;&gt; <a href="https://tushare.pro/">tushare.pro</a></li><li>vn.py：<a href="https://www.vnpy.com/">vnpy.com</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;五一前夕，我花了点时间使用扩展 &lt;a href=&quot;https://addons.mozilla.org/zh-CN/firefox/addon/bookmarks-organizer/&quot;&gt;Bookmarks Organizer&lt;/a&gt; 整理了十年间在浏览器内积累的近千个书签</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>友善度-知乎</title>
+    <link href="https://ldsink.com/articles/fuck-zhihu/"/>
+    <id>https://ldsink.com/articles/fuck-zhihu/</id>
+    <published>2022-02-12T03:06:06.000Z</published>
+    <updated>2022-05-29T06:23:31.790Z</updated>
+    
+    <content type="html"><![CDATA[<p>知乎老用户，这些年来，见证各种骚操作。好端端的知识分享网站沦落成一个无良XX。</p><p>产品设计上：</p><ul><li>有教用户做人的无法按照用户关注来的Feed流</li><li>有时不时插入回答的小广告</li><li>有知音读者故事会风格的盐选小故事</li><li>有强制开屏小广告（切换APP都会强制弹出）</li><li>有一不小心就会滑到就自动下载并播放的低俗视频</li><li>有刻意设计让你容易误触的向下和点赞按钮</li><li>有不知道什么时候强制关注的一堆问题</li><li>有无法隐藏的个人动态</li></ul><p>除开产品，还有不知道 G 点在哪里的小管家。</p><p>稍微一盘点，老实说，如此不把用户当人看的产品，我还在使用，真佩服自己的忍耐力。可能知乎在早期确实给我留下了太好的印象，当时从上面很多专业大佬会分享知识，学习到了很多。但是现在，只能呵呵。</p><p>因为是老用户，还是和一些朋友互相关注，直接注销账号感觉有些可惜。账号留着，但是估计不会再使用，找了一些方法，尽可能的减少感到恶心的地方。</p><h3 id="关闭最近浏览"><a href="#关闭最近浏览" class="headerlink" title="关闭最近浏览"></a>关闭最近浏览</h3><p>进入 APP，<code>我的</code> -&gt; <code>最近浏览</code>，点击右上角三个点图标的设置，可以 <code>关闭最近浏览</code>。</p><h3 id="批量取消关注的问题"><a href="#批量取消关注的问题" class="headerlink" title="批量取消关注的问题"></a>批量取消关注的问题</h3><p>不知道是哪个版本引入的功能，可能有点赞或者评论就会自动关注问题，再配合 APP 刻意设计的误触式点赞，我发现自己多了千余个关注的问题。再次 bibibi……</p><p>参考知乎上<a href="https://www.zhihu.com/people/shi-xiao-jie-23">小荷才</a>在问题<a href="https://www.zhihu.com/question/27922502/answer/964383258">如何批量取消关注的问题？</a>的回答，可以使用如下方式：</p><ol><li>打开<strong>旧版</strong>我关注的问提的页面 <a href="https://www.zhihu.com/question/following">https://www.zhihu.com/question/following</a></li><li><code>F12</code> 打开浏览器控制台，切换到<code>控制台</code>部分</li><li>粘贴如下的代码并回车执行，会自动往下翻页并取消关注</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">unfollow_all</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> remaining = $(<span class="string">&quot;.zg-unfollow&quot;</span>).<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">if</span> (remaining &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        $(<span class="string">&quot;.zg-unfollow&quot;</span>).<span class="title function_">first</span>().<span class="title function_">trigger</span>(<span class="string">&#x27;click&#x27;</span>);</span><br><span class="line">        <span class="built_in">setTimeout</span>(unfollow_all, <span class="number">1000</span>);</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">unfollow_all</span>();</span><br></pre></td></tr></table></figure><h3 id="批量取消个人中心的点赞"><a href="#批量取消个人中心的点赞" class="headerlink" title="批量取消个人中心的点赞"></a>批量取消个人中心的点赞</h3><p>个人中心的点赞也无法隐藏。我不想去深究这么设计的原因是为了追求更多的用户数据，还是知乎产品经理的大脑发育有部分缺陷。批量取消关注的问题提供了一个思路，自己动手写了个JS函数，模拟点击取消投票。</p><p>步骤如下：</p><ol><li>打开<code>我的主页</code> <a href="https://www.zhihu.com/people/%E7%94%A8%E6%88%B7ID/">https://www.zhihu.com/people/用户ID/</a></li><li><code>F12</code> 打开浏览器控制台，切换到<code>控制台</code>部分</li><li>粘贴如下的代码并回车执行，会自动往下翻页并取消点赞。取消一定数量之后，会触发知乎的拦截，那就休息一下，过一阵再来，总能取消干净。</li></ol><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> neutralCount = <span class="number">0</span> </span><br><span class="line"><span class="keyword">const</span> <span class="title function_">neutral</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> button = $(<span class="string">&quot;button.VoteButton.is-active&quot;</span>) <span class="comment">// 定位到一个已投票按钮</span></span><br><span class="line">    <span class="keyword">if</span> (!button) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollHeight</span>) <span class="comment">// 下划到底部，触发新数据的加载</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        button.<span class="title function_">click</span>() <span class="comment">// 触发点击，取消投票</span></span><br><span class="line">        neutralCount++ <span class="comment">// 计数器加 1</span></span><br><span class="line">        <span class="keyword">if</span> (neutralCount % <span class="number">10</span> == <span class="number">0</span>) <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`已取消 <span class="subst">$&#123;neutralCount&#125;</span> 次投票`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">setTimeout</span>(neutral, <span class="number">1000</span>) <span class="comment">// 休息一下，找下一个目标，继续取消</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">neutral</span>()</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;知乎老用户，这些年来，见证各种骚操作。好端端的知识分享网站沦落成一个无良XX。&lt;/p&gt;
+&lt;p&gt;产品设计上：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;有教用户做人的无法按照用户关注来的Feed流&lt;/li&gt;
+&lt;li&gt;有时不时插入回答的小广告&lt;/li&gt;
+&lt;li&gt;有知音读者故事会风格的盐选小故事</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>2022 新年快乐！</title>
+    <link href="https://ldsink.com/articles/2022-happy-new-year/"/>
+    <id>https://ldsink.com/articles/2022-happy-new-year/</id>
+    <published>2022-02-01T08:29:55.000Z</published>
+    <updated>2022-05-29T06:23:32.002Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/2022-InfoQ.png" alt="2022-InfoQ"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/2022-InfoQ.png&quot; alt=&quot;2022-InfoQ&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>效率工具推荐</title>
+    <link href="https://ldsink.com/articles/recommended-efficiency-tools/"/>
+    <id>https://ldsink.com/articles/recommended-efficiency-tools/</id>
+    <published>2021-10-31T04:23:19.000Z</published>
+    <updated>2022-05-29T06:23:31.930Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="选取标准"><a href="#选取标准" class="headerlink" title="选取标准"></a>选取标准</h2><ul><li>“工欲善其事必先利其器”，确实能实际的提高效率。</li><li>跨平台支持，可以在 Linux、Windows 和 macOS 上使用（排名有先后）。</li><li>属于 活跃开源项目 或者 有商业公司支持。不推荐已经无人维护的软件。</li></ul><h2 id="工具目录"><a href="#工具目录" class="headerlink" title="工具目录"></a>工具目录</h2><h3 id="uTools"><a href="#uTools" class="headerlink" title="uTools"></a>uTools</h3><p>新一代效率工具平台， <a href="https://u.tools/">https://u.tools/</a>。</p><p>核心功能：</p><ol><li>快速启动</li><li>文件搜索（配合 Everything）</li><li>第三方插件</li></ol><h3 id="Zeal"><a href="#Zeal" class="headerlink" title="Zeal"></a>Zeal</h3><p>离线文档浏览，<a href="https://zealdocs.org/">https://zealdocs.org/</a>。</p><h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>国内最好的同步盘，<a href="https://www.jianguoyun.com/">https://www.jianguoyun.com/</a>。</p><p>同步盘和网盘的区别：</p><ul><li>同步盘：本机的一个文件夹和远端服务器的一个文件夹绑定，任意一端的变动双向同步。</li><li>网盘：远端服务器多了一块空间很大的文件夹，对这个文件夹操作只影响这个文件夹。</li></ul><h3 id="KeePassXC"><a href="#KeePassXC" class="headerlink" title="KeePassXC"></a>KeePassXC</h3><p>密码管理工具，<a href="https://keepassxc.org/">https://keepassxc.org/</a>。</p><p>一开始 KeePass，再 KeePassX，最终 KeePassXC。</p><h3 id="WPS-Office"><a href="#WPS-Office" class="headerlink" title="WPS Office"></a>WPS Office</h3><p>一站式办公服务平台，<a href="https://www.wps.cn/">https://www.wps.cn/</a>。</p><p>优点：</p><ul><li>政企用户基本使用 WPS</li><li>很好的支持 Linux</li><li>很好的支持 Android</li><li>很好的支持 macOS</li><li>自带海量模板库，支持海报等功能契合国内公众号生态</li><li>整合一堆第三方功能，付费之后功能完善 &amp; 性价比很高</li></ul><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="向日葵-amp-花生壳"><a href="#向日葵-amp-花生壳" class="headerlink" title="向日葵 &amp; 花生壳"></a>向日葵 &amp; 花生壳</h4><p>向日葵：远程控制软件，<a href="https://sunlogin.oray.com/">https://sunlogin.oray.com/</a>。</p><p>花生壳：内网穿透软件，<a href="https://hsk.oray.com/">https://hsk.oray.com/</a>。</p><h4 id="XMind-x2F-MindMaster-x2F-EdrawMax"><a href="#XMind-x2F-MindMaster-x2F-EdrawMax" class="headerlink" title="XMind &#x2F; MindMaster &#x2F; EdrawMax"></a>XMind &#x2F; MindMaster &#x2F; EdrawMax</h4><p>脑图、流程图类工具</p><h4 id="Cryptomator"><a href="#Cryptomator" class="headerlink" title="Cryptomator"></a>Cryptomator</h4><p>开源免费的云同步网盘加密工具，<a href="https://cryptomator.org/">https://cryptomator.org/</a>。</p><h4 id="Firefox-Browser"><a href="#Firefox-Browser" class="headerlink" title="Firefox Browser"></a>Firefox Browser</h4><p><strong>务必使用国际版</strong></p><p><a href="https://www.mozilla.org/zh-CN/firefox/browsers/">https://www.mozilla.org/zh-CN/firefox/browsers/</a></p><h4 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h4><p>Free. Built on open source. Runs everywhere.</p><p>使用历史：<code>Notepad++</code> -&gt; <code>Sublime Text</code> -&gt; <code>Atom</code> -&gt; <code>Visual Studio Code</code></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;选取标准&quot;&gt;&lt;a href=&quot;#选取标准&quot; class=&quot;headerlink&quot; title=&quot;选取标准&quot;&gt;&lt;/a&gt;选取标准&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;“工欲善其事必先利其器”，确实能实际的提高效率。&lt;/li&gt;
+&lt;li&gt;跨平台支持，可以在 Linux、Window</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>庆祝中国共产党成立100周年</title>
+    <link href="https://ldsink.com/articles/cpc-100th-anniversary/"/>
+    <id>https://ldsink.com/articles/cpc-100th-anniversary/</id>
+    <published>2021-07-01T15:45:01.000Z</published>
+    <updated>2022-05-29T06:23:31.810Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/cpc-100th-anniversary.webp" alt="image"></p><p><strong>胸怀千秋伟业，恰是百年风华。</strong></p><p><strong>伟大、光荣、正确的中国共产党万岁！</strong></p><p><strong>伟大、光荣、英雄的中国人民万岁！</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/cpc-100th-anniversary.webp&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;胸怀千秋伟业，恰是百年风华。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;伟大、光荣、</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 启动后自动执行命令</title>
+    <link href="https://ldsink.com/articles/how-to-run-a-shell-script-at-startup/"/>
+    <id>https://ldsink.com/articles/how-to-run-a-shell-script-at-startup/</id>
+    <published>2021-06-27T07:40:45.000Z</published>
+    <updated>2022-05-29T06:23:31.738Z</updated>
+    
+    <content type="html"><![CDATA[<p>Linux 环境下，一般需要自启动执行任务，需要修改 <code>/etc/init.d</code> 或者 <code>/etc/rc.d/</code>。 这里介绍一个简单方式，通过 <code>crontab</code> 来实现这个目的。</p><p>执行</p><blockquote><p>crontab -e</p></blockquote><p>增加如下内容，其中 <code>/path/to/your/script.sh</code> 替换成需要执行的命令或者脚本。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@reboot  /path/to/your/script.sh</span><br></pre></td></tr></table></figure><p><code>crontab</code> 一般用于定时执行任务，但是它还提供了 <code>@reboot</code> 用于启动之后执行。 推荐一个非常好用的网站 <a href="https://crontab.guru/">crontab.guru</a> ，可以用来检测命令，预测下一次任务的启动时间。</p><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul><li><a href="https://stackoverflow.com/questions/12973777/how-to-run-a-shell-script-at-startup">How to run a shell script at startup</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Linux 环境下，一般需要自启动执行任务，需要修改 &lt;code&gt;/etc/init.d&lt;/code&gt; 或者 &lt;code&gt;/etc/rc.d/&lt;/code&gt;。 这里介绍一个简单方式，通过 &lt;code&gt;crontab&lt;/code&gt; 来实现这个目的。&lt;/p&gt;
+&lt;p&gt;执行&lt;/p&gt;</summary>
+      
+    
+    
+    
+    
+    <category term="how-to" scheme="https://ldsink.com/tags/how-to/"/>
+    
+    <category term="linux" scheme="https://ldsink.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设置执行 sudo 免密码</title>
+    <link href="https://ldsink.com/articles/how-to-execute-sudo-without-password/"/>
+    <id>https://ldsink.com/articles/how-to-execute-sudo-without-password/</id>
+    <published>2021-06-27T07:00:45.000Z</published>
+    <updated>2022-05-29T06:23:31.610Z</updated>
+    
+    <content type="html"><![CDATA[<p>Linux 中，一些操作需要使用 <code>sudo</code> 命令进行提权到 <code>root</code> 后才可以顺利执行。默认这一步操作是需要输入密码的，可以通过设置免除密码。</p><h1 id="获取用户名"><a href="#获取用户名" class="headerlink" title="获取用户名"></a>获取用户名</h1><p>执行如下命令，获得当前用户的用户名。</p><blockquote><p>echo $USER</p></blockquote><h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>配置文件位于 <code>/etc/sudoers</code>，但是注意，<strong>千万不要直接修改这个文件！</strong> 我见过太多直接修改这个文件造成系统无法启动的例子了。 正确的方式是使用 <code>visudo</code> 命令修改。执行</p><blockquote><p>sudo visudo</p></blockquote><p>按下 <code>Shift+g</code> 切换到文件尾部，按下 <code>o</code> 新增一行， 将下面这一行添加到文件尾部（<code>$USER</code> 替换成之前获取到的用户名）。 <code>Shift+z+z</code> 保存并退出。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">USER ALL=(ALL) NOPASSWD: ALL</span></span><br></pre></td></tr></table></figure><p>注销或者重启之后，再次使用 <code>sudo</code> 命令就不需要输入密码了。</p><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><code>sudo</code> 本身是个危险操作，执行之后会使用最高的 <code>root</code> 权限执行命令。很多发行版第一次执行都会给出提示，比如 <code>deepin</code> 会有如下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">我们信任您已经从系统管理员那里了解了日常注意事项。</span><br><span class="line">总结起来无外乎这三点：</span><br><span class="line"></span><br><span class="line">    #1) 尊重别人的隐私。</span><br><span class="line">    #2) 输入前要先考虑(后果和风险)。</span><br><span class="line">    #3) 权力越大，责任越大。</span><br></pre></td></tr></table></figure><p>同时用户目录会生成 <code>.sudo_as_admin_successful</code> 文件，表示已经给出过提示。</p><p>我非常喜欢这三点提示。</p><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul><li><a href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Execute sudo without Password?</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Linux 中，一些操作需要使用 &lt;code&gt;sudo&lt;/code&gt; 命令进行提权到 &lt;code&gt;root&lt;/code&gt; 后才可以顺利执行。默认这一步操作是需要输入密码的，可以通过设置免除密码。&lt;/p&gt;
+&lt;h1 id=&quot;获取用户名&quot;&gt;&lt;a href=&quot;#获取用户名&quot; cla</summary>
+      
+    
+    
+    
+    
+    <category term="how-to" scheme="https://ldsink.com/tags/how-to/"/>
+    
+    <category term="linux" scheme="https://ldsink.com/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Firefox 首次支持 Linux 上的硬件加速功能</title>
+    <link href="https://ldsink.com/articles/firefox-were-finally-getting-hw-acceleration-on-linux/"/>
+    <id>https://ldsink.com/articles/firefox-were-finally-getting-hw-acceleration-on-linux/</id>
+    <published>2021-01-12T03:20:14.000Z</published>
+    <updated>2021-06-22T05:43:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://a.adcdn.cn/images/firefox-quantum-engine.webp" alt="firefox-quantum-engine"></p><p>看到一则令人开心的消息<a href="https://mastransky.wordpress.com/2021/01/10/firefox-were-finally-getting-hw-acceleration-on-linux/">Firefox – we’re finally getting HW acceleration on Linux</a>。目前 Firefox 在 Linux 下并不支持硬件加速，导致其在B站播放视频非常容易卡顿。我目前安装了一个 Chrome 专门用于看B站视频。期待 Firefox 早日实现全部功能，在 Linux 下也拥有流畅的效果。</p><p>可以在 <code>about:support</code> 内查看目前使用的图像合成引擎，我这里 Firefox Developer Edition 85.0b7 还是 <code>OpenGL</code>，希望早日用上 <code>WebRender</code>。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://a.adcdn.cn/images/firefox-quantum-engine.webp&quot; alt=&quot;firefox-quantum-engine&quot;&gt;&lt;/p&gt;
+&lt;p&gt;看到一则令人开心的消息&lt;a href=&quot;https://mastran</summary>
+      
+    
+    
+    
+    
+    <category term="firefox" scheme="https://ldsink.com/tags/firefox/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>密钥文件取舍</title>
+    <link href="https://ldsink.com/articles/organize-key-files/"/>
+    <id>https://ldsink.com/articles/organize-key-files/</id>
+    <published>2020-09-11T04:30:46.000Z</published>
+    <updated>2022-05-29T06:23:31.770Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="密钥的取舍"><a href="#密钥的取舍" class="headerlink" title="密钥的取舍"></a>密钥的取舍</h3><p>系统里面，积累起来的 SSH 密钥已经包含了 <code>rsa</code>、<code>dsa</code>、<code>ecdsa</code> 和 <code>ed25519</code> 四对。基于 <strong>“同类型的保留一种，安全性高优先”</strong> 的原则进行清理。已知：</p><ul><li><code>rsa</code> 和 <code>dsa</code> 基于大数因数分解。</li><li><code>ecdsa</code> 和 <code>ed25519</code> 基于椭圆曲线离散对数问题。</li><li><code>rsa</code> 长度 4096 位之后目前可以视为安全。</li><li><code>dsa</code> 已被认为不安全。</li><li><code>ecdsa</code> 政治上：算法选择由 <a href="https://www.nist.gov/">NIST</a> 设定；技术上：过于复杂以至于无法完善的检查。因此也视为不安全。</li><li><code>ed25519</code> 安全性最高，性能最好。<a href="https://www.openssh.com/txt/release-6.5">但是需要比较新的版本（OpenSSH 6.5+）才支持</a>。</li></ul><p>最后保留4096位的<code>rsa</code>密钥和<code>ed25519</code>密钥。在允许的情况下优先使用<code>ed25519</code>密钥。</p><h3 id="“秘”和“密”的区别"><a href="#“秘”和“密”的区别" class="headerlink" title="“秘”和“密”的区别"></a>“秘”和“密”的区别</h3><p>这是一个题外话。前几天同事注释把密钥写成了秘钥，我发现了这个错别字。改正之后，我们对这个字的含义产生了兴趣。因为“秘密”这个词表示隐秘，两个单字应该都有近似的含义，那为什么是“密钥”而不是“秘钥”。“秘”和“密”的区别是什么？</p><p>一番查证，归纳出了如下区别：</p><table><thead><tr><th>秘</th><th>密</th></tr></thead><tbody><tr><td>客观，被动</td><td>主观，主动</td></tr><tr><td>内容本身隐蔽，强调的是不易知</td><td>需要去隐蔽内容，强调的是不让知</td></tr><tr><td>神鬼之事、高深莫测、罕闻稀见</td><td>人为之事、故意遮掩、严加控制</td></tr><tr><td>例词：秘本、秘方、秘史、秘闻、秘笈</td><td>例词：密封、密谈、密约、保密、泄密、解密、绝密、机密</td></tr></tbody></table><p>汉语博大精深。</p><h3 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h3><ul><li><a href="https://medium.com/@honglong/%E9%81%B8%E6%93%87-ssh-key-%E7%9A%84%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95-70ca45c94d8e">選擇 SSH key 的加密演算法</a></li><li><a href="https://sohfrance.com/%E7%A7%98%E3%80%81%E5%AF%86%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F/">秘、密如何区别</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;密钥的取舍&quot;&gt;&lt;a href=&quot;#密钥的取舍&quot; class=&quot;headerlink&quot; title=&quot;密钥的取舍&quot;&gt;&lt;/a&gt;密钥的取舍&lt;/h3&gt;&lt;p&gt;系统里面，积累起来的 SSH 密钥已经包含了 &lt;code&gt;rsa&lt;/code&gt;、&lt;code&gt;dsa&lt;/code&gt;、&lt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>UOS（deepin）20 桌面版体验</title>
+    <link href="https://ldsink.com/articles/uos-20/"/>
+    <id>https://ldsink.com/articles/uos-20/</id>
+    <published>2020-07-14T04:17:26.000Z</published>
+    <updated>2022-05-29T06:23:31.654Z</updated>
+    
+    <content type="html"><![CDATA[<p>本来刚出就打算升级的，各种原因耽误了，最近终于动手升级了系统版本。下文为纯主观体验。</p><h2 id="系统变化"><a href="#系统变化" class="headerlink" title="系统变化"></a>系统变化</h2><ul><li>界面比 15 版本好看很多，整个系统风格统一成圆角风格。</li><li>默认壁纸多了一些漂亮的风景画。</li><li>UOS 20 个人版作为商业版本需要激活，并且需要登录账号进入开发者模式才能打开 root 权限。deepin 20 作为社区版本无此限制。</li><li>底层基于 debian 10.3，内核 5.3。安装第三方应用可以依次找对应的包。lsb_release 无法获取版本号，实际应该是 debian buster。</li><li>默认是个简单的套壳浏览器。按需换成 Firefox 或者 Chrome（期待巨硬未来的 Edge）。</li><li>应用商店软件版本比 15 新很多。deepin 人手也不多，目前看起来只能尽力维护 20 版本的，体谅。</li><li>因为有私有软件，更新源变成两个。系统一个，独立的应用商店一个。从这里可以得到 UOS20 的 codename 应该是 plum，应用商店是 eagle。</li></ul><h2 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h2><p>默认的终端变回了 bash，并且用的是 debian 默认的 gnome 终端，可以在应用商店安装老版本的 deepin-terminal。</p><h3 id="当前用户-sudo-免密码-Ref"><a href="#当前用户-sudo-免密码-Ref" class="headerlink" title="当前用户 sudo 免密码 Ref"></a>当前用户 sudo 免密码 <a href="https://askubuntu.com/questions/147241/execute-sudo-without-password">Ref</a></h3><blockquote><p>sudo visudo<br>$USER ALL&#x3D;(ALL) NOPASSWD: ALL</p></blockquote><p><code>$USER</code>替换成当前用户名</p><h3 id="默认编辑器使用-vim"><a href="#默认编辑器使用-vim" class="headerlink" title="默认编辑器使用 vim"></a>默认编辑器使用 vim</h3><blockquote><p>sudo update-alternatives –config editor</p></blockquote><h3 id="切换-zsh"><a href="#切换-zsh" class="headerlink" title="切换 zsh"></a>切换 zsh</h3><p>参考<a href="https://ldsink.com/articles/install-zsh-on-ubuntu/">Ubuntu 上安装 zsh</a></p><h2 id="权限和配置"><a href="#权限和配置" class="headerlink" title="权限和配置"></a>权限和配置</h2><p>一些配置文件从旧系统复制到新系统，包括</p><ul><li>.ssh</li><li>.gnupg</li><li>.profile</li><li>.zshrc</li><li>.vscode</li><li>.pip</li><li>.docker</li><li>.npm</li><li>.fonts</li><li>.gitconfig</li><li>.git-credentials</li><li>.gitignore</li><li>Jetbrains 全家桶各个配置</li></ul><h2 id="软件应用"><a href="#软件应用" class="headerlink" title="软件应用"></a>软件应用</h2><h3 id="输入法"><a href="#输入法" class="headerlink" title="输入法"></a>输入法</h3><ul><li>默认输入法不再是搜狗，搜狗官网的包有问题，需要命令行安装。<code>sudo apt install sogoupinyin -y</code></li><li>可以在应用商店内安装迅飞输入法。</li><li>百度输入法目前的体验很糟糕，正常用还需要等等。</li></ul><h3 id="安全中心"><a href="#安全中心" class="headerlink" title="安全中心"></a>安全中心</h3><p>这个东西看用途是一个可视化的防火墙，为普通用户提供网络管理功能。<br>但是，对于开发者来说，这东西极其糟糕，建议卸载。主要问题是<strong>这东西会限制一些服务的端口监听</strong>，调试需要使用的一些代理都会被限制。</p><p>命令行卸载：</p><blockquote><p>sudo apt remove -y deepin-defender</p></blockquote><p>删除配置文件：</p><blockquote><p>rm ~&#x2F;.deepin-defender</p></blockquote><p>重启之后恢复正常</p><h3 id="坚果云"><a href="#坚果云" class="headerlink" title="坚果云"></a>坚果云</h3><p>目前应用商店没有上架，我使用源代码方式编译安装。安装完成之后还需要多装一个 Notify，之后重启电脑，可以正常使用。</p><blockquote><p>sudo apt install gir1.2-notify-0.7</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;本来刚出就打算升级的，各种原因耽误了，最近终于动手升级了系统版本。下文为纯主观体验。&lt;/p&gt;
+&lt;h2 id=&quot;系统变化&quot;&gt;&lt;a href=&quot;#系统变化&quot; class=&quot;headerlink&quot; title=&quot;系统变化&quot;&gt;&lt;/a&gt;系统变化&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;界面比 15</summary>
+      
+    
+    
+    
+    
+    <category term="deepin" scheme="https://ldsink.com/tags/deepin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx 调整笔记</title>
+    <link href="https://ldsink.com/articles/tuning-nginx/"/>
+    <id>https://ldsink.com/articles/tuning-nginx/</id>
+    <published>2020-04-10T08:27:49.000Z</published>
+    <updated>2022-05-29T06:23:31.654Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="调整-Linux-配置"><a href="#调整-Linux-配置" class="headerlink" title="调整 Linux 配置"></a>调整 Linux 配置</h1><h2 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h2><h3 id="系统层面"><a href="#系统层面" class="headerlink" title="系统层面"></a>系统层面</h3><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>fs.file-max</code> 参数值。</p><blockquote><p>fs.file-max &#x3D; 200000</p></blockquote><p>验证方式：</p><blockquote><p>cat &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;file-max</p></blockquote><h3 id="用户层面"><a href="#用户层面" class="headerlink" title="用户层面"></a>用户层面</h3><p>编辑 <code>/etc/security/limits.conf</code>，增加以下内容</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  soft nproc  65535</span><br><span class="line">*  hard nproc  65535</span><br><span class="line">*  soft nofile 65535</span><br><span class="line">*  hard nofile 65535</span><br></pre></td></tr></table></figure><p>验证方式：</p><blockquote><p>ulimit -n</p></blockquote><h2 id="临时端口"><a href="#临时端口" class="headerlink" title="临时端口"></a>临时端口</h2><p>编辑 <code>/etc/sysctl.conf</code> 文件，调整 <code>net.ipv4.ip_local_port_range</code> 参数值。</p><blockquote><p>net.ipv4.ip_local_port_range &#x3D; 1024 65000</p></blockquote><p>验证方式：</p><blockquote><p>cat &#x2F;proc&#x2F;sys&#x2F;net&#x2F;ipv4&#x2F;ip_local_port_range</p></blockquote><h1 id="调整-Nginx-配置"><a href="#调整-Nginx-配置" class="headerlink" title="调整 Nginx 配置"></a>调整 Nginx 配置</h1><h2 id="Worker-Processes"><a href="#Worker-Processes" class="headerlink" title="Worker Processes"></a>Worker Processes</h2><ul><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_processes">worker_processes</a> - 和CPU核心数一致，建议直接使用<code>auto</code>。</li><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_connections">worker_connections</a> - <code>worker_processes</code>*<code>worker_connections</code> 即为总并发数，根据实际情况调整。</li><li><a href="https://nginx.org/en/docs/ngx_core_module.html#worker_rlimit_nofile">worker_rlimit_nofile</a> - worker 进程打开的最大文件数，可设置为用户的文件打开限制 <code>ulimit -n</code>。</li></ul><h2 id="保持连接"><a href="#保持连接" class="headerlink" title="保持连接"></a>保持连接</h2><p>相关介绍： <a href="https://www.nginx.com/blog/http-keepalives-and-web-performance/">HTTP Keepalive Connections and Web Performance</a></p><ul><li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_requests">keepalive_requests</a> - 建议根据实际情况调高</li><li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#keepalive_timeout">keepalive_timeout</a> – 空闲连接关闭时间</li></ul><h2 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h2><p>记录日志会消耗 CPU 和 I&#x2F;O 资源。</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="隐藏-Nginx-具体版本"><a href="#隐藏-Nginx-具体版本" class="headerlink" title="隐藏 Nginx 具体版本"></a>隐藏 Nginx 具体版本</h3><blockquote><p>server_tokens off;</p></blockquote><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul><li><a href="https://www.nginx.com/blog/tuning-nginx/">Tuning NGINX for Performance</a></li><li><a href="https://www.nginx.com/blog/http-keepalives-and-web-performance/">HTTP Keepalive Connections and Web Performance</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;调整-Linux-配置&quot;&gt;&lt;a href=&quot;#调整-Linux-配置&quot; class=&quot;headerlink&quot; title=&quot;调整 Linux 配置&quot;&gt;&lt;/a&gt;调整 Linux 配置&lt;/h1&gt;&lt;h2 id=&quot;文件描述符&quot;&gt;&lt;a href=&quot;#文件描述符&quot; class</summary>
+      
+    
+    
+    
+    
+    <category term="nginx" scheme="https://ldsink.com/tags/nginx/"/>
+    
+  </entry>
+  
+</feed>
